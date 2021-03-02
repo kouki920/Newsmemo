@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', 'ArticleController@index');
+Route::group(['prefix' => 'articles'], function () {
+    Route::get('index', 'ArticleController@index')->name('articles.index');
+});
