@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
 
-Route::group(['prefix' => 'articles'], function () {
-    Route::get('index', 'ArticleController@index')->name('articles.index');
+Route::group(['prefix' => 'article'], function () {
+    Route::get('index', 'ArticleController@index')->name('article.index');
 });
