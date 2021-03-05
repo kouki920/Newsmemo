@@ -38,7 +38,7 @@
                 </button>
             </div>
         </li>
-        <form id="logout-button" method="POST" action="{{route(logout)}}">
+        <form id="logout-button" method="POST" action="{{route('logout')}}">
             @csrf
         </form>
         <!-- Dropdown -->
