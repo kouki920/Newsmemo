@@ -13,6 +13,4 @@
 
 Auth::routes();
 
-Route::group(['prefix' => 'article'], function () {
-    Route::get('index', 'ArticleController@index')->name('article.index');
-});
+Route::resource('/article', 'ArticleController');
