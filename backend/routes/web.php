@@ -13,4 +13,4 @@
 
 Auth::routes();
 
-Route::resource('/article', 'ArticleController');
+Route::resource('/article', 'ArticleController')->middleware('auth');
