@@ -34,7 +34,7 @@
                         </form>
 
                         <div class="mt-0">
-                            <a href="{{ route('register') }}" class="card-text">ユーザー登録はこちら</a>
+                            <a href="{{ route('register') }}" class="btn btn-block blue-gradient text-white mt-2 mb-2 card-text">ユーザー登録はこちら</a>
                         </div>
 
                     </div>
