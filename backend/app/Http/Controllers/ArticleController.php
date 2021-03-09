@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -34,9 +36,14 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request, Article $article)
     {
-        //
+        $article->title = $request->title;
+        $article->body = $request->body;
+        $article->user_id = $request->user()->id;
+        $article->save();
+
+        return redirect()->route('articles');
     }
 
     /**
