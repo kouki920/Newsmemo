@@ -13,4 +13,5 @@
 
 Auth::routes();
 
-Route::resource('/articles', 'ArticleController')->middleware('auth');
+Route::resource('/articles', 'ArticleController')->except(['show'])->middleware('auth');
+Route::resource('/articles', 'ArticleController')->only(['show']);
