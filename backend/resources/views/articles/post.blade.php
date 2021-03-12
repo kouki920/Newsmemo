@@ -20,7 +20,7 @@
                     </button>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="{{ route("articles.edit", ['article' => $article]) }}">
+                    <a class="dropdown-item" href="{{ route("articles.edit", compact('article')) }}">
                         <i class="fas fa-pen mr-1"></i>記事を更新する
                     </a>
                     <div class="dropdown-divider"></div>
@@ -41,7 +41,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST" action="{{ route('articles.destroy', ['article' => $article]) }}">
+                    <form method="POST" action="{{ route('articles.destroy', compact('article')) }}">
                         @csrf
                         @method('DELETE')
                         <div class="modal-body">
