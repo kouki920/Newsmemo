@@ -12,7 +12,7 @@
                 <div class="card-body pt-0">
                     @include('error_list')
                     <div class="card-text">
-                        <form action="{{route('articles.update',['article' => $article->id])}}" method="POST">
+                        <form action="{{route('articles.update',compact('article'))}}" method="POST">
                             @csrf
                             @method('PATCH')
                             @include('articles.form')
