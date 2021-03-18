@@ -37627,7 +37627,7 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn m-0 p-1 shadow-none", attrs: { type: "button" } },
-        [_c("i", { staticClass: "fas fa-heart mr-1" })]
+        [_c("i", { staticClass: "fas fa-bookmark mr-1" })]
       ),
       _vm._v("\n  10\n")
     ])
