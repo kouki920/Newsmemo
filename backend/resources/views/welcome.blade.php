@@ -86,9 +86,7 @@
             <div class="title m-b-md">
                 Laravel
             </div>
-            <div id="app">
-                　　　<example-component></example-component>
-            </div>
+
             <script src="{{mix('js/app.js')}}"></script>
             <div class="links">
                 <a href="https://laravel.com/docs">Docs</a>
@@ -101,7 +99,12 @@
                 <a href="https://github.com/laravel/laravel">GitHub</a>
             </div>
         </div>
+        <div id="app">
+            <example-component></example-component>
+        </div>
     </div>
+
 </body>
+
 
 </html>
