@@ -98,6 +98,10 @@ class ArticleController extends Controller
         return redirect()->route('articles.index');
     }
 
+    /**
+     * いいね機能のアクションメソッド
+     * detachで複数回いいねの対策
+     */
     public function like(Request $request, Article $article)
     {
         $article->likes()->detach($request->user()->id);
