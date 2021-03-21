@@ -30,6 +30,6 @@ class Article extends Model
 
     public function getCountLikesAttribute(): int
     {
-        return $this->likes()->count();
+        return $this->likes->count();
     }
 }
