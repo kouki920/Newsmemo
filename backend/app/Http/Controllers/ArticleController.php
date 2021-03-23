@@ -49,7 +49,7 @@ class ArticleController extends Controller
         $article->user_id = $request->user()->id;
         $article->save();
 
-        //タグの登録と記事・タグの紐付けを行う
+        //タグの登録と投稿・タグの紐付けを行う
         $request->tags->each(function ($tagName) use ($article) {
             $tag = Tag::firstOrCreate(['name' => $tagName]);
             $article->tags()->attach($tag);
