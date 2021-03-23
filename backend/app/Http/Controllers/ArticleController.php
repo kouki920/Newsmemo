@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,12 @@ class ArticleController extends Controller
         $article->fill($request->all());
         $article->user_id = $request->user()->id;
         $article->save();
+
+        //タグの登録と記事・タグの紐付けを行う
+        $request->tags->each(function ($tagName) use ($article) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $article->tags()->attach($tag);
+        });
 
         return redirect()->route('articles.index');
     }

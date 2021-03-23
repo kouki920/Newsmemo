@@ -38,4 +38,17 @@ class ArticleRequest extends FormRequest
             'tags' => 'タグ',
         ];
     }
+
+    /**
+     * バリデーション後、下記メソッド内でjson形式の文字列を連想配列に変換
+     * 連想配列をコレクションに変更後、コレクションメソッドでタグの個数制限と登録するタグをタグ名のみにする
+     */
+    public function passedValidation()
+    {
+        $this->tags = collect(json_decode($this->tags))
+            ->slice(0, 5)
+            ->map(function ($requestTag) {
+                return $requestTag->text;
+            });
+    }
 }
