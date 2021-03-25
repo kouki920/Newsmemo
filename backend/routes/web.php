@@ -22,3 +22,8 @@ Route::prefix('articles')->name('articles.')->group(function () {
 
 # 投稿のタグ機能
 Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
+
+# マイページ
+Route::prefix('users')->name('users.')->group(function () {
+    Route::get('/{name}', 'UserController@show')->name('show');
+});
