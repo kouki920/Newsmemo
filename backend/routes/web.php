@@ -23,7 +23,11 @@ Route::prefix('articles')->name('articles.')->group(function () {
 # 投稿のタグ機能
 Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
 
-# マイページ
+# ユーザ関連機能
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('/{name}', 'UserController@show')->name('show');
+    Route::middleware('auth')->group(function () {
+        Route::put('/{name}/follow', 'UserController@follow')->name('follow');
+        Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
+    });
 });
