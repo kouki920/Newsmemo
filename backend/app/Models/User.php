@@ -48,7 +48,7 @@ class User extends Authenticatable
     /**
      * フォローにおけるユーザーモデルとユーザーモデルの関係は多対多なのでBelongsToManyを使用
      */
-    public function users(): BelongsToMany
+    public function followers(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\User', 'follows', 'followee_id', 'follower_id')->withTimestamps();
     }
