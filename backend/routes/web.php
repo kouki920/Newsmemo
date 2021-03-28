@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Http\Controllers\UserController;
+
 Auth::routes();
 
 Route::resource('/articles', 'ArticleController')->except(['show'])->middleware('auth');
@@ -26,6 +29,8 @@ Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
 # ユーザ関連機能
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('/{name}', 'UserController@show')->name('show');
+    // いいねした投稿を一覧で表示
+    Route::get('/{name}/likes', 'UserController@likes')->name('likes');
     Route::middleware('auth')->group(function () {
         Route::put('/{name}/follow', 'UserController@follow')->name('follow');
         Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');

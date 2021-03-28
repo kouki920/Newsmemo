@@ -95,4 +95,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Article');
     }
+
+    /**
+     * ユーザーがいいねした投稿にアクセスすることを可能にするリレーション
+     */
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Models\Article', 'likes')->withTimestamps();
+    }
 }

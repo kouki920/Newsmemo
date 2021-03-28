@@ -13,7 +13,20 @@ class UserController extends Controller
         $user = User::where('name', $name)->first();
 
         $articles = $user->articles->sortByDesc('created_at');
+
         return view('users.show', compact('user', 'articles'));
+    }
+
+    /**
+     * いいねした投稿を一覧表示できるメソッド
+     */
+    public function likes(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $articles = $user->likes->sortByDesc('created_at');
+
+        return view('users.likes', compact('user', 'articles'));
     }
 
     /**
