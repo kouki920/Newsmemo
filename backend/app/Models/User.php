@@ -6,6 +6,7 @@ use App\Mail\BareMail;
 use App\Notifications\PasswordResetNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -85,5 +86,13 @@ class User extends Authenticatable
     public function getCountFollowingsAttribute(): int
     {
         return $this->followings()->count();
+    }
+
+    /**
+     * 各ユーザーの詳細ページでユーザーの投稿を一覧表示する為のリレーション
+     */
+    public function articles(): HasMany
+    {
+        return $this->hasMany('App\Models\Article');
     }
 }
