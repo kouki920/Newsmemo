@@ -13,6 +13,9 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
+    /**
+     * フォローするメソッド
+     */
     public function follow(Request $request, string $name)
     {
         $user = User::where('name', $name)->first();
@@ -27,6 +30,9 @@ class UserController extends Controller
         return ['name' => $name];
     }
 
+    /**
+     * フォローを解除するメソッド
+     */
     public function unfollow(Request $request, string $name)
     {
         $user = User::where('name', $name)->first();

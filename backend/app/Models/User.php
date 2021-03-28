@@ -54,6 +54,14 @@ class User extends Authenticatable
     }
 
     /**
+     * フォローとフォロー解除時に使用するメソッド
+     */
+    public function followings(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Models\User', 'follows', 'follower_id', 'followee_id')->withTimestamps();
+    }
+
+    /**
      * フォローしているかどうかを判定するメソッド
      */
     public function isFollowedBy(?User $user): bool
