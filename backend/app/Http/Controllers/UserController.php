@@ -17,6 +17,24 @@ class UserController extends Controller
         return view('users.show', compact('user', 'articles'));
     }
 
+    public function follower(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $followers = $user->followers->sortByDesc('created_at');
+
+        return view('users.follower', compact('user', 'followers'));
+    }
+
+    public function following(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $followings = $user->followings->sortByDesc('created_at');
+
+        return view('users.following', compact('user', 'followings'));
+    }
+
     /**
      * いいねした投稿を一覧表示できるメソッド
      */

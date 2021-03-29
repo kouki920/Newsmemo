@@ -31,6 +31,10 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::get('/{name}', 'UserController@show')->name('show');
     // いいねした投稿を一覧で表示
     Route::get('/{name}/likes', 'UserController@likes')->name('likes');
+    // フォロー、フォロワーの一覧表示
+    Route::get('/{name}/follower', 'UserController@follower')->name('follower');
+    Route::get('/{name}/following', 'UserController@following')->name('following');
+    // フォロー、フォロー解除
     Route::middleware('auth')->group(function () {
         Route::put('/{name}/follow', 'UserController@follow')->name('follow');
         Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
