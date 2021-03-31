@@ -23,7 +23,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all()->sortByDesc('created_at');
+        $articles = Article::with('user', 'likes', 'tags')->get();
         return view('articles.index', compact('articles'));
     }
 
