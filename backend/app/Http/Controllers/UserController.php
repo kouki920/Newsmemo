@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public function follower(string $name)
     {
-        $user = User::where('name', $name)->first();
+        $user = User::where('name', $name)->first()->load('followers.followers');
 
         $followers = $user->followers->sortByDesc('created_at');
 
@@ -28,7 +28,7 @@ class UserController extends Controller
 
     public function following(string $name)
     {
-        $user = User::where('name', $name)->first();
+        $user = User::where('name', $name)->first()->load('followings.followers');
 
         $followings = $user->followings->sortByDesc('created_at');
 
