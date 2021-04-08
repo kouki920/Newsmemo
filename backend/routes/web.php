@@ -40,3 +40,9 @@ Route::prefix('users')->name('users.')->group(function () {
         Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
     });
 });
+
+# NEWS API関連機能
+Route::prefix('api')->name('api.')->group(function () {
+    Route::get('/default', 'NewsApiController@defaultIndex')->name('default_index');
+    Route::post('/custom', 'NewsApiController@customIndex')->name('custom_index');
+});

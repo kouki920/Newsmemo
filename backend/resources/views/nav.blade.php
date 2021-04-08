@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark blue-gradient">
 
-    <a class="navbar-brand" href="/articles"><i class="far fa-sticky-note mr-1"></i>syokumane</a>
+    <a class="navbar-brand" href="{{route('api.default_index')}}"><i class="far fa-sticky-note mr-1"></i>Newsmemo</a>
 
     <ul class="navbar-nav ml-auto">
 
