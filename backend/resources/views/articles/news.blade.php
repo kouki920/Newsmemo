@@ -1,8 +1,11 @@
-<div class="card-body pt-0 pb-2">
-    <h3 class="h5 card-title">
-        <a href="{{$data['url']}}">{{$data['name']}}</a>
-    </h3>
-    <div class="card-text">
-        <img src="{{$data['thumbnail']}}">
+<div class="card mb-2">
+    @if(isset($data['thumbnail']))
+    <img src="{{$data['thumbnail']}}" class="card-img-top img-fluid img-thumbnail" alt="NEWSAPIのサムネイル" />
+    @else
+    <img src="{{asset('/assets/images/noimage.png')}}" class="card-img-top img-fluid img-thumbnail" alt="Noimage" />
+    @endif
+    <div class="card-body">
+        <h5 class="card-title"><a href="{{$data['url']}}">{{$data['name']}}</a></h5>
+        <a href="{{route('articles.create')}}" class="btn btn-primary">メモする</a>
     </div>
 </div>
