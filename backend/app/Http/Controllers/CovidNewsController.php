@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ApiRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
 
-class HeadlineNewsController extends Controller
+class CovidNewsController extends Controller
 {
     public function defaultIndex()
     {
         try {
-            $url = config('newsapi.news_api_url') . "top-headlines?country=jp&pageSize=30&apiKey=" . config('newsapi.news_api_key');
+            $url = config('newsapi.news_api_url') . "everything?q=コロナ&pageSize=40&apiKey=" . config('newsapi.news_api_key');
             $method = "GET";
 
             $client = new Client();
@@ -23,7 +22,7 @@ class HeadlineNewsController extends Controller
             $articles = json_decode($results, true);
 
             $news = [];
-            $count = 30;
+            $count = 40;
 
             for ($id = 0; $id < $count; $id++) {
                 array_push($news, [
@@ -38,16 +37,15 @@ class HeadlineNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
-        return view('articles.news_index', compact('news'));
+        return view('articles.covid_index', compact('news'));
     }
 
-    public function customIndex(ApiRequest $request)
+    public function customIndex(Request $request)
     {
         try {
             if (isset($request)) {
-                $country = $request->country;
-                $category = $request->category;
-                $url = config('newsapi.news_api_url') . "top-headlines?country=" . $country . "&category=" . $category . "&pageSize=30&apiKey=" . config('newsapi.news_api_key');
+                $language = $request->language;
+                $url = config('newsapi.news_api_url') . "everything?q=COVID-19&language=" . $language . "&pageSize=50&apiKey=" . config('newsapi.news_api_key');
             }
 
             $method = "GET";
@@ -59,7 +57,7 @@ class HeadlineNewsController extends Controller
             $articles = json_decode($results, true);
 
             $news = [];
-            $count = 30;
+            $count = 50;
 
             for ($id = 0; $id < $count; $id++) {
                 array_push($news, [
@@ -74,6 +72,6 @@ class HeadlineNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
-        return view('articles.news_index', compact('news'));
+        return view('articles.covid_index', compact('news'));
     }
 }
