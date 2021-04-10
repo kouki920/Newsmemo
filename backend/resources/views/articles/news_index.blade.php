@@ -5,7 +5,7 @@
 @section('content')
 @include('nav')
 <div class="container">
-    @include('articles.tabs', ['hasNewsApi' => true, 'hasArticles' => false])
+    @include('articles.tabs', ['hasNewsApi' => true, 'hasCovidNews' => false, 'hasArticles' => false])
     @include('articles.news_tabs')
     @foreach($news as $data)
     @include('articles.news')
