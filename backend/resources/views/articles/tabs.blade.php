@@ -14,4 +14,9 @@
             メモリスト
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link text-muted {{ $hasMypage ? 'active' : '' }}" href="{{route('users.show', ["name" => Auth::user()->name])}}">
+            マイページ
+        </a>
+    </li>
 </ul>
