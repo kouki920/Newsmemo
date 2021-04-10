@@ -6,7 +6,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link text-muted {{ $hasArticles ? 'active' : '' }}" href="{{route('articles.index')}}">
-            投稿
+            メモリスト
         </a>
     </li>
 </ul>
