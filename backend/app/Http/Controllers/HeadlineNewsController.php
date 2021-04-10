@@ -8,12 +8,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
 
-class NewsApiController extends Controller
+class HeadlineNewsController extends Controller
 {
     public function defaultIndex()
     {
         try {
-            $url = config('newsapi.news_api_url') . "top-headlines?country=jp&apiKey=" . config('newsapi.news_api_key');
+            $url = config('newsapi.news_api_url') . "top-headlines?country=jp&pageSize=40&apiKey=" . config('newsapi.news_api_key');
             $method = "GET";
 
             $client = new Client();
@@ -23,7 +23,7 @@ class NewsApiController extends Controller
             $articles = json_decode($results, true);
 
             $news = [];
-            $count = 20;
+            $count = 40;
 
             for ($id = 0; $id < $count; $id++) {
                 array_push($news, [
@@ -47,7 +47,7 @@ class NewsApiController extends Controller
             if (isset($request)) {
                 $country = $request->country;
                 $category = $request->category;
-                $url = config('newsapi.news_api_url') . "top-headlines?country=" . $country . "&category=" . $category . "&apiKey=" . config('newsapi.news_api_key');
+                $url = config('newsapi.news_api_url') . "top-headlines?country=" . $country . "&category=" . $category . "&pageSize=30&apiKey=" . config('newsapi.news_api_key');
             }
 
             $method = "GET";
@@ -59,7 +59,7 @@ class NewsApiController extends Controller
             $articles = json_decode($results, true);
 
             $news = [];
-            $count = 20;
+            $count = 30;
 
             for ($id = 0; $id < $count; $id++) {
                 array_push($news, [
