@@ -12,7 +12,7 @@ class CovidNewsController extends Controller
     public function defaultIndex()
     {
         try {
-            $url = config('newsapi.news_api_url') . "everything?q=コロナ&pageSize=40&apiKey=" . config('newsapi.news_api_key');
+            $url = config('newsapi.news_api_url') . "everything?q=コロナウイルス&pageSize=40&sortBy=publishedAt&apiKey=" . config('newsapi.news_api_key');
             $method = "GET";
 
             $client = new Client();
@@ -45,7 +45,7 @@ class CovidNewsController extends Controller
         try {
             if (isset($request)) {
                 $language = $request->language;
-                $url = config('newsapi.news_api_url') . "everything?q=COVID-19&language=" . $language . "&pageSize=50&apiKey=" . config('newsapi.news_api_key');
+                $url = config('newsapi.news_api_url') . "everything?q=COVID-19&language=" . $language . "&pageSize=50&sortBy=publishedAt&apiKey=" . config('newsapi.news_api_key');
             }
 
             $method = "GET";
