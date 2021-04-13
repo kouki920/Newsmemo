@@ -15,8 +15,9 @@ use App\Http\Controllers\UserController;
 
 Auth::routes();
 
-Route::resource('/articles', 'ArticleController')->except(['show'])->middleware('auth');
+Route::resource('/articles', 'ArticleController')->except(['show', 'create'])->middleware('auth');
 Route::resource('/articles', 'ArticleController')->only(['show']);
+Route::post('/articles/create', 'ArticleController@create')->name('articles.create')->middleware('auth');
 
 Route::prefix('articles')->name('articles.')->group(function () {
     Route::put('/{article}/like', 'ArticleController@like')->name('like')->middleware('auth');
