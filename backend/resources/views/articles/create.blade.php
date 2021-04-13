@@ -12,8 +12,8 @@
                     @include('error_list')
                     <div class="card-text">
                         <form method="POST" action="{{ route('articles.store') }}">
+                            @csrf
                             @include('articles.form')
-                            <button type="submit" class="btn blue-gradient btn-block">投稿する</button>
                         </form>
                     </div>
                 </div>

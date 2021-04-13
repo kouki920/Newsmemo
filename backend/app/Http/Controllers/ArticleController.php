@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
+use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
@@ -32,14 +33,17 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
 
         $allTagNames = Tag::all()->map(function ($tag) {
             return ['text' => $tag->name];
         });
 
-        return view('articles.create', compact('allTagNames'));
+        $news = $request->news;
+        $url = $request->url;
+
+        return view('articles.create', compact('allTagNames', 'news', 'url'));
     }
 
     /**
