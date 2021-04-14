@@ -85,6 +85,9 @@
     </div>
     @endif
     @endforeach
+    <div class="card-text pt-0 pb-2 pl-3">
+        関連記事:<a href="{{$article->url}}" target=”_blank” rel="noopener noreferrer">{{$article->news}}</a>
+    </div>
     <div class="card-body pt-0 pb-2 pl-3">
         <div class="card-text">
             <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
