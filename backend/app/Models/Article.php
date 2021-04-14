@@ -10,7 +10,7 @@ class Article extends Model
 {
 
     protected $fillable = [
-        'title', 'body',
+        'title', 'body', 'news', 'url',
     ];
 
     public function user(): BelongsTo
