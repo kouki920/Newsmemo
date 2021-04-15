@@ -3,10 +3,10 @@
 @section('title','ユーザー登録')
 
 @section('content')
+@include('nav')
 <div class="container">
     <div class="row">
         <div class="mx-auto col col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6">
-            <h1 class="text-center"><a class="text-dark" href="/articles">syokumane</a></h1>
             <div class="card mt-3">
                 <div class="card-body text-center">
                     <h2 class="h3 card-title text-center mt-2">プロフィールの編集</h2>
@@ -32,7 +32,13 @@
                                 </label>
                                 <textarea name="introduction" class="form-control" id="introduction" cols="3" rows="3">{{$user->introduction ?? old('introduction')}}</textarea>
                             </div>
-                            <button class="btn btn-block blue-gradient mt-2 mb-2" type="submit">更新</button>
+                            <div class='btn-toolbar' role="toolbar">
+                                <div>
+                                    <a href="{{route('users.show',['name' => $user->name])}}"><button class="btn blue-gradient mt-2 mb-2" type="submit">キャンセル</button></a>
+                                    <button class="btn blue-gradient mt-2 mb-2" type="submit">更新</button>
+                                </div>
+                            </div>
+
                         </form>
                     </div>
                 </div>
