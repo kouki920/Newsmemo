@@ -16,6 +16,9 @@
             </h2>
         </div>
         <div class="card-body">
+            <a href="{{route('users.edit',['name' => $user->name])}}"><input type="button" value="編集"></a>
+        </div>
+        <div class="card-body">
             <div class="card-text">
                 <a href="{{route('users.following',['name' => $user->name])}}" class="text-muted">
                     {{$user->count_followings}}&ensp;フォロー&ensp;

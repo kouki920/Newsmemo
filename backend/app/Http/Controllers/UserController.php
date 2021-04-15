@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -15,6 +16,22 @@ class UserController extends Controller
         $articles = $user->articles->sortByDesc('created_at');
 
         return view('users.show', compact('user', 'articles'));
+    }
+
+    public function edit(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(UserRequest $request, string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $user->fill($request->all())->save();
+
+        return redirect()->route('users.show', ['name' => $user->name]);
     }
 
     public function follower(string $name)
