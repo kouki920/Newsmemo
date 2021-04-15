@@ -18,6 +18,9 @@ class UserController extends Controller
         return view('users.show', compact('user', 'articles'));
     }
 
+    /**
+     * ユーザデータの編集
+     */
     public function edit(string $name)
     {
         $user = User::where('name', $name)->first();
@@ -25,6 +28,9 @@ class UserController extends Controller
         return view('users.edit', compact('user'));
     }
 
+    /**
+     * ユーザデータの更新
+     */
     public function update(UserRequest $request, string $name)
     {
         $user = User::where('name', $name)->first();

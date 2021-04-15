@@ -9,15 +9,19 @@
                 </follow-button>
                 @endif
             </div>
-            <h2 class="h5 card-title m-0">
+            <h2 class="h5 card-title mt-1">
                 <a href="{{ route('users.show', ['name' => $user->name]) }}" class="text-dark">
                     {{ $user->name }}
                 </a>
             </h2>
+            <div class="card-text">
+                {{$user->introduction}}
+            </div>
+            <div class="card-text mt-2">
+                <a href="{{route('users.edit',['name' => $user->name])}}"><input type="button" class="btn btn-info" value="編集"></a>
+            </div>
         </div>
-        <div class="card-body">
-            <a href="{{route('users.edit',['name' => $user->name])}}"><input type="button" value="編集"></a>
-        </div>
+
         <div class="card-body">
             <div class="card-text">
                 <a href="{{route('users.following',['name' => $user->name])}}" class="text-muted">
