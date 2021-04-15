@@ -35,6 +35,10 @@ Route::prefix('users')->name('users.')->group(function () {
     // フォロー、フォロワーの一覧表示
     Route::get('/{name}/follower', 'UserController@follower')->name('follower');
     Route::get('/{name}/following', 'UserController@following')->name('following');
+    // プロフィールの編集画面を表示
+    Route::get('/{name}/edit', 'UserController@edit')->name('edit');
+    // プロフィールの更新
+    Route::patch('/{name}/update', 'UserController@update')->name('update');
     // フォロー、フォロー解除
     Route::middleware('auth')->group(function () {
         Route::put('/{name}/follow', 'UserController@follow')->name('follow');
