@@ -1,7 +1,11 @@
 <div class="card mt-3">
     <div class="card-body d-flex flex-row">
         <a href="{{route('users.show',['name'=>$article->user->name])}}" class="text-dark">
+            @if(empty($article->user->image))
             <i class="fas fa-user-circle fa-3x mr-1"></i>
+            @else
+            <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$article->user->image}}" width="55" height="55" alt="ユーザーアイコン">
+            @endif
         </a>
         <div>
             <div class="font-weight-bold">

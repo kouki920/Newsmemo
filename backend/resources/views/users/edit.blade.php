@@ -32,14 +32,11 @@
                                 </label>
                                 <textarea name="introduction" class="form-control" id="introduction" cols="3" rows="3">{{$user->introduction ?? old('introduction')}}</textarea>
                             </div>
-                            <div class='btn-toolbar' role="toolbar">
-                                <div>
-                                    <a href="{{route('users.show',['name' => $user->name])}}"><button class="btn blue-gradient mt-2 mb-2" type="submit">キャンセル</button></a>
-                                    <button class="btn blue-gradient mt-2 mb-2" type="submit">更新</button>
-                                </div>
+                            <div class='btn-toolbar float-right' role="toolbar">
+                                <button class="btn blue-gradient mt-2 mb-2" type="submit">更新</button>
                             </div>
-
                         </form>
+                        <a href="{{route('users.show',['name' => $user->name])}}"><button class="btn blue-gradient mt-2 mb-2 float-left" type="submit">キャンセル</button></a>
                     </div>
                 </div>
             </div>

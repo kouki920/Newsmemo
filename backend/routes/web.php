@@ -39,6 +39,10 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::get('/{name}/edit', 'UserController@edit')->name('edit');
     // プロフィールの更新
     Route::patch('/{name}/update', 'UserController@update')->name('update');
+    // プロフィールアイコンの編集画面を表示
+    Route::get('/{name}/image/edit', 'UserController@imageEdit')->name('imageEdit');
+    // プロフィールアイコンの更新
+    Route::patch('/{name}/image/update', 'UserController@imageUpdate')->name('imageUpdate');
     // フォロー、フォロー解除
     Route::middleware('auth')->group(function () {
         Route::put('/{name}/follow', 'UserController@follow')->name('follow');
