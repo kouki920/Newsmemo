@@ -35,7 +35,35 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first();
 
-        $user->fill($request->all())->save();
+        $user->fill(['name' => $request->name, 'email' => $request->email, 'introduction' => $request->introduction])->save();
+
+        return redirect()->route('users.show', ['name' => $user->name]);
+    }
+
+    /**
+     * プロフィールアイコンの編集画面を表示
+     */
+    public function imageEdit(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        return view('users.image_edit', compact('user'));
+    }
+
+    /**
+     * プロフィールアイコンの更新
+     */
+    public function imageUpdate(UserRequest $request, string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $image = $request->image;
+
+        if ($image->isValid()) {
+            $filePath = $image->store('public');
+            $user->image = str_replace('public/', '', $filePath);
+            $user->save();
+        }
 
         return redirect()->route('users.show', ['name' => $user->name]);
     }
