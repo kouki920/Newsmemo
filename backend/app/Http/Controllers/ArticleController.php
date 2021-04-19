@@ -24,8 +24,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        // $articles = Article::with(['user', 'likes', 'tags'])->paginate(10);
         $articles = Article::all()->sortByDesc('created_at')->load(['user', 'likes', 'tags']);
+        // return view('articles.index', compact('articles'));
         return view('articles.index', compact('articles'));
+        // return Article::all()->sortByDesc('created_at')->load(['user', 'likes', 'tags']);
     }
 
     /**
