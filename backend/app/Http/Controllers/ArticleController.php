@@ -22,13 +22,11 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $articles = Article::with(['user', 'likes', 'tags'])->paginate(10);
-        $articles = Article::all()->sortByDesc('created_at')->load(['user', 'likes', 'tags']);
-        // return view('articles.index', compact('articles'));
+        $articles = Article::with(['user', 'likes', 'tags'])->orderBy('created_at', 'desc')->paginate(30);
+
         return view('articles.index', compact('articles'));
-        // return Article::all()->sortByDesc('created_at')->load(['user', 'likes', 'tags']);
     }
 
     /**
