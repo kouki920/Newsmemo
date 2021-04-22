@@ -26,23 +26,23 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $articles = Article::with(['user', 'likes', 'tags'])->orderBy('created_at', 'desc')->where(function ($query) {
-            if ($search = request('search')) {
+        $search = $request->input('search');
 
-                $search_split = mb_convert_kana($search, 's');
-                //全角スペースを半角に変える
+        $query = Article::with(['user', 'likes', 'tags'])->orderBy('created_at', 'desc');
 
-                $search_splits = preg_split('/ ++/', $search_split, -1, PREG_SPLIT_NO_EMPTY);
-                //空白で区切る正規表現、空文字ではないものだけがpreg_split()により返される
+        if ($search !== null) {
 
-                foreach ($search_splits as $value) {
+            $search_splits = preg_split('/[\p{Z}\p{Cc}]++/u', $search, -1, PREG_SPLIT_NO_EMPTY);
+            //半角全角スペース，改行，タブ，ノーブレークスペースなどの空白系の制御文字を対象とする
 
-                    $query->where('title', 'like', '%' . $value . '%')
-                        ->orWhere('body', 'like', '%' . $value . '%')
-                        ->orWhere('news', 'like', '%' . $value . '%');
-                }
+            foreach ($search_splits as $value) {
+
+                $query->where('title', 'like', '%' . $value . '%')
+                    ->orWhere('body', 'like', '%' . $value . '%')
+                    ->orWhere('news', 'like', '%' . $value . '%');
             }
-        })->paginate(20);
+        }
+        $articles = $query->paginate(10);
 
         return view('articles.index', compact('articles'));
     }
