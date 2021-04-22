@@ -21,7 +21,7 @@ class ArticleController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * 検索機能実装
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
