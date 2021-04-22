@@ -6,6 +6,8 @@ use App\Models\Article;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
 use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +26,23 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $articles = Article::with(['user', 'likes', 'tags'])->orderBy('created_at', 'desc')->paginate(20);
+        $articles = Article::with(['user', 'likes', 'tags'])->orderBy('created_at', 'desc')->where(function ($query) {
+            if ($search = request('search')) {
+
+                $search_split = mb_convert_kana($search, 's');
+                //全角スペースを半角に変える
+
+                $search_split2 = preg_split('{[/s]+}', $search_split, -1, PREG_SPLIT_NO_EMPTY);
+                //空白で区切る正規表現、空文字ではないものだけがpreg_split()により返される
+
+                foreach ($search_split2 as $value) {
+
+                    $query->where('title', 'like', '%' . $value . '%')
+                        ->orWhere('body', 'like', '%' . $value . '%')
+                        ->orWhere('news', 'like', '%' . $value . '%');
+                }
+            }
+        })->paginate(20);
 
         return view('articles.index', compact('articles'));
     }
