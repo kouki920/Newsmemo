@@ -13,8 +13,7 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first()->load(['articles.user', 'articles.likes', 'articles.tags']);
 
-        $articles = $user->articles->sortByDesc('created_at');
-
+        $articles = $user->articles->sortByDesc('created_at')->paginate(10);
         return view('users.show', compact('user', 'articles'));
     }
 
@@ -93,7 +92,7 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
 
-        $articles = $user->likes->sortByDesc('created_at');
+        $articles = $user->likes->sortByDesc('created_at')->paginate(10);
 
         return view('users.likes', compact('user', 'articles'));
     }

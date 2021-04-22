@@ -8,5 +8,6 @@
     @foreach($articles as $article)
     @include('articles.post')
     @endforeach
+    @include('articles.pagination')
 </div>
 @endsection
