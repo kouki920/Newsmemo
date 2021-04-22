@@ -32,10 +32,10 @@ class ArticleController extends Controller
                 $search_split = mb_convert_kana($search, 's');
                 //全角スペースを半角に変える
 
-                $search_split2 = preg_split('{[/s]+}', $search_split, -1, PREG_SPLIT_NO_EMPTY);
+                $search_splits = preg_split('/ ++/', $search_split, -1, PREG_SPLIT_NO_EMPTY);
                 //空白で区切る正規表現、空文字ではないものだけがpreg_split()により返される
 
-                foreach ($search_split2 as $value) {
+                foreach ($search_splits as $value) {
 
                     $query->where('title', 'like', '%' . $value . '%')
                         ->orWhere('body', 'like', '%' . $value . '%')
