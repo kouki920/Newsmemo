@@ -34,7 +34,8 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first();
 
-        $user->fill(['name' => $request->name, 'email' => $request->email, 'introduction' => $request->introduction])->save();
+        // $user->fill(['name' => $request->name, 'email' => $request->email, 'introduction' => $request->introduction])->save();
+        $user->fill($request->validated())->save();
 
         return redirect()->route('users.show', ['name' => $user->name]);
     }

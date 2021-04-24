@@ -12,19 +12,35 @@
                     <h2 class="h3 card-title text-center mt-2">プロフィールの編集</h2>
 
                     @include('error_list')
-
+                    @if (Auth::id() == config('user.guest_user_id'))
+                    <p class="text-danger">
+                        <b>※ゲストユーザーは、以下を編集できません。</b><br>
+                        ・ユーザー名<br>
+                        ・メールアドレス<br>
+                    </p>
+                    @endif
                     <div class="card-text">
                         <form action="{{route('users.update',['name' => $user->name])}}" method="POST">
                             @csrf
                             @method('PATCH')
                             <div class="form-group">
-                                <label for="name">お名前</label>
+                                <label for="name">お名前
+                                    <small class="blue-grey-text">（25文字以内）</small>
+                                </label>
+                                @if (Auth::id() == config('user.guest_user_id'))
+                                <input type="text" class="form-control" id="name" name="name" value="{{$user->name}}" readonly>
+                                @else
                                 <input type="text" class="form-control" id="name" name="name" value="{{$user->name ?? old('name')}}">
+                                @endif
                                 <small class="text-muted ">※半角英数字8~16文字以内で入力して下さい</small>
                             </div>
                             <div class="form-group">
                                 <label for="email">メールアドレス</label>
+                                @if (Auth::id() == config('user.guest_user_id'))
+                                <input type="text" class="form-control" id="email" name="email" value="{{$user->email}}" readonly>
+                                @else
                                 <input type="text" class="form-control" id="email" name="email" value="{{$user->email ?? old('email')}}">
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="introduction">自己紹介
