@@ -33,12 +33,20 @@
                     マイページ
                 </button>
                 <div class="dropdown-divider"></div>
+                <button form="setting-button" class="dropdown-item" type="submit">
+                    設定
+                </button>
+                <div class="dropdown-divider"></div>
                 <button form="logout-button" class="dropdown-item" type="submit">
                     ログアウト
                 </button>
+
             </div>
         </li>
         <form id="logout-button" method="POST" action="{{route('logout')}}">
+            @csrf
+        </form>
+        <form id="setting-button" method="POST" action="{{route('setting.index')}}">
             @csrf
         </form>
         <!-- Dropdown -->
