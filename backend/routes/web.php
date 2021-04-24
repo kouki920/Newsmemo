@@ -18,6 +18,7 @@ Auth::routes();
 # ゲストユーザーログイン
 Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
 
+# 投稿関連
 Route::resource('/articles', 'ArticleController')->except(['show', 'create'])->middleware('auth');
 Route::resource('/articles', 'ArticleController')->only(['show']);
 Route::post('/articles/create', 'ArticleController@create')->name('articles.create')->middleware('auth');
@@ -52,6 +53,9 @@ Route::prefix('users')->name('users.')->group(function () {
         Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
     });
 });
+
+# 設定
+Route::post('/setting', 'SettingController@index')->name('setting.index');
 
 # NEWS API関連機能
 Route::prefix('api')->name('api.')->group(function () {
