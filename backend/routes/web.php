@@ -15,6 +15,9 @@ use App\Http\Controllers\UserController;
 
 Auth::routes();
 
+# ゲストユーザーログイン
+Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
+
 Route::resource('/articles', 'ArticleController')->except(['show', 'create'])->middleware('auth');
 Route::resource('/articles', 'ArticleController')->only(['show']);
 Route::post('/articles/create', 'ArticleController@create')->name('articles.create')->middleware('auth');
