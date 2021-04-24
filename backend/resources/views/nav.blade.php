@@ -26,9 +26,13 @@
         <!-- Dropdown -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if(empty(Auth::user()->image))
                 <i class="fas fa-user-circle"></i>
+                @else
+                <img src="/storage/{{Auth::user()->image}}" class="user-mini-icon rounded-circle" width="30" height="30">
+                @endif
             </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <div class=" dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                 <button class="dropdown-item" type="button" onclick="location.href='{{ route("users.show", ["name" => Auth::user()->name]) }}'">
                     マイページ
                 </button>
