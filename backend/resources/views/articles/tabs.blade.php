@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-muted {{ $hasMypage ? 'active' : '' }}" href="{{route('users.show', ["name" => Auth::user()->name])}}">
+        <a class="nav-link text-muted {{ $hasMypage ? 'active' : '' }}" href="{{route('users.show', ['name' => Auth::user()->name])}}">
             プロフィール
         </a>
     </li>
