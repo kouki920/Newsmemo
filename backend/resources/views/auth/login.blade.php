@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="mx-auto col col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6">
-            <h1 class="text-center"><a class="text-dark" href="{{route('login')}}">syokumane</a></h1>
+            <h1 class="text-center"><a class="text-dark" href="{{route('login')}}"><i class="far fa-sticky-note mr-1"></i>Newsmemo</a></h1>
             <div class="card mt-3">
                 <div class="card-body text-center">
                     <h2 class="h3 card-title text-center mt-2">ログイン</h2>
@@ -50,5 +50,13 @@
             </div>
         </div>
     </div>
+    <footer class="text-center text-white">
+        <!-- Copyright -->
+        <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-dark" href="#"><i class="far fa-sticky-note fa-fw"></i>Newsmemo</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 </div>
 @endsection
