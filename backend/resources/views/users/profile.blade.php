@@ -2,12 +2,11 @@
         <div class="card-body">
             <div class="d-flex flex-row">
                 @if(Auth::id() == config('user.guest_user_id'))
-                <a href="{{ route('users.show', ['name' => Auth::user()->name]) }}" class="text-dark">
-                    @if(empty($user->image))
-                    <i class="fas fa-user-circle fa-3x mr-1"></i>
-                    @else
-                    <img class="profile-icon image-upload rounded-circle img-responsive" src="/storage/{{$user->image}}" width="60" height="60" alt="ユーザーアイコン">
-                    @endif
+                @if(empty($user->image))
+                <i class="fas fa-user-circle fa-3x mr-1"></i>
+                @else
+                <img class="profile-icon image-upload rounded-circle img-responsive" src="/storage/{{$user->image}}" width="60" height="60" alt="ユーザーアイコン">
+                @endif
                 </a>
                 @elseif(Auth::id() == $user->id)
                 <a href="{{ route('users.imageEdit', ['name' => $user->name]) }}" class="text-dark">
