@@ -1,21 +1,22 @@
     <div class="card mt-3">
         <div class="card-body">
             <div class="d-flex flex-row">
-                @if(Auth::id() == config('user.guest_user_id'))
-                @if(empty($user->image))
-                <i class="fas fa-user-circle fa-3x mr-1"></i>
-                @else
-                <img class="profile-icon image-upload rounded-circle img-responsive" src="/storage/{{$user->image}}" width="60" height="60" alt="ユーザーアイコン">
-                @endif
-                </a>
-                @elseif(Auth::id() == $user->id)
+                @if(Auth::id() == $user->id)
                 <a href="{{ route('users.imageEdit', ['name' => $user->name]) }}" class="text-dark">
-                    @if(empty($user->image))
-                    <i class="fas fa-user-circle fa-3x mr-1"></i>
+                    @if(!isset($user->image))
+                    <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="55" height="55" alt="Noicon">
                     @else
-                    <img class="profile-icon image-upload rounded-circle img-responsive" src="/storage/{{$user->image}}" width="60" height="60" alt="ユーザーアイコン">
+                    <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="55" height="55" alt="ユーザーアイコン">
                     @endif
                 </a>
+                @endif
+
+                @if(Auth::id() !== $user->id)
+                @if(!isset($user->image))
+                <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="55" height="55" alt="Noicon">
+                @else
+                <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="55" height="55" alt="ユーザーアイコン">
+                @endif
                 @endif
 
                 @if(Auth::id() !== $user->id)
