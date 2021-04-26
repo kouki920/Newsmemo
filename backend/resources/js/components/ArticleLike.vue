@@ -4,7 +4,7 @@
       type="button"
       class="btn m-0 p-1 shadow-none"
     >
-      <i class="fas fa-bookmark mr-1"
+      <font-awesome-icon icon="bookmark"
       :class="{'red-text':this.isLikedBy}"
       @click="clickLike"
       />
