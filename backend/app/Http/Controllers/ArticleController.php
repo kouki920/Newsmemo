@@ -24,7 +24,7 @@ class ArticleController extends Controller
      * 検索機能実装
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Article $article)
     {
         $search = $request->input('search');
 
@@ -44,7 +44,10 @@ class ArticleController extends Controller
         }
         $articles = $query->paginate(10);
 
-        return view('articles.index', compact('articles'));
+        $ranked_articles = $article->articleRanking();
+        $ranked_news = $article->newsRanking();
+
+        return view('articles.index', compact('articles', 'ranked_articles', 'ranked_news'));
     }
 
     /**
