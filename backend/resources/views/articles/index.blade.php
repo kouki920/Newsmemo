@@ -18,6 +18,7 @@
             @foreach($articles as $article)
             @include('articles.post')
             @endforeach
+            @include('articles.top_button')
             @include('articles.pagination')
         </main>
     </div>
