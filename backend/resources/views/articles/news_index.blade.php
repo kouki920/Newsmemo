@@ -5,14 +5,13 @@
 @section('content')
 <div class="sticky-top">
     @include('nav')
-    <div class="mx-auto" style="width: 1100px;">
-        @include('articles.tabs', ['hasNewsApi' => true, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => false])
-        @include('articles.news_tabs')
-    </div>
+    @include('articles.tabs', ['hasNewsApi' => true, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => false])
+    @include('articles.news_tabs')
 </div>
 <div class="container">
     @foreach($news as $data)
     @include('articles.news')
     @endforeach
+    @include('articles.top_button')
 </div>
 @endsection

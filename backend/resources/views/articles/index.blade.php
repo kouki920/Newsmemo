@@ -4,9 +4,7 @@
 @section('content')
 <div class="sticky-top">
     @include('nav')
-    <div class="mx-auto" style="width: 1100px;">
-        @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => true,'hasMypage' => false])
-    </div>
+    @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => true,'hasMypage' => false])
 </div>
 <div class="container">
     <div class="row col-md-12">
