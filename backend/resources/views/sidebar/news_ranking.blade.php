@@ -5,7 +5,7 @@
     @foreach($ranked_news as $news)
     <div class="list-group">
         <a href="{{$news->url}}" class="list-group-item list-group-item-action text-center" target=”_blank” rel="noopener noreferrer">
-            <p class="h6">タイトル:{!! nl2br(e(Str::limit($news->news,60))) !!}</p>
+            <p class="h6">{!! nl2br(e(Str::limit($news->news,60))) !!}</p>
         </a>
     </div>
     @endforeach

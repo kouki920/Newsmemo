@@ -1,11 +1,11 @@
 <ul class="nav nav-tabs nav-justified py-1 bg-white">
     <li class="nav-item bg-white">
-        <a class="nav-link bg-white text-muted {{ $hasNewsApi ? 'active' : '' }}" href="{{ route('api.default_index') }}">
+        <a class="nav-link bg-white text-muted {{ $hasNewsApi ? 'active' : '' }}" href="{{ route('news.default_index') }}">
             ニュース
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link bg-white text-muted {{ $hasCovidNews ? 'active' : '' }}" href="{{ route('api.covid_default_index') }}">
+        <a class="nav-link bg-white text-muted {{ $hasCovidNews ? 'active' : '' }}" href="{{ route('news.covid_default_index') }}">
             COVID-19
         </a>
     </li>

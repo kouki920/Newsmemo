@@ -58,7 +58,7 @@ Route::prefix('users')->name('users.')->group(function () {
 Route::post('/setting', 'SettingController@index')->name('setting.index');
 
 # NEWS API関連機能
-Route::prefix('api')->name('api.')->group(function () {
+Route::prefix('news')->name('news.')->group(function () {
     Route::get('/default', 'HeadlineNewsController@defaultIndex')->name('default_index');
     Route::post('/custom', 'HeadlineNewsController@customIndex')->name('custom_index');
     Route::get('/covid/default', 'CovidNewsController@defaultIndex')->name('covid_default_index');

@@ -106,7 +106,7 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Request $request, Article $article)
     {
         $tagNames = $article->tags->map(function ($tag) {
             return ['text' => $tag->name];
@@ -116,7 +116,10 @@ class ArticleController extends Controller
             return ['text' => $tag->name];
         });
 
-        return view('articles.edit', compact('article', 'tagNames', 'allTagNames'));
+        $news = $request->news;
+        $url = $request->url;
+
+        return view('articles.edit', compact('article', 'tagNames', 'allTagNames', 'news', 'url'));
     }
 
     /**

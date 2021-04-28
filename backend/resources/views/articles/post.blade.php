@@ -1,20 +1,17 @@
 <div class="card mt-3">
     <div class="card-body d-flex flex-row">
-        <a href="{{route('users.show',['name'=>$article->user->name])}}" class="text-dark">
-            @if(empty($article->user->image))
-            <i class="fas fa-user-circle fa-3x mr-1"></i>
-            @else
-            <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$article->user->image}}" width="55" height="55" alt="ユーザーアイコン">
-            @endif
-        </a>
-        <div>
-            <div class="font-weight-bold">
+        <div class="d-flex justify-content-start">
+            <a href="{{route('users.show',['name'=>$article->user->name])}}" class="text-dark">
+                @if(empty($article->user->image))
+                <i class="fas fa-user-circle fa-3x mr-1"></i>
+                @else
+                <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$article->user->image}}" width="50" height="50" alt="ユーザーアイコン">
+                @endif
+            </a>
+            <div class="font-weight-bold mt-2">
                 <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="text-dark">
                     {{$article->user->name}}
                 </a>
-            </div>
-            <div class="font-weight-lighter">
-                {{$article->created_at->format('Y/m/d H:i')}}
             </div>
         </div>
         <!-- ログインユーザーidと投稿idが同じ場合のみ表示させる -->
@@ -28,7 +25,7 @@
                     </button>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="{{ route("articles.edit", compact('article')) }}">
+                    <a class="dropdown-item" href="{{ route('articles.edit', compact('article')) }}">
                         <i class="fas fa-pen mr-1"></i>記事を更新する
                     </a>
                     <div class="dropdown-divider"></div>
@@ -91,6 +88,9 @@
     @endforeach
     <div class="card-text pt-0 pb-2 pl-3">
         関連記事:<a href="{{$article->url}}" target=”_blank” rel="noopener noreferrer">{{$article->news}}</a>
+    </div>
+    <div class="card-text pt-0 pl-3 font-weight-lighter">
+        {{$article->created_at->format('Y/m/d H:i')}}
     </div>
     <div class="card-body pt-0 pb-2 pl-3">
         <div class="card-text">

@@ -1,10 +1,14 @@
 @extends('app')
 
-@section('title','編集')
+@section('title','メモ編集')
 
 @section('content')
-
-@include('nav')
+<div class="sticky-top">
+    @include('nav')
+    <div class="mx-auto" style="width: 1100px;">
+        @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => false])
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-12">
