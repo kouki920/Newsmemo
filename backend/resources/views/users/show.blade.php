@@ -5,13 +5,11 @@
 @section('content')
 <div class="sticky-top">
     @include('nav')
-    <div class="mx-auto" style="width: 1100px;">
-        @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => true])
-        @include('users.profile')
-        @include('users.tabs', ['hasArticles' => true, 'hasLikes' => false])
-    </div>
+    @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => true])
+    @include('users.profile')
+    @include('users.tabs', ['hasArticles' => true, 'hasLikes' => false])
 </div>
-<div class="container mx-auto" style="width: 1100px;">
+<div class="container">
     @foreach($articles as $article)
     @include('articles.post')
     @endforeach
