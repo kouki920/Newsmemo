@@ -1,4 +1,4 @@
-<form method="post" action="{{route('api.custom_index')}}">
+<form method="post" action="{{route('news.custom_index')}}">
     @csrf
     国名:
     <select name="country">

@@ -1,4 +1,4 @@
-<form method="post" action="{{route('api.covid_custom_index')}}">
+<form method="post" action="{{route('news.covid_custom_index')}}">
     @csrf
     語圏を選択
     <select name="language">
