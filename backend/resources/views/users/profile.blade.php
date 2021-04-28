@@ -1,4 +1,4 @@
-    <div class="card mt-3">
+    <div class="card">
         <div class="card-body">
             <div class="d-flex flex-row">
                 @if(Auth::id() == $user->id)

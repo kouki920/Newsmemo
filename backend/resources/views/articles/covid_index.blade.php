@@ -3,10 +3,14 @@
 @section('title', 'COVID-19ニュース一覧')
 
 @section('content')
-@include('nav')
+<div class="sticky-top">
+    @include('nav')
+    <div class="mx-auto" style="width: 1100px;">
+        @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => true, 'hasArticles' => false,'hasMypage' => false])
+        @include('articles.covidnews_tabs')
+    </div>
+</div>
 <div class="container">
-    @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => true,'hasArticles' => false,'hasMypage' => false])
-    @include('articles.covidnews_tabs')
     @foreach($news as $data)
     @include('articles.news')
     @endforeach
