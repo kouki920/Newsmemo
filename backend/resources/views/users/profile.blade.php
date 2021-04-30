@@ -28,6 +28,7 @@
                 <h2 class="h5 card-title mt-1">
                     {{ $user->name }}
                 </h2>
+
             </div>
             <div class="card-text">
                 {{$user->introduction}}
