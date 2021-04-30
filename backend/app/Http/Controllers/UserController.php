@@ -9,12 +9,16 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function show(string $name)
+    public function show(Article $article, string $name)
     {
         $user = User::where('name', $name)->first()->load(['articles.user', 'articles.likes', 'articles.tags']);
 
         $articles = $user->articles->sortByDesc('created_at')->paginate(10);
-        return view('users.show', compact('user', 'articles'));
+
+        $total_category = $article->totalCategory($user->id);
+        var_dump($total_category);
+
+        return view('users.show', compact('user', 'articles', 'total_category'));
     }
 
     /**

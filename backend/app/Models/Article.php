@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
 
 class Article extends Model
 {
@@ -57,5 +58,42 @@ class Article extends Model
         $news = Article::select('url', 'news', DB::raw('count(*) as total'))->groupBy('url', 'news')->having('total', '>', 1)->orderBy('total', 'desc')->limit(3)->get();
 
         return $news;
+    }
+
+    /**
+     * メモデータにあるタグ情報を使いカテゴリ別に統計を出しグラフ化
+     */
+    public function totalCategory($id)
+    {
+        $articles = Article::with('tags')->where('user_id', $id)->get();
+
+        $tags = [];
+        foreach ($articles as $article) {
+            $tags[] = [
+                'tags' => Arr::pluck($article->tags()->select('name')->get()->toArray(), 'name')
+            ];
+        }
+        $count = count($tags);
+        for ($i = 0; $i < $count; $i++) {
+            $tag[] = ($tags[$i]['tags']);
+        }
+        $filter_result = array_filter($tag);
+        // 多次元配列のarray_uniqueをするためにSORT_REGULAを用いる
+        $unique_result = array_unique($filter_result, SORT_REGULAR);
+
+        $items = [];
+        foreach ($unique_result as $value) {
+            foreach ($value as $sub_value) {
+                $items = $sub_value;
+            }
+        }
+        // return $unique_result;
+        return $items;
+        // foreach ($unique_result as $key => $unique_result) {
+        //     foreach ($unique_result as $key => $value) {
+        //         return $value;
+        //     }
+        // }
+        // return $value;
     }
 }
