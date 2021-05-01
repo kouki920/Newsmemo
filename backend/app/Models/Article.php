@@ -61,11 +61,11 @@ class Article extends Model
     }
 
     /**
-     * メモデータにあるタグ情報を使いカテゴリ別に統計を出しグラフ化
+     * 各メモデータにあるリレーション先のタグ情報を使いユーザが最近使用したタグを表示させる
      */
     public function totalCategory($id)
     {
-        $articles = Article::with('tags')->where('user_id', $id)->get();
+        $articles = Article::with('tags')->where('user_id', $id)->take(5)->get();
 
         $tags = [];
         foreach ($articles as $article) {
@@ -84,16 +84,9 @@ class Article extends Model
         $items = [];
         foreach ($unique_result as $value) {
             foreach ($value as $sub_value) {
-                $items = $sub_value;
+                $items[] = $sub_value;
             }
         }
-        // return $unique_result;
         return $items;
-        // foreach ($unique_result as $key => $unique_result) {
-        //     foreach ($unique_result as $key => $value) {
-        //         return $value;
-        //     }
-        // }
-        // return $value;
     }
 }
