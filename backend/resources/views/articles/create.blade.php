@@ -13,7 +13,7 @@
                     <div class="card-text">
                         <form method="POST" action="{{ route('articles.store') }}">
                             @csrf
-                            @include('articles.form')
+                            @include('articles.create_form')
                         </form>
                     </div>
                 </div>
