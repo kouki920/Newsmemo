@@ -28,18 +28,39 @@
                 <h2 class="h5 card-title mt-1">
                     {{ $user->name }}
                 </h2>
-
+                <div class="card-text">
+                    {{$user->introduction}}
+                </div>
             </div>
-            <div class="card-text">
-                {{$user->introduction}}
+            <div class="row float-left">
+                <div class="ml-auto card-text col">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                                最近使用したタグ
+                            </button>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div>
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-info text-center">最近使用したタグ</li>
+                                </ul>
+                                @foreach($total_category as $category)
+                                <ul class="list-group">
+                                    <li class="list-group-item h6">{{$category}}</li>
+                                </ul>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if(Auth::id() == $user->id)
+                <div class="card-text col">
+                    <a href="{{route('users.edit',['name' => $user->name])}}"><input type="button" class="btn btn-info" value="編集"></a>
+                </div>
+                @endif
             </div>
-            @if(Auth::id() == $user->id)
-            <div class="card-text mt-2">
-                <a href="{{route('users.edit',['name' => $user->name])}}"><input type="button" class="btn btn-info" value="編集"></a>
-            </div>
-            @endif
         </div>
-
         <div class="card-body">
             <div class="card-text">
                 <a href="{{route('users.following',['name' => $user->name])}}" class="text-muted">

@@ -16,7 +16,6 @@ class UserController extends Controller
         $articles = $user->articles->sortByDesc('created_at')->paginate(10);
 
         $total_category = $article->totalCategory($user->id);
-        var_dump($total_category);
 
         return view('users.show', compact('user', 'articles', 'total_category'));
     }
