@@ -65,7 +65,7 @@ class Article extends Model
      */
     public function totalCategory($id)
     {
-        $articles = Article::with('tags')->where('user_id', $id)->take(5)->get();
+        $articles = Article::with('tags')->where('user_id', $id)->latest()->take(5)->get();
 
         $tags = [];
         foreach ($articles as $article) {
