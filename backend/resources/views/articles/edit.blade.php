@@ -19,7 +19,7 @@
                         <form action="{{route('articles.update',compact('article'))}}" method="POST">
                             @csrf
                             @method('PATCH')
-                            @include('articles.form')
+                            @include('articles.edit_form')
                             <button type="submit" class="btn blue-gradient btn-block">更新</button>
                         </form>
                     </div>
