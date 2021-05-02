@@ -1,5 +1,6 @@
     <div class="card">
         <div class="card-body">
+            <!-- ユーザーアイコン -->
             <div class="d-flex flex-row">
                 @if(Auth::id() == $user->id)
                 <a href="{{ route('users.imageEdit', ['name' => $user->name]) }}" class="text-dark">
@@ -24,6 +25,7 @@
                 </follow-button>
                 @endif
             </div>
+
             <div class="card-text">
                 <h2 class="h5 card-title mt-1">
                     {{ $user->name }}
@@ -32,6 +34,7 @@
                     {{$user->introduction}}
                 </div>
             </div>
+            <!-- タグ表示 -->
             <div class="row float-left">
                 <div class="ml-auto card-text col">
                     <div class="dropdown">
@@ -54,6 +57,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- 編集ボタン -->
                 @if(Auth::id() == $user->id)
                 <div class="card-text col">
                     <a href="{{route('users.edit',['name' => $user->name])}}"><input type="button" class="btn btn-info" value="編集"></a>
@@ -61,6 +65,7 @@
                 @endif
             </div>
         </div>
+        <!-- フォロー・フォロワー数値 -->
         <div class="card-body">
             <div class="card-text">
                 <a href="{{route('users.following',['name' => $user->name])}}" class="text-muted">

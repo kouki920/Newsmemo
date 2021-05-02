@@ -92,13 +92,15 @@ class UserController extends Controller
     /**
      * いいねした投稿を一覧表示できるメソッド
      */
-    public function likes(string $name)
+    public function likes(Article $article, string $name)
     {
         $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         $articles = $user->likes->sortByDesc('created_at')->paginate(10);
 
-        return view('users.likes', compact('user', 'articles'));
+        $total_category = $article->totalCategory($user->id);
+
+        return view('users.likes', compact('user', 'articles', 'total_category'));
     }
 
     /**

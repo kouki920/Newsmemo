@@ -61,26 +61,33 @@ class Article extends Model
     }
 
     /**
-     * 各メモデータにあるリレーション先のタグ情報を使いユーザが最近使用したタグを表示させる
+     * 各メモデータにあるタグ情報を使いユーザが最近使用したタグを表示させる
      */
     public function totalCategory($id)
     {
+        // メモに紐づくタグデータをtags-tableから最新順で5件分のみ取得
         $articles = Article::with('tags')->where('user_id', $id)->latest()->take(5)->get();
 
+        // 取得したタグデータのnameカラムを空配列に多次元配列として格納する
         $tags = [];
         foreach ($articles as $article) {
             $tags[] = [
                 'tags' => Arr::pluck($article->tags()->select('name')->get()->toArray(), 'name')
             ];
         }
+
+        // タグデータの数だけ繰り返し処理で多次元配列'tags'=>[]を減らす
         $count = count($tags);
         for ($i = 0; $i < $count; $i++) {
             $tag[] = ($tags[$i]['tags']);
         }
+        // データが存在する配列のみに絞る
         $filter_result = array_filter($tag);
-        // 多次元配列のarray_uniqueをするためにSORT_REGULAを用いる
+
+        // 2次元配列においてarray_uniqueを実行するためにSORT_REGULAを用いて重複する値を削除する
         $unique_result = array_unique($filter_result, SORT_REGULAR);
 
+        // 2次元配列を1次元配列に変換する
         $items = [];
         foreach ($unique_result as $value) {
             foreach ($value as $sub_value) {
