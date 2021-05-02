@@ -1,20 +1,20 @@
 <ul class="nav nav-tabs nav-justified py-1 bg-white">
-    <li class="nav-item bg-white">
+    <li class="nav-item header-title" id="header-title">
         <a class="nav-link bg-white text-muted {{ $hasNewsApi ? 'active' : '' }}" href="{{ route('news.default_index') }}">
             ニュース
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item header-title" id="header-title">
         <a class="nav-link bg-white text-muted {{ $hasCovidNews ? 'active' : '' }}" href="{{ route('news.covid_default_index') }}">
             COVID-19
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item header-title" id="header-title">
         <a class="nav-link bg-white text-muted {{ $hasArticles ? 'active' : '' }}" href="{{route('articles.index')}}">
             メモリスト
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" id="header-title">
         <a class="nav-link bg-white text-muted {{ $hasMypage ? 'active' : '' }}" href="{{route('users.show', ['name' => Auth::user()->name])}}">
             プロフィール
         </a>
