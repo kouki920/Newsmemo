@@ -82,18 +82,17 @@ class Article extends Model
             $tag[] = ($tags[$i]['tags']);
         }
         // データが存在する配列のみに絞る
-        $filter_result = array_filter($tag);
+        $filter_array = array_filter($tag);
 
-        // 2次元配列においてarray_uniqueを実行するためにSORT_REGULAを用いて重複する値を削除する
-        $unique_result = array_unique($filter_result, SORT_REGULAR);
-
-        // 2次元配列を1次元配列に変換する
-        $items = [];
-        foreach ($unique_result as $value) {
-            foreach ($value as $sub_value) {
-                $items[] = $sub_value;
-            }
+        // 取得した多次元配列を1つの配列に格納
+        $merge_array = array();
+        foreach ($filter_array as $value) {
+            $merge_array = array_merge($merge_array, $value);
         }
-        return $items;
+
+        // 配列において重複する値を削除する為にarray_uniqueを実行する
+        $unique_array = array_unique($merge_array);
+
+        return $unique_array;
     }
 }
