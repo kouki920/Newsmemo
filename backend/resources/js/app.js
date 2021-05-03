@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ArticleLike from './components/ArticleLike';
 import ArticleTagsInput from './components/ArticleTagsInput';
 import FollowButton from './components/FollowButton';
+import FollowCount from './components/FollowCount';
 
 library.add(faBookmark)
 
@@ -26,6 +27,7 @@ const app = new Vue({
     ArticleLike,
     ArticleTagsInput,
     FollowButton,
+    FollowCount,
   }
 });
 

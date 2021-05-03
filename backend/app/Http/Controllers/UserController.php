@@ -71,22 +71,26 @@ class UserController extends Controller
         return redirect()->route('users.show', ['name' => $user->name]);
     }
 
-    public function follower(string $name)
+    public function follower(Article $article, string $name)
     {
         $user = User::where('name', $name)->first()->load('followers.followers');
 
         $followers = $user->followers->sortByDesc('created_at');
 
-        return view('users.follower', compact('user', 'followers'));
+        $total_category = $article->totalCategory($user->id);
+
+        return view('users.follower', compact('user', 'followers', 'total_category'));
     }
 
-    public function following(string $name)
+    public function following(Article $article, string $name)
     {
         $user = User::where('name', $name)->first()->load('followings.followers');
 
         $followings = $user->followings->sortByDesc('created_at');
 
-        return view('users.following', compact('user', 'followings'));
+        $total_category = $article->totalCategory($user->id);
+
+        return view('users.following', compact('user', 'followings', 'total_category'));
     }
 
     /**
@@ -117,7 +121,11 @@ class UserController extends Controller
         $request->user()->followings()->detach($user);
         $request->user()->followings()->attach($user);
 
-        return ['name' => $name];
+        return [
+            'name' => $name,
+            'countFollowings' => $user->count_followings,
+            'countFollowers' => $user->count_followers,
+        ];
     }
 
     /**
@@ -133,6 +141,10 @@ class UserController extends Controller
 
         $request->user()->followings()->detach($user);
 
-        return ['name' => $name];
+        return [
+            'name' => $name,
+            'countFollowings' => $user->count_followings,
+            'countFollowers' => $user->count_followers,
+        ];
     }
 }
