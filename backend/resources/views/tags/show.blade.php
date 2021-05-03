@@ -10,8 +10,9 @@
     @include('tags.tags')
 </div>
 <div class="container">
-    @foreach($tag->articles as $article)
+    @foreach($articles as $article)
     @include('articles.post')
     @endforeach
+    @include('tags.pagination')
 </div>
 @endsection
