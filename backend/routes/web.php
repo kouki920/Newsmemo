@@ -54,6 +54,13 @@ Route::prefix('users')->name('users.')->group(function () {
     });
 });
 
+# メモ追加機能
+Route::prefix('memo')->name('memo.')->middleware('auth')->group(function () {
+    Route::post('/store', 'MemoController@store')->name('store');
+    Route::get('/edit', 'MemoController@edit')->name('edit');
+    Route::delete('/destroy', 'MemoController@delete')->name('destroy');
+});
+
 # 設定
 Route::post('/setting', 'SettingController@index')->name('setting.index');
 
