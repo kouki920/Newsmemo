@@ -9,6 +9,6 @@
     @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => true,'hasMypage' => false])
 </div>
 <div class="container">
-    @include('articles.post')
+    @include('articles.show_post')
 </div>
 @endsection

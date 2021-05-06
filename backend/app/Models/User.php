@@ -103,4 +103,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Article', 'likes')->withTimestamps();
     }
+
+    /**
+     * 追加メモ(非公開)のリレーション
+     */
+    public function memos(): HasMany
+    {
+        return $this->hasMany('App\Models\Memo');
+    }
 }

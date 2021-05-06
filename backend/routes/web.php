@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\MemoController;
 use App\Http\Controllers\UserController;
 
 Auth::routes();
@@ -56,10 +57,13 @@ Route::prefix('users')->name('users.')->group(function () {
 
 # メモ追加機能
 Route::prefix('memo')->name('memo.')->middleware('auth')->group(function () {
-    Route::post('/store', 'MemoController@store')->name('store');
-    Route::get('/edit', 'MemoController@edit')->name('edit');
-    Route::delete('/destroy', 'MemoController@delete')->name('destroy');
+    Route::post('/{article}/store', 'MemoController@store')->name('store');
+    // Route::get('/edit', 'MemoController@edit')->name('edit');
+    // Route::post('/update', 'MemoController@update')->name('update');
+    // Route::delete('/destroy', 'MemoController@delete')->name('destroy');
 });
+
+Route::get('/articles/{article}/get_memos', 'MemoController@getMemos')->name('get_memos');
 
 # 設定
 Route::post('/setting', 'SettingController@index')->name('setting.index');

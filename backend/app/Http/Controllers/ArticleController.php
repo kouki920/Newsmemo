@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Tag;
+use App\Models\Memo;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\DB;
@@ -97,7 +98,9 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        $memos = $article->memos->where('article_id', $article->id)->sortBy('created_at');
+
+        return view('articles.show', compact('article', 'memos'));
     }
 
     /**
