@@ -98,15 +98,13 @@
             </article-like>
         </div>
     </div>
-    <div class="card-text">
-        <form action="{{route('memo.store', compact('article'))}}" method="POST">
-            @csrf
-            @if( Auth::id() === $article->user_id )
-            @foreach($memos as $memo)
-            @include('articles.add_memos_index')
-            @endforeach
-            @include('articles.add_memos')
-            @endif
-        </form>
+    <div class="card-text m-3">
+        <div class="card-text my-2"><i class="fas fa-lock fa-fw"></i>非公開メモ</div>
+        @if( Auth::id() === $article->user_id )
+        @foreach($memos as $memo)
+        @include('memos.add_memos_index')
+        @endforeach
+        @include('memos.add_memos')
+        @endif
     </div>
 </div>

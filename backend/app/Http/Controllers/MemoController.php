@@ -11,18 +11,24 @@ use Illuminate\Support\Facades\Auth;
 class MemoController extends Controller
 {
 
-    public function store(MemoRequest $request, Memo $memo, Article $article)
+    public function store(MemoRequest $request, Memo $memo)
     {
         $memo->fill($request->all());
         $memo->user_id = Auth::id();
         $memo->save();
 
-        return redirect()->route('articles.show');
+        $article = $request->article_id;
+
+        return redirect()->route('articles.show', compact('article'));
     }
 
-    public function edit()
+    public function edit($id)
     {
-        //
+        $memo = Memo::where('id', $id)->first();
+
+        $article = $memo->article_id;
+
+        return redirect()->route('articles.show', compact('memo', 'article'));
     }
 
     public function update()
@@ -30,8 +36,9 @@ class MemoController extends Controller
         //
     }
 
-    public function destroy()
+    public function destroy(Memo $memo)
     {
-        //
+        $memo->delete();
+        return back();
     }
 }
