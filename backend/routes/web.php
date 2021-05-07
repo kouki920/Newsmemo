@@ -56,11 +56,11 @@ Route::prefix('users')->name('users.')->group(function () {
 });
 
 # メモ追加機能
-Route::prefix('memo')->name('memo.')->middleware('auth')->group(function () {
+Route::prefix('memos')->name('memos.')->middleware('auth')->group(function () {
     Route::post('/{article}/store', 'MemoController@store')->name('store');
-    // Route::get('/edit', 'MemoController@edit')->name('edit');
+    Route::get('/{memo}/edit', 'MemoController@edit')->name('edit');
     // Route::post('/update', 'MemoController@update')->name('update');
-    // Route::delete('/destroy', 'MemoController@delete')->name('destroy');
+    Route::delete('/{memo}/destroy', 'MemoController@destroy')->name('destroy');
 });
 
 Route::get('/articles/{article}/get_memos', 'MemoController@getMemos')->name('get_memos');

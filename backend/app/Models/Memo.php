@@ -21,8 +21,8 @@ class Memo extends Model
         return $this->belongsTo('App\Models\Article');
     }
 
-    public function memosIndex($id)
-    {
-        return $this->where('article_id', $id)->get();
-    }
+    // public function memosIndex($id)
+    // {
+    //     return $this->where('article_id', $id)->get();
+    // }
 }
