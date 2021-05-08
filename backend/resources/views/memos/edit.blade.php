@@ -1,14 +1,14 @@
-<div>
-    <div class="form-outline mt-3">
-        <form action="{{route('memos.store', compact('article'))}}" method="POST">
-            @csrf
-            <textarea class="form-control add-memo-textarea" id="textAreaExample" rows="4" name="memo" placeholder="メモを入力する">{{$memo->memo ?? old('memo')}}</textarea>
-            <input type="hidden" name="article_id" value="{{$article->id}}">
-            <div class="d-flex justify-content-between">
-                <button type="submit" class="btn blue-gradient btn-block mt-2" style="width: 100px;">キャンセル</button>
-                <button type="submit" class="btn blue-gradient btn-block mt-2" style="width: 100px;">保存</button>
-        </form>
-    </div>
+@extends('app')
 
+@section('title','詳細画面')
+
+@section('content')
+
+<div class="sticky-top">
+    @include('nav')
+    @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => true,'hasMypage' => false])
 </div>
+<div class="container">
+    @include('memos.edit_memos')
 </div>
+@endsection
