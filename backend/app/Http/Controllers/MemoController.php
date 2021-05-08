@@ -26,14 +26,20 @@ class MemoController extends Controller
     {
         $memo = Memo::where('id', $id)->first();
 
-        $article = $memo->article_id;
+        $article = Article::with(['user', 'likes', 'tags'])->where('id', $memo->article_id)->first();
 
-        return redirect()->route('articles.show', compact('memo', 'article'));
+        return view('memos.edit', compact('memo', 'article'));
     }
 
-    public function update()
+    public function update(MemoRequest $request, $id)
     {
-        //
+        $memo = Memo::where('id', $id)->first();
+
+        $memo->fill($request->all())->save();
+
+        $article = $request->article_id;
+
+        return redirect()->route('articles.show', compact('article'));
     }
 
     public function destroy(Memo $memo)
