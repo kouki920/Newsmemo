@@ -87,7 +87,7 @@ class ArticleController extends Controller
             $article->tags()->attach($tag);
         });
 
-        return redirect()->route('articles.index');
+        return redirect()->route('articles.index')->with('msg_success', '投稿が完了しました');
     }
 
     /**
@@ -141,7 +141,8 @@ class ArticleController extends Controller
             $tag = Tag::firstOrCreate(['name' => $tagName]);
             $article->tags()->attach($tag);
         });
-        return redirect()->route('articles.index');
+
+        return redirect()->route('articles.index')->with('msg_success', '投稿を編集しました');
     }
 
     /**
@@ -153,7 +154,7 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-        return redirect()->route('articles.index');
+        return redirect()->route('articles.index')->with('msg_success', '投稿を削除しました');
     }
 
     /**

@@ -39,6 +39,18 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    /**
+     * ログイン後の処理
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @override \Illuminate\Http\Foundation\Auth\AuthenticatesUsers
+     */
+    protected function authenticated(Request $request)
+    {
+        // フラッシュメッセージを表示
+        return redirect('/articles')->with('msg_success', 'ログインしました');
+    }
 
     /**
      * ゲストユーザーログイン
@@ -46,13 +58,13 @@ class LoginController extends Controller
     public function guestLogin()
     {
         if (Auth::loginUsingId(config('user.guest_user_id'))) {
-            return redirect(route('articles.index'));
+            return redirect(route('articles.index'))->with('msg_success', 'ゲストユーザーでログインしました');
         }
-        return redirect(route('login'));
+        return redirect(route('login'))->with('msg_error', 'ゲストログインに失敗しました');
     }
 
     protected function loggedOut(Request $request)
     {
-        return redirect(route('login'));
+        return redirect(route('login'))->with('msg_success', 'ログアウトしました');
     }
 }
