@@ -40,7 +40,7 @@ class UserController extends Controller
         // $user->fill(['name' => $request->name, 'email' => $request->email, 'introduction' => $request->introduction])->save();
         $user->fill($request->validated())->save();
 
-        return redirect()->route('users.show', ['name' => $user->name]);
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールを編集しました');
     }
 
     /**
@@ -68,7 +68,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect()->route('users.show', ['name' => $user->name]);
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールアイコンを変更しました');
     }
 
     public function follower(Article $article, string $name)

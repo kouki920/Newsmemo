@@ -19,7 +19,7 @@ class MemoController extends Controller
 
         $article = $request->article_id;
 
-        return redirect()->route('articles.show', compact('article'));
+        return redirect()->route('articles.show', compact('article'))->with('msg_success', '非公開メモを追加しました');
     }
 
     public function edit($id)
@@ -39,12 +39,12 @@ class MemoController extends Controller
 
         $article = $request->article_id;
 
-        return redirect()->route('articles.show', compact('article'));
+        return redirect()->route('articles.show', compact('article'))->with('msg_success', '非公開メモを編集しました');
     }
 
     public function destroy(Memo $memo)
     {
         $memo->delete();
-        return back();
+        return back()->with('msg_success', '非公開メモを削除しました');
     }
 }
