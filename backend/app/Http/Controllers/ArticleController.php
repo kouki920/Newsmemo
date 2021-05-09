@@ -6,7 +6,9 @@ use App\Models\Article;
 use App\Models\Tag;
 use App\Models\Memo;
 use Illuminate\Http\Request;
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\Article\StoreRequest;
+use App\Http\Requests\Article\UpdateRequest;
+use App\Http\Requests\Article\IndexRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Foundation\Console\Presets\React;
@@ -27,9 +29,9 @@ class ArticleController extends Controller
      */
     public function index(Request $request, Article $article)
     {
-        $search = $request->input('search');
-
         $query = Article::with(['user', 'likes', 'tags'])->orderBy('created_at', 'desc');
+
+        $search = $request->input('search');
 
         if ($search !== null) {
 
@@ -44,6 +46,7 @@ class ArticleController extends Controller
             }
         }
         $articles = $query->paginate(10);
+        // $articles = $request->filters();
 
         $ranked_articles = $article->articleRanking();
         $ranked_news = $article->newsRanking();
@@ -75,7 +78,7 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleRequest $request, Article $article)
+    public function store(StoreRequest $request, Article $article)
     {
         $article->fill($request->all());
         $article->user_id = $request->user()->id;
@@ -132,7 +135,7 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, Article $article)
+    public function update(UpdateRequest $request, Article $article)
     {
         $article->fill($request->all())->save();
 
