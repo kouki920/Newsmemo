@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Article;
+use App\Models\Tag;
 
 class StoreRequest extends FormRequest
 {
@@ -25,8 +27,10 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'required | max:25',
-            'body' => 'required | max:300',
+            'body' => 'required | max:255',
             'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
+            'news' => 'required | string | max:255',
+            'url' => 'required | string | max:255',
         ];
     }
     public function attributes()
@@ -35,6 +39,8 @@ class StoreRequest extends FormRequest
             'title' => 'タイトル',
             'body' => '本文',
             'tags' => 'タグ',
+            'news' => 'ニュース',
+            'url' => 'ニュースURL',
         ];
     }
 

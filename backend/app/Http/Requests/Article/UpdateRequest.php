@@ -25,8 +25,10 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'required | max:25',
-            'body' => 'required | max:300',
+            'body' => 'required | max:255',
             'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
+            'news' => 'required | string | max:255',
+            'url' => 'required | string | max:255',
         ];
     }
     public function attributes()
@@ -35,6 +37,8 @@ class UpdateRequest extends FormRequest
             'title' => 'タイトル',
             'body' => '本文',
             'tags' => 'タグ',
+            'news' => 'ニュース',
+            'url' => 'ニュースURL',
         ];
     }
 

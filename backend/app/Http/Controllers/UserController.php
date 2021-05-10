@@ -38,7 +38,7 @@ class UserController extends Controller
         $user = User::where('name', $name)->first();
 
         // $user->fill(['name' => $request->name, 'email' => $request->email, 'introduction' => $request->introduction])->save();
-        $user->fill($request->validated())->save();
+        $user->fill($request->all())->save();
 
         return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールを編集しました');
     }

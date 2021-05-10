@@ -8,6 +8,7 @@ use App\Models\Memo;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
+use App\Http\Requests\Article\CreateRequest;
 use App\Http\Requests\Article\IndexRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -23,19 +24,20 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * 投稿一覧の表示
      * 検索機能実装
+     * @param Request $request
+     * @param Article $article
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, Article $article)
     {
         $query = Article::with(['user', 'likes', 'tags'])->orderBy('created_at', 'desc');
 
-        $search = $request->input('search');
+        // 検索機能の処理
+        if (null !== $request->input('search')) {
 
-        if ($search !== null) {
-
-            $search_splits = preg_split('/[\p{Z}\p{Cc}]++/u', $search, -1, PREG_SPLIT_NO_EMPTY);
+            $search_splits = preg_split('/[\p{Z}\p{Cc}]++/u', $request->input('search'), -1, PREG_SPLIT_NO_EMPTY);
             //半角全角スペース，改行，タブ，ノーブレークスペースなどの空白系の制御文字を対象とする
 
             foreach ($search_splits as $value) {
@@ -46,7 +48,6 @@ class ArticleController extends Controller
             }
         }
         $articles = $query->paginate(10);
-        // $articles = $request->filters();
 
         $ranked_articles = $article->articleRanking();
         $ranked_news = $article->newsRanking();
@@ -55,13 +56,13 @@ class ArticleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * 新規投稿(メモ)フォームの表示
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
     {
-
+        // Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
         $allTagNames = Tag::all()->map(function ($tag) {
             return ['text' => $tag->name];
         });
@@ -73,18 +74,20 @@ class ArticleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 投稿(メモ)の登録
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Requests\Article\StoreRequest  $request
+     * @param Article $article
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRequest $request, Article $article)
     {
         $article->fill($request->all());
-        $article->user_id = $request->user()->id;
+        $article->user_id = Auth::id();
         $article->save();
 
-        //タグの登録と投稿・タグの紐付けを行う
+        // タグの登録と投稿・タグの紐付けを行う
+        // firstOrCreateメソッドで引数として渡した「カラム名と値のペア」を持つレコードがテーブルに存在するかどうかを判定。存在すればそのモデルを返しテーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す
         $request->tags->each(function ($tagName) use ($article) {
             $tag = Tag::firstOrCreate(['name' => $tagName]);
             $article->tags()->attach($tag);
@@ -94,9 +97,9 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 投稿(メモ)詳細画面の表示
      *
-     * @param  int  $id
+     * @param  Article $article
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article)
@@ -107,13 +110,14 @@ class ArticleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 投稿(メモ)編集フォームの表示
      *
-     * @param  int  $id
+     * @param  Article $article
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Article $article)
     {
+        // Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
         $tagNames = $article->tags->map(function ($tag) {
             return ['text' => $tag->name];
         });
@@ -129,11 +133,11 @@ class ArticleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 投稿(メモ)の更新
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Requests\Article\UpdateRequest  $request
+     * @param  Article $article
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateRequest $request, Article $article)
     {
@@ -163,6 +167,9 @@ class ArticleController extends Controller
     /**
      * いいね機能のアクションメソッド
      * detachで複数回いいねの対策
+     * @param Request $request
+     * @param Article $article
+     * @return array
      */
     public function like(Request $request, Article $article)
     {
