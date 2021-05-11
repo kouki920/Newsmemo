@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Article;
+use App\Models\Tag;
 
 class UpdateRequest extends FormRequest
 {
@@ -53,5 +55,21 @@ class UpdateRequest extends FormRequest
             ->map(function ($requestTag) {
                 return $requestTag->text;
             });
+    }
+
+    /**
+     * タグの登録と投稿・タグの紐付けを行う
+     * 二重登録を避ける為にdetach()を使用
+     * firstOrCreateメソッドで引数として渡した「カラム名と値のペア」を持つレコードがテーブルに存在するかどうかを判定
+     * 存在すればそのモデルを返しテーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す
+     * @param Article $article
+     */
+    public function tagsRegister(Article $article)
+    {
+        $article->tags()->detach();
+        $this->tags->each(function ($tagName) use ($article) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $article->tags()->attach($tag);
+        });
     }
 }

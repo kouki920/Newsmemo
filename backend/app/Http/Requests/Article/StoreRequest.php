@@ -47,6 +47,7 @@ class StoreRequest extends FormRequest
     /**
      * バリデーション後、下記メソッド内でjson形式の文字列を連想配列に変換
      * 連想配列をコレクションに変更後、コレクションメソッドでタグの個数制限と登録するタグをタグ名のみにする
+     * @return array
      */
     public function passedValidation()
     {
@@ -55,5 +56,19 @@ class StoreRequest extends FormRequest
             ->map(function ($requestTag) {
                 return $requestTag->text;
             });
+    }
+
+    /**
+     * タグの登録と投稿・タグの紐付けを行う
+     * firstOrCreateメソッドで引数として渡した「カラム名と値のペア」を持つレコードがテーブルに存在するかどうかを判定
+     * 存在すればそのモデルを返しテーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す
+     * @param Article $article
+     */
+    public function tagsRegister(Article $article)
+    {
+        $this->tags->each(function ($tagName) use ($article) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $article->tags()->attach($tag);
+        });
     }
 }

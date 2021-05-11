@@ -8,8 +8,6 @@ use App\Models\Memo;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
-use App\Http\Requests\Article\CreateRequest;
-use App\Http\Requests\Article\IndexRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Foundation\Console\Presets\React;
@@ -32,22 +30,10 @@ class ArticleController extends Controller
      */
     public function index(Request $request, Article $article)
     {
-        $query = Article::with(['user', 'likes', 'tags'])->orderBy('created_at', 'desc');
-
-        // 検索機能の処理
-        if (null !== $request->input('search')) {
-
-            $search_splits = preg_split('/[\p{Z}\p{Cc}]++/u', $request->input('search'), -1, PREG_SPLIT_NO_EMPTY);
-            //半角全角スペース，改行，タブ，ノーブレークスペースなどの空白系の制御文字を対象とする
-
-            foreach ($search_splits as $value) {
-
-                $query->where('title', 'like', '%' . $value . '%')
-                    ->orWhere('body', 'like', '%' . $value . '%')
-                    ->orWhere('news', 'like', '%' . $value . '%');
-            }
-        }
-        $articles = $query->paginate(10);
+        $articles = Article::with(['user', 'likes', 'tags'])
+            ->orderBy('created_at', 'desc')
+            ->search($request->input('search'))
+            ->paginate(10);
 
         $ranked_articles = $article->articleRanking();
         $ranked_news = $article->newsRanking();
@@ -87,11 +73,7 @@ class ArticleController extends Controller
         $article->save();
 
         // タグの登録と投稿・タグの紐付けを行う
-        // firstOrCreateメソッドで引数として渡した「カラム名と値のペア」を持つレコードがテーブルに存在するかどうかを判定。存在すればそのモデルを返しテーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す
-        $request->tags->each(function ($tagName) use ($article) {
-            $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $article->tags()->attach($tag);
-        });
+        $request->tagsRegister($article);
 
         return redirect()->route('articles.index')->with('msg_success', '投稿が完了しました');
     }
@@ -142,12 +124,8 @@ class ArticleController extends Controller
     public function update(UpdateRequest $request, Article $article)
     {
         $article->fill($request->all())->save();
-
-        $article->tags()->detach();
-        $request->tags->each(function ($tagName) use ($article) {
-            $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $article->tags()->attach($tag);
-        });
+        // タグの更新
+        $request->tagsRegister($article);
 
         return redirect()->route('articles.index')->with('msg_success', '投稿を編集しました');
     }
@@ -182,6 +160,13 @@ class ArticleController extends Controller
         ];
     }
 
+    /**
+     * いいね解除機能のアクションメソッド
+     * detachで複数回いいねの対策
+     * @param Request $request
+     * @param Article $article
+     * @return array
+     */
     public function unlike(Request $request, Article $article)
     {
         $article->likes()->detach($request->user()->id);

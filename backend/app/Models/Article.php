@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -47,11 +48,25 @@ class Article extends Model
     }
 
     /**
+     * 検索ワードを含むメモだけに限定する
+     */
+    public function scopeSearch($query, $request)
+    {
+        if (null !== $request) {
+            return $query->where('title', 'like', '%' . $request . '%')
+                ->orWhere('body', 'like', '%' . $request . '%')
+                ->orWhere('news', 'like', '%' . $request . '%');
+        }
+    }
+
+    /**
      * 後で読むボタンを押された数が多い順にメモデータを取得する
      */
     public function articleRanking()
     {
-        $ranked_article = Article::withCount('likes')->orderBy('likes_count', 'desc')->limit(3)->get();
+        $ranked_article = Article::withCount('likes')
+            ->orderBy('likes_count', 'desc')
+            ->limit(3)->get();
 
         return $ranked_article;
     }
@@ -61,7 +76,11 @@ class Article extends Model
      */
     public function newsRanking()
     {
-        $news = Article::select('url', 'news', DB::raw('count(*) as total'))->groupBy('url', 'news')->having('total', '>', 1)->orderBy('total', 'desc')->limit(3)->get();
+        $news = Article::select('url', 'news', DB::raw('count(*) as total'))
+            ->groupBy('url', 'news')
+            ->having('total', '>', 1)
+            ->orderBy('total', 'desc')
+            ->limit(3)->get();
 
         return $news;
     }
@@ -72,7 +91,9 @@ class Article extends Model
     public function totalCategory($id)
     {
         // メモに紐づくタグデータをtags-tableから最新順で5件分のみ取得
-        $articles = Article::with('tags')->where('user_id', $id)->latest()->take(5)->get();
+        $articles = Article::with('tags')
+            ->where('user_id', $id)
+            ->latest()->take(5)->get();
 
         // 取得したタグデータのnameカラムを空配列に多次元配列として格納する
         $tags = [];
@@ -100,5 +121,13 @@ class Article extends Model
         $unique_array = array_unique($merge_array);
 
         return $unique_array;
+    }
+
+    public function likeValidated()
+    {
+        return [
+            'id' => $this->id,
+            'countLikes' => $this->count_likes,
+        ];
     }
 }
