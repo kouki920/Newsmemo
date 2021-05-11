@@ -9,6 +9,12 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    /**
+     * ユーザー詳細画面の表示
+     * @param Article $article
+     * @param string $name
+     * @return \Illuminate\Http\Response
+     */
     public function show(Article $article, string $name)
     {
         $user = User::where('name', $name)->first()->load(['articles.user', 'articles.likes', 'articles.tags']);
@@ -22,6 +28,8 @@ class UserController extends Controller
 
     /**
      * ユーザデータの編集
+     * @param string $name
+     * @return \Illuminate\Http\Response
      */
     public function edit(string $name)
     {
@@ -32,12 +40,14 @@ class UserController extends Controller
 
     /**
      * ユーザデータの更新
+     * @param UserRequest $request
+     * @param string $name
+     * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, string $name)
     {
         $user = User::where('name', $name)->first();
 
-        // $user->fill(['name' => $request->name, 'email' => $request->email, 'introduction' => $request->introduction])->save();
         $user->fill($request->all())->save();
 
         return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールを編集しました');
@@ -45,6 +55,8 @@ class UserController extends Controller
 
     /**
      * プロフィールアイコンの編集画面を表示
+     * @param string $name
+     * @return \Illuminate\Http\Response
      */
     public function imageEdit(string $name)
     {
@@ -55,6 +67,9 @@ class UserController extends Controller
 
     /**
      * プロフィールアイコンの更新
+     * @param UserRequest $request
+     * @param string $name
+     * @return \Illuminate\Http\Response
      */
     public function imageUpdate(UserRequest $request, string $name)
     {
@@ -71,6 +86,12 @@ class UserController extends Controller
         return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールアイコンを変更しました');
     }
 
+    /**
+     * フォロワー詳細画面の表示
+     * @param Article $article
+     * @param string $name
+     * @return \Illuminate\Http\Response
+     */
     public function follower(Article $article, string $name)
     {
         $user = User::where('name', $name)->first()->load('followers.followers');
@@ -82,6 +103,12 @@ class UserController extends Controller
         return view('users.follower', compact('user', 'followers', 'total_category'));
     }
 
+    /**
+     * フォロー詳細画面の表示
+     * @param Article $article
+     * @param string $name
+     * @return \Illuminate\Http\Response
+     */
     public function following(Article $article, string $name)
     {
         $user = User::where('name', $name)->first()->load('followings.followers');
@@ -94,7 +121,10 @@ class UserController extends Controller
     }
 
     /**
-     * いいねした投稿を一覧表示できるメソッド
+     * いいねした投稿を一覧表示
+     * @param Article $article
+     * @param string $name
+     * @return \Illuminate\Http\Response
      */
     public function likes(Article $article, string $name)
     {
@@ -109,6 +139,9 @@ class UserController extends Controller
 
     /**
      * フォローするメソッド
+     * @param Request $request
+     * @param string $name
+     * @return \Illuminate\Http\Response
      */
     public function follow(Request $request, string $name)
     {
@@ -130,6 +163,9 @@ class UserController extends Controller
 
     /**
      * フォローを解除するメソッド
+     * @param Request $request
+     * @param string $name
+     * @return \Illuminate\Http\Response
      */
     public function unfollow(Request $request, string $name)
     {
