@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\MemoController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 
 Auth::routes();
@@ -65,7 +66,10 @@ Route::prefix('memos')->name('memos.')->middleware('auth')->group(function () {
 });
 
 # 設定
-Route::post('/setting', 'SettingController@index')->name('setting.index');
+Route::prefix('setting')->name('setting.')->middleware('auth')->group(function () {
+    Route::post('/index', 'SettingController@index')->name('index');
+    Route::get('/agreement', 'SettingController@agreement')->name('agreement');
+});
 
 # NEWS API関連機能
 Route::prefix('news')->name('news.')->group(function () {

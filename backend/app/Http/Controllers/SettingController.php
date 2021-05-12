@@ -10,4 +10,9 @@ class SettingController extends Controller
     {
         return view('settings.index');
     }
+
+    public function agreement()
+    {
+        return view('settings.agreement');
+    }
 }

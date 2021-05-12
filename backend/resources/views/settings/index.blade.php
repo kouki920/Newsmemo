@@ -14,7 +14,7 @@
     <div class="list-group">
         <a href="{{ route('password.request') }}" class="list-group-item list-group-item-action py-3"><i class="fas fa-unlock-alt fa-fw mr-3"></i>パスワードの再設定</a>
         <a href="#" class="list-group-item list-group-item-action py-3"><i class="fas fa-envelope fa-fw mr-3"></i>お問い合わせ</a>
-        <a href="#" class="list-group-item list-group-item-action py-3"><i class="fas fa-book-open fa-fw mr-3"></i>利用規約</a>
+        <a href="{{ route('setting.agreement') }}" class="list-group-item list-group-item-action py-3"><i class="fas fa-book-open fa-fw mr-3"></i>利用規約</a>
         <a href="#" class="list-group-item list-group-item-action py-3"><i class="fas fa-user-times fa-fw mr-3"></i>退会手続き</a>
     </div>
 </div>

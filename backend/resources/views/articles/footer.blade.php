@@ -1,4 +1,4 @@
-<footer class="text-center text-white fixed-bottom">
+<footer class="text-center text-white">
     <!-- Copyright -->
     <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         © 2021 Copyright:
