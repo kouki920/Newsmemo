@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MemoRequest;
+use App\Http\Requests\Memo\StoreRequest;
+use App\Http\Requests\Memo\UpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Memo;
@@ -11,13 +12,13 @@ use Illuminate\Support\Facades\Auth;
 class MemoController extends Controller
 {
 
-    public function store(MemoRequest $request, Memo $memo)
+    public function store(StoreRequest $request, Memo $memo)
     {
         $memo->fill($request->all());
         $memo->user_id = Auth::id();
         $memo->save();
 
-        $article = $request->article_id;
+        $article = $request->articleId($request);
 
         return redirect()->route('articles.show', compact('article'))->with('msg_success', '非公開メモを追加しました');
     }
@@ -31,13 +32,13 @@ class MemoController extends Controller
         return view('memos.edit', compact('memo', 'article'));
     }
 
-    public function update(MemoRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $memo = Memo::where('id', $id)->first();
 
         $memo->fill($request->all())->save();
 
-        $article = $request->article_id;
+        $article = $request->articleId($request);
 
         return redirect()->route('articles.show', compact('article'))->with('msg_success', '非公開メモを編集しました');
     }

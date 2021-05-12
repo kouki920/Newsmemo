@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+// use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\UpdateRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -44,7 +45,7 @@ class UserController extends Controller
      * @param string $name
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, string $name)
+    public function update(UpdateRequest $request, string $name)
     {
         $user = User::where('name', $name)->first();
 
@@ -71,11 +72,11 @@ class UserController extends Controller
      * @param string $name
      * @return \Illuminate\Http\Response
      */
-    public function imageUpdate(UserRequest $request, string $name)
+    public function imageUpdate(UpdateRequest $request, string $name)
     {
         $user = User::where('name', $name)->first();
 
-        $image = $request->image;
+        $image = $request->getImage($request);
 
         if ($image->isValid()) {
             $filePath = $image->store('public');
