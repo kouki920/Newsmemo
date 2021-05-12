@@ -131,49 +131,14 @@ class ArticleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 投稿(メモ)の削除
      *
-     * @param  int  $id
+     * @param  Article $article
      * @return \Illuminate\Http\Response
      */
     public function destroy(Article $article)
     {
         $article->delete();
         return redirect()->route('articles.index')->with('msg_success', '投稿を削除しました');
-    }
-
-    /**
-     * いいね機能のアクションメソッド
-     * detachで複数回いいねの対策
-     * @param Request $request
-     * @param Article $article
-     * @return array
-     */
-    public function like(Request $request, Article $article)
-    {
-        $article->likes()->detach($request->user()->id);
-        $article->likes()->attach($request->user()->id);
-
-        return [
-            'id' => $article->id,
-            'countLikes' => $article->count_likes,
-        ];
-    }
-
-    /**
-     * いいね解除機能のアクションメソッド
-     * detachで複数回いいねの対策
-     * @param Request $request
-     * @param Article $article
-     * @return array
-     */
-    public function unlike(Request $request, Article $article)
-    {
-        $article->likes()->detach($request->user()->id);
-
-        return [
-            'id' => $article->id,
-            'countLikes' => $article->count_likes,
-        ];
     }
 }

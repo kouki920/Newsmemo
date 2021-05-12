@@ -24,9 +24,10 @@ Route::resource('/articles', 'ArticleController')->except(['show', 'create'])->m
 Route::resource('/articles', 'ArticleController')->only(['show']);
 Route::post('/articles/create', 'ArticleController@create')->name('articles.create')->middleware('auth');
 
+# いいね機能
 Route::prefix('articles')->name('articles.')->group(function () {
-    Route::put('/{article}/like', 'ArticleController@like')->name('like')->middleware('auth');
-    Route::delete('/{article}/like', 'ArticleController@unlike')->name('unlike')->middleware('auth');
+    Route::put('/{article}/like', 'LikeController@like')->name('like')->middleware('auth');
+    Route::delete('/{article}/like', 'LikeController@unlike')->name('unlike')->middleware('auth');
 });
 
 # 投稿のタグ機能
@@ -50,8 +51,8 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::patch('/{name}/image/update', 'UserController@imageUpdate')->name('imageUpdate');
     // フォロー、フォロー解除
     Route::middleware('auth')->group(function () {
-        Route::put('/{name}/follow', 'UserController@follow')->name('follow');
-        Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
+        Route::put('/{name}/follow', 'FollowController@follow')->name('follow');
+        Route::delete('/{name}/follow', 'FollowController@unfollow')->name('unfollow');
     });
 });
 
@@ -62,8 +63,6 @@ Route::prefix('memos')->name('memos.')->middleware('auth')->group(function () {
     Route::post('/{memo}/update', 'MemoController@update')->name('update');
     Route::delete('/{memo}/destroy', 'MemoController@destroy')->name('destroy');
 });
-
-Route::get('/articles/{article}/get_memos', 'MemoController@getMemos')->name('get_memos');
 
 # 設定
 Route::post('/setting', 'SettingController@index')->name('setting.index');
