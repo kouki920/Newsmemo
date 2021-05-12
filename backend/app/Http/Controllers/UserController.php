@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// use App\Http\Requests\UserRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -136,52 +135,5 @@ class UserController extends Controller
         $total_category = $article->totalCategory($user->id);
 
         return view('users.likes', compact('user', 'articles', 'total_category'));
-    }
-
-    /**
-     * フォローするメソッド
-     * @param Request $request
-     * @param string $name
-     * @return \Illuminate\Http\Response
-     */
-    public function follow(Request $request, string $name)
-    {
-        $user = User::where('name', $name)->first();
-
-        if ($user->id === $request->user()->id) {
-            return abort('404', 'Cannot follow yourself.');
-        }
-
-        $request->user()->followings()->detach($user);
-        $request->user()->followings()->attach($user);
-
-        return [
-            'name' => $name,
-            'countFollowings' => $user->count_followings,
-            'countFollowers' => $user->count_followers,
-        ];
-    }
-
-    /**
-     * フォローを解除するメソッド
-     * @param Request $request
-     * @param string $name
-     * @return \Illuminate\Http\Response
-     */
-    public function unfollow(Request $request, string $name)
-    {
-        $user = User::where('name', $name)->first();
-
-        if ($user->id === $request->user()->id) {
-            return abort('404', 'Cannot follow yourself.');
-        }
-
-        $request->user()->followings()->detach($user);
-
-        return [
-            'name' => $name,
-            'countFollowings' => $user->count_followings,
-            'countFollowers' => $user->count_followers,
-        ];
     }
 }
