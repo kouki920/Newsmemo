@@ -8,4 +8,4 @@
 
 その場合は、このメールは破棄していただいて結構です。
 
-syokumane({{ url(config('app.url')) }})
+Newsmemo({{ url(config('app.url')) }})

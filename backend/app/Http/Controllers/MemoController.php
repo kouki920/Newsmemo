@@ -40,7 +40,7 @@ class MemoController extends Controller
 
         $article = $request->articleId($request);
 
-        return redirect()->route('articles.show', compact('article'))->with('msg_success', '非公開メモを編集しました');
+        return redirect()->route('articles.show', compact('article'));
     }
 
     public function destroy(Memo $memo)

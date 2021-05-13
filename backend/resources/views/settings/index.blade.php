@@ -33,6 +33,8 @@
                         @method('DELETE')
                         <div class="modal-body">
                             アカウント&ensp;{{ Auth::user()->name }}&ensp;を本当に削除しますか?
+                            <br>
+                            <i class="fas fa-exclamation-circle fa-fw"></i>注意&ensp;:&ensp;退会するとアカウントの復元はできません。
                         </div>
                         <div class="modal-footer justify-content-between">
                             <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
