@@ -99,6 +99,7 @@
         </div>
     </div>
     <div class="card-text m-3">
+        @include('error_list')
         <div class="card-text my-2"><i class="fas fa-lock fa-fw"></i>編集するメモ</div>
         @if( Auth::id() === $article->user_id )
         @include('memos.add_memos_index')
