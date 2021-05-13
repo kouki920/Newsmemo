@@ -44,7 +44,7 @@
         <form id="logout-button" method="POST" action="{{route('logout')}}">
             @csrf
         </form>
-        <form id="setting-button" method="POST" action="{{route('setting.index')}}">
+        <form id="setting-button" method="POST" action="{{route('setting.index',['name' => Auth::user()->name])}}">
             @csrf
         </form>
         <!-- Dropdown -->
