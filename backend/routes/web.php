@@ -48,6 +48,8 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::patch('/{name}/update', 'UserController@update')->name('update');
     // プロフィールアイコンの編集画面を表示
     Route::get('/{name}/image/edit', 'UserController@imageEdit')->name('imageEdit');
+    //ユーザーの削除(退会)
+    Route::delete('/{name}/destroy', 'UserController@destroy')->name('destroy');
     // プロフィールアイコンの更新
     Route::patch('/{name}/image/update', 'UserController@imageUpdate')->name('imageUpdate');
     // フォロー、フォロー解除

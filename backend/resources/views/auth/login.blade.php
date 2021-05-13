@@ -50,6 +50,8 @@
             </div>
         </div>
     </div>
-    @include('articles.footer')
+    <div class="fixed-bottom">
+        @include('articles.footer')
+    </div>
 </div>
 @endsection

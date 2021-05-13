@@ -6,6 +6,7 @@ use App\Http\Requests\User\UpdateRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -135,5 +136,19 @@ class UserController extends Controller
         $total_category = $article->totalCategory($user->id);
 
         return view('users.likes', compact('user', 'articles', 'total_category'));
+    }
+
+    /**
+     * ユーザーデータの削除(退会)
+     *
+     */
+    public function destroy(string $name)
+    {
+        $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
+
+        if ($user->id != config('user.guest_user_id')) {
+            $user->delete();
+        }
+        return redirect('register');
     }
 }
