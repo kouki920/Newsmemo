@@ -14,7 +14,7 @@ class Article extends Model
 {
 
     protected $fillable = [
-        'title', 'body', 'news', 'url',
+        'body', 'news', 'url',
     ];
 
     public function user(): BelongsTo
@@ -53,8 +53,7 @@ class Article extends Model
     public function scopeSearch($query, $request)
     {
         if (null !== $request) {
-            return $query->where('title', 'like', '%' . $request . '%')
-                ->orWhere('body', 'like', '%' . $request . '%')
+            return $query->where('body', 'like', '%' . $request . '%')
                 ->orWhere('news', 'like', '%' . $request . '%');
         }
     }

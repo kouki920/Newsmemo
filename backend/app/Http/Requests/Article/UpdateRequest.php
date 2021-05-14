@@ -26,7 +26,6 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required | max:25',
             'body' => 'required | max:255',
             'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
             'news' => 'required | string | max:255',
@@ -36,7 +35,6 @@ class UpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'title' => 'タイトル',
             'body' => '本文',
             'tags' => 'タグ',
             'news' => 'ニュース',

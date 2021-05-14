@@ -24,7 +24,6 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required | max:25',
             'body' => 'required | max:255',
             // タグ名にはスペースと/を含ませないよう正規表現でバリデーション
             'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
@@ -36,7 +35,6 @@ class ArticleRequest extends FormRequest
     public function attributes()
     {
         return [
-            'title' => 'タイトル',
             'body' => '本文',
             'tags' => 'タグ',
             'news' => 'ニュース',
