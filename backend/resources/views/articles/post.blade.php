@@ -50,7 +50,7 @@
                         @csrf
                         @method('DELETE')
                         <div class="modal-body">
-                            {{ $article->title }}を本当に削除しますか?
+                            投稿したメモを本当に削除しますか?
                         </div>
                         <div class="modal-footer justify-content-between">
                             <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
@@ -64,13 +64,10 @@
         @endif
     </div>
     <div class="card-body pt-0 pb-2">
-        <h3 class="h5 card-title">
-            <a class="text-dark" href="{{route('articles.show',compact('article'))}}">
-                {{$article->title}}
-            </a>
-        </h3>
         <div class="card-text">
-            {!! nl2br(e( $article->body )) !!}
+            <a class="text-dark text-decoration-none" href="{{route('articles.show',compact('article'))}}">
+                {!! nl2br(e( $article->body )) !!}
+            </a>
         </div>
     </div>
     @foreach($article->tags as $tag)
