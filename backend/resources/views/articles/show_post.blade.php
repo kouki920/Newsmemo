@@ -84,7 +84,7 @@
     @endif
     @endforeach
     <div class="card-text pt-0 pb-2 pl-3">
-        関連記事:<a href="{{$article->url}}" target=”_blank” rel="noopener noreferrer">{{$article->news}}</a>
+        関連記事:<a href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">{{$article->newsLink->news}}</a>
     </div>
     <div class="card-text pt-0 pl-3 font-weight-lighter">
         {{$article->created_at->format('Y/m/d H:i')}}

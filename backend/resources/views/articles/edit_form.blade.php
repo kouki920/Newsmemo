@@ -8,7 +8,7 @@
     </article-tags-input>
 </div>
 <div class="form-group card-footer text-muted mb-3">
-    <input type="hidden" name="news" value="{{$article->news}}">
-    <input type="hidden" name="url" value="{{$article->url}}">
-    関連記事:&nbsp;<a href="{{$article->url}}" target=”_blank” rel="noopener noreferrer">{{$article->news}}</a>
+    <input type="hidden" name="news" value="{{$article->newsLink->news}}">
+    <input type="hidden" name="url" value="{{$article->newsLink->url}}">
+    関連記事:&nbsp;<a href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">{{$article->newsLink->news}}</a>
 </div>

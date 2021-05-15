@@ -8,6 +8,7 @@ use App\Models\Memo;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
+use App\Models\NewsLink;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Foundation\Console\Presets\React;
@@ -28,15 +29,15 @@ class ArticleController extends Controller
      * @param Article $article
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Article $article)
+    public function index(Request $request, Article $article, NewsLink $newsLink)
     {
-        $articles = Article::with(['user', 'likes', 'tags'])
+        $articles = Article::with(['user', 'likes', 'tags', 'newsLink'])
             ->orderBy('created_at', 'desc')
             ->search($request->input('search'))
             ->paginate(10);
 
         $ranked_articles = $article->articleRanking();
-        $ranked_news = $article->newsRanking();
+        $ranked_news = $newsLink->newsRanking();
 
         return view('articles.index', compact('articles', 'ranked_articles', 'ranked_news'));
     }
@@ -66,11 +67,13 @@ class ArticleController extends Controller
      * @param Article $article
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request, Article $article)
+    public function store(StoreRequest $request, Article $article, NewsLink $news_link)
     {
         $article->fill($request->all());
         $article->user_id = Auth::id();
         $article->save();
+
+        Article::find($article->id)->newsLink()->create($request->all());
 
         // タグの登録と投稿・タグの紐付けを行う
         $request->tagsRegister($article);

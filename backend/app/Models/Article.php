@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 
@@ -14,7 +15,7 @@ class Article extends Model
 {
 
     protected $fillable = [
-        'body', 'news', 'url',
+        'body', 'user_id',
     ];
 
     public function user(): BelongsTo
@@ -47,6 +48,11 @@ class Article extends Model
         return $this->hasMany('App\Models\Memo');
     }
 
+    public function newsLink(): HasOne
+    {
+        return $this->hasOne('App\Models\NewsLink');
+    }
+
     /**
      * 検索ワードを含むメモだけに限定する
      */
@@ -73,16 +79,16 @@ class Article extends Model
     /**
      * よく読まれているニュースを取得する
      */
-    public function newsRanking()
-    {
-        $news = Article::select('url', 'news', DB::raw('count(*) as total'))
-            ->groupBy('url', 'news')
-            ->having('total', '>', 1)
-            ->orderBy('total', 'desc')
-            ->limit(3)->get();
+    // public function newsRanking()
+    // {
+    //     $news = Article::select('url', 'news', DB::raw('count(*) as total'))
+    //         ->groupBy('url', 'news')
+    //         ->having('total', '>', 1)
+    //         ->orderBy('total', 'desc')
+    //         ->limit(3)->get();
 
-        return $news;
-    }
+    //     return $news;
+    // }
 
     /**
      * 各メモデータにあるタグ情報を使いユーザが最近使用したタグを表示させる
