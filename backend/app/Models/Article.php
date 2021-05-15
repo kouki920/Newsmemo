@@ -114,12 +114,16 @@ class Article extends Model
             $tag[] = ($tags[$i]['tags']);
         }
         // データが存在する配列のみに絞る
-        $filter_array = array_filter($tag);
+        if (isset($tag)) {
+            $filter_array = array_filter($tag);
+        }
 
         // 取得した多次元配列を1つの配列に格納
         $merge_array = array();
-        foreach ($filter_array as $value) {
-            $merge_array = array_merge($merge_array, $value);
+        if (isset($filter_array)) {
+            foreach ($filter_array as $value) {
+                $merge_array = array_merge($merge_array, $value);
+            }
         }
 
         // 配列において重複する値を削除する為にarray_uniqueを実行する
