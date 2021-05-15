@@ -67,7 +67,7 @@ class ArticleController extends Controller
      * @param Article $article
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request, Article $article, NewsLink $news_link)
+    public function store(StoreRequest $request, Article $article)
     {
         $article->fill($request->all());
         $article->user_id = Auth::id();
