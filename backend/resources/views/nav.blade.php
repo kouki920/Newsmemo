@@ -17,6 +17,11 @@
         @endguest
 
         @auth
+        @if(Auth::id() == config('user.guest_user_id'))
+        <li class="nav-item d-flex align-items-center text-white">
+            {{Auth::user()->name}}
+        </li>
+        @endif
         <!-- Dropdown -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
