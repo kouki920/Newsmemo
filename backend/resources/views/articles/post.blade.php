@@ -26,7 +26,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{ route('articles.edit', compact('article')) }}">
-                        <i class="fas fa-pen mr-1"></i>記事を更新する
+                        <i class="fas fa-pen mr-1"></i>記事を編集する
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
