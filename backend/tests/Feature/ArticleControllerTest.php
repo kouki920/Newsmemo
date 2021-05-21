@@ -139,4 +139,45 @@ class ArticleControllerTest extends TestCase
 
         $response->assertStatus(200)->assertViewIs('articles.edit');
     }
+
+    ### 投稿削除機能のテスト ###
+
+    // ログイン時
+    public function testDestroy()
+    {
+        $this->withoutExceptionHandling();
+
+        // テストデータをDBに保存
+        $user = factory(User::class)->create();
+
+        $body = "テスト本文";
+        $user_id = $user->id;
+        $news = "テストニュース";
+        $url = "https://testexample.com/";
+
+        $article = Article::create(
+            [
+                'body' => $body,
+                'user_id' => $user_id,
+                'news' => $news,
+                'url' => $url,
+            ]
+        );
+
+        // DBからテストデータを削除
+        $response = $this->actingAs($user)->delete(route('articles.destroy', ['article' => $article]));
+
+        // テストデータがDBから削除されているかテスト
+        $this->assertDeleted('articles', [
+            'body' => $body,
+            'user_id' => $user_id
+        ]);
+
+        $this->assertDeleted('news_links', [
+            'news' => $news,
+            'url' => $url,
+        ]);
+
+        $response->assertRedirect(route('articles.index'));
+    }
 }

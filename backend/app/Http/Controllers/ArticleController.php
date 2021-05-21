@@ -105,11 +105,11 @@ class ArticleController extends Controller
     {
         // Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
         $tagNames = $article->tags->map(function ($tag) {
-            return ['text' => $tag->name];
+            return ['text' => optional($tag)->name];
         });
 
         $allTagNames = Tag::all()->map(function ($tag) {
-            return ['text' => $tag->name];
+            return ['text' => optional($tag)->name];
         });
 
         return view('articles.edit', compact('article', 'tagNames', 'allTagNames'));
