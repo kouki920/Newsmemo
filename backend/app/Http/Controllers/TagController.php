@@ -13,6 +13,7 @@ class TagController extends Controller
 
         $articles = $tag->articles->sortByDesc('created_at')->paginate(10);
 
+        session()->flash('msg_success', 'タグ別で投稿を取得しました');
         return view('tags.show', compact('tag', 'articles'));
     }
 }
