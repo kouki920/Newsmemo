@@ -17,4 +17,5 @@ jobs:
           command: npm run dev
       - run:
           name: php test
+          working_directory: tests/Feature
           command: vendor/bin/phpunit
