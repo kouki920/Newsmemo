@@ -59,7 +59,7 @@ class ArticleController extends Controller
         $news = $request->news;
         $url = $request->url;
 
-        session()->flash('msg_success', '投稿内容を入力してください');
+        session()->flash('msg_success', '投稿してください');
         return view('articles.create', compact('allTagNames', 'news', 'url'));
     }
 
