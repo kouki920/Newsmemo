@@ -24,6 +24,7 @@ class UserController extends Controller
 
         $total_category = $article->totalCategory($user->id);
 
+        session()->flash('msg_success', 'プロフィールを表示しました');
         return view('users.show', compact('user', 'articles', 'total_category'));
     }
 
@@ -35,6 +36,9 @@ class UserController extends Controller
     public function edit(string $name)
     {
         $user = User::where('name', $name)->first();
+
+        // UserPolicyのupdateメソッドでアクセス制限
+        // $this->authorize('update', $user);
 
         return view('users.edit', compact('user'));
     }
@@ -48,6 +52,9 @@ class UserController extends Controller
     public function update(UpdateRequest $request, string $name)
     {
         $user = User::where('name', $name)->first();
+
+        // UserPolicyのupdateメソッドでアクセス制限
+        // $this->authorize('update', $user);
 
         $user->fill($request->all())->save();
 
@@ -149,6 +156,7 @@ class UserController extends Controller
         if ($user->id != config('user.guest_user_id')) {
             $user->delete();
         }
+
         return redirect('register');
     }
 }

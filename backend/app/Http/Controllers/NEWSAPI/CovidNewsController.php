@@ -4,6 +4,8 @@ namespace App\Http\Controllers\NEWSAPI;
 
 use App\Http\Requests\Api\CovidCustomRequest;
 use App\Http\Controllers\Controller;
+use app\Interfaces\CovidNewsInterface;
+use App\Services\CovidNewsService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
@@ -38,6 +40,7 @@ class CovidNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
+        session()->flash('msg_success', 'ニュースを取得しました');
         return view('articles.covid_index', compact('news'));
     }
 
@@ -73,6 +76,7 @@ class CovidNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
+        session()->flash('msg_success', 'ニュースを取得しました');
         return view('articles.covid_index', compact('news'));
     }
 }

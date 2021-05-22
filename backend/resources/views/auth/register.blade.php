@@ -14,7 +14,7 @@
                     @include('error_list')
 
                     <div class="card-text">
-                        <form action="{{route('register')}}" method="POST">
+                        <form action="{{route('register')}}" method="POST" 　novalidate="novalidate">
                             @csrf
                             <div class="md-form">
                                 <label for="name">お名前</label>

@@ -8,6 +8,7 @@ use App\Models\Memo;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
+use App\Http\Requests\Article\EditRequest;
 use App\Models\NewsLink;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -100,21 +101,18 @@ class ArticleController extends Controller
      * @param  Article $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Article $article)
+    public function edit(Article $article)
     {
         // Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
         $tagNames = $article->tags->map(function ($tag) {
-            return ['text' => $tag->name];
+            return ['text' => optional($tag)->name];
         });
 
         $allTagNames = Tag::all()->map(function ($tag) {
-            return ['text' => $tag->name];
+            return ['text' => optional($tag)->name];
         });
 
-        $news = $request->news;
-        $url = $request->url;
-
-        return view('articles.edit', compact('article', 'tagNames', 'allTagNames', 'news', 'url'));
+        return view('articles.edit', compact('article', 'tagNames', 'allTagNames'));
     }
 
     /**
