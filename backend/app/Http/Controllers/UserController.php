@@ -24,6 +24,7 @@ class UserController extends Controller
 
         $total_category = $article->totalCategory($user->id);
 
+        session()->flash('msg_success', 'プロフィールを表示しました');
         return view('users.show', compact('user', 'articles', 'total_category'));
     }
 

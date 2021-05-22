@@ -6,17 +6,15 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Mockery;
 
 class CovidNewsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-
     ### コロナ関連ニュース一覧機能のテスト ###
 
     // ログイン時
-    public function testCovidIndex()
+    public function testCovidNewsIndex()
     {
         $user = factory(User::class)->create();
 
@@ -24,14 +22,5 @@ class CovidNewsControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertViewIs('articles.covid_index');
-    }
-
-
-    ### カテゴリ別コロナ関連ニュース一覧機能のテスト ###
-
-    // ログイン時
-    public function testCustomCovidIndex()
-    {
-        //
     }
 }
