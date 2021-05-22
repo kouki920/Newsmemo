@@ -13,5 +13,12 @@
             <input type="hidden" name="url" value="{{$data['url']}}">
             <input type="submit" value="メモする">
         </form>
+        <form action="{{route('articles.store')}}" method="POST">
+            @csrf
+            <input type="hidden" name="news" value="{{$data['name']}}">
+            <input type="hidden" name="url" value="{{$data['url']}}">
+            <input type="hidden" name="body" value="後で読む">
+            <input type="submit" value="クイックメモ">
+        </form>
     </div>
 </div>
