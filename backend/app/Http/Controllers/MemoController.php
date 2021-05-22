@@ -29,6 +29,7 @@ class MemoController extends Controller
 
         $article = Article::with(['user', 'likes', 'tags'])->where('id', $memo->article_id)->first();
 
+        session()->flash('msg_success', '非公開メモを編集してください');
         return view('memos.edit', compact('memo', 'article'));
     }
 
@@ -40,7 +41,7 @@ class MemoController extends Controller
 
         $article = $request->articleId($request);
 
-        return redirect()->route('articles.show', compact('article'));
+        return redirect()->route('articles.show', compact('article'))->with('msg_success', '非公開メモを更新しました');
     }
 
     public function destroy(Memo $memo)

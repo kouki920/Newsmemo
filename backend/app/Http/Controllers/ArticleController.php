@@ -40,6 +40,7 @@ class ArticleController extends Controller
         $ranked_articles = $article->articleRanking();
         $ranked_news = $newsLink->newsRanking();
 
+        session()->flash('msg_success', 'タイムラインを取得しました');
         return view('articles.index', compact('articles', 'ranked_articles', 'ranked_news'));
     }
 
@@ -58,6 +59,7 @@ class ArticleController extends Controller
         $news = $request->news;
         $url = $request->url;
 
+        session()->flash('msg_success', '投稿内容を入力してください');
         return view('articles.create', compact('allTagNames', 'news', 'url'));
     }
 
@@ -92,6 +94,7 @@ class ArticleController extends Controller
     {
         $memos = $article->memos->where('article_id', $article->id)->sortBy('created_at');
 
+        session()->flash('msg_success', '詳細画面を表示しました');
         return view('articles.show', compact('article', 'memos'));
     }
 
@@ -112,6 +115,7 @@ class ArticleController extends Controller
             return ['text' => optional($tag)->name];
         });
 
+        session()->flash('msg_success', '投稿を編集してください');
         return view('articles.edit', compact('article', 'tagNames', 'allTagNames'));
     }
 

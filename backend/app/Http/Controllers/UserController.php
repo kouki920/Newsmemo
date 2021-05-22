@@ -40,6 +40,7 @@ class UserController extends Controller
         // UserPolicyのupdateメソッドでアクセス制限
         // $this->authorize('update', $user);
 
+        session()->flash('msg_success', '登録情報を編集してください');
         return view('users.edit', compact('user'));
     }
 
@@ -70,6 +71,7 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first();
 
+        session()->flash('msg_success', 'プロフィールアイコンを選んでください');
         return view('users.image_edit', compact('user'));
     }
 
@@ -108,6 +110,7 @@ class UserController extends Controller
 
         $total_category = $article->totalCategory($user->id);
 
+        session()->flash('msg_success', 'フォロワーリストを表示しました');
         return view('users.follower', compact('user', 'followers', 'total_category'));
     }
 
@@ -125,6 +128,7 @@ class UserController extends Controller
 
         $total_category = $article->totalCategory($user->id);
 
+        session()->flash('msg_success', 'フォローリストを表示しました');
         return view('users.following', compact('user', 'followings', 'total_category'));
     }
 
@@ -142,6 +146,7 @@ class UserController extends Controller
 
         $total_category = $article->totalCategory($user->id);
 
+        session()->flash('msg_success', '後で読むリストを表示しました');
         return view('users.likes', compact('user', 'articles', 'total_category'));
     }
 
@@ -157,6 +162,7 @@ class UserController extends Controller
             $user->delete();
         }
 
+        session()->flash('msg_success', 'ユーザー登録をしてください');
         return redirect('register');
     }
 }
