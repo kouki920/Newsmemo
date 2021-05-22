@@ -15,9 +15,19 @@ jobs:
           key: composer-v1-{{ checksum "backend/composer.lock" }}
           paths:
             - backend/vendor
+      - restore_cache:
+          key: npm-v1-{{ checksum "backend/package-lock.json" }}
       - run:
           working_directory: backend
-          command: npm ci
+          name: npm ci
+          command: |
+            if [ ! -d node_modules ]; then
+              npm ci
+            fi
+      - save_cache:
+          key: npm-v1-{{ checksum "backend/package-lock.json" }}
+          paths:
+            - backend/node_modules
       - run:
           working_directory: backend
           command: npm run dev
