@@ -1,18 +1,15 @@
 @extends('app')
 
-@section('title', $user->name . 'がいいねした記事')
+@section('title', $user->name . 'のデータ')
 
 @section('content')
 <div class="sticky-top">
     @include('nav')
     @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => true])
     @include('users.profile')
-    @include('users.tabs', ['hasArticles' => false, 'hasLikes' => true,'hasData' => false])
+    @include('users.tabs', ['hasArticles' => false, 'hasLikes' => false,'hasData' => true])
 </div>
 <div class="container">
-    @foreach($articles as $article)
-    @include('articles.post')
-    @endforeach
-    @include('articles.pagination')
+    @include('users.data_index')
 </div>
 @endsection

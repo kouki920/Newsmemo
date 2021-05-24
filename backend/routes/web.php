@@ -42,6 +42,8 @@ Route::prefix('users')->name('users.')->group(function () {
     // フォロー、フォロワーの一覧表示
     Route::get('/{name}/follower', 'UserController@follower')->name('follower');
     Route::get('/{name}/following', 'UserController@following')->name('following');
+    // ユーザーのデータを表示
+    Route::get('/{name}/data', 'UserController@userData')->name('userData');
     // プロフィールの編集画面を表示
     Route::get('/{name}/edit', 'UserController@edit')->name('edit');
     // プロフィールの更新
