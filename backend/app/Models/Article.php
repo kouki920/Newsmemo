@@ -18,6 +18,11 @@ class Article extends Model
         'body', 'user_id',
     ];
 
+    protected $appends = [
+        'created_date'
+    ];
+
+
     public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
@@ -77,20 +82,6 @@ class Article extends Model
     }
 
     /**
-     * よく読まれているニュースを取得する
-     */
-    // public function newsRanking()
-    // {
-    //     $news = Article::select('url', 'news', DB::raw('count(*) as total'))
-    //         ->groupBy('url', 'news')
-    //         ->having('total', '>', 1)
-    //         ->orderBy('total', 'desc')
-    //         ->limit(3)->get();
-
-    //     return $news;
-    // }
-
-    /**
      * 各メモデータにあるタグ情報を使いユーザが最近使用したタグを表示させる
      */
     public function totalCategory($id)
@@ -138,5 +129,14 @@ class Article extends Model
             'id' => $this->id,
             'countLikes' => $this->count_likes,
         ];
+    }
+
+    /**
+     * created_atカラムのフォーマットを変更するアクセサ
+     * @return string
+     */
+    public function getCreatedDateAttribute(): string
+    {
+        return $this->created_at->format('Y-m-d');
     }
 }

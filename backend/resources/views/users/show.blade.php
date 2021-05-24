@@ -7,7 +7,7 @@
     @include('nav')
     @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => true])
     @include('users.profile')
-    @include('users.tabs', ['hasArticles' => true, 'hasLikes' => false])
+    @include('users.tabs', ['hasArticles' => true, 'hasLikes' => false,'hasData' => false])
 </div>
 <div class="container">
     @foreach($articles as $article)

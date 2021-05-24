@@ -22,10 +22,14 @@ class UserController extends Controller
 
         $articles = $user->articles->sortByDesc('created_at')->paginate(10);
 
+        $articles_count = $user->countArticle();
+
+        $days_posted = $articles->groupBy('created_date')->count();
+
         $total_category = $article->totalCategory($user->id);
 
         session()->flash('msg_success', 'プロフィールを表示しました');
-        return view('users.show', compact('user', 'articles', 'total_category'));
+        return view('users.show', compact('user', 'articles', 'total_category', 'articles_count', 'days_posted'));
     }
 
     /**
@@ -144,15 +148,36 @@ class UserController extends Controller
 
         $articles = $user->likes->sortByDesc('created_at')->paginate(10);
 
+        $articles_count = $user->countArticle();
+
         $total_category = $article->totalCategory($user->id);
 
         session()->flash('msg_success', '後で読むリストを表示しました');
-        return view('users.likes', compact('user', 'articles', 'total_category'));
+        return view('users.likes', compact('user', 'articles', 'total_category', 'articles_count'));
+    }
+
+    /**
+     * ユーザーデータを表示
+     */
+    public function userData(Article $article, string $name)
+    {
+        $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
+
+        $articles = $user->articles;
+
+        $articles_count = $user->countArticle();
+
+        $total_category = $article->totalCategory($user->id);
+
+        $days_posted = $articles->groupBy('created_date')->count();
+
+        session()->flash('msg_success', 'ユーザーデータを表示しました');
+        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted'));
     }
 
     /**
      * ユーザーデータの削除(退会)
-     *
+     * @param string $name
      */
     public function destroy(string $name)
     {
