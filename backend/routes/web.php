@@ -54,10 +54,14 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::delete('/{name}/destroy', 'UserController@destroy')->name('destroy');
     // プロフィールアイコンの更新
     Route::patch('/{name}/image/update', 'UserController@imageUpdate')->name('imageUpdate');
-    // フォロー、フォロー解除
+
     Route::middleware('auth')->group(function () {
+        // フォロー、フォロー解除
         Route::put('/{name}/follow', 'FollowController@follow')->name('follow');
         Route::delete('/{name}/follow', 'FollowController@unfollow')->name('unfollow');
+        // パスワードリセット機能
+        Route::get('/{name}/password/edit', 'UserController@editPassword')->name('edit_password');
+        Route::post('/{name}/password/update', 'UserController@updatePassword')->name('update_password');
     });
 });
 

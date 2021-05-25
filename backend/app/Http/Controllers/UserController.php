@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -176,6 +177,31 @@ class UserController extends Controller
     }
 
     /**
+     * パスワード変更
+     */
+    public function editPassword(string $name)
+    {
+        $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
+
+        session()->flash('msg_success', 'パスワードを変更してください');
+
+        return view('users.password_edit', compact('user'));
+    }
+
+    /**
+     * パスワードの更新
+     */
+    public function updatePassword(UpdatePasswordRequest $request, string $name)
+    {
+        $user = User::where('name', $name)->first();
+        $user->password = bcrypt($request->get('new_password'));
+        $user->save();
+
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'パスワードを変更しました');
+    }
+
+
+    /**
      * ユーザーデータの削除(退会)
      * @param string $name
      */
@@ -187,7 +213,6 @@ class UserController extends Controller
             $user->delete();
         }
 
-        session()->flash('msg_success', 'ユーザー登録をしてください');
-        return redirect('register');
+        return redirect('register')->with('msg_success', 'ユーザー登録をしてください');
     }
 }
