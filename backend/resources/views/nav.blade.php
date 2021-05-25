@@ -4,7 +4,7 @@
 
     <ul class="navbar-nav ml-auto">
 
-        @guest
+        <!-- @guest
         <li class="nav-item">
             <a class="nav-link" href="{{route('register')}}">ユーザー登録</a>
         </li>
@@ -14,7 +14,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('login')}}">ログイン</a>
         </li>
-        @endguest
+        @endguest -->
 
         @auth
         @if(Auth::id() == config('user.guest_user_id'))
