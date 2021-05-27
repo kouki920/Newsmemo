@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -46,10 +47,21 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      * @override \Illuminate\Http\Foundation\Auth\AuthenticatesUsers
      */
-    protected function authenticated(Request $request)
+    protected function authenticated(Request $request, $user)
     {
-        // フラッシュメッセージを表示
-        return redirect('/articles')->with('msg_success', 'ログインしました');
+
+        // $date = now();
+        $dt = Carbon::now();
+
+        $login = new \App\Models\Login();
+        $login->user_id = $user->id;
+        $login->year = $dt->year;
+        $login->month = $dt->month;
+        $login->day = $dt->day;
+        $login->hour = $dt->hour;
+        $login->minute = $dt->minute;
+        $login->second = $dt->second;
+        $login->save();
     }
 
     /**
