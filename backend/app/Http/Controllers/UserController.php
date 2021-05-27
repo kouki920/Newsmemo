@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\Article;
+use App\Models\Login;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -160,17 +161,21 @@ class UserController extends Controller
     /**
      * ユーザーデータを表示
      */
-    public function userData(Article $article, string $name)
+    public function userData(Article $article, Login $login, string $name)
     {
         $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         $articles = $user->articles;
+        $logins = $user->logins;
 
         $articles_count = $user->countArticle();
 
         $total_category = $article->totalCategory($user->id);
 
         $days_posted = $articles->groupBy('created_date')->count();
+
+        $total_login = $logins->groupBy('login_date')->count();
+        dd($total_login);
 
         session()->flash('msg_success', 'ユーザーデータを表示しました');
         return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted'));
