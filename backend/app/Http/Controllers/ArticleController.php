@@ -40,7 +40,6 @@ class ArticleController extends Controller
         $ranked_articles = $article->articleRanking();
         $ranked_news = $newsLink->newsRanking();
 
-        session()->flash('msg_success', 'タイムラインを取得しました');
         return view('articles.index', compact('articles', 'ranked_articles', 'ranked_news'));
     }
 
@@ -94,7 +93,6 @@ class ArticleController extends Controller
     {
         $memos = $article->memos->where('article_id', $article->id)->sortBy('created_at');
 
-        session()->flash('msg_success', '詳細画面を表示しました');
         return view('articles.show', compact('article', 'memos'));
     }
 
