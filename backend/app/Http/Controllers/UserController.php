@@ -24,14 +24,18 @@ class UserController extends Controller
 
         $articles = $user->articles->sortByDesc('created_at')->paginate(10);
 
+        $logins = $user->logins;
+
         $articles_count = $user->countArticle();
 
         $days_posted = $articles->groupBy('created_date')->count();
 
         $total_category = $article->totalCategory($user->id);
 
+        $total_login = $logins->groupBy('login_date')->count();
+
         session()->flash('msg_success', 'プロフィールを表示しました');
-        return view('users.show', compact('user', 'articles', 'total_category', 'articles_count', 'days_posted'));
+        return view('users.show', compact('user', 'articles', 'total_category', 'articles_count', 'days_posted', 'total_login'));
     }
 
     /**
@@ -161,7 +165,7 @@ class UserController extends Controller
     /**
      * ユーザーデータを表示
      */
-    public function userData(Article $article, Login $login, string $name)
+    public function userData(Article $article, string $name)
     {
         $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
 
@@ -175,10 +179,9 @@ class UserController extends Controller
         $days_posted = $articles->groupBy('created_date')->count();
 
         $total_login = $logins->groupBy('login_date')->count();
-        dd($total_login);
 
         session()->flash('msg_success', 'ユーザーデータを表示しました');
-        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted'));
+        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted', 'total_login'));
     }
 
     /**

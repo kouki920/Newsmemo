@@ -7,7 +7,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -50,8 +49,8 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
 
-        // $date = now();
-        $dt = Carbon::now();
+        $dt = now();
+        // $dt = Carbon::now();
 
         $login = new \App\Models\Login();
         $login->user_id = $user->id;
