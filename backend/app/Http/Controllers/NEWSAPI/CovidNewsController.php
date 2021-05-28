@@ -40,7 +40,7 @@ class CovidNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
-        session()->flash('msg_success', 'ニュースを取得しました');
+
         return view('articles.covid_index', compact('news'));
     }
 
@@ -76,7 +76,7 @@ class CovidNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
-        session()->flash('msg_success', 'ニュースを取得しました');
+
         return view('articles.covid_index', compact('news'));
     }
 }

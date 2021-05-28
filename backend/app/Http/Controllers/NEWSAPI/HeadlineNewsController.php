@@ -38,7 +38,7 @@ class HeadlineNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
-        session()->flash('msg_success', 'ニュースを取得しました');
+
         return view('articles.news_index', compact('news'));
     }
 
@@ -75,7 +75,7 @@ class HeadlineNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
-        session()->flash('msg_success', 'ニュースを取得しました');
+
         return view('articles.news_index', compact('news'));
     }
 }

@@ -34,7 +34,6 @@ class UserController extends Controller
 
         $total_login = $logins->groupBy('login_date')->count();
 
-        session()->flash('msg_success', 'プロフィールを表示しました');
         return view('users.show', compact('user', 'articles', 'total_category', 'articles_count', 'days_posted', 'total_login'));
     }
 
@@ -120,7 +119,6 @@ class UserController extends Controller
 
         $total_category = $article->totalCategory($user->id);
 
-        session()->flash('msg_success', 'フォロワーリストを表示しました');
         return view('users.follower', compact('user', 'followers', 'total_category'));
     }
 
@@ -138,7 +136,6 @@ class UserController extends Controller
 
         $total_category = $article->totalCategory($user->id);
 
-        session()->flash('msg_success', 'フォローリストを表示しました');
         return view('users.following', compact('user', 'followings', 'total_category'));
     }
 
@@ -158,7 +155,6 @@ class UserController extends Controller
 
         $total_category = $article->totalCategory($user->id);
 
-        session()->flash('msg_success', '後で読むリストを表示しました');
         return view('users.likes', compact('user', 'articles', 'total_category', 'articles_count'));
     }
 
@@ -180,7 +176,6 @@ class UserController extends Controller
 
         $total_login = $logins->groupBy('login_date')->count();
 
-        session()->flash('msg_success', 'ユーザーデータを表示しました');
         return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted', 'total_login'));
     }
 
