@@ -21,11 +21,11 @@ class Login extends Model
     }
 
     /**
+     * year,month,dayを結合させてY-m-dの形にするアクセサ
      * @return login_date
      */
     public function getLoginDateAttribute(): string
     {
-        // return $this->select(DB::raw('CONCAT(logins.year,logins.month,logins.day) as total_login'));
         return $this->year . $this->month . $this->day;
     }
 }
