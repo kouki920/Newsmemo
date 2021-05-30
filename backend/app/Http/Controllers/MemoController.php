@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Memo;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Console\Input\Input;
 
 class MemoController extends Controller
 {
@@ -29,7 +30,6 @@ class MemoController extends Controller
 
         $article = Article::with(['user', 'likes', 'tags'])->where('id', $memo->article_id)->first();
 
-        session()->flash('msg_success', '非公開メモを編集してください');
         return view('memos.edit', compact('memo', 'article'));
     }
 
