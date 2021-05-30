@@ -5,7 +5,6 @@
 @section('content')
 <div class="sticky-top">
     @include('nav')
-    @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => false])
 </div>
 <div class="container">
     <div class="row">

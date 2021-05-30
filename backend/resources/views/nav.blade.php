@@ -4,7 +4,7 @@
 
     <ul class="navbar-nav ml-auto">
 
-        @guest
+        <!-- @guest
         <li class="nav-item">
             <a class="nav-link" href="{{route('register')}}">ユーザー登録</a>
         </li>
@@ -14,14 +14,12 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('login')}}">ログイン</a>
         </li>
-        @endguest
+        @endguest -->
 
         @auth
-        @if(Auth::id() == config('user.guest_user_id'))
         <li class="nav-item d-flex align-items-center text-white">
             {{Auth::user()->name}}
         </li>
-        @endif
         <!-- Dropdown -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

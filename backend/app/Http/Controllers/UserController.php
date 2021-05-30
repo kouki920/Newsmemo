@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\Article;
+use App\Models\Login;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -22,10 +24,17 @@ class UserController extends Controller
 
         $articles = $user->articles->sortByDesc('created_at')->paginate(10);
 
+        $logins = $user->logins;
+
+        $articles_count = $user->countArticle();
+
+        $days_posted = $articles->groupBy('created_date')->count();
+
         $total_category = $article->totalCategory($user->id);
 
-        session()->flash('msg_success', 'プロフィールを表示しました');
-        return view('users.show', compact('user', 'articles', 'total_category'));
+        $total_login = $logins->groupBy('login_date')->count();
+
+        return view('users.show', compact('user', 'articles', 'total_category', 'articles_count', 'days_posted', 'total_login'));
     }
 
     /**
@@ -140,14 +149,62 @@ class UserController extends Controller
 
         $articles = $user->likes->sortByDesc('created_at')->paginate(10);
 
+        $articles_count = $user->countArticle();
+
         $total_category = $article->totalCategory($user->id);
 
-        return view('users.likes', compact('user', 'articles', 'total_category'));
+        return view('users.likes', compact('user', 'articles', 'total_category', 'articles_count'));
     }
 
     /**
+     * ユーザーデータを表示
+     */
+    public function userData(Article $article, string $name)
+    {
+        $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
+
+        $articles = $user->articles;
+        $logins = $user->logins;
+
+        $articles_count = $user->countArticle();
+
+        $total_category = $article->totalCategory($user->id);
+
+        $days_posted = $articles->groupBy('created_date')->count();
+
+        $total_login = $logins->groupBy('login_date')->count();
+
+        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted', 'total_login'));
+    }
+
+    /**
+     * パスワード変更
+     */
+    public function editPassword(string $name)
+    {
+        $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
+
+        session()->flash('msg_success', 'パスワードを変更してください');
+
+        return view('users.password_edit', compact('user'));
+    }
+
+    /**
+     * パスワードの更新
+     */
+    public function updatePassword(UpdatePasswordRequest $request, string $name)
+    {
+        $user = User::where('name', $name)->first();
+        $user->password = bcrypt($request->get('new_password'));
+        $user->save();
+
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'パスワードを変更しました');
+    }
+
+
+    /**
      * ユーザーデータの削除(退会)
-     *
+     * @param string $name
      */
     public function destroy(string $name)
     {
@@ -157,6 +214,6 @@ class UserController extends Controller
             $user->delete();
         }
 
-        return redirect('register');
+        return redirect('register')->with('msg_success', 'ユーザー登録をしてください');
     }
 }

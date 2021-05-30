@@ -15,7 +15,7 @@ class CovidNewsController extends Controller
     public function defaultIndex()
     {
         try {
-            $url = config('newsapi.news_api_url') . "everything?q=コロナウイルス&pageSize=40&sortBy=publishedAt&apiKey=" . config('newsapi.news_api_key');
+            $url = config('newsapi.news_api_url') . "everything?q=+COVID-19 AND 新型コロナ&language=jp&pageSize=40&sortBy=publishedAt&apiKey=" . config('newsapi.news_api_key');
             $method = "GET";
 
             $client = new Client();
@@ -40,7 +40,7 @@ class CovidNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
-        session()->flash('msg_success', 'ニュースを取得しました');
+
         return view('articles.covid_index', compact('news'));
     }
 
@@ -76,7 +76,7 @@ class CovidNewsController extends Controller
                 echo Psr7\Message::toString($e->getResponse());
             }
         }
-        session()->flash('msg_success', 'ニュースを取得しました');
+
         return view('articles.covid_index', compact('news'));
     }
 }

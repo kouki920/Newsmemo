@@ -58,6 +58,7 @@ class ArticleController extends Controller
         $news = $request->news;
         $url = $request->url;
 
+        session()->flash('msg_success', '投稿してください');
         return view('articles.create', compact('allTagNames', 'news', 'url'));
     }
 
@@ -112,6 +113,7 @@ class ArticleController extends Controller
             return ['text' => optional($tag)->name];
         });
 
+        session()->flash('msg_success', '投稿を編集してください');
         return view('articles.edit', compact('article', 'tagNames', 'allTagNames'));
     }
 

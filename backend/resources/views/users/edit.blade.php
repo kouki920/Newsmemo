@@ -59,4 +59,7 @@
         </div>
     </div>
 </div>
+<div class="fixed-bottom">
+    @include('articles.footer')
+</div>
 @endsection
