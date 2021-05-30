@@ -49,7 +49,6 @@ class UserController extends Controller
         // UserPolicyのupdateメソッドでアクセス制限
         // $this->authorize('update', $user);
 
-        session()->flash('msg_success', '登録情報を編集してください');
         return view('users.edit', compact('user'));
     }
 
@@ -80,7 +79,6 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first();
 
-        session()->flash('msg_success', 'プロフィールアイコンを選んでください');
         return view('users.image_edit', compact('user'));
     }
 
