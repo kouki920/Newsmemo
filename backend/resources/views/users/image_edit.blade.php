@@ -18,7 +18,7 @@
                             @csrf
                             @method('PATCH')
                             <div class="form-group">
-                                <label for="image">プロフィール画像</label>
+                                <label for="image">プロフィール画像を選択して下さい</label>
                                 <input type="file" class="form-control" id="image" name="image" value="{{$user->image}}">
                             </div>
                             <input type="hidden" class="form-control" id="email" name="email" value="{{$user->email}}">
@@ -34,4 +34,8 @@
         </div>
     </div>
 </div>
+<div class="fixed-bottom">
+    @include('articles.footer')
+</div>
+
 @endsection
