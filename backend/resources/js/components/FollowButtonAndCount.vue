@@ -11,6 +11,14 @@
       ></i>
       {{ buttonText }}
     </button>
+    <div>
+      <a v-bind:href="userFollowing" class="ml-1">
+        {{countFollowings}}&ensp;フォロー&ensp;
+      </a>
+      <a v-bind:href="userFollower">
+        {{countFollowers}}&ensp;フォロワー
+      </a>
+    </div>
   </div>
 </template>
 
@@ -20,6 +28,14 @@
       initialIsFollowedBy: {
         type: Boolean,
         default: false,
+      },
+      initialCountFollowings: {
+        type: Number,
+        default: 0,
+      },
+      initialCountFollowers: {
+        type: Number,
+        default: 0,
       },
       authorized: {
       type: Boolean,
@@ -38,6 +54,8 @@
     data() {
       return {
         isFollowedBy: this.initialIsFollowedBy,
+        countFollowings: this.initialCountFollowings,
+        countFollowers: this.initialCountFollowers,
         userFollower: this.UserFollower,
         userFollowing: this.UserFollowing,
       }
@@ -74,11 +92,15 @@
         const response = await axios.put(this.UserFollow)
 
         this.isFollowedBy = true
+        this.countFollowings = response.data.countFollowings
+        this.countFollowers = response.data.countFollowers
       },
       async unfollow() {
         const response = await axios.delete(this.UserFollow)
 
         this.isFollowedBy = false
+        this.countFollowings = response.data.countFollowings
+        this.countFollowers = response.data.countFollowers
       },
     },
   }
