@@ -19,7 +19,7 @@
 
             <div class="card-text ml-auto p-2">
                 @if( Auth::id() !== $user->id )
-                <follow-button :initial-is-followed-by='@json($user->isFollowedBy(Auth::user()))' :authorized='@json(Auth::check())' :initial-count-followings='@json($user->count_followings)' :initial-count-followers='@json($user->count_followers)' user-follow="{{ route('users.follow', ['name' => $user->name]) }}" user-follower="{{route('users.follower',['name' => $user->name])}}" user-following="{{route('users.following',['name' => $user->name])}}">
+                <follow-button :initial-is-followed-by='@json($user->isFollowedBy(Auth::user()))' :authorized='@json(Auth::check())' user-follow="{{ route('users.follow', ['name' => $user->name]) }}" user-follower="{{route('users.follower',['name' => $user->name])}}" user-following="{{route('users.following',['name' => $user->name])}}">
                 </follow-button>
                 @endif
             </div>
