@@ -89,10 +89,15 @@
     <div class="card-text pt-0 pl-3 font-weight-lighter">
         {{$article->created_at->format('Y/m/d H:i')}}
     </div>
-    <div class="card-body pt-0 pb-2 pl-3">
-        <div class="card-text">
+    <div class="card-body pt-0 ">
+        <div class="card-text d-flex flex-row">
             <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
             </article-like>
+            <div class="mt-1 ml-2">
+                @if( Auth::id() === $article->user_id )
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="{{$article->body}}" data-url="{{$article->newsLink->url}}" data-lang="en" data-hashtags="Newsmemo" data-show-count="false">Tweet</a>
+                @endif
+            </div>
         </div>
     </div>
     <div class="card-text m-3">
