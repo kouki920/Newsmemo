@@ -21,8 +21,7 @@ Auth::routes();
 Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
 
 # 投稿関連
-Route::resource('/articles', 'ArticleController')->except(['show', 'create'])->middleware('auth');
-Route::resource('/articles', 'ArticleController')->only(['show']);
+Route::resource('/articles', 'ArticleController')->except(['create'])->middleware('auth');
 Route::post('/articles/create', 'ArticleController@create')->name('articles.create')->middleware('auth');
 
 # いいね機能
