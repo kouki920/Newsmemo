@@ -3,15 +3,11 @@
         @csrf
         <textarea class="form-control add-memo-textarea" id="textAreaExample" rows="4" name="memo" placeholder="メモを入力する">{{$memo->memo ?? old('memo')}}</textarea>
         <input type="hidden" name="article_id" value="{{$article->id}}">
-        <div class="btn-toolbar">
-            <div class="btn-group">
-                <input type="submit" class="btn blue-gradient btn-block mt-2" style="width: 100px;" value="更新">
-            </div>
+        <div class="float-right">
+            <input type="submit" class="btn blue-gradient btn-block mt-2" style="width: 100px;" value="更新">
+        </div>
     </form>
-    <div class="btn-group ml-auto">
-        <a href="{{route('articles.show',compact('article'))}}">
-            <input type="submit" class="btn blue-gradient btn-block mt-2" style="width: 100px;" value="キャンセル">
-        </a>
-    </div>
-</div>
+    <a href="{{route('articles.show',compact('article'))}}">
+        <input type="submit" class="btn blue-gradient btn-block mt-2" style="width: 100px;" value="キャンセル">
+    </a>
 </div>

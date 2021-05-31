@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Login;
 
 class LoginController extends Controller
 {
@@ -50,7 +51,6 @@ class LoginController extends Controller
     {
 
         $dt = now();
-        // $dt = Carbon::now();
 
         $login = new \App\Models\Login();
         $login->user_id = $user->id;
@@ -66,9 +66,19 @@ class LoginController extends Controller
     /**
      * ゲストユーザーログイン
      */
-    public function guestLogin()
+    public function guestLogin(Login $login)
     {
         if (Auth::loginUsingId(config('user.guest_user_id'))) {
+            $dt = now();
+
+            $login->user_id = config('user.guest_user_id');
+            $login->year = $dt->year;
+            $login->month = $dt->month;
+            $login->day = $dt->day;
+            $login->hour = $dt->hour;
+            $login->minute = $dt->minute;
+            $login->second = $dt->second;
+            $login->save();
             return redirect(route('articles.index'))->with('msg_success', 'ゲストユーザーでログインしました');
         }
         return redirect(route('login'))->with('msg_error', 'ゲストログインに失敗しました');
