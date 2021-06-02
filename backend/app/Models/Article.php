@@ -64,8 +64,11 @@ class Article extends Model
     public function scopeSearch($query, $request)
     {
         if (null !== $request) {
-            return $query->where('body', 'like', '%' . $request . '%')
-                ->orWhere('news', 'like', '%' . $request . '%');
+            return Article::whereIn('id', function ($query) use ($request) {
+                $query->select('article_id')->from('news_links')
+                    ->where('news', 'like', '%' . $request . '%')
+                    ->orWhere('body', 'like', '%' . $request . '%');
+            });
         }
     }
 
