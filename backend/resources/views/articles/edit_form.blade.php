@@ -1,4 +1,3 @@
-@csrf
 <div class="form-group">
     <label></label>
     <textarea name="body" required class="form-control" rows="16" placeholder="本文">{{ $article->body ?? old('body') }}</textarea>
@@ -12,3 +11,4 @@
     <input type="hidden" name="url" value="{{$article->newsLink->url}}">
     関連記事:&nbsp;<a href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">{{$article->newsLink->news}}</a>
 </div>
+<button type="submit" class="btn blue-gradient btn-block">更新</button>

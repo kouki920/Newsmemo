@@ -3,7 +3,10 @@
 @section('title', '記事投稿')
 
 @section('content')
-@include('nav')
+<div class="sticky-top">
+    @include('nav')
+    @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => false])
+</div>
 <div class="container">
     <div class="row">
         <div class="col-12">

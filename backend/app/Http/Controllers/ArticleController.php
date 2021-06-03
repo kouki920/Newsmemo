@@ -55,11 +55,13 @@ class ArticleController extends Controller
             return ['text' => $tag->name];
         });
 
+        $user = Auth::user();
+
         $news = $request->news;
         $url = $request->url;
 
         session()->flash('msg_success', '投稿してください');
-        return view('articles.create', compact('allTagNames', 'news', 'url'));
+        return view('articles.create', compact('allTagNames', 'user', 'news', 'url'));
     }
 
     /**

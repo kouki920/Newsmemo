@@ -18,7 +18,6 @@
                             @csrf
                             @method('PATCH')
                             @include('articles.edit_form')
-                            <button type="submit" class="btn blue-gradient btn-block">更新</button>
                         </form>
                     </div>
                 </div>
