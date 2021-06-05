@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Mail\BareMail;
 use App\Notifications\PasswordResetNotification;
-use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
