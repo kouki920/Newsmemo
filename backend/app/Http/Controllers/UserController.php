@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\Article;
-use App\Models\Login;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -46,9 +43,6 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first();
 
-        // UserPolicyのupdateメソッドでアクセス制限
-        // $this->authorize('update', $user);
-
         return view('users.edit', compact('user'));
     }
 
@@ -61,9 +55,6 @@ class UserController extends Controller
     public function update(UpdateRequest $request, string $name)
     {
         $user = User::where('name', $name)->first();
-
-        // UserPolicyのupdateメソッドでアクセス制限
-        // $this->authorize('update', $user);
 
         $user->fill($request->all())->save();
 

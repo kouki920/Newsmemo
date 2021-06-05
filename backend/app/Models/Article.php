@@ -59,13 +59,14 @@ class Article extends Model
     }
 
     /**
-     * 検索ワードを含むメモだけに限定する
+     * 検索ワードを含むarticleデータだけに限定する
+     * リレーション先のテーブル(news_linksのnewsカラム)を含めた検索
      */
     public function scopeSearch($query, $request)
     {
         if (null !== $request) {
-            return Article::whereIn('id', function ($query) use ($request) {
-                $query->select('article_id')->from('news_links')
+            return Article::whereIn('articles.id', function ($query) use ($request) {
+                $query->from('news_links')->select('news_links.article_id')
                     ->where('news', 'like', '%' . $request . '%')
                     ->orWhere('body', 'like', '%' . $request . '%');
             });

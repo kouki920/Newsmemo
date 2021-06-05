@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Tag;
-use App\Models\Memo;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
-use App\Http\Requests\Article\EditRequest;
 use App\Models\NewsLink;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
-use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
@@ -55,13 +51,11 @@ class ArticleController extends Controller
             return ['text' => $tag->name];
         });
 
-        $user = Auth::user();
-
         $news = $request->news;
         $url = $request->url;
 
         session()->flash('msg_success', '投稿してください');
-        return view('articles.create', compact('allTagNames', 'user', 'news', 'url'));
+        return view('articles.create', compact('allTagNames', 'news', 'url'));
     }
 
     /**
@@ -128,7 +122,7 @@ class ArticleController extends Controller
      */
     public function update(UpdateRequest $request, Article $article)
     {
-        $article->fill($request->all())->save();
+        $article->fill($request->validated())->save();
         // タグの更新
         $request->tagsRegister($article);
 
