@@ -25,7 +25,7 @@ class ArticlePolicy
      * Determine whether the user can view the article.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Article  $article
+     * @param  \App\Models\Article  $article
      * @return mixed
      */
     public function view(?User $user, Article $article)
@@ -45,34 +45,34 @@ class ArticlePolicy
     }
 
     /**
-     * Determine whether the user can update the article.
+     * Determine whether the user can edit the article.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Article  $article
+     * @param  \App\Models\Article  $article
      * @return mixed
      */
     public function update(User $user, Article $article)
     {
-        return $user->id === $article->user->id;
+        return $user->id === $article->user_id;
     }
 
     /**
      * Determine whether the user can delete the article.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Article  $article
+     * @param  \App\Models\Article  $article
      * @return mixed
      */
     public function delete(User $user, Article $article)
     {
-        return $user->id === $article->user->id;
+        return $user->id === $article->user_id;
     }
 
     /**
      * Determine whether the user can restore the article.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Article  $article
+     * @param  \App\Models\Article  $article
      * @return mixed
      */
     public function restore(User $user, Article $article)
@@ -84,7 +84,7 @@ class ArticlePolicy
      * Determine whether the user can permanently delete the article.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Article  $article
+     * @param  \App\Models\Article  $article
      * @return mixed
      */
     public function forceDelete(User $user, Article $article)
