@@ -95,36 +95,13 @@ class Article extends Model
             ->where('user_id', $id)
             ->latest()->take(5)->get();
 
-        // 取得したタグデータのnameカラムを空配列に多次元配列として格納する
-        $tags = [];
-        foreach ($articles as $article) {
-            $tags[] = [
-                'tags' => Arr::pluck($article->tags()->select('name')->get()->toArray(), 'name')
-            ];
-        }
-
-        // タグデータの数だけ繰り返し処理で多次元配列'tags'=>[]を減らす
-        $count = count($tags);
-        for ($i = 0; $i < $count; $i++) {
-            $tag[] = ($tags[$i]['tags']);
-        }
-        // データが存在する配列のみに絞る
-        if (isset($tag)) {
-            $filter_array = array_filter($tag);
-        }
-
-        // 取得した多次元配列を1つの配列に格納
-        $merge_array = array();
-        if (isset($filter_array)) {
-            foreach ($filter_array as $value) {
-                $merge_array = array_merge($merge_array, $value);
+        $tag_name = [];
+        foreach ($articles as $value) {
+            foreach ($value->tags as $values) {
+                $tag_name[] = $values->name;
             }
         }
-
-        // 配列において重複する値を削除する為にarray_uniqueを実行する
-        $unique_array = array_unique($merge_array);
-
-        return $unique_array;
+        return $tag_name;
     }
 
     public function likeValidated()
