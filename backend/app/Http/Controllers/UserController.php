@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function show(Article $article, string $name)
     {
-        $user = User::where('name', $name)->first()->load(['articles.user', 'articles.likes', 'articles.tags']);
+        $user = User::where('name', $name)->first()->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
 
         $articles = $user->articles->sortByDesc('created_at')->paginate(10);
 
