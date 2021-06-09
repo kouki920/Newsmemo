@@ -66,10 +66,20 @@ Route::prefix('users')->name('users.')->group(function () {
 
 # メモ追加機能
 Route::prefix('memos')->name('memos.')->middleware('auth')->group(function () {
-    Route::post('/{article}/store', 'MemoController@store')->name('store');
+    Route::post('/{article}store', 'MemoController@store')->name('store');
     Route::get('/{memo}/edit', 'MemoController@edit')->name('edit');
     Route::post('/{memo}/update', 'MemoController@update')->name('update');
     Route::delete('/{memo}/destroy', 'MemoController@destroy')->name('destroy');
+});
+
+# コレクション機能
+Route::prefix('collections')->name('collections.')->middleware('auth')->group(function () {
+    Route::post('/index', 'CollectionController@index')->name('index');
+    Route::post('/{article}/store', 'CollectionController@store')->name('store');
+    Route::get('/{collection}/edit', 'CollectionController@edit')->name('edit');
+    Route::patch('/{collection}/update', 'CollectionController@update')->name('update');
+    Route::delete('/{collection}/destroy', 'CollectionController@destroy')->name('destroy');
+    Route::get('/{name}', 'CollectionController@show')->name('show');
 });
 
 # 設定

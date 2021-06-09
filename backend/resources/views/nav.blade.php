@@ -34,6 +34,10 @@
                     マイページ
                 </button>
                 <div class="dropdown-divider"></div>
+                <button form="collection-button" class="dropdown-item" type="submit">
+                    コレクション
+                </button>
+                <div class="dropdown-divider"></div>
                 <button form="setting-button" class="dropdown-item" type="submit">
                     設定
                 </button>
@@ -48,6 +52,9 @@
             @csrf
         </form>
         <form id="setting-button" method="POST" action="{{route('setting.index',['name' => Auth::user()->name])}}">
+            @csrf
+        </form>
+        <form id="collection-button" method="POST" action="{{route('collections.index')}}">
             @csrf
         </form>
         <!-- Dropdown -->

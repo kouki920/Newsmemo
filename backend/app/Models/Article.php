@@ -48,6 +48,11 @@ class Article extends Model
         return $this->belongsToMany('App\Models\Tag')->withTimestamps();
     }
 
+    public function collections(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Models\Collection')->withTimestamps();
+    }
+
     public function memos(): HasMany
     {
         return $this->hasMany('App\Models\Memo');
