@@ -1,5 +1,5 @@
 <template>
-  <div v-if="text">
+  <div v-if="collectionForm">
   <form @submit.prevent="clickStore">
       <input
         type="hidden"
@@ -11,14 +11,20 @@
         :collections="collections"
         placeholder="コレクション名を入力してください"
         :autocomplete-items="filteredItems"
+        :add-on-key="[13, 32]"
         @tags-changed="newCollections => collections = newCollections"
       />
       <div class="d-flex justify-content-end">
       <button class="btn btn-info d-flex justify-content-end mt-2 p-2" type="submit"
-      v-on:click="clickStore"
+      @click="clickStore"
       >
       登録する
       </button>
+      <transition>
+      <div v-show="show" class="store">
+      登録完了
+      </div>
+      </transition>
       </div>
     </form>
   </div>
@@ -43,19 +49,20 @@ export default {
     endpoint: {
         type: String,
       },
-    text: {
+    collectionForm: {
         type: Boolean,
         default: true,
       },
-    buttonText: {
-      type: String,
-      default: ''
-    },
+    text: {
+        type: Boolean,
+        default: false,
+      },
   },
   data() {
     return {
       collection: '',
       collections: this.initialCollections,
+      show: false,
     };
   },
   computed: {
@@ -71,7 +78,10 @@ export default {
   methods: {
       clickStore() {
         axios.post(this.endpoint,{collections: this.collectionsJson});
-        this.text = !this.text;
+        this.show = true;
+        setTimeout(() => {
+                this.show = false;
+            }, 1);
       },
     },
 };
@@ -89,6 +99,28 @@ export default {
     color: #747373;
     margin-right: 4px;
     border-radius: 0px;
-    font-size: 13px;
+    font-size: 10px;
   }
+</style>
+<style>
+.store {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 150px;
+    height: 50px;
+    background-color: #2d2d2d;
+}
+
+.v-leave-active {
+    transition: opacity 3s;
+}
+.v-leave {
+    opacity: 1;
+}
+
+.v-leave-to {
+    opacity: 0;
+}
 </style>
