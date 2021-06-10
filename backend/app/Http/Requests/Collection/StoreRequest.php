@@ -43,7 +43,7 @@ class StoreRequest extends FormRequest
     public function passedValidation()
     {
         $this->collections = collect(json_decode($this->collections))
-            ->slice(0, 5)
+            ->slice(0, 1)
             ->map(function ($requestCollection) {
                 return $requestCollection->text;
             });
