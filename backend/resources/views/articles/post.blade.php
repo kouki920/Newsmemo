@@ -26,7 +26,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="{{ route('articles.edit', compact('article')) }}">
-                        <i class="fas fa-pen mr-1"></i>記事を編集
+                        <i class="fas fa-pen mr-1"></i>編集
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-info" data-toggle="modal" data-target="#modal-store-{{ $article->id }}">
@@ -34,14 +34,14 @@
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
-                        <i class="fas fa-trash-alt mr-1"></i>記事を削除
+                        <i class="fas fa-trash-alt mr-1"></i>削除
                     </a>
                 </div>
             </div>
         </div>
         <!-- dropdown -->
 
-        <!-- modal -->
+        <!-- 削除 modal -->
         <div id="modal-delete-{{ $article->id }}" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -58,13 +58,13 @@
                         </div>
                         <div class="modal-footer justify-content-between">
                             <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn btn-danger">削除する</button>
+                            <button type="submit" class="btn btn-danger">削除</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <!-- modal 非同期 -->
+        <!-- コレクション 非同期 modal -->
         <div id="modal-store-{{ $article->id }}" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -85,33 +85,6 @@
                 </div>
             </div>
         </div>
-        <!-- modal -->
-        <!-- modal -->
-        <!-- <div id="modal-store-{{ $article->id }}" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form method="POST" action="{{ route('collections.store', compact('article')) }}">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <collection :initial-collections='@json($collectionNames ?? [])' :autocomplete-items='@json($allCollectionNames ?? [])'>
-                                    <collection>
-                            </div>
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn btn-success">保存する</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> -->
-        <!-- modal -->
         @endif
     </div>
     <div class="card-body pt-0 pb-2">
