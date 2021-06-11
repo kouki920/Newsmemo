@@ -60,17 +60,17 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-
-                    <div class="modal-body">
-                        コレクションを削除しますか?
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                        <collection-destroy-button :initial-collections='@json($collectionNames ?? [])' endpoint="{{ route('collections.destroy',['collection' => $collection->id]) }}">
-                        </collection-destroy-button>
-                        <button type="submit" class="btn btn-danger">削除する</button>
-                    </div>
-
+                    <form method="POST" action="{{ route('collections.destroy', compact('collection')) }}">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-body">
+                            コレクションを削除しますか?
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn btn-danger">削除する</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

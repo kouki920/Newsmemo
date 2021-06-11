@@ -1,5 +1,4 @@
 <template>
-  <div v-if="collectionForm">
   <form @submit.prevent="clickStore">
       <input
         type="hidden"
@@ -16,7 +15,6 @@
       />
       <div class="d-flex justify-content-end">
       <button class="btn btn-info d-flex justify-content-end mt-2 p-2" type="submit"
-      @click="clickStore"
       >
       登録する
       </button>
@@ -27,7 +25,6 @@
       </transition>
       </div>
     </form>
-  </div>
 </template>
 
 <script>
@@ -48,14 +45,6 @@ export default {
     },
     endpoint: {
         type: String,
-      },
-    collectionForm: {
-        type: Boolean,
-        default: true,
-      },
-    text: {
-        type: Boolean,
-        default: false,
       },
   },
   data() {

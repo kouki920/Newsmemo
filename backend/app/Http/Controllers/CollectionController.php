@@ -59,9 +59,9 @@ class CollectionController extends Controller
      */
     public function show(string $name)
     {
-        $collection = Collection::with('articles')->where('name', $name)->first();
+        $collection = Collection::where('name', $name)->first();
 
-        $articles = $collection->articles()->orderBy('created_at', 'desc')->paginate(10);
+        $articles = $collection->articles->sortByDesc('created_at')->paginate(10);
 
         return view('collections.show', compact('collection', 'articles'));
     }
@@ -112,7 +112,6 @@ class CollectionController extends Controller
     public function destroy(Collection $collection)
     {
         $collection->delete();
-        // return redirect()->route('collections.index');
-        return back();
+        return redirect()->route('collections.index');
     }
 }
