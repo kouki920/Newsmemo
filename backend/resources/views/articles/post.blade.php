@@ -73,15 +73,12 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST" action="{{ route('collections.store', compact('article')) }}">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <collection :initial-collections='@json($collectionNames ?? [])' :autocomplete-items='@json($allCollectionNames ?? [])' endpoint="{{ route('collections.store', ['article' => $article]) }}">
-                                    <collection>
-                            </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <collection :initial-collections='@json($collectionNames ?? [])' :autocomplete-items='@json($allCollectionNames ?? [])' endpoint="{{ route('collections.store', ['article' => $article]) }}">
+                                <collection>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
