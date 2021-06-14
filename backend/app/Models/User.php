@@ -121,6 +121,14 @@ class User extends Authenticatable
     }
 
     /**
+     * コレクションとのリレーション
+     */
+    public function collections(): HasMany
+    {
+        return $this->hasMany('App\Models\Collection');
+    }
+
+    /**
      * 投稿数のカウントメソッド
      */
     public function countArticle(): int

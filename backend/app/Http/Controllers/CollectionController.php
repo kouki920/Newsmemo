@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Collection;
 use App\Http\Requests\Collection\StoreRequest;
+use App\Models\User;
+use App\Pivots\ArticleCollectionUserId;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -45,8 +47,8 @@ class CollectionController extends Controller
     public function store(StoreRequest $request, Article $article)
     {
         $request->collections->each(function ($collectionName) use ($article) {
-            $collection = Collection::firstOrCreate(['name' => $collectionName]);
-            $article->collections()->attach($collection);
+            $collection = Collection::firstOrCreate(['name' => $collectionName, 'user_id' => Auth::id()]);
+            $article->collections()->syncWithoutDetaching($collection);
         });
     }
 
@@ -74,15 +76,7 @@ class CollectionController extends Controller
      */
     public function edit(Collection $collection, Article $article)
     {
-        // $collectionNames = $article->collections->map(function ($collection) {
-        //     return ['text' => $collection->name];
-        // });
-
-        // $allCollectionNames = Collection::all()->map(function ($collection) {
-        //     return ['text' => $collection->name];
-        // });
-
-        // return view('collections.collection', compact('collection', 'collectionNames', 'allCollectionNames'));
+        return view('collections.collection', compact('collection'));
     }
 
     /**
@@ -92,15 +86,13 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, Collection $collection)
     {
-        // $article->collections()->detach();
-        // $request->collections->each(function ($collectionName) use ($article) {
-        //     $collection = Collection::firstOrCreate(['name' => $collectionName]);
-        //     $article->collections()->attach($collection);
-        // });
+        $collection->fill($request->all())->save();
 
-        // return redirect()->route('collections.index');
+        $collections = Collection::with('articles')->orderBy('created_at', 'desc')->get();
+
+        return view('collections.index', compact('collections'));
     }
 
     /**
@@ -112,6 +104,8 @@ class CollectionController extends Controller
     public function destroy(Collection $collection)
     {
         $collection->delete();
-        return redirect()->route('collections.index');
+
+        $collections = Collection::with('articles')->orderBy('created_at', 'desc')->get();
+        return view('collections.index', compact('collections'));
     }
 }
