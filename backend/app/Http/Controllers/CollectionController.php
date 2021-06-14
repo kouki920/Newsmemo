@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Collection;
 use App\Http\Requests\Collection\StoreRequest;
-use App\Models\User;
-use App\Pivots\ArticleCollectionUserId;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
