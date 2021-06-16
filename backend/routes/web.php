@@ -79,6 +79,7 @@ Route::prefix('collections')->name('collections.')->middleware('auth')->group(fu
     Route::get('/{collection}/edit', 'CollectionController@edit')->name('edit');
     Route::patch('/{collection}/update', 'CollectionController@update')->name('update');
     Route::delete('/{collection}/destroy', 'CollectionController@destroy')->name('destroy');
+    Route::delete('/{collection}/{article}/destroy', 'CollectionController@articleCollectionDestroy')->name('article_collection_destroy');
     Route::get('/{name}', 'CollectionController@show')->name('show');
 });
 

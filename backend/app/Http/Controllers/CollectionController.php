@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Collection;
 use App\Http\Requests\Collection\StoreRequest;
+use App\Pivots\ArticleCollectionUserId;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -59,7 +60,7 @@ class CollectionController extends Controller
      */
     public function show(string $name)
     {
-        $collection = Collection::where('name', $name)->first();
+        $collection = Collection::where('name', $name)->first()->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
 
         $articles = $collection->articles->sortByDesc('created_at')->paginate(10);
 
@@ -103,6 +104,21 @@ class CollectionController extends Controller
     {
         $collection->delete();
 
+        $collections = Collection::with('articles')->orderBy('created_at', 'desc')->get();
+        return view('collections.index', compact('collections'));
+    }
+
+    /**
+     * コレクションに登録されたメモを削除する(メモ自体は削除されない)
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param Collection $collection
+     * @param Article $article
+     * @return \Illuminate\Http\Response
+     */
+    public function articleCollectionDestroy(Request $request, Collection $collection, Article $article)
+    {
+        $article->collections()->detach(['article_id' => $article->id, 'collection_id' => $collection->id]);
         $collections = Collection::with('articles')->orderBy('created_at', 'desc')->get();
         return view('collections.index', compact('collections'));
     }
