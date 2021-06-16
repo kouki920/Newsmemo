@@ -118,9 +118,9 @@
                 <a class="dropdown-item text-success float-left" data-toggle="modal" data-target="#modal-store-{{ $article->id }}">
                     <i class="far fa-folder fa-lg"></i>
                 </a>
-                <!-- <a class="dropdown-item text-danger float-left" data-toggle="modal" data-target="#modal-collection-delete-{{ $article->id }}">
+                <a class="dropdown-item text-danger float-left" data-toggle="modal" data-target="#modal-collection-delete-{{ $article->id }}">
                     <i class="far fa-folder fa-lg"></i>
-                </a> -->
+                </a>
             </div>
 
         </div>
@@ -139,6 +139,29 @@
                                 <collection>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- コレクション 削除 modal -->
+        <div id="modal-collection-delete-{{ $article->id }}" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action="{{ route('collections.article_collection_destroy', compact('article','collection')) }}">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-body">
+                            コレクションから削除しますか?
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn btn-danger">削除</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

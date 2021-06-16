@@ -11,7 +11,7 @@
 </div>
 <div class="container">
     @foreach($articles as $article)
-    @include('articles.post')
+    @include('collections.post')
     @endforeach
     @include('tags.pagination')
 </div>
