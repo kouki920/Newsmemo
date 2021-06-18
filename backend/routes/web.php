@@ -96,3 +96,11 @@ Route::prefix('news')->name('news.')->group(function () {
     Route::get('/covid/default', 'NEWSAPI\CovidNewsController@defaultIndex')->name('covid_default_index');
     Route::post('/covid/custom', 'NEWSAPI\CovidNewsController@customIndex')->name('covid_custom_index');
 });
+
+# お問い合わせフォーム
+Route::prefix('contacts')->name('contacts.')->group(function () {
+    Route::get('/form', 'ContactController@form')->name('form');
+    Route::post('/confirm', 'ContactController@confirm')->name('confirm');
+    Route::post('/send', 'ContactController@send')->name('send');
+    Route::get('/complete', 'ContactController@complete')->name('complete');
+});
