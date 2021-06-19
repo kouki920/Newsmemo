@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Collection;
 use App\Http\Requests\Collection\StoreRequest;
-use App\Pivots\ArticleCollectionUserId;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -16,9 +15,9 @@ class CollectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($id)
     {
-        $collections = Collection::with('articles')->orderBy('created_at', 'desc')->get();
+        $collections = Collection::where('user_id', $id)->orderBy('created_at', 'desc')->get();
 
         return view('collections.index', compact('collections'));
     }
@@ -58,9 +57,9 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(string $name)
+    public function show(string $name, $id)
     {
-        $collection = Collection::where('name', $name)->first()->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
+        $collection = Collection::where('name', $name)->where('user_id', $id)->first()->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
 
         $articles = $collection->articles->sortByDesc('created_at')->paginate(10);
 
@@ -85,11 +84,11 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Collection $collection)
+    public function update(Request $request, Collection $collection, $id)
     {
         $collection->fill($request->all())->save();
 
-        $collections = Collection::with('articles')->orderBy('created_at', 'desc')->get();
+        $collections = Collection::where('user_id', $id)->orderBy('created_at', 'desc')->get();
 
         return view('collections.index', compact('collections'));
     }
@@ -100,11 +99,11 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Collection $collection)
+    public function destroy(Collection $collection, $id)
     {
         $collection->delete();
 
-        $collections = Collection::with('articles')->orderBy('created_at', 'desc')->get();
+        $collections = Collection::where('user_id', $id)->orderBy('created_at', 'desc')->get();
         return view('collections.index', compact('collections'));
     }
 

@@ -1,7 +1,6 @@
-@if(Auth::id() == $collection->user_id)
 <div class="card mt-3 col-6">
     <div class="card-body d-flex flex-row">
-        <a href="{{ route('collections.show', ['name' => $collection->name]) }}" class="text-muted text-decoration-none">
+        <a href="{{ route('collections.show', ['name' => $collection->name,'id' => Auth::id()]) }}" class="text-muted text-decoration-none">
             <p id="collection-name" class="card-title m-1 p-1">{{ $collection->name }}</p>
         </a>
         <!-- dropdown -->
@@ -33,7 +32,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST" action="{{ route('collections.update', compact('collection')) }}">
+                    <form method="POST" action="{{ route('collections.update',['id' => Auth::id(),'collection'=> $collection]) }}">
                         @csrf
                         @method('PATCH')
                         <div class="modal-body text-center">
@@ -61,7 +60,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action="{{ route('collections.destroy', compact('collection')) }}">
+            <form method="POST" action="{{ route('collections.destroy',['id' => Auth::id(),'collection'=> $collection]) }}">
                 @csrf
                 @method('DELETE')
                 <div class="modal-body text-center">
@@ -78,4 +77,3 @@
 <!-- modal -->
 </div>
 </div>
-@endif
