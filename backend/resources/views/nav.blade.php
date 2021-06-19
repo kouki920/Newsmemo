@@ -54,7 +54,7 @@
         <form id="setting-button" method="POST" action="{{route('setting.index',['name' => Auth::user()->name])}}">
             @csrf
         </form>
-        <form id="collection-button" method="POST" action="{{route('collections.index')}}">
+        <form id="collection-button" method="POST" action="{{route('collections.index',['id' => Auth::id()])}}">
             @csrf
         </form>
         <!-- Dropdown -->
