@@ -22,19 +22,6 @@ class CollectionController extends Controller
         return view('collections.index', compact('collections'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        $allCollectionNames = Collection::all()->map(function ($collection) {
-            return ['text' => $collection->name];
-        });
-
-        return view('articles.create', compact('allCollectionNames'));
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -66,16 +53,6 @@ class CollectionController extends Controller
         return view('collections.show', compact('collection', 'articles'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Collection $collection, Article $article)
-    {
-        return view('collections.collection', compact('collection'));
-    }
 
     /**
      * Update the specified resource in storage.
