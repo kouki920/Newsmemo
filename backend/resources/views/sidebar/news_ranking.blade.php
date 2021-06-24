@@ -1,4 +1,4 @@
-<div class="card-body py-1">
+<div class="card-body p-3">
     <ul class="list-group mt-3">
         <li class="list-group-item bg-info text-center">読まれているニュースTOP3</li>
     </ul>

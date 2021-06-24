@@ -23,11 +23,11 @@ class UserController extends Controller
 
         $logins = $user->logins;
 
-        $articles_count = $user->countArticle();
+        $articles_count = $user->getCountArticle();
 
         $days_posted = $articles->groupBy('created_date')->count();
 
-        $total_category = $article->totalCategory($user->id);
+        $total_category = $article->getTotalCategory($user->id);
 
         $total_login = $logins->groupBy('login_date')->count();
 
@@ -106,7 +106,7 @@ class UserController extends Controller
 
         $followers = $user->followers->sortByDesc('created_at');
 
-        $total_category = $article->totalCategory($user->id);
+        $total_category = $article->getTotalCategory($user->id);
 
         return view('users.follower', compact('user', 'followers', 'total_category'));
     }
@@ -123,7 +123,7 @@ class UserController extends Controller
 
         $followings = $user->followings->sortByDesc('created_at');
 
-        $total_category = $article->totalCategory($user->id);
+        $total_category = $article->getTotalCategory($user->id);
 
         return view('users.following', compact('user', 'followings', 'total_category'));
     }
@@ -140,9 +140,9 @@ class UserController extends Controller
 
         $articles = $user->likes->sortByDesc('created_at')->paginate(10);
 
-        $articles_count = $user->countArticle();
+        $articles_count = $user->getCountArticle();
 
-        $total_category = $article->totalCategory($user->id);
+        $total_category = $article->getTotalCategory($user->id);
 
         return view('users.likes', compact('user', 'articles', 'total_category', 'articles_count'));
     }
@@ -157,9 +157,9 @@ class UserController extends Controller
         $articles = $user->articles;
         $logins = $user->logins;
 
-        $articles_count = $user->countArticle();
+        $articles_count = $user->getCountArticle();
 
-        $total_category = $article->totalCategory($user->id);
+        $total_category = $article->getTotalCategory($user->id);
 
         $days_posted = $articles->groupBy('created_date')->count();
 

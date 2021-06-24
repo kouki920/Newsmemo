@@ -19,15 +19,16 @@ class NewsLink extends Model
 
     /**
      * よく読まれているニュースを取得する
+     *
+     * @param $query
+     * @return array
      */
-    public function newsRanking()
+    public function getNewsRanking()
     {
-        $news = NewsLink::select('url', 'news', DB::raw('count(*) as total'))
+        return $this->select('url', 'news', DB::raw('count(*) as total'))
             ->groupBy('url', 'news')
             ->having('total', '>', 1)
             ->orderBy('total', 'desc')
             ->limit(3)->get();
-
-        return $news;
     }
 }

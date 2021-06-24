@@ -11,13 +11,18 @@ class Tag extends Model
         'name',
     ];
 
-    public function getHashtagAttribute(): string
-    {
-        return '#' . $this->name;
-    }
-
     public function articles(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Article')->withTimestamps();
+    }
+
+    /**
+     * タグ機能で自動的にハッシュタグ文字が付与されるようにする
+     *
+     * @return string
+     */
+    public function getHashtagAttribute(): string
+    {
+        return '#' . $this->name;
     }
 }
