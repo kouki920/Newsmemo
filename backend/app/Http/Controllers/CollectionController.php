@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Collection;
 use App\Http\Requests\Collection\StoreRequest;
+use App\Http\Requests\Collection\UpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,9 @@ class CollectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Collection $collection, $id)
     {
-        $collections = Collection::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        $collections = $collection->getCollectionIndex(Auth::id());
 
         return view('collections.index', compact('collections'));
     }
@@ -42,13 +43,14 @@ class CollectionController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     * @param string $name
      * @return \Illuminate\Http\Response
      */
     public function show(string $name, $id)
     {
         $collection = Collection::where('name', $name)->where('user_id', $id)->first()->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
 
-        $articles = $collection->articles->sortByDesc('created_at')->paginate(10);
+        $articles = $collection->getCollectionArticleData();
 
         return view('collections.show', compact('collection', 'articles'));
     }
@@ -61,11 +63,11 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Collection $collection, $id)
+    public function update(UpdateRequest $request, Collection $collection, $id)
     {
-        $collection->fill($request->all())->save();
+        $collection->fill($request->validated())->save();
 
-        $collections = Collection::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        $collections = $collection->getCollectionIndex(Auth::id());
 
         return view('collections.index', compact('collections'));
     }
@@ -80,7 +82,7 @@ class CollectionController extends Controller
     {
         $collection->delete();
 
-        $collections = Collection::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        $collections = $collection->getCollectionIndex(Auth::id());
         return view('collections.index', compact('collections'));
     }
 
@@ -95,7 +97,9 @@ class CollectionController extends Controller
     public function articleCollectionDestroy(Request $request, Collection $collection, Article $article)
     {
         $article->collections()->detach(['article_id' => $article->id, 'collection_id' => $collection->id]);
-        $collections = Collection::with('articles')->orderBy('created_at', 'desc')->get();
+
+        $collections = $collection->getCollectionIndex(Auth::id())->load('articles');
+
         return view('collections.index', compact('collections'));
     }
 }

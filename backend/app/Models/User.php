@@ -41,11 +41,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new PasswordResetNotification($token, new BareMail()));
-    }
-
     /**
      * フォローにおけるユーザーモデルとユーザーモデルの関係は多対多なのでBelongsToManyを使用
      */
@@ -55,37 +50,11 @@ class User extends Authenticatable
     }
 
     /**
-     * フォローとフォロー解除時に使用するメソッド
+     * フォローとフォロー解除時に使用するリレーション
      */
     public function followings(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\User', 'follows', 'follower_id', 'followee_id')->withTimestamps();
-    }
-
-    /**
-     * フォローしているかどうかを判定するメソッド
-     */
-    public function isFollowedBy(?User $user): bool
-    {
-        return $user
-            ? (bool)$this->followers->where('id', $user->id)->count()
-            : false;
-    }
-
-    /**
-     * フォロワー数を表示するアクセサ
-     */
-    public function getCountFollowersAttribute(): int
-    {
-        return $this->followers()->count();
-    }
-
-    /**
-     * フォロー数を表示するアクセサ
-     */
-    public function getCountFollowingsAttribute(): int
-    {
-        return $this->followings()->count();
     }
 
     /**
@@ -130,9 +99,53 @@ class User extends Authenticatable
 
     /**
      * 投稿数のカウントメソッド
+     *
+     * @return int
      */
-    public function countArticle(): int
+    public function getCountArticle(): int
     {
         return $this->articles()->count();
+    }
+
+    /**
+     * フォロワー数を表示するアクセサ
+     *
+     * @return int
+     */
+    public function getCountFollowersAttribute(): int
+    {
+        return $this->followers()->count();
+    }
+
+    /**
+     * フォロー数を表示するアクセサ
+     *
+     * @return int
+     */
+    public function getCountFollowingsAttribute(): int
+    {
+        return $this->followings()->count();
+    }
+
+    /**
+     * フォローしているかどうかを判定するメソッド
+     *
+     * @return bool
+     */
+    public function isFollowedBy(?User $user): bool
+    {
+        return $user
+            ? (bool)$this->followers->where('id', $user->id)->count()
+            : false;
+    }
+
+    /**
+     * パスワードリセットに関するメソッドのオーバーライド
+     *
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordResetNotification($token, new BareMail()));
     }
 }

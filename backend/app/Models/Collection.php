@@ -21,4 +21,21 @@ class Collection extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    /**
+     * コレクション名の一覧を取得
+     *
+     */
+    public function getCollectionIndex($id)
+    {
+        return $this->where('user_id', $id)->orderBy('created_at', 'desc')->get();
+    }
+
+    /**
+     * コレクションに属するarticleデータを条件付きで取得
+     */
+    public function getCollectionArticleData()
+    {
+        return $this->articles->sortByDesc('created_at')->paginate(10);
+    }
 }

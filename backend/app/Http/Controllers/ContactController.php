@@ -16,7 +16,6 @@ class ContactController extends Controller
     public function confirm(ConfirmRequest $request)
     {
         $inputs = $request->all();
-        // $inputs = $request->session()->get("form_input");
 
         return view('contacts.confirm', compact('inputs'));
     }
@@ -30,7 +29,7 @@ class ContactController extends Controller
             $contact->fill($input);
             $contact->save();
 
-            return redirect()->route('contacts.complete')->with('msg_success', 'お問い合わせありがとうございました');
+            return redirect()->route('contacts.complete');
         } else {
             return redirect()->route('contacts.form')->withInput($input);
         }

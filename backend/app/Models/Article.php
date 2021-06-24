@@ -64,38 +64,58 @@ class Article extends Model
     }
 
     /**
+     * 一覧表示するためにarticlesテーブルからデータを取得する
+     */
+    public function getArticleIndex($request)
+    {
+        return $this->with(['user', 'likes', 'tags', 'newsLink'])
+            ->orderBy('created_at', 'desc')
+            ->search($request->input('search'))
+            ->paginate(10);
+    }
+
+    /**
      * 検索ワードを含むarticleデータだけに限定する
      * リレーション先のテーブル(news_linksのnewsカラム)を含めた検索
+     *
+     * @param $query
+     * @param \Illuminate\Http\Request $request
+     * @return array
      */
     public function scopeSearch($query, $request)
     {
         if (null !== $request) {
-            return Article::whereIn('articles.id', function ($query) use ($request) {
-                $query->from('news_links')->select('news_links.article_id')
-                    ->where('news', 'like', '%' . $request . '%')
-                    ->orWhere('body', 'like', '%' . $request . '%');
-            });
+            return Article::with(['user', 'likes', 'tags', 'newsLink'])
+                ->whereIn('articles.id', function ($query) use ($request) {
+                    $query->from('news_links')->select('news_links.article_id')
+                        ->where('news', 'like', '%' . $request . '%')
+                        ->orWhere('body', 'like', '%' . $request . '%');
+                });
         }
     }
 
     /**
      * 後で読むボタンを押された数が多い順にメモデータを取得する
+     *
+     * @param $query
+     * @return array
      */
-    public function articleRanking()
+    public function getArticleRanking()
     {
-        $ranked_article = Article::withCount('likes')
+        return $this->withCount('likes')
             ->orderBy('likes_count', 'desc')
             ->limit(3)->get();
-
-        return $ranked_article;
     }
 
     /**
      * 各メモデータにあるタグ情報を使いユーザが最近使用したタグを表示させる
+     * メモに紐づくタグデータをtags-tableから最新順で5件分のみ取得
+     *
+     * @param $query
+     * @return array
      */
-    public function totalCategory($id)
+    public function getTotalCategory($id)
     {
-        // メモに紐づくタグデータをtags-tableから最新順で5件分のみ取得
         $articles = Article::with('tags')
             ->where('user_id', $id)
             ->latest()->take(5)->get();
@@ -109,16 +129,9 @@ class Article extends Model
         return $tag_name;
     }
 
-    public function likeValidated()
-    {
-        return [
-            'id' => $this->id,
-            'countLikes' => $this->count_likes,
-        ];
-    }
-
     /**
      * created_atカラムのフォーマットを変更するアクセサ
+     *
      * @return string
      */
     public function getCreatedDateAttribute(): string
