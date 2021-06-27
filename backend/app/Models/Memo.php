@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Memo extends Model
 {
     protected $fillable = [
-        'user_id', 'article_id', 'memo',
+        'user_id', 'article_id', 'body',
     ];
 
     public function user(): BelongsTo
@@ -21,8 +21,13 @@ class Memo extends Model
         return $this->belongsTo('App\Models\Article');
     }
 
-    // public function memosIndex($id)
-    // {
-    //     return $this->where('article_id', $id)->get();
-    // }
+    /**
+     * memosテーブルからデータを取得
+     *
+     * @param int $id
+     */
+    public function getMemosData($id)
+    {
+        return $this->where('id', $id)->first();
+    }
 }

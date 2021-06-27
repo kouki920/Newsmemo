@@ -33,16 +33,6 @@ class Article extends Model
         return $this->belongsToMany('App\Models\User', 'likes')->withTimestamps();
     }
 
-    public function isLikedBy(?User $user): bool
-    {
-        return $user ? (bool)$this->likes->where('id', $user->id)->count() : false;
-    }
-
-    public function getCountLikesAttribute(): int
-    {
-        return $this->likes->count();
-    }
-
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Tag')->withTimestamps();
@@ -64,12 +54,34 @@ class Article extends Model
     }
 
     /**
+     * ユーザーがいいね済みかどうかを判定
+     * where()で記事をいいねしたユーザーの中に、引数として渡された$userがいるかどうかを判定
+     *
+     * @param \App\Models\User $user
+     * @return bool
+     */
+    public function isLikedBy(?User $user): bool
+    {
+        return $user ? (bool)$this->likes->where('id', $user->id)->count() : false;
+    }
+
+    /**
+     *  現在のいいね数を算出するアクセサ($article->count_likesで呼び出せるようにする)
+     *
+     * @return int
+     */
+    public function getCountLikesAttribute(): int
+    {
+        return $this->likes->count();
+    }
+
+    /**
      * 一覧表示するためにarticlesテーブルからデータを取得する
      */
     public function getArticleIndex($request)
     {
         return $this->with(['user', 'likes', 'tags', 'newsLink'])
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->search($request->input('search'))
             ->paginate(10);
     }
@@ -103,7 +115,7 @@ class Article extends Model
     public function getArticleRanking()
     {
         return $this->withCount('likes')
-            ->orderBy('likes_count', 'desc')
+            ->latest('likes_count')
             ->limit(3)->get();
     }
 
@@ -137,5 +149,13 @@ class Article extends Model
     public function getCreatedDateAttribute(): string
     {
         return $this->created_at->format('Y-m-d');
+    }
+
+    /**
+     * articleデータに付属する非公開メモを取得する
+     */
+    public function getArticleMemo()
+    {
+        return $this->memos->where('article_id', $this->id)->sortBy('created_at');
     }
 }

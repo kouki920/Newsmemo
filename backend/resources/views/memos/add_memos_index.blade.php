@@ -1,7 +1,7 @@
 <ul class="list-group">
     @if( $article->id === $memo->article_id )
     <li class="list-group-item d-flex justify-content-between">
-        <div class="d-flex align-items-center ">{!! nl2br(e( $memo->memo )) !!}</div>
+        <div class="d-flex align-items-center ">{!! nl2br(e( $memo->body )) !!}</div>
         <!-- dropdown -->
         <div class="card-text">
             <div class="dropdown">

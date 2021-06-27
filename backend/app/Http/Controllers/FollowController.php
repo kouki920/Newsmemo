@@ -9,9 +9,11 @@ class FollowController extends Controller
 {
     /**
      * フォローするメソッド
-     * @param Request $request
+     *
+     *
+     * @param \Illuminate\Http\Request $request
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function follow(Request $request, string $name)
     {
@@ -21,6 +23,7 @@ class FollowController extends Controller
             return abort('404', 'Cannot follow yourself.');
         }
 
+        // ユーザーが対象ユーザーを複数回重ねてフォローできないようにするための考慮
         $request->user()->followings()->detach($user);
         $request->user()->followings()->attach($user);
 
@@ -33,9 +36,10 @@ class FollowController extends Controller
 
     /**
      * フォローを解除するメソッド
-     * @param Request $request
+     *
+     * @param \Illuminate\Http\Request $request
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function unfollow(Request $request, string $name)
     {

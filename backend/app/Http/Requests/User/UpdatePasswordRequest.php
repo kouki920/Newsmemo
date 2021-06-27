@@ -25,16 +25,18 @@ class UpdatePasswordRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'current_password' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    if (!(Hash::check($value, Auth::user()->password))) {
-                        return $fail('現在のパスワードを正しく入力してください');
-                    }
-                },
-            ],
-            'new_password' => 'required|string|min:8|max:16|confirmed|different:current_password',
-        ];
+        if (Auth::id() != config('user.guest_user_id')) {
+            return [
+                'current_password' => [
+                    'required',
+                    function ($attribute, $value, $fail) {
+                        if (!(Hash::check($value, Auth::user()->password))) {
+                            return $fail('現在のパスワードを正しく入力してください');
+                        }
+                    },
+                ],
+                'new_password' => 'required|string|min:8|max:16|confirmed|different:current_password',
+            ];
+        }
     }
 }

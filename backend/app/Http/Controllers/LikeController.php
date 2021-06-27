@@ -10,8 +10,9 @@ class LikeController extends Controller
     /**
      * いいね機能のアクションメソッド
      * detachで複数回いいねの対策
-     * @param Request $request
-     * @param Article $article
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Article $article
      * @return array
      */
     public function like(Request $request, Article $article)
@@ -28,8 +29,9 @@ class LikeController extends Controller
     /**
      * いいね解除機能のアクションメソッド
      * detachで複数回いいねの対策
-     * @param Request $request
-     * @param Article $article
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Article $article
      * @return array
      */
     public function unlike(Request $request, Article $article)

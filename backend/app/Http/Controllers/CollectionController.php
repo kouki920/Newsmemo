@@ -12,9 +12,11 @@ use Illuminate\Http\Request;
 class CollectionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * ログインユーザーが保持するコレクション名を一覧で取得
      *
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Collection $collection
+     * @param int $id
+     * @return Illuminate\View\View
      */
     public function index(Collection $collection, $id)
     {
@@ -25,10 +27,12 @@ class CollectionController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * 新規コレクションや既存コレクションにメモを保存
+     * vue.jsを利用して非同期処理を実行する
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\Collection\StoreRequest  $request
+     * @param  \App\Models\Article  $article
+     * @return void
      */
     public function store(StoreRequest $request, Article $article)
     {
@@ -40,15 +44,15 @@ class CollectionController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * コレクション名を選択することでそのコレクションに属するメモを一覧で取得
      *
      * @param  int  $id
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
-    public function show(string $name, $id)
+    public function show(Collection $collection, string $name, $id)
     {
-        $collection = Collection::where('name', $name)->where('user_id', $id)->first()->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
+        $collection = $collection->getCollectionShow($name, $id);
 
         $articles = $collection->getCollectionArticleData();
 
@@ -57,11 +61,11 @@ class CollectionController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * コレクション名を更新
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Collection\UpdateRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
     public function update(UpdateRequest $request, Collection $collection, $id)
     {
@@ -73,10 +77,11 @@ class CollectionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * コレクションを削除
      *
+     * @param  \App\Models\Collection  $collection
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
     public function destroy(Collection $collection, $id)
     {
@@ -87,12 +92,13 @@ class CollectionController extends Controller
     }
 
     /**
-     * コレクションに登録されたメモを削除する(メモ自体は削除されない)
+     * コレクションに登録されたメモをコレクション内から削除する
+     * メモ自体はテーブルから削除されない
      *
      * @param  \Illuminate\Http\Request  $request
      * @param Collection $collection
      * @param Article $article
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
     public function articleCollectionDestroy(Request $request, Collection $collection, Article $article)
     {
