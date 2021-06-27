@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        if (Auth::user()->id == config('user.guest_user_id')) {
+        if (Auth::id() == config('user.guest_user_id')) {
             return [
                 'introduction' => 'string | max:200 | nullable',
             ];

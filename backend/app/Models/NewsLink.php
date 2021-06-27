@@ -28,7 +28,7 @@ class NewsLink extends Model
         return $this->select('url', 'news', DB::raw('count(*) as total'))
             ->groupBy('url', 'news')
             ->having('total', '>', 1)
-            ->orderBy('total', 'desc')
+            ->latest('total')
             ->limit(3)->get();
     }
 }

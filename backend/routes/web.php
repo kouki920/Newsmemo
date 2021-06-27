@@ -84,7 +84,7 @@ Route::prefix('collections')->name('collections.')->middleware('auth')->group(fu
 });
 
 # 設定
-Route::prefix('setting')->name('setting.')->middleware('auth')->group(function () {
+Route::prefix('settings')->name('setting.')->middleware('auth')->group(function () {
     Route::post('/index', 'SettingController@index')->name('index');
     Route::get('/agreement', 'SettingController@agreement')->name('agreement');
 });

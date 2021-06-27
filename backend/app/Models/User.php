@@ -98,7 +98,34 @@ class User extends Authenticatable
     }
 
     /**
-     * 投稿数のカウントメソッド
+     * ユーザーデータをname指定で取得
+     *
+     * @param string $name
+     * @return object
+     */
+    public function getUserData(string $name)
+    {
+        return $this->where('name', $name)->first();
+    }
+
+    /**
+     * ログインユーザーの投稿を10件ごとに取得
+     */
+    public function getUserArticleData()
+    {
+        return $this->articles->sortByDesc('created_at')->paginate(10);
+    }
+
+    /**
+     * ログインユーザーがいいねした投稿を10件ごとに取得
+     */
+    public function getUserLikedArticleData()
+    {
+        return $this->likes->sortByDesc('created_at')->paginate(10);
+    }
+
+    /**
+     * 投稿数の合計をカウント
      *
      * @return int
      */
@@ -137,6 +164,22 @@ class User extends Authenticatable
         return $user
             ? (bool)$this->followers->where('id', $user->id)->count()
             : false;
+    }
+
+    /**
+     * フォロワー詳細画面の表示
+     */
+    public function getUserFollower()
+    {
+        return $this->followers->sortByDesc('created_at');
+    }
+
+    /**
+     * フォロー詳細画面の表示
+     */
+    public function getUserFollowing()
+    {
+        return $this->followings->sortByDesc('created_at');
     }
 
     /**

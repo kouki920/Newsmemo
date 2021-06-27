@@ -24,14 +24,14 @@ class MemoRequest extends FormRequest
     public function rules()
     {
         return [
-            'memo' => 'string | max:200',
+            'body' => 'string | max:200',
         ];
     }
 
     public function attributes()
     {
         return [
-            'memo' => '追記メモ',
+            'body' => '非公開メモ',
         ];
     }
 }
