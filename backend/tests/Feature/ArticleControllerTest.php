@@ -5,6 +5,9 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\Article;
 use App\Models\NewsLink;
+use Illuminate\Http\Request;
+use App\Http\Requests\Article\StoreRequest;
+use App\Http\Requests\Article\UpdateRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -19,19 +22,26 @@ class ArticleControllerTest extends TestCase
     // 未ログイン時
     public function testGuestIndex()
     {
+        // 未ログイン状態でgetリクエストを送る
         $response = $this->get(route('articles.index'));
 
+        // 引数として渡したURLにリダイレクトされたかどうかをテスト
         $response->assertRedirect('login');
     }
 
     // ログイン時
     public function testAuthIndex()
     {
+        // 定義したファクトリーを利用してユーザーデータを作成
         $user = factory(User::class)->create();
 
+        // actingAs()で認証済み状態(ログイン状態)にしてgetリクエストを送る
         $response = $this->actingAs($user)
             ->get(route('articles.index'));
 
+        // assertStatus()でログイン済みの状態で記事一覧画面へアクセスしたレスポンスのステータスをテスト
+        // assertViewIs()で引数に指定したviewが利用されているかをテスト
+        // assertSee()で指定した文字列がレスポンスに含まれていることをテスト
         $response->assertStatus(200)
             ->assertViewIs('articles.index')
             ->assertSee($user->name)
@@ -55,11 +65,15 @@ class ArticleControllerTest extends TestCase
     // ログイン時
     public function testAuthCreate()
     {
+        // 定義したファクトリーを利用してユーザーデータを作成
         $user = factory(User::class)->create();
 
+        // actingAs()で認証済み状態(ログイン状態)にしてpostリクエストを送る
         $response = $this->actingAs($user)
             ->post(route('articles.create'));
 
+        // assertStatus()でログイン済みの状態で記事投稿画面へアクセスしたレスポンスのステータスをテスト
+        // assertViewIs()で引数に指定したviewが利用されているかをテスト
         $response->assertStatus(200)
             ->assertViewIs('articles.create');
     }
@@ -78,11 +92,11 @@ class ArticleControllerTest extends TestCase
     // ログイン時
     public function testAuthStore()
     {
-        // テストデータをDBに保存
+        // 定義したファクトリーを利用してユーザーデータ、投稿データを作成
         $user = factory(User::class)->create();
 
-        $body = "テスト本文";
-        $user_id = $user->id;
+        $article = factory(Article::class)->create();
+
         $news = "テストニュース";
         $url = "https://testexample.com/";
 
@@ -90,8 +104,8 @@ class ArticleControllerTest extends TestCase
             ->post(route(
                 'articles.store',
                 [
-                    'body' => $body,
-                    'user_id' => $user_id,
+                    'body' => $article->body,
+                    'user_id' => $user->id,
                     'news' => $news,
                     'url' => $url,
                 ]
@@ -99,8 +113,8 @@ class ArticleControllerTest extends TestCase
 
         // テストデータがDBに登録されているかテスト
         $this->assertDatabaseHas('articles', [
-            'body' => $body,
-            'user_id' => $user_id
+            'body' => $article->body,
+            'user_id' => $user->id,
         ]);
 
         $this->assertDatabaseHas('news_links', [
@@ -150,15 +164,15 @@ class ArticleControllerTest extends TestCase
         // テストデータをDBに保存
         $user = factory(User::class)->create();
 
-        $body = "テスト本文";
-        $user_id = $user->id;
+        $article = factory(Article::class)->create();
+
         $news = "テストニュース";
         $url = "https://testexample.com/";
 
         $article = Article::create(
             [
-                'body' => $body,
-                'user_id' => $user_id,
+                'body' => $article->body,
+                'user_id' => $user->id,
                 'news' => $news,
                 'url' => $url,
             ]
@@ -169,8 +183,8 @@ class ArticleControllerTest extends TestCase
 
         // テストデータがDBから削除されているかテスト
         $this->assertDeleted('articles', [
-            'body' => $body,
-            'user_id' => $user_id
+            'body' => $article->body,
+            'user_id' => $user->id,
         ]);
 
         $this->assertDeleted('news_links', [
