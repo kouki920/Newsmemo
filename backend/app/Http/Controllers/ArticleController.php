@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Tag;
+use App\Models\NewsLink;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
-use App\Models\NewsLink;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
