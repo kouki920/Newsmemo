@@ -4,77 +4,35 @@ namespace App\Http\Controllers\NEWSAPI;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\HeadlineCustomRequest;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7;
+use App\Services\HeadlineNewsService;
 
 class HeadlineNewsController extends Controller
 {
-    public function defaultIndex()
+    /**
+     * NEWSAPIからヘッドラインニュースデータを取得
+     * serviceクラスで作成したGuzzleを利用したメソッドを指定
+     *
+     * @param \App\Services\HeadlineNewsService $head_news_service
+     * @return array
+     */
+    public function defaultIndex(HeadlineNewsService $head_news_service)
     {
-        try {
-            $url = config('newsapi.news_api_url') . "top-headlines?country=jp&pageSize=30&apiKey=" . config('newsapi.news_api_key');
-            $method = "GET";
+        $news = $head_news_service->defaultIndex();
 
-            $client = new Client();
-            $response = $client->request($method, $url);
-
-            $results = $response->getBody();
-            $articles = json_decode($results, true);
-
-            $news = [];
-            $count = 30;
-
-            for ($id = 0; $id < $count; $id++) {
-                array_push($news, [
-                    'name' => $articles['articles'][$id]['title'],
-                    'url' => $articles['articles'][$id]['url'],
-                    'thumbnail' => $articles['articles'][$id]['urlToImage'],
-                ]);
-            }
-        } catch (RequestException $e) {
-            echo Psr7\Message::toString($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\Message::toString($e->getResponse());
-            }
-        }
-
-        return view('articles.news_index', compact('news'));
+        return view('articles.news_index', ['news' => $news]);
     }
 
-    public function customIndex(HeadlineCustomRequest $request)
+    /**
+     * NEWSAPIからカスタムしたヘッドラインニュースデータを取得
+     * serviceクラスで作成したGuzzleを利用したメソッドを指定
+     *
+     * @param \App\Http\Requests\Api\HeadlineCustomRequest $request
+     * @param \App\Services\HeadlineNewsService $head_news_service
+     * @return array
+     */
+    public function customIndex(HeadlineCustomRequest $request, HeadlineNewsService $head_news_service)
     {
-        try {
-            if (isset($request)) {
-                $country = $request->country;
-                $category = $request->category;
-                $url = config('newsapi.news_api_url') . "top-headlines?country=" . $country . "&category=" . $category . "&pageSize=30&apiKey=" . config('newsapi.news_api_key');
-            }
-
-            $method = "GET";
-
-            $client = new Client();
-            $response = $client->request($method, $url);
-
-            $results = $response->getBody();
-            $articles = json_decode($results, true);
-
-            $news = [];
-            $count = 30;
-
-            for ($id = 0; $id < $count; $id++) {
-                array_push($news, [
-                    'name' => $articles['articles'][$id]['title'],
-                    'url' => $articles['articles'][$id]['url'],
-                    'thumbnail' => $articles['articles'][$id]['urlToImage'],
-                ]);
-            }
-        } catch (RequestException $e) {
-            echo Psr7\Message::toString($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\Message::toString($e->getResponse());
-            }
-        }
+        $news = $head_news_service->customIndex($request);
 
         return view('articles.news_index', compact('news'));
     }
