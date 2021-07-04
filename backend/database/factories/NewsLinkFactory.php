@@ -12,6 +12,6 @@ $factory->define(NewsLink::class, function (Faker $faker) {
             return factory(Article::class)->create()->id;
         },
         'news' => $faker->text(255),
-        'url' => $faker->text(255),
+        'url' => $faker->url,
     ];
 });

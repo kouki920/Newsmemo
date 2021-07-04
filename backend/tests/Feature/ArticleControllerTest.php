@@ -5,9 +5,6 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\Article;
 use App\Models\NewsLink;
-use Illuminate\Http\Request;
-use App\Http\Requests\Article\StoreRequest;
-use App\Http\Requests\Article\UpdateRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -16,10 +13,10 @@ class ArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-
-    ### 投稿一覧表示機能のテスト ###
-
-    // 未ログイン時
+    /**
+     * 投稿一覧表示機能のテスト
+     * 未ログイン時、login画面にリダイレクトするかどうかをテスト
+     */
     public function testGuestIndex()
     {
         // 未ログイン状態でgetリクエストを送る
@@ -29,7 +26,11 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect('login');
     }
 
-    // ログイン時
+    /**
+     * 投稿一覧表示機能のテスト
+     * ログイン時、一覧画面に移動しステータスコードが200かどうかをテスト
+     * 一覧画面で表示される文字列をテスト
+     */
     public function testAuthIndex()
     {
         // 定義したファクトリーを利用してユーザーデータを作成
@@ -52,9 +53,10 @@ class ArticleControllerTest extends TestCase
     }
 
 
-    ### 投稿画面表示機能のテスト ###
-
-    // 未ログイン時
+    /**
+     * 投稿画面の表示機能のテスト
+     * 未ログイン時、ログイン画面にリダイレクトするかのテスト
+     */
     public function testGuestCreate()
     {
         $response = $this->post(route('articles.create'));
@@ -62,7 +64,11 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect('login');
     }
 
-    // ログイン時
+    /**
+     * 投稿画面表示機能のテスト
+     * ログイン時、投稿画面に移動しステータスコードが200かどうかテスト
+     * viewファイル(articles/create)が利用されているかテスト
+     */
     public function testAuthCreate()
     {
         // 定義したファクトリーを利用してユーザーデータを作成
@@ -79,9 +85,10 @@ class ArticleControllerTest extends TestCase
     }
 
 
-    ### 投稿機能のテスト ###
-
-    // 未ログイン時
+    /**
+     * 投稿機能のテスト
+     * 未ログイン時、ログイン画面にリダイレクトするかのテスト
+     */
     public function testGuestStore()
     {
         $response = $this->post(route('articles.store'));
@@ -89,16 +96,22 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect('login');
     }
 
-    // ログイン時
+    /**
+     * 投稿機能のテスト
+     * ログイン時、認証済みユーザーがデータを登録できるかのテスト
+     * DBにデータが登録されているかのテスト
+     * 登録成功時、投稿一覧画面に移動するかのテスト
+     */
     public function testAuthStore()
     {
-        // 定義したファクトリーを利用してユーザーデータ、投稿データを作成
+        // 定義したファクトリーを利用してユーザーデータ、投稿データ、ニュースデータを作成
         $user = factory(User::class)->create();
 
         $article = factory(Article::class)->create();
 
-        $news = "テストニュース";
-        $url = "https://testexample.com/";
+        $news_link = factory(NewsLink::class)->create([
+            'article_id' => $article->id,
+        ]);
 
         $response = $this->actingAs($user)
             ->post(route(
@@ -106,29 +119,30 @@ class ArticleControllerTest extends TestCase
                 [
                     'body' => $article->body,
                     'user_id' => $user->id,
-                    'news' => $news,
-                    'url' => $url,
+                    'news' => $news_link->news,
+                    'url' => $news_link->url,
                 ]
             ));
 
-        // テストデータがDBに登録されているかテスト
+        // テストデータが各DBに登録されているかテスト
         $this->assertDatabaseHas('articles', [
             'body' => $article->body,
             'user_id' => $user->id,
         ]);
 
         $this->assertDatabaseHas('news_links', [
-            'news' => $news,
-            'url' => $url,
+            'news' => $news_link->news,
+            'url' => $news_link->url,
         ]);
 
         $response->assertRedirect(route('articles.index'));
     }
 
 
-    ### 投稿編集機能のテスト ###
-
-    // 未ログイン時
+    /**
+     * 投稿編集画面の表示機能のテスト
+     * 未ログイン時、ログイン画面にリダイレクトするかのテスト
+     */
     public function testGuestEdit()
     {
         $article = factory(Article::class)->create()->each(function (Article $article) {
@@ -136,45 +150,53 @@ class ArticleControllerTest extends TestCase
         });
 
         $response = $this->get(route('articles.edit', ['article' => $article]));
+
         $response->assertRedirect('login');
     }
 
-    // ログイン時
+    /**
+     * 投稿編集画面の表示機能のテスト
+     * ログイン時、ユーザーデータに紐づく投稿データを引数として編集画面に移動しステータスコードが200かどうかテスト
+     * viewファイル(articles/edit)が利用されているかどうかのテスト
+     */
     public function testAuthEdit()
     {
         $this->withoutExceptionHandling();
 
         $article = factory(Article::class)->create();
-        $article->newsLink()->save(factory(NewsLink::class)->make());
+        $news_link = factory(NewsLink::class)->create([
+            'article_id' => $article->id,
+        ]);
 
         $user = $article->user;
 
         $response = $this->actingAs($user)->get(route('articles.edit', ['article' => $article]));
 
-        $response->assertStatus(200)->assertViewIs('articles.edit');
+        $response->assertStatus(200)->assertViewIs('articles.edit')
+            ->assertSee($news_link->news)
+            ->assertSee($news_link->url);
     }
 
-    ### 投稿削除機能のテスト ###
-
-    // ログイン時
+    /**
+     * 投稿削除機能のテスト
+     * ログイン時、投稿データとニュース関連のデータを削除できるかテスト
+     */
     public function testDestroy()
     {
         $this->withoutExceptionHandling();
 
-        // テストデータをDBに保存
+        // 定義したファクトリーを利用してユーザーデータ、投稿データ、newsデータを作成
         $user = factory(User::class)->create();
 
-        $article = factory(Article::class)->create();
-
-        $news = "テストニュース";
-        $url = "https://testexample.com/";
-
-        $article = Article::create(
+        $article = factory(Article::class)->create(
             [
-                'body' => $article->body,
                 'user_id' => $user->id,
-                'news' => $news,
-                'url' => $url,
+            ]
+        );
+
+        $news_link = factory(NewsLink::class)->create(
+            [
+                'article_id' => $article->id,
             ]
         );
 
@@ -188,8 +210,9 @@ class ArticleControllerTest extends TestCase
         ]);
 
         $this->assertDeleted('news_links', [
-            'news' => $news,
-            'url' => $url,
+            'article_id' => $article->id,
+            'news' => $news_link->news,
+            'url' => $news_link->url,
         ]);
 
         $response->assertRedirect(route('articles.index'));

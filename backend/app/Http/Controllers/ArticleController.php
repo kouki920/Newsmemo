@@ -62,7 +62,7 @@ class ArticleController extends Controller
      * 投稿(メモ)の登録
      * APIで取得したnewsへのリンク先とタイトルをnews_linksテーブルに保存、タグの登録と投稿とタグの紐付けも実行
      *
-     * @param \Illuminate\Http\Requests\Article\StoreRequest  $request
+     * @param \App\Http\Requests\Article\StoreRequest  $request
      * @param \App\Models\Article $article
      * @return Illuminate\Http\RedirectResponse
      */

@@ -13,47 +13,64 @@ class RegisterControllerTest extends TestCase
     use RefreshDatabase;
 
 
-    ### ユーザー登録画面表示のテスト ###
+    /**
+     * ユーザー登録画面表示のテスト
+     */
     public function testGuestShow()
     {
         $response = $this->get(route('register'));
+
         $response->assertViewIs('auth.register');
     }
 
-
-    ### ユーザー登録のテスト ###
-
+    /**
+     * ユーザー登録のテスト
+     */
     public function testCreate()
     {
+        $this->withoutExceptionHandling();
+
+        $testUserName = 'テストユーザー';
+        $testEmail = 'test@gmail.com';
+        $testPassword = 'password123';
+        $testPasswordConfirmation = 'password123';
+
         $response = $this
-            ->from('articles')
             ->post(
                 route('register'),
                 [
-                    'name' => 'testUser',
-                    'email' => 'test@example.com',
-                    'password' => 'password123',
-                    'password_confirmation' => 'password123',
+                    'name' => $testUserName,
+                    'email' => $testEmail,
+                    'password' => $testPassword,
+                    'password_confirmation' => $testPasswordConfirmation,
                 ]
             );
 
+        $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('articles.index'));
     }
 
 
     ### エラー時のテスト ###
 
-    // 名前未入力
+    /**
+     * 名前未入力時のエラーテスト
+     */
     public function testNameError()
     {
+        $testUserName = null;
+        $testEmail = 'test@gmail.com';
+        $testPassword = 'password123';
+        $testPasswordConfirmation = 'password123';
+
         $response = $this
             ->post(
                 route('register'),
                 [
-                    'name' => '',
-                    'email' => 'test@example.com',
-                    'password' => 'password123',
-                    'password_confirmation' => 'password123',
+                    'name' => $testUserName,
+                    'email' => $testEmail,
+                    'password' => $testPassword,
+                    'password_confirmation' => $testPasswordConfirmation,
                 ]
             );
 
@@ -61,17 +78,24 @@ class RegisterControllerTest extends TestCase
         $this->get(route('register'))->assertSee($errorMessage);
     }
 
-    // メールアドレス未入力
+    /**
+     * メールアドレス未入力時のエラーテスト
+     */
     public function testEmailError()
     {
+        $testUserName = 'テストユーザー';
+        $testEmail = null;
+        $testPassword = 'password123';
+        $testPasswordConfirmation = 'password123';
+
         $response = $this
             ->post(
                 route('register'),
                 [
-                    'name' => 'testUser',
-                    'email' => '',
-                    'password' => 'password123',
-                    'password_confirmation' => 'password123',
+                    'name' => $testUserName,
+                    'email' => $testEmail,
+                    'password' => $testPassword,
+                    'password_confirmation' => $testPasswordConfirmation,
                 ]
             );
 
@@ -79,17 +103,24 @@ class RegisterControllerTest extends TestCase
         $this->get(route('register'))->assertSee($errorMessage);
     }
 
-    // パスワード未入力
+    /**
+     * パスワード未入力時のエラーテスト
+     */
     public function testPasswordError()
     {
+        $testUserName = 'テストユーザー';
+        $testEmail = 'test@gmail.com';
+        $testPassword = null;
+        $testPasswordConfirmation = null;
+
         $response = $this
             ->post(
                 route('register'),
                 [
-                    'name' => 'testUser',
-                    'email' => 'test@example.com',
-                    'password' => '',
-                    'password_confirmation' => '',
+                    'name' => $testUserName,
+                    'email' => $testEmail,
+                    'password' => $testPassword,
+                    'password_confirmation' => $testPasswordConfirmation,
                 ]
             );
 
@@ -97,17 +128,49 @@ class RegisterControllerTest extends TestCase
         $this->get(route('register'))->assertSee($errorMessage);
     }
 
-    // 有効ではないメールアドレスを入力
-    public function testNotEmailError()
+    /**
+     * パスワード入力値と再確認入力値の不一致時のエラーテスト
+     */
+    public function testPasswordMismatchError()
     {
+        $testUserName = 'テストユーザー';
+        $testEmail = 'test@gmail.com';
+        $testPassword = 'password123';
+        $testPasswordConfirmation = 'password1234';
+
         $response = $this
             ->post(
                 route('register'),
                 [
-                    'name' => 'testUser',
-                    'email' => 'test@example.hoge',
-                    'password' => 'password123',
-                    'password_confirmation' => 'password123',
+                    'name' => $testUserName,
+                    'email' => $testEmail,
+                    'password' => $testPassword,
+                    'password_confirmation' => $testPasswordConfirmation,
+                ]
+            );
+
+        $errorMessage = 'パスワードと、確認フィールドとが、一致していません。';
+        $this->get(route('register'))->assertSee($errorMessage);
+    }
+
+    /**
+     * 有効ではないメールアドレスを入力時のエラーテスト
+     */
+    public function testNotEmailError()
+    {
+        $testUserName = 'テストユーザー';
+        $testEmail = 'test@gmail.hoge';
+        $testPassword = 'password123';
+        $testPasswordConfirmation = 'password123';
+
+        $response = $this
+            ->post(
+                route('register'),
+                [
+                    'name' => $testUserName,
+                    'email' => $testEmail,
+                    'password' => $testPassword,
+                    'password_confirmation' => $testPasswordConfirmation,
                 ]
             );
 
@@ -115,21 +178,29 @@ class RegisterControllerTest extends TestCase
         $this->get(route('register'))->assertSee($errorMessage);
     }
 
-    // メールアドレスの重複
+    /**
+     * メールアドレスの重複時のエラーテスト
+     */
     public function testDuplicateEmailError()
     {
         $user = factory(User::class)->create();
 
         $email = $user->email;
 
+        $testUserName = 'テストユーザー';
+        $testEmail = $email;
+        $testPassword = 'password123';
+        $testPasswordConfirmation = 'password123';
+
+
         $response = $this
             ->post(
                 route('register'),
                 [
-                    'name' => 'testUser',
-                    'email' => $email,
-                    'password' => 'password123',
-                    'password_confirmation' => 'password123',
+                    'name' => $testUserName,
+                    'email' => $testEmail,
+                    'password' => $testPassword,
+                    'password_confirmation' => $testPasswordConfirmation,
                 ]
             );
 

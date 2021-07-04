@@ -11,10 +11,22 @@ class HeadlineNewsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    ### ヘッドラインニュース一覧表示のテスト ###
+    /**
+     * ヘッドラインニュースの一覧表示機能のテスト
+     * 未ログイン時、ログイン画面にリダイレクトするテスト
+     */
+    public function testGuestHeadlineNewsDefaultIndex()
+    {
+        $response = $this->get(route('news.default_index'));
 
-    // ログイン時
-    public function testCovidNewsIndex()
+        $response->assertRedirect('login');
+    }
+
+    /**
+     * ヘッドラインニュースの一覧表示機能のテスト
+     * ログイン時、ヘッドラインニュース一覧画面に遷移するかのテスト
+     */
+    public function testHeadlineNewsIndex()
     {
         $user = factory(User::class)->create();
 
