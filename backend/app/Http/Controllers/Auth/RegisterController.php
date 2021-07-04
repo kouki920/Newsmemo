@@ -49,12 +49,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'min:1', 'max:25'],
-            'email' => ['required', 'string', 'email:strict,dns,spoof', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'max:16', 'confirmed'],
-        ]);
+        $messages = [
+            'regex' => ':attributeに「/」と半角スペースは使用できません。',
+        ];
+
+        return Validator::make(
+            $data,
+            [
+                'name' => ['required',  'regex:/^(?!.*\s).+$/u', 'regex:/^(?!.*\/).*$/', 'string', 'min:1', 'max:25'],
+                'email' => ['required', 'string', 'email:strict,dns,spoof', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'max:16', 'confirmed'],
+            ],
+            $messages
+        );
     }
+
 
     /**
      * Create a new user instance after a valid registration.

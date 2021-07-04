@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class NewsLink extends Model
 {
     protected $fillable = [
-        'news', 'url',
+        'article_id', 'news', 'url',
     ];
 
     public function article(): BelongsTo
