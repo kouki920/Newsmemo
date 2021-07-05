@@ -14,7 +14,7 @@
                     @include('error_list')
 
                     <div class="card-text">
-                        <form action="{{route('users.imageUpdate',['name' => $user->name])}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('users.image_update',['name' => $user->name])}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
                             <div class="form-group">

@@ -181,7 +181,7 @@ class ArticleControllerTest extends TestCase
      * 投稿削除機能のテスト
      * ログイン時、投稿データとニュース関連のデータを削除できるかテスト
      */
-    public function testDestroy()
+    public function testAuthDestroy()
     {
         $this->withoutExceptionHandling();
 

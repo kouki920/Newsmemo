@@ -9,19 +9,19 @@
                 @csrf
 
                 <div class="form-group row">
-                    <p class="col-sm-4 col-form-label">メールアドレス<span class="badge badge-danger ml-1">必須</span></p>
-                    <div class="col-sm-8">
-                        {{ $inputs['email'] }}
-                    </div>
-                    <input type="hidden" name="email" value="{{ $inputs['email'] }}">
-                </div>
-
-                <div class="form-group row">
                     <p class="col-sm-4 col-form-label">性別<span class="badge badge-danger ml-1">必須</span></p>
                     <div class="col-sm-8">
                         {{ $inputs['gender'] }}
                     </div>
                     <input type="hidden" name="gender" value="{{ $inputs['gender'] }}">
+                </div>
+
+                <div class="form-group row">
+                    <p class="col-sm-4 col-form-label">メールアドレス<span class="badge badge-danger ml-1">必須</span></p>
+                    <div class="col-sm-8">
+                        {{ $inputs['email'] }}
+                    </div>
+                    <input type="hidden" name="email" value="{{ $inputs['email'] }}">
                 </div>
 
                 <div class="form-group row">

@@ -11,7 +11,6 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-
     /**
      * ユーザーマイページ画面表示のテスト
      * ログイン時,ステータスコード200の確認、viewファイル('users.show')が利用されているかのテスト
@@ -31,7 +30,6 @@ class UserControllerTest extends TestCase
             ->assertSee('後で読む')
             ->assertSee('ユーザーデータ');
     }
-
 
     /**
      * ユーザー編集機能 画面表示のテスト
@@ -53,7 +51,21 @@ class UserControllerTest extends TestCase
     }
 
     /**
+     * ユーザーアイコンの変更画面表示テスト
+     */
+    public function testAuthImageEdit()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->get(route('users.image_edit', ['name' => $user->name]));
+
+        $response->assertStatus(200)->assertViewIs('users.image_edit')
+            ->assertSee('ユーザーアイコンの編集');
+    }
+
+    /**
      * ユーザー退会機能のテスト
+     * 削除後、登録画面にリダイレクトするかのテスト
      */
     public function testAuthDestroy()
     {

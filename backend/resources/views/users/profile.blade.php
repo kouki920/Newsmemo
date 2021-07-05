@@ -9,7 +9,7 @@
                 <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="55" height="55" alt="ユーザーアイコン">
                 @endif
                 @elseif(Auth::id() == $user->id)
-                <a href="{{ route('users.imageEdit', ['name' => $user->name]) }}" class="text-dark">
+                <a href="{{ route('users.image_edit', ['name' => $user->name]) }}" class="text-dark">
                     @if(!isset($user->image))
                     <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="55" height="55" alt="Noicon">
                     @else
