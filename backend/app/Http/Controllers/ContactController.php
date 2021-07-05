@@ -49,7 +49,7 @@ class ContactController extends Controller
 
             return redirect()->route('contacts.complete');
         } else {
-            return redirect()->route('contacts.complete')->withInput($input);
+            return redirect()->route('contacts.form')->withInput($input);
         }
     }
 
