@@ -48,11 +48,11 @@ Route::prefix('users')->name('users.')->group(function () {
     // プロフィールの更新
     Route::patch('/{name}/update', 'UserController@update')->name('update');
     // プロフィールアイコンの編集画面を表示
-    Route::get('/{name}/image/edit', 'UserController@imageEdit')->name('imageEdit');
+    Route::get('/{name}/image/edit', 'UserController@imageEdit')->name('image_edit');
     //ユーザーの削除(退会)
     Route::delete('/{name}/destroy', 'UserController@destroy')->name('destroy');
     // プロフィールアイコンの更新
-    Route::patch('/{name}/image/update', 'UserController@imageUpdate')->name('imageUpdate');
+    Route::patch('/{name}/image/update', 'UserController@imageUpdate')->name('image_update');
 
     Route::middleware('auth')->group(function () {
         // フォロー、フォロー解除
@@ -75,7 +75,7 @@ Route::prefix('memos')->name('memos.')->middleware('auth')->group(function () {
 # コレクション機能
 Route::prefix('collections')->name('collections.')->middleware('auth')->group(function () {
     Route::post('/index/user/{id}', 'CollectionController@index')->name('index');
-    Route::post('/{article}/store', 'CollectionController@store')->name('store');
+    Route::post('/store/{article}', 'CollectionController@store')->name('store');
     Route::get('/{collection}/edit', 'CollectionController@edit')->name('edit');
     Route::patch('/{collection}/update/user/{id}', 'CollectionController@update')->name('update');
     Route::delete('/{collection}/destroy/user/{id}', 'CollectionController@destroy')->name('destroy');
