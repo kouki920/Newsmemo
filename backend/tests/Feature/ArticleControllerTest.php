@@ -200,6 +200,17 @@ class ArticleControllerTest extends TestCase
             ]
         );
 
+        $this->assertDatabaseHas('articles', [
+            'body' => $article->body,
+            'user_id' => $article->user_id,
+        ]);
+
+        $this->assertDatabaseHas('news_links', [
+            'article_id' => $news_link->article_id,
+            'news' => $news_link->news,
+            'url' => $news_link->url,
+        ]);
+
         // DBからテストデータを削除
         $response = $this->actingAs($user)->delete(route('articles.destroy', ['article' => $article]));
 
