@@ -1,0 +1,96 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\Article;
+use App\Models\User;
+use App\Models\Memo;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
+
+class MemoControllerTest extends TestCase
+{
+    use RefreshDatabase;
+
+    /**
+     * 非公開メモ登録機能のテスト
+     * ログイン時、メモがテーブルに保存されているかのテスト、登録後リダイレクトするかのテスト
+     *
+     * @return void
+     */
+    public function testAuthStore()
+    {
+        $user = factory(User::class)->create();
+
+        $article = factory(Article::class)->create(['user_id' => $user->id]);
+
+        $memo = factory(Memo::class)->create(['user_id' => $user->id, 'article_id' => $article->id]);
+
+        $response = $this->actingAs($user)->post(route('memos.store', $article), [
+            'user_id' => $user->id,
+            'article_id' => $article->id,
+            'body' => $memo->body,
+        ]);
+
+        $this->assertDatabaseHas('memos', [
+            'user_id' => $user->id,
+            'article_id' => $article->id,
+            'body' => $memo->body,
+        ]);
+
+        $response->assertStatus(302);
+    }
+
+    /**
+     * 非公開メモ編集画面表示のテスト
+     * ログイン時、ステータスコード200、編集画面を表示するかのテスト
+     */
+    public function testAuthEdit()
+    {
+        $user = factory(User::class)->create();
+
+        $article = factory(Article::class)->create();
+
+        $memo = factory(Memo::class)->create(['user_id' => $user->id, 'article_id' => $article->id]);
+
+        $response = $this->actingAs($user)->get(route('memos.edit', $memo));
+
+        $response->assertStatus(200)->assertViewIs('memos.edit')
+            ->assertSee('編集するメモ');
+    }
+
+    /**
+     * 非公開メモ削除機能のテスト
+     */
+    public function testAuthDestroy()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+
+        $article = factory(Article::class)->create(
+            [
+                'user_id' => $user->id,
+            ]
+        );
+
+        $memo = factory(Memo::class)->create(['user_id' => $user->id, 'article_id' => $article->id]);
+
+        $this->assertDatabaseHas('memos', [
+            'user_id' => $memo->user_id,
+            'article_id' => $memo->article_id,
+            'body' => $memo->body,
+        ]);
+
+        $response = $this->actingAs($user)->from('articles.show')->delete(route('memos.destroy', $memo));
+
+        $this->assertDeleted('memos', [
+            'user_id' => $memo->user_id,
+            'article_id' => $memo->article_id,
+            'body' => $memo->body,
+        ]);
+
+        $response->assertStatus(302)->assertRedirect('articles.show');
+    }
+}

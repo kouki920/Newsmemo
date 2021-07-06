@@ -51,7 +51,7 @@
         <form id="logout-button" method="POST" action="{{route('logout')}}">
             @csrf
         </form>
-        <form id="setting-button" method="POST" action="{{route('setting.index',['name' => Auth::user()->name])}}">
+        <form id="setting-button" method="POST" action="{{route('settings.index',['name' => Auth::user()->name])}}">
             @csrf
         </form>
         <form id="collection-button" method="POST" action="{{route('collections.index',['id' => Auth::id()])}}">

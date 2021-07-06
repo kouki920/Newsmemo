@@ -3,11 +3,11 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Models\Article;
-use App\Models\Collection;
 use App\Models\Contact;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Mockery;
 use Tests\TestCase;
 
 class ContactControllerTest extends TestCase
@@ -64,7 +64,7 @@ class ContactControllerTest extends TestCase
 
         $contact = factory(Contact::class)->create();
 
-        $response = $this->actingAs($user)->post(route(
+        $response = $this->actingAs($user)->from('contacts')->post(route(
             'contacts.send',
             [
                 'gender' => $contact->gender,

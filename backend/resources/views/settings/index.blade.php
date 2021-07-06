@@ -16,7 +16,7 @@
         <a href="{{ route('users.edit_password',['name' => Auth::user()->name]) }}" class="list-group-item list-group-item-action py-3"><i class="fas fa-unlock-alt fa-fw mr-3"></i>パスワードの変更</a>
         @endif
         <a href="{{ route('contacts.form' )}}" class="list-group-item list-group-item-action py-3"><i class="fas fa-envelope fa-fw mr-3"></i>お問い合わせ</a>
-        <a href="{{ route('setting.agreement') }}" class="list-group-item list-group-item-action py-3"><i class="fas fa-book-open fa-fw mr-3"></i>利用規約</a>
+        <a href="{{ route('settings.agreement') }}" class="list-group-item list-group-item-action py-3"><i class="fas fa-book-open fa-fw mr-3"></i>利用規約</a>
         @if( Auth::id() != config('user.guest_user_id'))
         <a class="list-group-item list-group-item-action py-3 dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ Auth::user()->name }}">
             <i class="fas fa-user-times fa-fw mr-3"></i>退会する&ensp;※復元不可
