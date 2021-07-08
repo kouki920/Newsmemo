@@ -50,11 +50,6 @@ class CollectionUpdateRequestTest extends TestCase
                 [str_repeat('a', 256)],
                 false
             ],
-            'スラッシュ入力時エラー' => [
-                ['name'],
-                ['/'],
-                false
-            ]
         ];
     }
 }
