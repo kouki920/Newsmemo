@@ -50,16 +50,6 @@ class CollectionStoreRequestTest extends TestCase
                 ['/'],
                 false
             ],
-            '半角スペース入力時のテスト' => [
-                ['collections'],
-                ['/ {2,}/'],
-                false
-            ],
-            '全角スペース入力時のテスト' => [
-                ['collections'],
-                ['/ +/'],
-                false
-            ]
         ];
     }
 }
