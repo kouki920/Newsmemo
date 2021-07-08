@@ -45,6 +45,11 @@ class CollectionUpdateRequestTest extends TestCase
                 [null],
                 false
             ],
+            '/入力時エラー' => [
+                ['name'],
+                ['/'],
+                false
+            ],
             '文字数エラー' => [
                 ['name'],
                 [str_repeat('a', 256)],

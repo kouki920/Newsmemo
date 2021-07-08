@@ -10,7 +10,7 @@
         :collections="collections"
         placeholder="コレクション名を入力してください"
         :autocomplete-items="filteredItems"
-        :add-on-key="[13, 32]"
+        :add-on-key="[13]"
         @tags-changed="newCollections => collections = newCollections"
       />
       <div class="d-flex justify-content-end">
