@@ -55,6 +55,7 @@ class ContactControllerTest extends TestCase
 
     /**
      * お問い合わせ内容の送信テスト
+     * ログイン時、データがテーブルに保存されているかのテスト、登録後リダイレクトされるかテスト
      */
     public function testAuthSend()
     {

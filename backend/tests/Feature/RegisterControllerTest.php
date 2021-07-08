@@ -15,12 +15,18 @@ class RegisterControllerTest extends TestCase
 
     /**
      * ユーザー登録画面表示のテスト
+     * 登録画面が表示され、指定した文字列が表示されるかのテスト
      */
     public function testGuestShow()
     {
         $response = $this->get(route('register'));
 
-        $response->assertViewIs('auth.register');
+        $response->assertStatus(200)->assertViewIs('auth.register')
+            ->assertSee('ユーザー登録')
+            ->assertSee('お名前')
+            ->assertSee('メールアドレス')
+            ->assertSee('パスワード')
+            ->assertSee('パスワード(再確認)');
     }
 
     /**
@@ -47,11 +53,14 @@ class RegisterControllerTest extends TestCase
             );
 
         $response->assertSessionHasNoErrors();
-        $response->assertRedirect(route('articles.index'));
+
+        $this->assertDatabaseHas('users', [
+            'name' => $testUserName,
+            'email' => $testEmail,
+        ]);
+
+        $response->assertStatus(302)->assertRedirect(route('articles.index'));
     }
-
-
-    ### エラー時のテスト ###
 
     /**
      * 名前未入力時のエラーテスト

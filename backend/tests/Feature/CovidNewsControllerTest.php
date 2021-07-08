@@ -24,7 +24,7 @@ class CovidNewsControllerTest extends TestCase
 
     /**
      * コロナ関連ニュースの一覧表示機能のテスト
-     * ログイン時、コロナ関連のニュース一覧画面に遷移できるかテスト
+     * ログイン時、コロナ関連のニュース一覧画面に遷移できるかテスト、指定した文字列が表示されているかのテスト
      */
     public function testCovidNewsDefaultIndex()
     {
@@ -35,6 +35,10 @@ class CovidNewsControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('news.covid_default_index'));
 
         $response->assertStatus(200)
-            ->assertViewIs('articles.covid_index');
+            ->assertViewIs('articles.covid_index')
+            ->assertSee('ニュース')
+            ->assertSee('COVID-19')
+            ->assertSee('メモリスト')
+            ->assertSee('プロフィール');
     }
 }

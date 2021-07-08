@@ -74,7 +74,7 @@ class CollectionControllerTest extends TestCase
     /**
      * コレクション削除機能のテスト
      * ログイン時、ステータスコード200、テスト実行後viewファイル(collections.index)が表示されるかテスト
-     * ファクトリーで作詞したテストデータが削除されるかテスト
+     * ファクトリーで作成したテストデータが削除されるかテスト
      */
     public function testAuthDestroy()
     {

@@ -24,7 +24,7 @@ class HeadlineNewsControllerTest extends TestCase
 
     /**
      * ヘッドラインニュースの一覧表示機能のテスト
-     * ログイン時、ヘッドラインニュース一覧画面に遷移するかのテスト
+     * ログイン時、ヘッドラインニュース一覧画面に遷移するかのテスト、指定した文字列が表示されているかのテスト
      */
     public function testHeadlineNewsIndex()
     {
@@ -33,6 +33,10 @@ class HeadlineNewsControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('news.default_index'));
 
         $response->assertStatus(200)
-            ->assertViewIs('articles.news_index');
+            ->assertViewIs('articles.news_index')
+            ->assertSee('ニュース')
+            ->assertSee('COVID-19')
+            ->assertSee('メモリスト')
+            ->assertSee('プロフィール');
     }
 }
