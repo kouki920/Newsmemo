@@ -28,7 +28,7 @@ class ArticleControllerTest extends TestCase
 
     /**
      * 投稿一覧表示機能のテスト
-     * ログイン時、一覧画面に移動しステータスコードが200かどうかをテスト
+     * ログイン時、ステータスコード200かどうか、viewファイル(articles.index)が使用されているかのテスト
      * 一覧画面で表示される文字列をテスト
      */
     public function testAuthIndex()
@@ -40,9 +40,6 @@ class ArticleControllerTest extends TestCase
         $response = $this->actingAs($user)
             ->get(route('articles.index'));
 
-        // assertStatus()でログイン済みの状態で記事一覧画面へアクセスしたレスポンスのステータスをテスト
-        // assertViewIs()で引数に指定したviewが利用されているかをテスト
-        // assertSee()で指定した文字列がレスポンスに含まれていることをテスト
         $response->assertStatus(200)
             ->assertViewIs('articles.index')
             ->assertSee($user->name)
@@ -78,8 +75,6 @@ class ArticleControllerTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('articles.create'));
 
-        // assertStatus()でログイン済みの状態で記事投稿画面へアクセスしたレスポンスのステータスをテスト
-        // assertViewIs()で引数に指定したviewが利用されているかをテスト
         $response->assertStatus(200)
             ->assertViewIs('articles.create');
     }

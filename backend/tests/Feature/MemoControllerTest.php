@@ -25,18 +25,16 @@ class MemoControllerTest extends TestCase
 
         $article = factory(Article::class)->create(['user_id' => $user->id]);
 
-        $memo = factory(Memo::class)->create(['user_id' => $user->id, 'article_id' => $article->id]);
-
-        $response = $this->actingAs($user)->post(route('memos.store', $article), [
+        $response = $this->actingAs($user)->from('articles.show')->post(route('memos.store', $article),  [
             'user_id' => $user->id,
             'article_id' => $article->id,
-            'body' => $memo->body,
+            'body' => 'テスト',
         ]);
 
         $this->assertDatabaseHas('memos', [
             'user_id' => $user->id,
             'article_id' => $article->id,
-            'body' => $memo->body,
+            'body' => 'テスト',
         ]);
 
         $response->assertStatus(302);
