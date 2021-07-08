@@ -50,6 +50,11 @@ class CollectionStoreRequestTest extends TestCase
                 ['/'],
                 false
             ],
+            '文字数エラー' => [
+                ['collections'],
+                [str_repeat('a', 256)],
+                false
+            ],
         ];
     }
 }
