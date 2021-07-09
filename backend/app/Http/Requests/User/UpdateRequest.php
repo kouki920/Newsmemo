@@ -33,7 +33,7 @@ class UpdateRequest extends FormRequest
             return [
                 'name' => 'required | string | min:1 | max:25',
                 'email' => 'required | string | email | max:255 |' . Rule::unique('users')->ignore(Auth::id()),
-                'introduction' => 'string | max:200 | nullable',
+                'introduction' => 'string | max:255 | nullable',
                 'image' => 'file | mimes:jpeg,png,jpg,bmb | max:2048 | nullable',
             ];
         }
