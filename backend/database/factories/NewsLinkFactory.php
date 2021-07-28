@@ -12,6 +12,6 @@ $factory->define(NewsLink::class, function (Faker $faker) {
             return factory(Article::class)->create()->id;
         },
         'news' => 'Google ニュース',
-        'url' => 'https://news.google.com/topstories?hl=ja&gl=JP&ceid=JP:ja',
+        'url' => 'https://news.google.com',
     ];
 });
