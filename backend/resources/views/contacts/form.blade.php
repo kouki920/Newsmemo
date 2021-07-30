@@ -14,7 +14,7 @@
             @include('error_list')
 
             <div class="card-text">
-                <form method="POST" action="{{ route('contacts.confirm') }}">
+                <form method="POST" action="{{ route('contacts.confirm',['id' => Auth::id()]) }}">
                     @csrf
                     <div class="form-group mb-4">
                         <label class="form-label">性別</label>

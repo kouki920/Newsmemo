@@ -23,15 +23,9 @@ class UserController extends Controller
 
         $articles = $user->getUserArticleData();
 
-        $articles_count = $user->getCountArticle();
-
-        $days_posted = $articles->groupBy('created_date')->count();
-
         $total_category = $article->getTotalCategory($user->id);
 
-        $total_login = $user->logins->groupBy('login_date')->count();
-
-        return view('users.show', compact('user', 'articles', 'total_category', 'articles_count', 'days_posted', 'total_login'));
+        return view('users.show', compact('user', 'articles', 'total_category'));
     }
 
     /**
@@ -173,9 +167,9 @@ class UserController extends Controller
 
         $days_posted = $user->articles->groupBy('created_date')->count();
 
-        $total_login = $user->logins->groupBy('login_date')->count();
+        $last_login = $user->last_login_date;
 
-        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted', 'total_login'));
+        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted', 'last_login'));
     }
 
     /**

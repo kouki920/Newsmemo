@@ -5,7 +5,7 @@
         @include('error_list')
 
         <div class="card-text mt-3">
-            <form method="POST" action="{{ route('contacts.send') }}">
+            <form method="POST" action="{{ route('contacts.send',['id' => Auth::id()]) }}">
                 @csrf
 
                 <div class="form-group row">

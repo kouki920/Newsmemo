@@ -7,7 +7,7 @@ use App\Models\Contact;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Mockery;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class ContactControllerTest extends TestCase
@@ -23,7 +23,7 @@ class ContactControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->get(route('contacts.form'));
+        $response = $this->actingAs($user)->get(route('contacts.form', ['id' => Auth::id()]));
 
         $response->assertStatus(200)->assertViewIs('contacts.form');
     }
@@ -34,23 +34,29 @@ class ContactControllerTest extends TestCase
      */
     public function testAuthConfirm()
     {
+        $this->withoutExceptionHandling();
+
         $user = factory(User::class)->create();
 
-        $data = [
-            'gender' => '男性',
-            'email' => 'test@gmail.com',
-            'age' => 20,
-            'content' => 'test',
-        ];
+        $contact = factory(Contact::class)->make(['user_id' => $user->id]);
 
-        $response = $this->actingAs($user)->post(route('contacts.confirm', $data));
+        $response = $this->actingAs($user)->post(route(
+            'contacts.confirm',
+            [
+                'id' => $user->id,
+                'user_id' => $contact->user_id,
+                'gender' => $contact->gender,
+                'email' => $contact->email,
+                'age' => $contact->age,
+                'content' => $contact->content,
+            ]
+        ));
 
         $response->assertStatus(200)->assertViewIs('contacts.confirm')
-            ->assertSee('確認画面')
-            ->assertSee('男性')
-            ->assertSee('test@gmail.com')
-            ->assertSee('20')
-            ->assertSee('test');
+            ->assertSee($contact->gender)
+            ->assertSee($contact->email)
+            ->assertSee($contact->age)
+            ->assertSee($contact->content);
     }
 
     /**
@@ -67,7 +73,9 @@ class ContactControllerTest extends TestCase
 
         $response = $this->actingAs($user)->from('contacts')->post(route(
             'contacts.send',
+            ['id' => Auth::id()],
             [
+                'user_id' => $contact->user_id,
                 'gender' => $contact->gender,
                 'email' => $contact->email,
                 'age' => $contact->age,
@@ -76,6 +84,7 @@ class ContactControllerTest extends TestCase
         ));
 
         $this->assertDatabaseHas('contacts', [
+            'user_id' => $contact->user_id,
             'gender' => $contact->gender,
             'email' => $contact->email,
             'age' => $contact->age,

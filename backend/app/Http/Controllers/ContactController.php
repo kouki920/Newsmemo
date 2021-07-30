@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Http\Requests\Contact\ConfirmRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -43,13 +44,15 @@ class ContactController extends Controller
     {
         $action = $request->get('action', 'back');
         $input = $request->except('action');
+        $user_id = $request->id;
 
         if ($action === 'submit') {
+            $contact->user_id = $user_id;
             $contact->fill($input)->save();
 
-            return redirect()->route('contacts.complete');
+            return redirect()->route('contacts.complete', ['id' => $user_id]);
         } else {
-            return redirect()->route('contacts.form')->withInput($input);
+            return redirect()->route('contacts.form', ['id' => $user_id])->withInput($input);
         }
     }
 

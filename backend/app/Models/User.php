@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'introduction', 'image', 'password',
+        'name', 'email', 'introduction', 'image', 'password', 'last_login_at',
     ];
 
     /**
@@ -40,6 +40,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * last_login_atカラムを取得した際に自動的にDateTime型に置き換える
+     */
+    protected $dates = [
+        'last_login_at'
+    ];
+
+    protected $appends = [
+        'last_login_date'
+    ];
+
 
     /**
      * フォローにおけるユーザーモデルとユーザーモデルの関係は多対多なのでBelongsToManyを使用
@@ -79,14 +91,6 @@ class User extends Authenticatable
     public function memos(): HasMany
     {
         return $this->hasMany('App\Models\Memo');
-    }
-
-    /**
-     * ログインデータのリレーション
-     */
-    public function logins(): HasMany
-    {
-        return $this->hasMany('App\Models\Login');
     }
 
     /**
@@ -190,5 +194,15 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordResetNotification($token, new BareMail()));
+    }
+
+    /**
+     * ユーザーの最終ログイン日時を文字列で取得
+     */
+    public function getLastLoginDateAttribute()
+    {
+        if (!$this->last_login_at == null) {
+            return $this->last_login_at->format('Y-m-d');
+        }
     }
 }
