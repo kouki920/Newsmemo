@@ -7,7 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Login;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -42,43 +42,24 @@ class LoginController extends Controller
     }
     /**
      * ログイン後の処理
+     * 最終ログイン日時を記録する
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * @override \Illuminate\Http\Foundation\Auth\AuthenticatesUsers
      */
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request, User $user)
     {
-
-        $dt = now();
-
-        $login = new \App\Models\Login();
-        $login->user_id = $user->id;
-        $login->year = $dt->year;
-        $login->month = $dt->month;
-        $login->day = $dt->day;
-        $login->hour = $dt->hour;
-        $login->minute = $dt->minute;
-        $login->second = $dt->second;
-        $login->save();
+        $user->last_login_at = now();
+        $user->save();
     }
 
     /**
      * ゲストユーザーログイン
      */
-    public function guestLogin(Login $login)
+    public function guestLogin()
     {
         if (Auth::loginUsingId(config('user.guest_user_id'))) {
-            $dt = now();
-
-            $login->user_id = config('user.guest_user_id');
-            $login->year = $dt->year;
-            $login->month = $dt->month;
-            $login->day = $dt->day;
-            $login->hour = $dt->hour;
-            $login->minute = $dt->minute;
-            $login->second = $dt->second;
-            $login->save();
             return redirect(route('articles.index'))->with('msg_success', 'ゲストユーザーでログインしました');
         }
         return redirect(route('login'))->with('msg_error', 'ゲストログインに失敗しました');

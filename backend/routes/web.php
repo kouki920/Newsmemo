@@ -99,8 +99,8 @@ Route::prefix('news')->name('news.')->middleware('auth')->group(function () {
 
 # お問い合わせフォーム
 Route::prefix('contacts')->name('contacts.')->group(function () {
-    Route::get('/form', 'ContactController@form')->name('form');
-    Route::post('/confirm', 'ContactController@confirm')->name('confirm');
-    Route::post('/send', 'ContactController@send')->name('send');
-    Route::get('/complete', 'ContactController@complete')->name('complete');
+    Route::get('/form/user/{id}', 'ContactController@form')->name('form');
+    Route::post('/confirm/user/{id}', 'ContactController@confirm')->name('confirm');
+    Route::post('/send/user/{id}', 'ContactController@send')->name('send');
+    Route::get('/complete/user/{id}', 'ContactController@complete')->name('complete');
 });

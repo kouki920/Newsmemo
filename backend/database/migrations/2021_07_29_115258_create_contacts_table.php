@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoginsTable extends Migration
+class CreateContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class CreateLoginsTable extends Migration
      */
     public function up()
     {
-        Schema::create('logins', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedInteger('year');
-            $table->unsignedInteger('month');
-            $table->unsignedInteger('day');
-            $table->unsignedInteger('hour');
-            $table->unsignedInteger('minute');
-            $table->unsignedInteger('second');
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->index(['year', 'month']);
+            $table->string('gender');
+            $table->string('age');
+            $table->string('email');
+            $table->string('content');
+            $table->timestamps();
         });
     }
 
@@ -35,6 +32,6 @@ class CreateLoginsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logins');
+        Schema::dropIfExists('contacts');
     }
 }

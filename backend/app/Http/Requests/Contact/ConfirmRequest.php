@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Contact;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ConfirmRequest extends FormRequest
 {
@@ -24,10 +25,10 @@ class ConfirmRequest extends FormRequest
     public function rules()
     {
         return [
-            'gender' => 'required',
-            'email' => 'required | email ',
+            'gender' =>  'required',
             'age' => 'required |integer ',
-            'content' => 'required | max:750',
+            'email' => 'required | email ',
+            'content' => 'required | max:255',
         ];
     }
 
@@ -35,8 +36,8 @@ class ConfirmRequest extends FormRequest
     {
         return [
             'gender' => '性別',
-            'email' => 'メールアドレス',
             'age' => '年齢',
+            'email' => 'メールアドレス',
             'content' => 'お問い合わせ内容',
         ];
     }

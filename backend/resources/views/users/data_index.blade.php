@@ -1,16 +1,24 @@
 <table class="table table-bordered mt-4">
     <thead>
-        <tr　class="table-active">
-            <th scope="col"><i class="fas fa-sticky-note fa-fw"></i>メモ累計数</th>
-            <th scope="col"><i class="far fa-chart-bar fa-fw"></i>投稿累計日数</th>
-            <th scope="col"><i class="far fa-clock fa-fw"></i>通算ログイン日数</th>
+        <tr class="table-active text-center">
+            <th scope="col"><i class="fas fa-sticky-note fa-fw"></i>メモ数</th>
+            <th scope="col"><i class="far fa-chart-bar fa-fw"></i>累計投稿日数</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="text-center">
             <td>{{$articles_count}}個</td>
             <td>{{$days_posted}}日</td>
-            <td>{{$total_login}}日</td>
+        </tr>
+    </tbody>
+    <thead>
+        <tr class="table-active text-center">
+            <th scope="col"><i class="far fa-clock fa-fw"></i>最終ログイン</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center">
+            <td>{{$last_login}}</td>
         </tr>
     </tbody>
 </table>
