@@ -28,7 +28,7 @@ class ConfirmRequest extends FormRequest
             'gender' =>  'required',
             'age' => 'required |integer ',
             'email' => 'required | email ',
-            'content' => 'required | max:255',
+            'content' => 'required | max:700',
         ];
     }
 

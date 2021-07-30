@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'body' => 'required | max:255',
+            'body' => 'required | max:200',
             'tags' => 'nullable | json | regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
             'news' => 'required | string | max:255',
             'url' => 'required | url | max:255',
