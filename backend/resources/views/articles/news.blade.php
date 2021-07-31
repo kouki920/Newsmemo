@@ -1,4 +1,4 @@
-<div class="card mb-2">
+<div class="card mt-2 mb-4">
     @if(isset($data['thumbnail']))
     <img src="{{$data['thumbnail']}}" class="card-img-top img-fluid img-thumbnail" alt="NEWSAPIのサムネイル" />
     @else
