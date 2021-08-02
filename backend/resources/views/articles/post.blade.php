@@ -9,7 +9,7 @@
                 @endif
             </a>
             <div class="font-weight-bold mt-2">
-                <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="text-dark">
+                <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="font-md text-dark">
                     {{$article->user->name}}
                 </a>
             </div>
@@ -82,7 +82,7 @@
     </div>
     <div class="card-body pt-0 pb-2">
         <div class="card-text">
-            <a class="text-dark text-decoration-none" href="{{route('articles.show',compact('article'))}}">
+            <a class="font-sm text-dark text-decoration-none" href="{{route('articles.show',compact('article'))}}">
                 {!! nl2br(e( $article->body )) !!}
             </a>
         </div>
@@ -102,7 +102,7 @@
     @endforeach
     @if(isset($article->newsLink))
     <div class="card-text pt-0 pb-2 pl-3">
-        関連記事:<a href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">{{$article->newsLink->news}}</a>
+        関連記事:<a class="font-sm" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">{{$article->newsLink->news}}</a>
     </div>
     @endif
     <div class="card-text pt-0 pl-3 font-weight-lighter">
