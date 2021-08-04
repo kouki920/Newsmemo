@@ -1,4 +1,4 @@
-    <div class="card">
+    <div class="card user-profile-body">
         <div class="card-body">
             <!-- ユーザーアイコン -->
             <div class="d-flex flex-row">
@@ -29,15 +29,12 @@
                     <div class="card-text col">
                         <div class="dropdown">
                             <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                                <button class="btn recent-tags-btn dropdown-toggle font-sm" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                                     最近使用したタグ
                                 </button>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right category-dropdown-menu">
                                 <div>
-                                    <ul class="list-group">
-                                        <li class="list-group-item bg-info text-center">最近使用したタグ</li>
-                                    </ul>
                                     @foreach($total_category as $category)
                                     <ul class="list-group">
                                         <li class="list-group-item h6">{{$category}}</li>
@@ -50,7 +47,7 @@
                     <!-- 編集ボタン -->
                     @if(Auth::id() == $user->id)
                     <div class="card-text col">
-                        <a href="{{route('users.edit',['name' => $user->name])}}"><input type="button" class="btn btn-info" value="編集"></a>
+                        <a href="{{route('users.edit',['name' => $user->name])}}"><input type="button" class="font-sm btn edit-button" value="編集"></a>
                     </div>
                     @endif
                 </div>
@@ -58,7 +55,7 @@
 
             <!-- ユーザー名・自己紹介 -->
             <div class="card-text float-left">
-                <p class="h5 card-title">
+                <p class="card-title font-md">
                     {{ $user->name }}
                 </p>
                 {{$user->introduction}}
