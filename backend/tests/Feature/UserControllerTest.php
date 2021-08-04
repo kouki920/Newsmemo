@@ -26,9 +26,9 @@ class UserControllerTest extends TestCase
         $response->assertStatus(200)->assertViewIs('users.show')
             ->assertSee('最近使用したタグ')
             ->assertSee('編集')
-            ->assertSee('メモ')
-            ->assertSee('後で読む')
-            ->assertSee('ユーザーデータ');
+            ->assertSee('投稿')
+            ->assertSee('ブックマーク')
+            ->assertSee('ユーザ情報');
     }
 
     /**
