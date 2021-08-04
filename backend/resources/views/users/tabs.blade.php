@@ -1,17 +1,17 @@
 <ul class="nav nav-tabs nav-justified">
-    <li class="nav-item">
-        <a class="nav-link bg-secondary text-white {{ $hasArticles ? 'active' : '' }}" href="{{ route('users.show', ['name' => $user->name]) }}">
-            メモ
+    <li class="nav-item user-tabs">
+        <a class="user-tabs-text font-sm nav-link {{ $hasArticles ? 'active' : '' }}" href="{{ route('users.show', ['name' => $user->name]) }}">
+            投稿
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link bg-secondary text-white {{ $hasLikes ? 'active' : '' }}" href="{{route('users.likes',['name' => $user->name])}}">
-            後で読む
+    <li class="nav-item user-tabs">
+        <a class="user-tabs-text font-sm nav-link {{ $hasLikes ? 'active' : '' }}" href="{{route('users.likes',['name' => $user->name])}}">
+            ブックマーク
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link bg-secondary text-white {{ $hasData ? 'active' : '' }}" href="{{route('users.userData',['name' => $user->name])}}">
-            ユーザーデータ
+    <li class="nav-item user-tabs">
+        <a class="user-tabs-text font-sm nav-link {{ $hasData ? 'active' : '' }}" href="{{route('users.userData',['name' => $user->name])}}">
+            ユーザ情報
         </a>
     </li>
 </ul>
