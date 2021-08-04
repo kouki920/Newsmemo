@@ -33,7 +33,7 @@ class ArticleControllerTest extends TestCase
      */
     public function testAuthIndex()
     {
-        // 定義したファクトリーを利用してユーザーデータを作成
+        // 定義したファクトリーを利用してを作成
         $user = factory(User::class)->create();
 
         // actingAs()で認証済み状態(ログイン状態)にしてgetリクエストを送る
@@ -45,8 +45,8 @@ class ArticleControllerTest extends TestCase
             ->assertSee($user->name)
             ->assertSee('ニュース')
             ->assertSee('COVID-19')
-            ->assertSee('メモリスト')
-            ->assertSee('プロフィール');
+            ->assertSee('投稿')
+            ->assertSee('マイページ');
     }
 
 
@@ -68,7 +68,7 @@ class ArticleControllerTest extends TestCase
      */
     public function testAuthCreate()
     {
-        // 定義したファクトリーを利用してユーザーデータを作成
+        // 定義したファクトリーを利用してを作成
         $user = factory(User::class)->create();
 
         // actingAs()で認証済み状態(ログイン状態)にしてpostリクエストを送る
@@ -99,7 +99,7 @@ class ArticleControllerTest extends TestCase
      */
     public function testAuthStore()
     {
-        // 定義したファクトリーを利用してユーザーデータ、投稿データ、ニュースデータを作成
+        // 定義したファクトリーを利用して、投稿データ、ニュースデータを作成
         $user = factory(User::class)->create();
 
         $article = factory(Article::class)->create();
@@ -151,7 +151,7 @@ class ArticleControllerTest extends TestCase
 
     /**
      * 投稿編集画面の表示機能のテスト
-     * ログイン時、ユーザーデータに紐づく投稿データを引数として編集画面に移動しステータスコードが200かどうかテスト
+     * ログイン時、に紐づく投稿データを引数として編集画面に移動しステータスコードが200かどうかテスト
      * viewファイル(articles/edit)が利用されているかどうかのテスト
      */
     public function testAuthEdit()
@@ -182,7 +182,7 @@ class ArticleControllerTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        // 定義したファクトリーを利用してユーザーデータ、投稿データ、newsデータを作成
+        // 定義したファクトリーを利用して、投稿データ、newsデータを作成
         $user = factory(User::class)->create();
 
         $article = factory(Article::class)->create(
