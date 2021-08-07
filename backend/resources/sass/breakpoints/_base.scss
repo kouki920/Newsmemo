@@ -4,7 +4,7 @@ Stylesheet: ベーススタイル
 
 ******************************************************************/
 
-/***** ページ共通 *****/
+/****** ページ共通 ******/
 body{
 	background-color: #E0ECE4;
 }
@@ -14,7 +14,8 @@ img {
   vertical-align: bottom;
 }
 
-/*** フォントサイズ ***/
+
+/****** フォントサイズ ******/
 .font-sm {
   font-size: 13px;
 	letter-spacing: 1px;
@@ -36,12 +37,14 @@ img {
 	line-height: 28px;
 }
 
-/*** navbar ***/
+
+/****** navbar ******/
 .navbar{
 	background-color: #797A7E;
 }
 
-/*** ヘッダータブ ***/
+
+/****** ヘッダータブ ******/
 .news-tabs{
 		background-color: #D8D3CD;
     color: #5d627b;
@@ -60,6 +63,7 @@ img {
 					}
 			}
 }
+
 
 /***トップへ戻るボタン***/
 #page-top {
@@ -89,8 +93,14 @@ img {
 }
 
 
-/***** マイページ *****/
+/****** 投稿レイアウト ******/
+.article-body{
+  margin: 10px auto;
+	background-color: #fdffff;
+}
 
+
+/****** マイページ ******/
 /*** タブ ***/
 .user-tabs{
 	background-color: #394867;
@@ -104,10 +114,16 @@ img {
 		}
 }
 
-/*** マイページ ***/
+/*** プロフィール ***/
 .user-profile-body{
-	background-color: #F1F6F9;
+	background-color: #fdffff;
+	&.profile-content{
+		padding: 0 5 0 0;
+		text-align: left;
+	}
 }
+
+
 
 /*** 最近使用したタグ機能 ***/
 .recent-tags-btn{
@@ -124,16 +140,28 @@ img {
 	background-color: #00587A;
 }
 
+/*** ユーザーデータ ***/
+.user-data-header{
+	background-color: #D8D3CD;
+}
+
+.user-data-contents{
+	background-color: #F1F6F9;
+}
+
+
+/****** 非公開メモ機能 ******/
 .add-memo-textarea {
   resize:none;
 }
 
-/***** コレクション機能 *****/
+
+/****** コレクション機能 ******/
 #collection-name {
   font-size: 8px;
 }
 
-/***セレクトボックス***/
+/****** セレクトボックス ******/
 .select-box {
 	width: 20%;
 	margin: 20px auto;
