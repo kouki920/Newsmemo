@@ -54,13 +54,18 @@
             </div>
 
             <!-- ユーザー名・自己紹介 -->
-            <div class="card-text float-left">
-                <p class="card-title font-md">
+            <div class="card-body pt-0 pb-0">
+                <div class="card-text profile-content">
                     {{ $user->name }}
+                </div>
+                <div class="card-text profile-content">
+                    {{$user->introduction}}
+                </div>
+                <!-- <div class="card-text float-left">
+                <p class="card-title font-md">
+                    $user->name
                 </p>
-                {{$user->introduction}}
-
-
+                $user->introduction -->
                 <!-- フォローボタン フォロー・フォロワー数値-->
                 @if(Auth::id() !== $user->id)
                 <follow-button-and-count :initial-is-followed-by='@json($user->isFollowedBy(Auth::user()))' :authorized='@json(Auth::check())' :initial-count-followings='@json($user->count_followings)' :initial-count-followers='@json($user->count_followers)' user-follow="{{ route('users.follow', ['name' => $user->name]) }}" user-follower="{{route('users.follower',['name' => $user->name])}}" user-following="{{route('users.following',['name' => $user->name])}}">
@@ -71,4 +76,5 @@
                 @endif
             </div>
         </div>
+    </div>
     </div>

@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div class="card article-body">
     <div class="card-body d-flex flex-row">
         <div class="d-flex justify-content-start">
             <a href="{{route('users.show',['name'=>$article->user->name])}}" class="text-dark">
@@ -89,10 +89,10 @@
     </div>
     @foreach($article->tags as $tag)
     @if($loop->first)
-    <div class="card-body pt-0 pb-4 pl-3">
+    <div class="card-body pt-0 pb-2 pl-3">
         <div class="card-text line-height">
             @endif
-            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="border p-1 mr-1 mt-1 text-muted">
+            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="border p-1 mr-1 mt-1 text-muted font-sm">
                 {{ $tag->hashtag }}
             </a>
             @if($loop->last)
@@ -102,7 +102,7 @@
     @endforeach
     @if(isset($article->newsLink))
     <div class="card-text pt-0 pb-2 pl-3">
-        関連記事:<a class="font-sm" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">{{$article->newsLink->news}}</a>
+        <a class="font-sm" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$article->newsLink->news}}</a>
     </div>
     @endif
     <div class="card-text pt-0 pl-3 font-weight-lighter">
