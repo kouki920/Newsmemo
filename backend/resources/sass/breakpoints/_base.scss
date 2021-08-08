@@ -51,15 +51,15 @@ img {
     border-top: solid 5px #5d627b;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
 
-			& .news-tabs-text{
-				font-size: 9px;
-				line-height: 13px;
-				color: #000000;
+	.news-tabs-text{
+			font-size: 9px;
+			line-height: 13px;
+			color: #000000;
 
-					& .news-tabs-icon{
-						font-size: 15px;
-						letter-spacing: 1px;
-						margin: 2px auto;
+		.news-tabs-icon{
+					font-size: 15px;
+					letter-spacing: 1px;
+					margin: 2px auto;
 					}
 			}
 }
@@ -107,23 +107,28 @@ img {
 	color: #5d627b;
 	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
 
-		& .user-tabs-text{
-			font-size: 9px;
-			line-height: 13px;
-			color: #F1F6F9;
+	.user-tabs-text{
+		font-size: 9px;
+		line-height: 13px;
+		color: #F1F6F9;
 		}
 }
 
 /*** プロフィール ***/
 .user-profile-body{
 	background-color: #fdffff;
-	&.profile-content{
-		padding: 0 5 0 0;
-		text-align: left;
+}
+.profile-content{
+	padding: 0px;
+
+	.profile-name{
+		margin-left: 5px;
+	}
+
+		.profile-introduction{
+			margin-left: 2px;
 	}
 }
-
-
 
 /*** 最近使用したタグ機能 ***/
 .recent-tags-btn{
