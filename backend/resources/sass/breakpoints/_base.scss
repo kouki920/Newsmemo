@@ -166,6 +166,21 @@ img {
   font-size: 8px;
 }
 
+
+/****** ニュースレイアウト ******/
+.news-url{
+text-decoration: none;
+color: #000000;
+}
+.news-thumbnail{
+	width: 150px;
+	height: 150px;
+	object-fit: contain;
+	background-color: rgba(0,0,0,0);
+	border: none;
+}
+
+
 /****** セレクトボックス ******/
 .select-box {
 	width: 20%;
