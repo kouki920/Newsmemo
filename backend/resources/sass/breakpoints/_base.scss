@@ -168,93 +168,135 @@ img {
 
 
 /****** ニュースレイアウト ******/
-.news-url{
-text-decoration: none;
-color: #000000;
-}
-.news-thumbnail{
-	width: 150px;
-	height: 150px;
-	object-fit: contain;
-	background-color: rgba(0,0,0,0);
-	border: none;
+.news-body{
+	background-color: #F1F3F8;
+	border-radius: 10px;
+	margin: 15px 15px;
+
+	.news-content{
+		display: flex;
+		margin: 10px 8px 5px;
+
+		.news-title{
+			margin: 0px 10px 0px 0px;
+		}
+
+		.news-url{
+			text-decoration: none;
+			color: #000000;
+			}
+
+			.news-thumbnail{
+				width: 110px;
+				height: 110px;
+				object-fit: cover;
+				border: none;
+			}
+	}
+
+	.news-button{
+		display: flex;
+		margin:  0px 0px 5px 8px;
+		padding: 0;
+
+		.news-memo-button{
+			margin-right: 5px;
+
+			.news-memo-button-layout{
+				background-color: #4e78a1;
+				color: #fff;
+				border-radius: 5px;
+			}
+		}
+
+		.news-quick-memo-button-layout{
+			background-color: #4e78a1;
+			color: #fff;
+			border-radius: 5px;
+		}
+	}
 }
 
 
 /****** セレクトボックス ******/
-.select-box {
-	width: 20%;
-	margin: 20px auto;
-	text-align: center;
-  position: relative;
-	border: 1px solid #bbbbbb;
-	border-radius: 3px;
-	background-color: #fff;
+.select-box-body{
+	justify-content: space-evenly;
+	.select-box {
+		width: 20%;
+		margin: 10px auto;
+		text-align: center;
+		position: relative;
+		border: 1px solid #bbbbbb;
+		border-radius: 3px;
+		background-color: #fff;
+	}
+	.update-button{
+		width: 20%;
+		margin: 10px auto;
+		text-align: center;
+	}
+
 }
 
-.select-box select {
-	width: 100%;
-	padding-right: 1em;
-	cursor: pointer;
-	text-indent: 0.01px;
-	text-overflow: ellipsis;
-	border: none;
-	outline: none;
-	background: transparent;
-	background-image: none;
-	box-shadow: none;
-	-webkit-appearance: none;
-	appearance: none;
-}
-.select-box select::-ms-expand {
-    display: none;
-}
 
-.select-box::before {
-	position: absolute;
-	top: 0.8em;
-	right: 0.9em;
-	width: 0;
-	height: 0;
-	padding: 0;
-	content: '';
-	border-left: 6px solid transparent;
-	border-right: 6px solid transparent;
-	border-top: 6px solid #666666;
-	pointer-events: none;
-}
-.select-box:after {
-	position: absolute;
-	top: 0;
-	right: 2.5em;
-	bottom: 0;
-	width: 1px;
-	content: '';
-	border-left: 1px solid #bbbbbb;
-}
-.select-box select {
-	padding: 8px 38px 8px 8px;
-	color: #666666;
-}
+// .select-box select {
+// 	width: 100%;
+// 	padding-right: 1em;
+// 	cursor: pointer;
+// 	text-indent: 0.01px;
+// 	text-overflow: ellipsis;
+// 	border: none;
+// 	outline: none;
+// 	background: transparent;
+// 	background-image: none;
+// 	box-shadow: none;
+// 	-webkit-appearance: none;
+// 	appearance: none;
+// }
+// .select-box select::-ms-expand {
+//     display: none;
+// }
 
-.update-button{
-	width: 10%;
-	margin: 20px auto;
-	text-align: center;
-}
+// .select-box::before {
+// 	position: absolute;
+// 	top: 0.8em;
+// 	right: 0.9em;
+// 	width: 0;
+// 	height: 0;
+// 	padding: 0;
+// 	content: '';
+// 	border-left: 6px solid transparent;
+// 	border-right: 6px solid transparent;
+// 	border-top: 6px solid #666666;
+// 	pointer-events: none;
+// }
+// .select-box:after {
+// 	position: absolute;
+// 	top: 0;
+// 	right: 2.5em;
+// 	bottom: 0;
+// 	width: 1px;
+// 	content: '';
+// 	border-left: 1px solid #bbbbbb;
+// }
+// .select-box select {
+// 	padding: 8px 38px 8px 8px;
+// 	color: #666666;
+// }
 
-#update-button{
-  color: #fff;
-  padding: 7px 14px;
-  background-color: #548CA8;
-  border-bottom: 5px solid #40718a;
-  border-radius: 3px;
 
-  &:hover{
-    margin-top: 3px;
-    color: #fff;
-    background: #548CA8;
-    border-bottom: 2px solid #40718a;
-    border-radius: 3px;
-    }
-}
+// #update-button{
+//   color: #fff;
+//   padding: 7px 14px;
+//   background-color: #548CA8;
+//   border-bottom: 5px solid #40718a;
+//   border-radius: 3px;
+
+//   &:hover{
+//     margin-top: 3px;
+//     color: #fff;
+//     background: #548CA8;
+//     border-bottom: 2px solid #40718a;
+//     border-radius: 3px;
+//     }
+// }
