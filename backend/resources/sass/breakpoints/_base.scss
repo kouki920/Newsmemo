@@ -171,6 +171,7 @@ img {
 .news-body{
 	background-color: #F1F3F8;
 	border-radius: 10px;
+	border: 1px solid #000;
 	margin: 15px 15px;
 
 	.news-content{
@@ -220,83 +221,22 @@ img {
 
 /****** セレクトボックス ******/
 .select-box-body{
-	justify-content: space-evenly;
+	display: flex;
+	justify-content: center;
+	background-color: #E0ECE4;
+
 	.select-box {
-		width: 20%;
-		margin: 10px auto;
-		text-align: center;
-		position: relative;
-		border: 1px solid #bbbbbb;
-		border-radius: 3px;
-		background-color: #fff;
-	}
-	.update-button{
-		width: 20%;
-		margin: 10px auto;
-		text-align: center;
-	}
+		margin: 10px 10px;
+		}
 
+	.news-update-button{
+		margin: 10px 10px;
+
+		.news-update-button-body{
+			color: #fff;
+			background-color: #548CA8;
+			border-radius: 5px;
+			border: 2px solid #57595a;
+		}
+	}
 }
-
-
-// .select-box select {
-// 	width: 100%;
-// 	padding-right: 1em;
-// 	cursor: pointer;
-// 	text-indent: 0.01px;
-// 	text-overflow: ellipsis;
-// 	border: none;
-// 	outline: none;
-// 	background: transparent;
-// 	background-image: none;
-// 	box-shadow: none;
-// 	-webkit-appearance: none;
-// 	appearance: none;
-// }
-// .select-box select::-ms-expand {
-//     display: none;
-// }
-
-// .select-box::before {
-// 	position: absolute;
-// 	top: 0.8em;
-// 	right: 0.9em;
-// 	width: 0;
-// 	height: 0;
-// 	padding: 0;
-// 	content: '';
-// 	border-left: 6px solid transparent;
-// 	border-right: 6px solid transparent;
-// 	border-top: 6px solid #666666;
-// 	pointer-events: none;
-// }
-// .select-box:after {
-// 	position: absolute;
-// 	top: 0;
-// 	right: 2.5em;
-// 	bottom: 0;
-// 	width: 1px;
-// 	content: '';
-// 	border-left: 1px solid #bbbbbb;
-// }
-// .select-box select {
-// 	padding: 8px 38px 8px 8px;
-// 	color: #666666;
-// }
-
-
-// #update-button{
-//   color: #fff;
-//   padding: 7px 14px;
-//   background-color: #548CA8;
-//   border-bottom: 5px solid #40718a;
-//   border-radius: 3px;
-
-//   &:hover{
-//     margin-top: 3px;
-//     color: #fff;
-//     background: #548CA8;
-//     border-bottom: 2px solid #40718a;
-//     border-radius: 3px;
-//     }
-// }
