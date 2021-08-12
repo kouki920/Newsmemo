@@ -93,13 +93,6 @@ img {
 }
 
 
-/****** 投稿レイアウト ******/
-.article-body{
-  margin: 10px auto;
-	background-color: #fdffff;
-}
-
-
 /****** マイページ ******/
 /*** タブ ***/
 .user-tabs{
@@ -239,4 +232,25 @@ img {
 			border: 2px solid #57595a;
 		}
 	}
+}
+
+
+/****** 投稿一覧画面 ******/
+.articles-index{
+	margin: 20px 25px;
+	display: flex;
+
+	.side-menu{
+		display: none;
+	}
+	.articles-index-body{
+		margin: 5px 0px;
+	}
+}
+
+
+/****** 投稿レイアウト ******/
+.article-body{
+  margin: 10px auto;
+	background-color: #fdffff;
 }
