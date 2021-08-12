@@ -1,0 +1,25 @@
+/****** 投稿一覧画面 ******/
+.articles-index{
+	margin: 20px 25px;
+
+	.side-menu{
+    display: block;
+
+    .articles-ranking-body{
+      margin: 10px 30px;
+
+      .articles-ranking-title{
+        padding: 10px 50px;
+      }
+      .articles-ranking-content{
+        padding: 10px 50px;
+      }
+    }
+    .news-ranking-body{
+      margin: 0 auto;
+    }
+	}
+	.articles-index-body{
+		margin: 5px 0px;
+	}
+}

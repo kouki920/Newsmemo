@@ -7,12 +7,12 @@
     @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => true,'hasMypage' => false])
 </div>
 <div class="container">
-    <div class="row col-md-12">
-        <aside class="col-3 d-none d-md-block position-fixed">
+    <div class="articles-index">
+        <aside class="side-menu">
             @include('articles.search')
             @include('sidebar.list')
         </aside>
-        <main class="col-md-7 offset-md-5">
+        <main class="articles-index-body">
             @foreach($articles as $article)
             @include('articles.post')
             @endforeach
