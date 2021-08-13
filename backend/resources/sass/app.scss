@@ -10,8 +10,8 @@
 // レスポンシブデザイン
 @import "breakpoints/base";
 
-@media (min-width: 560px){
-	@import 'breakpoints/560up';
+@media(min-width: 520px){
+	@import 'breakpoints/520up';
 }
 
 @media(min-width: 960px){

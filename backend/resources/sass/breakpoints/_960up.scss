@@ -1,25 +1,90 @@
+$side-menu-padding: 10px 40px;
+$side-menu-border-radius: 5px;
+
+/****** フォントサイズ ******/
+.font-sm {
+  font-size: 14px;
+	letter-spacing: 1px;
+	line-height: 18px;
+}
+.font-md {
+  font-size: 18px;
+	letter-spacing: 1px;
+	line-height: 22px;
+}
+.font-lr {
+  font-size: 20px;
+	letter-spacing: 1px;
+	line-height: 24px;
+}
+.font-lg {
+  font-size: 22px;
+	letter-spacing: 1px;
+	line-height: 26px;
+}
+
+
 /****** 投稿一覧画面 ******/
 .articles-index{
-	margin: 20px 25px;
+	margin: 20px auto;
 
+/*** ランキング ***/
 	.side-menu{
     display: block;
 
     .articles-ranking-body{
-      margin: 10px 30px;
+      margin: 10px 10px 20px 0px;
+      position: sticky;
+      top: 210px;
 
       .articles-ranking-title{
-        padding: 10px 50px;
+        text-align: center;
+        padding: $side-menu-padding;
+        border-radius: $side-menu-border-radius;
+        background-color: #394867;
+        color: #fff;
       }
       .articles-ranking-content{
-        padding: 10px 50px;
+        text-align: center;
+        padding: $side-menu-padding;
+        border-radius: $side-menu-border-radius;
       }
     }
     .news-ranking-body{
-      margin: 0 auto;
+      margin: 10px 10px 50px 0px;
+      position: sticky;
+      top: 570px;
+
+      .news-ranking-title{
+        text-align: center;
+        padding: $side-menu-padding;
+        border-radius: $side-menu-border-radius;
+        background-color: #394867;
+        color: #fff;
+      }
+      .news-ranking-content{
+        text-align: center;
+        padding: $side-menu-padding;
+        border-radius: $side-menu-border-radius;
+      }
     }
-	}
-	.articles-index-body{
-		margin: 5px 0px;
-	}
+
+  /*** 検索フォーム ***/
+  .search-form{
+    margin: 5px 0px 30px 20px;
+    position: sticky;
+    top: 140px;
+
+    .search-content{
+      width: 140px;
+      border: 1px solid #626264;
+    }
+    .search-button{
+      margin-left: 5px;
+      color: #fff;
+      background-color: #394867;
+      box-shadow: none;
+    }
+  }
+}
 }
