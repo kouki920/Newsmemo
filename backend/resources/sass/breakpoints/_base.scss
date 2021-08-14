@@ -14,7 +14,6 @@ img {
   vertical-align: bottom;
 }
 
-
 /****** フォントサイズ ******/
 .font-sm {
   font-size: 12px;
@@ -49,7 +48,7 @@ img {
 		background-color: #D8D3CD;
     color: #5d627b;
     border-top: solid 5px #5d627b;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+		margin: 0px;
 
 	.news-tabs-text{
 			font-size: 9px;
@@ -214,6 +213,16 @@ img {
 	}
 }
 
+/****** covid-19ニュース一覧 セレクトボタン ******/
+.covid-news-index-side-menu{
+	position: sticky;
+	top: 108px;
+	z-index: 1;
+
+	.covid-news-side-menu-body{
+		display: none;
+	}
+}
 
 /****** セレクトボックス ******/
 .select-box-body{
@@ -240,7 +249,7 @@ img {
 
 /****** 投稿一覧画面 ******/
 .articles-index{
-	margin: 20px 25px;
+	margin: 20px 20px;
 	display: flex;
 
 	.side-menu{
