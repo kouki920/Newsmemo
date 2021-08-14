@@ -1,4 +1,4 @@
-<div class="select-box-body covid-news-tabs-body">
+<div class="select-box-body covid-news-side-menu-body">
     <form class="form-inline" method="post" action="{{route('news.covid_custom_index')}}">
         @csrf
         <div class="form-group select-box font-sm">

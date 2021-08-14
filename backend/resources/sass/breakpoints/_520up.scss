@@ -1,19 +1,21 @@
-/****** 投稿一覧画面 ******/
-.articles-index{
-	margin: 20px 25px;
-	display: flex;
-
-	.side-menu{
-		display: none;
-	}
-	.articles-index-body{
-		margin: 5px 0px;
-	}
+/****** フォントサイズ ******/
+.font-sm {
+  font-size: 12px;
+	letter-spacing: 1px;
+	line-height: 16px;
 }
-
-
-/****** 投稿レイアウト ******/
-.article-body{
-  margin: 10px auto;
-	background-color: #fdffff;
+.font-md {
+  font-size: 16px;
+	letter-spacing: 1px;
+	line-height: 20px;
+}
+.font-lr {
+  font-size: 18px;
+	letter-spacing: 1px;
+	line-height: 22px;
+}
+.font-lg {
+  font-size: 20px;
+	letter-spacing: 1px;
+	line-height: 24px;
 }
