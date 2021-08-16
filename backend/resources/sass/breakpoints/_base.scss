@@ -6,7 +6,7 @@ Stylesheet: ベーススタイル
 
 /****** ページ共通 ******/
 body{
-	background-color: #F1F6F9;
+	background-color: #AAAAAA;
 }
 
 img {
@@ -39,7 +39,7 @@ img {
 
 /****** navbar ******/
 .navbar{
-	background-color: #797A7E;
+	background-color: #58585c;
 }
 
 
@@ -161,11 +161,11 @@ img {
 
 /****** ニュースレイアウト ******/
 .news-body{
-	background-color: #f4f7ff;
+	background-color: #fdffff;
 	border-radius: 10px;
 	border: 1px solid #000;
 	margin: 15px 15px;
-	box-shadow: none;
+	// box-shadow: none;
 
 	.news-content{
 		display: flex;
@@ -228,7 +228,7 @@ img {
 .select-box-body{
 	display: flex;
 	justify-content: center;
-	background-color: #F1F6F9;
+	background-color: #AAAAAA;
 
 	.select-box {
 		margin: 10px 10px;
@@ -241,7 +241,7 @@ img {
 			color: #fff;
 			background-color: #548CA8;
 			border-radius: 5px;
-			border: 2px solid #57595a;
+			border: 2px solid #000;
 		}
 	}
 }
