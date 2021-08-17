@@ -1,4 +1,4 @@
-    <div class="select-box-body">
+    <div class="select-box-body headline-news-tabs-body">
         <form class="form-inline" method="post" action="{{route('news.custom_index')}}">
             @csrf
             <div class="form-group select-box">
@@ -19,9 +19,9 @@
                 <!-- カテゴリー: -->
                 <select name="category">
                     <option disabled selected value>カテゴリー</option>
-                    <option value="entertainment">芸能</option>
-                    <option value="business">ビジネス</option>
                     <option value="general">一般</option>
+                    <option value="entertainment">エンタメ</option>
+                    <option value="business">ビジネス</option>
                     <option value="health">健康</option>
                     <option value="science">サイエンス</option>
                     <option value="sports">スポーツ</option>

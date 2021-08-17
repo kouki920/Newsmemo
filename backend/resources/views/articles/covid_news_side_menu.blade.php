@@ -7,7 +7,7 @@
                 <li class="covid-news-language-item"><input type="radio" id="jp-option" name="language" value="jp"><label for="jp-option">日本語</label>
                     <div class="check"></div>
                 </li>
-                <li class="covid-news-language-item"><input type="radio" id="f-option" name="language" value="en"><label for="f-option">英語</label>
+                <li class="covid-news-language-item"><input type="radio" id="en-option" name="language" value="en"><label for="en-option">英語</label>
                     <div class="check"></div>
                 </li>
                 <li class="covid-news-language-item"><input type="radio" id="zh-option" name="language" value="zh"><label for="zh-option">中国語</label>
