@@ -9,7 +9,7 @@
 </div>
 <div class="container">
     <div class="covid-news-index">
-        <aside class="covid-news-index-side-menu">
+        <aside class="covid-news-index-select-menu">
             @include('articles.covidnews_tabs')
             @include('articles.covid_news_side_menu')
         </aside>
