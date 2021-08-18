@@ -213,7 +213,15 @@ img {
 	}
 }
 
-/****** covid-19ニュース一覧 セレクトボタン ******/
+/****** headlineニュース一覧 ******/
+.headline-news-index-select-menu{
+	.headline-news-side-menu-body{
+		display: none;
+	}
+}
+
+
+/****** covid-19ニュース一覧 ******/
 .covid-news-index-select-menu{
 	position: sticky;
 	top: 108px;

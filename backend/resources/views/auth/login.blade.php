@@ -20,12 +20,12 @@
                             @csrf
 
                             <div class="md-form">
-                                <label for="email">メールアドレス</label>
+                                <p for="email">メールアドレス</p>
                                 <input class="form-control" type="text" id="email" name="email" required value="{{ old('email') }}">
                             </div>
 
                             <div class="md-form">
-                                <label for="password">パスワード</label>
+                                <p for="password">パスワード</p>
                                 <input class="form-control" type="password" id="password" name="password" required>
                             </div>
 
@@ -35,16 +35,16 @@
                                 <a href="{{ route('password.request') }}" class="card-text">パスワードを忘れた方</a>
                             </div>
 
-                            <button class="btn btn-block blue-gradient mt-2 mb-2" type="submit">ログイン</button>
+                            <button class="btn btn-block mt-2 mb-2" type="submit">ログイン</button>
 
-                            <button class="btn btn-block blue-gradient mt-2 mb-2">
-                                <a href="{{ route('login.guest') }}" class="text-white text-decoration-none">{{ __('ゲストログイン') }}</a>
+                            <button class="btn btn-block mt-2 mb-2">
+                                <a href="{{ route('login.guest') }}" class="text-decoration-none">{{ __('ゲストログイン') }}</a>
                             </button>
 
                         </form>
 
                         <div class="mt-0">
-                            <a href="{{ route('register') }}" class="btn btn-block blue-gradient text-white mt-2 mb-2 card-text">ユーザー登録はこちら</a>
+                            <a href="{{ route('register') }}" class="btn btn-block mt-2 mb-2 card-text">ユーザー登録はこちら</a>
                         </div>
 
                     </div>
