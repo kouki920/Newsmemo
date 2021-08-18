@@ -1,7 +1,7 @@
     <div class="select-box-body headline-news-tabs-body">
         <form class="form-inline" method="post" action="{{route('news.custom_index')}}">
             @csrf
-            <div class="form-group select-box">
+            <div class="form-group select-box font-md">
                 <!-- 国名: -->
                 <select name="country">
                     <option disabled selected value>国名</option>
@@ -15,7 +15,7 @@
                     <option value="ru">ロシア</option>
                 </select>
             </div>
-            <div class="form-group select-box">
+            <div class="form-group select-box font-md">
                 <!-- カテゴリー: -->
                 <select name="category">
                     <option disabled selected value>カテゴリー</option>
@@ -28,7 +28,7 @@
                     <option value="technology">テクノロジー</option>
                 </select>
             </div>
-            <div class="form-group news-update-button">
+            <div class="form-group news-update-button font-md">
                 <input class="news-update-button-body" type="submit" value="更新">
             </div>
         </form>

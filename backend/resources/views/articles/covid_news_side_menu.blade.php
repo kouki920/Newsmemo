@@ -1,7 +1,7 @@
 <div class="select-box-body covid-news-side-menu-body">
     <form class="form-inline" method="post" action="{{route('news.covid_custom_index')}}">
         @csrf
-        <div class="form-group covid-news-language-menu font-md">
+        <div class="form-group covid-news-language-menu font-sm">
             <p class="covid-news-side-menu-title">言語選択</p>
             <ul class="covid-news-language-list">
                 <li class="covid-news-language-item"><input type="radio" id="jp-option" name="language" value="jp"><label for="jp-option">日本語</label>
