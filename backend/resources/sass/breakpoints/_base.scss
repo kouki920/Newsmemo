@@ -63,6 +63,31 @@ img {
 			}
 }
 
+/****** ログイン画面 ******/
+.login-body{
+	margin: 10px auto;
+	padding: 10px 20px;
+
+		.login-title{
+
+		}
+
+		.login-content{
+			margin: 10px 0px 0px;
+
+		}
+
+		.login-form{
+			margin: 0px;
+
+			.login-form-content{
+				margin: 10px 0px;
+				padding: 5px 2px;
+			}
+		}
+
+}
+
 
 /***トップへ戻るボタン***/
 #page-top {
@@ -165,15 +190,15 @@ img {
 	border-radius: 10px;
 	border: 1px solid #000;
 	margin: 15px 15px;
-	// box-shadow: none;
 
 	.news-content{
 		display: flex;
-		margin: 10px 8px 5px;
+		margin: 10px 10px;
 
 		.news-title{
-			margin: 0px 10px 0px 0px;
 			width: 70%;
+			margin-right: 12%;
+
 		}
 
 		.news-url{
@@ -187,6 +212,7 @@ img {
 				height: 110px;
 				object-fit: cover;
 				border: none;
+				padding: 0px;
 			}
 	}
 
