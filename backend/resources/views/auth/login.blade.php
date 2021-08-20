@@ -31,16 +31,16 @@
                     <a href="{{ route('password.request') }}" class="card-text login-password-forget-text font-sm">パスワードを忘れた方</a>
                 </div>
 
-                <button class="btn btn-block login-button font-md" type="submit">ログイン</button>
+                <button class="btn btn-block login-button font-md" type="submit">login</button>
 
                 <button class="btn btn-block login-button">
-                    <a href="{{ route('login.guest') }}" class="login-button-text font-md">{{ __('ゲストログイン') }}</a>
+                    <a href="{{ route('login.guest') }}" class="login-button-text font-md">{{ __('guest login') }}</a>
                 </button>
 
             </form>
 
             <div class="user-register-button">
-                <a href="{{ route('register') }}" class="btn-block card-text user-register-button-text font-md">ユーザー登録はこちら</a>
+                <a href="{{ route('register') }}" class="btn-block card-text user-register-button-text font-md">USER REGISTRATION</a>
             </div>
         </div>
     </div>
