@@ -8,7 +8,7 @@
 </div>
 
 <div class="container">
-    <div class="card login-body text-center">
+    <div class="card login-body">
         <p class="card-title login-title font-lg">Login</p>
         <div class="card-text">
             @include('error_list')
@@ -16,31 +16,33 @@
                 @csrf
 
                 <label class="login-item font-md" for="email">-&ensp;e-mail&ensp;-</label>
-                <div class="md-form">
-                    <input class="form-control login-form-content font-sm" type="text" id="email" name="email" required value="{{ old('email') }}">
+                <div class="md-form login-form">
+                    <input class="login-form-content font-sm" type="text" id="email" name="email" required value="{{ old('email') }}">
                 </div>
 
                 <label class="login-item font-md" for="password">-&ensp;password&ensp;-</label>
                 <div class="md-form login-form">
-                    <input class="form-control login-form-content font-sm" type="password" id="password" name="password" required>
+                    <input class="login-form-content font-sm" type="password" id="password" name="password" required>
                 </div>
 
                 <input type="hidden" name="remember" id="remember" value="on">
 
-                <div class="text-left login-password-forget">
-                    <a href="{{ route('password.request') }}" class="card-text login-password-forget-text font-sm">パスワードを忘れた方</a>
+                <div class="login-password-forget">
+                    <a href="{{ route('password.request') }}" class="card-text login-password-forget-text font-sm">パスワードを忘れた場合</a>
                 </div>
 
-                <button class="btn btn-block login-button font-md" type="submit">login</button>
+                <button class="login-button font-sm" type="submit">
+                    <p class="login-button-text font-sm">ログイン</p>
+                </button>
 
-                <button class="btn btn-block login-button">
-                    <a href="{{ route('login.guest') }}" class="login-button-text font-md">{{ __('guest login') }}</a>
+                <button class="login-button">
+                    <a href="{{ route('login.guest') }}" class="login-button-text font-sm">{{ __('ゲストログイン') }}</a>
                 </button>
 
             </form>
 
             <div class="user-register-button">
-                <a href="{{ route('register') }}" class="btn-block card-text user-register-button-text font-md">USER REGISTRATION</a>
+                <a href="{{ route('register') }}" class="btn-block card-text user-register-button-text font-sm">新規登録</a>
             </div>
         </div>
     </div>

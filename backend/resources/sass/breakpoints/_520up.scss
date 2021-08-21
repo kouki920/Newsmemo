@@ -32,3 +32,42 @@
 			}
 	}
 }
+
+
+/****** ログイン画面 ******/
+.login-body{
+width: 490px;
+		.login-item{
+			margin: 20px 0px 0px;
+		}
+
+		.login-form{
+			margin: 5px;
+
+			.login-form-content{
+				width: 300px;
+				margin: 10px 0px;
+				padding: 10px 4px;
+			}
+		}
+
+		.login-password-forget{
+			margin: 20px auto;
+
+			.login-password-forget-text{
+				text-decoration: none;
+			}
+		}
+
+		.login-button{
+			margin: 10px auto;
+			padding: 5px 5px;
+			width: 200px;
+		}
+
+		.user-register-button{
+			margin: 10px auto;
+			padding: 5px 5px;
+			width: 200px;
+		}
+}
