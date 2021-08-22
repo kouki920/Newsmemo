@@ -344,4 +344,57 @@ img {
 .article-body{
   margin: 10px auto;
 	background-color: #fdffff;
+
+	.article-content{
+		display: flex;
+
+		/*** 投稿 アイコン・name ***/
+		.article-icon-name{
+			display: flex;
+			justify-content: start;
+			align-items: center;
+
+			.article-icon{
+				margin-right: 7px;
+				padding: 0px;
+				width: 40px;
+				height: 40px;
+				color: #000;
+			}
+
+			.article-name{
+				padding: 0px;
+			}
+		}
+
+		/*** 編集・削除ドロップダウンボタン ***/
+		.article-edit-button{
+			margin-left: auto;
+
+				.dropdown-menu{
+					width: 100px;
+
+					.edit-text{
+						text-align: center;
+						.edit-icon{
+							margin-right: 5px;
+						}
+					}
+					.delete-text{
+						text-align: center;
+						color: #c71111;
+						.delete-icon{
+							margin-right: 5px;
+						}
+					}
+				}
+		}
+
+
+
+	}
+	.article-news-link-text{
+		text-decoration: none;
+		color: #5c3918;
+	}
 }
