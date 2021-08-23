@@ -1,23 +1,21 @@
-<div class="card mt-3">
-    <div class="card-body d-flex flex-row">
-        <div class="d-flex justify-content-start">
-            <a href="{{route('users.show',['name'=>$article->user->name])}}" class="text-dark">
+<div class="card article-body">
+    <div class="card-body article-content">
+        <div class="article-icon-name">
+            <a href="{{route('users.show',['name'=>$article->user->name])}}" class="article-icon">
                 @if(empty($article->user->image))
-                <i class="fas fa-user-circle fa-3x mr-1"></i>
+                <i class="fas fa-user-circle fa-3x article-icon"></i>
                 @else
-                <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$article->user->image}}" width="50" height="50" alt="ユーザーアイコン">
+                <img class="article-icon image-upload rounded-circle img-responsive" src="/storage/{{$article->user->image}}" alt="ユーザーアイコン">
                 @endif
             </a>
-            <div class="font-weight-bold mt-2">
-                <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="text-dark">
-                    {{$article->user->name}}
-                </a>
-            </div>
+            <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="text-dark">
+                {{$article->user->name}}
+            </a>
         </div>
         <!-- ログインユーザーidと投稿idが同じ場合のみ表示させる -->
         @if( Auth::id() === $article->user_id )
         <!-- dropdown -->
-        <div class="ml-auto card-text">
+        <div class="article-edit-button card-text">
             <div class="dropdown">
                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <button type="button" class="btn btn-link text-muted m-0 p-2">
@@ -25,12 +23,12 @@
                     </button>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="{{ route('articles.edit', compact('article')) }}">
-                        <i class="fas fa-pen mr-1"></i>記事を更新する
+                    <a class="dropdown-item edit-text" href="{{ route('articles.edit', compact('article')) }}">
+                        <i class="fas fa-pen edit-icon"></i>編集
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
-                        <i class="fas fa-trash-alt mr-1"></i>記事を削除する
+                    <a class="dropdown-item delete-text" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
+                        <i class="fas fa-trash-alt delete-icon"></i>削除
                     </a>
                 </div>
             </div>
@@ -54,7 +52,7 @@
                         </div>
                         <div class="modal-footer justify-content-between">
                             <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn btn-danger">削除する</button>
+                            <button type="submit" class="btn btn-danger">削除</button>
                         </div>
                     </form>
                 </div>
@@ -63,9 +61,9 @@
         <!-- modal -->
         @endif
     </div>
-    <div class="card-body pt-0 pb-2">
+    <div class="card-body article-body-content">
         <div class="card-text">
-            <a class="text-dark text-decoration-none" href="{{route('articles.show',compact('article'))}}">
+            <a class="font-sm text-dark text-decoration-none" href="{{route('articles.show',compact('article'))}}">
                 {!! nl2br(e( $article->body )) !!}
             </a>
         </div>
@@ -83,8 +81,8 @@
     </div>
     @endif
     @endforeach
-    <div class="card-text pt-0 pb-2 pl-3">
-        関連記事:<a href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">{{$article->newsLink->news}}</a>
+    <div class="card-text article-news-link pt-0 pb-2 pl-3">
+        <a class="font-sm article-news-link-text" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$article->newsLink->news}}</a>
     </div>
     <div class="card-text pt-0 pl-3 font-weight-lighter">
         {{$article->created_at->format('Y/m/d H:i')}}
