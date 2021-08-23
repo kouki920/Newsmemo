@@ -78,7 +78,7 @@
         </div>
         @endif
     </div>
-    <div class="card-body pt-0 pb-2">
+    <div class="card-body article-body-content">
         <div class="card-text">
             <a class="font-sm text-dark text-decoration-none" href="{{route('articles.show',compact('article'))}}">
                 {!! nl2br(e( $article->body )) !!}
