@@ -24,11 +24,11 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item edit-text" href="{{ route('articles.edit', compact('article')) }}">
-                        <i class="fas fa-pen edit-icon"></i>編集
+                        編集
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item delete-text" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
-                        <i class="fas fa-trash-alt delete-icon"></i>削除
+                        削除
                     </a>
                 </div>
             </div>
@@ -91,14 +91,14 @@
         <div class="card-text d-flex flex-row">
             <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
             </article-like>
-            <div class="mt-1 ml-2">
+            <div class="twitter-icon">
                 @if( Auth::id() === $article->user_id )
                 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="{{$article->body}}" data-url="{{$article->newsLink->url}}" data-lang="en" data-hashtags="Newsmemo" data-show-count="false">Tweet</a>
                 @endif
             </div>
         </div>
     </div>
-    <div class="card-text m-3">
+    <div class="card-text memo-body">
         @include('error_list')
         @if( Auth::id() === $article->user_id )
         <div class="card-text my-2"><i class="fas fa-lock fa-fw"></i>非公開メモ</div>
