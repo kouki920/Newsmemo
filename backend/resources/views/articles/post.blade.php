@@ -24,11 +24,11 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item edit-text" href="{{ route('articles.edit', compact('article')) }}">
-                        <i class="fas fa-pen edit-icon"></i>編集
+                        編集
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item delete-text" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
-                        <i class="fas fa-trash-alt delete-icon"></i>削除
+                        削除
                     </a>
                 </div>
             </div>

@@ -47,7 +47,7 @@ img {
 .news-tabs{
 		background-color: #D8D3CD;
     color: #5d627b;
-    border-top: solid 5px #5d627b;
+    border-top: solid 5px #616daa;
 		margin: 0px;
 
 	.news-tabs-text{
@@ -141,11 +141,11 @@ img {
   bottom: 20px;
   height: 50px;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 900;
   transform: rotate(90deg);
   font-size: 90%;
   line-height: 1.5rem;
-  color: #737373;
+  color: #fff;
   padding: 0 0 0 35px;
   border-top: solid 1px;
 }
@@ -320,7 +320,7 @@ img {
 			color: #fff;
 			background-color: #548CA8;
 			border-radius: 5px;
-			border: 2px solid #000;
+			border: 1px solid #000;
 		}
 	}
 }
@@ -375,17 +375,13 @@ img {
 					width: 100px;
 
 					.edit-text{
+						padding: 0;
 						text-align: center;
-						.edit-icon{
-							margin-right: 5px;
-						}
 					}
 					.delete-text{
+						padding: 0;
 						text-align: center;
 						color: #c71111;
-						.delete-icon{
-							margin-right: 5px;
-						}
 					}
 				}
 		}
@@ -401,4 +397,48 @@ img {
 		text-decoration: none;
 		color: #5c3918;
 	}
+
+	.twitter-icon{
+		margin: 7px 0px 0px 7px;
+	}
+}
+
+/****** 非公開メモ機能 ******/
+	.memo-body{
+		margin: 5px 16px;
+
+		.memo-form{
+				margin: 10px 0;
+
+				.memo-button{
+					margin: 10px auto;
+					background-color: rgb(73, 63, 63);
+					color: #fff;
+					width: 100px;
+				}
+		}
+
+		.memo-content{
+			padding: 0px;
+
+			.memo-content-text{
+				align-items: center;
+				margin: 0 10px;
+			}
+			.memo-edit-button{
+				.edit-button{
+					padding: 0;
+					text-align: center;
+					background-color: #fff;
+					color: #000;
+				}
+				.delete-button{
+					padding: 0;
+					text-align: center;
+					background-color: #fff;
+					color: #c71111;
+				}
+			}
+		}
+
 }

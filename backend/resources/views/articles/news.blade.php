@@ -15,7 +15,7 @@
                 @csrf
                 <input type="hidden" name="news" value="{{$data['name']}}">
                 <input type="hidden" name="url" value="{{$data['url']}}">
-                <input class="news-memo-button-layout" type="submit" value="メモ">
+                <input class="font-sm news-memo-button-layout" type="submit" value="メモ">
             </form>
         </div>
         <div class="news-quick-memo-button">
@@ -24,7 +24,7 @@
                 <input type="hidden" name="news" value="{{$data['name']}}">
                 <input type="hidden" name="url" value="{{$data['url']}}">
                 <input type="hidden" name="body" value="後で読む">
-                <input class="news-quick-memo-button-layout" type="submit" value="クイックメモ">
+                <input class="font-sm news-quick-memo-button-layout" type="submit" value="クイックメモ">
             </form>
         </div>
     </div>
