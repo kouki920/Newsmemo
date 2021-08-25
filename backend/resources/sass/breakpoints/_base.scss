@@ -179,16 +179,27 @@ img {
 /*** プロフィール ***/
 .user-profile-body{
 	background-color: #fdffff;
-}
-.profile-content{
-	padding: 0px;
 
-	.profile-name{
-		margin-left: 5px;
+	.profile-function-button{
+		display: flex;
+		align-items: center;
+
 	}
 
+	.profile-content{
+		padding: 0px;
+
+		.profile-name{
+			margin: 2px;
+		}
+
 		.profile-introduction{
-			margin-left: 2px;
+			margin: 2px;
+		}
+
+		.profile-follow-follower-count{
+			margin: 2px 2px 2px 0px;
+		}
 	}
 }
 
@@ -387,16 +398,33 @@ img {
 		}
 	}
 
+	.hashtag-body{
+		padding: 0px;
+		margin: 8px 0px 8px 16px;
+
+		.hashtag-text{
+			padding: 2px;
+		}
+	}
 
 	.article-body-content{
 		margin: 0px;
-		padding: 0px 5px 0px 16px;
+		padding: 0px 16px;
 	}
 
-	.article-news-link-text{
-		text-decoration: none;
-		color: #5c3918;
+	.article-news-link{
+		margin: 2px 16px;
+
+		.article-news-link-text{
+			text-decoration: none;
+			color: #5c3918;
+		}
 	}
+
+	.article-time{
+		padding: 2px 16px;
+	}
+
 
 	.twitter-icon{
 		margin: 7px 0px 0px 7px;
