@@ -81,7 +81,7 @@
     </div>
     @endif
     @endforeach
-    <div class="card-text article-news-link pt-0 pb-2 pl-3">
+    <div class="card-text article-news-link">
         <a class="font-sm article-news-link-text" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$article->newsLink->news}}</a>
     </div>
     <div class="card-text pt-0 pl-3 font-weight-lighter">
