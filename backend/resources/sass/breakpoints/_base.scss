@@ -184,6 +184,22 @@ img {
 		display: flex;
 		align-items: center;
 
+		.profile-user-icon{
+			margin-right: 20px;
+		}
+
+		.tag-button{
+			padding: 5px;
+		}
+
+		.category-text{
+			text-align: center;
+			padding: 5px 0px;
+		}
+
+		.edit-button{
+			padding: 5px;
+		}
 	}
 
 	.profile-content{
@@ -413,7 +429,7 @@ img {
 	}
 
 	.article-news-link{
-		margin: 2px 16px;
+		margin: 5px 16px;
 
 		.article-news-link-text{
 			text-decoration: none;
@@ -468,5 +484,4 @@ img {
 				}
 			}
 		}
-
 }
