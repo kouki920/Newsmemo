@@ -70,10 +70,10 @@
     </div>
     @foreach($article->tags as $tag)
     @if($loop->first)
-    <div class="card-body pt-0 pb-4 pl-3">
+    <div class="card-body hashtag-body">
         <div class="card-text line-height">
             @endif
-            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="border p-1 mr-1 mt-1 text-muted">
+            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="hashtag-text border text-muted font-sm">
                 {{ $tag->hashtag }}
             </a>
             @if($loop->last)
@@ -84,7 +84,7 @@
     <div class="card-text article-news-link">
         <a class="font-sm article-news-link-text" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$article->newsLink->news}}</a>
     </div>
-    <div class="card-text pt-0 pl-3 font-weight-lighter">
+    <div class="card-text article-time font-sm">
         {{$article->created_at->format('Y/m/d H:i')}}
     </div>
     <div class="card-body pt-0 ">

@@ -17,7 +17,7 @@
         @endguest -->
 
         @auth
-        <li class="nav-item d-flex align-items-center text-white">
+        <li class="nav-item d-flex align-items-center text-white font-md">
             {{Auth::user()->name}}
         </li>
         <!-- Dropdown -->
@@ -29,7 +29,7 @@
                 <img src="/storage/{{Auth::user()->image}}" class="user-mini-icon rounded-circle" width="30" height="30">
                 @endif
             </a>
-            <div class=" dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <div class=" dropdown-menu dropdown-menu-right dropdown-primary font-sm" aria-labelledby="navbarDropdownMenuLink">
                 <button class="dropdown-item" type="button" onclick="location.href='{{ route("users.show", ["name" => Auth::user()->name]) }}'">
                     マイページ
                 </button>

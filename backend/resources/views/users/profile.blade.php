@@ -2,33 +2,36 @@
         <div class="card-body">
             <!-- ユーザーアイコン -->
             <div class="profile-function-button">
-                @if(Auth::id() == config('user.guest_user_id'))
-                @if(!isset($user->image))
-                <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="55" height="55" alt="Noicon">
-                @else
-                <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="55" height="55" alt="ユーザーアイコン">
-                @endif
-                @elseif(Auth::id() == $user->id)
-                <a href="{{ route('users.image_edit', ['name' => $user->name]) }}" class="text-dark">
+                <div class="profile-user-icon">
+                    @if(Auth::id() == config('user.guest_user_id'))
                     @if(!isset($user->image))
-                    <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="55" height="55" alt="Noicon">
+                    <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="50" height="50" alt="Noicon">
                     @else
-                    <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="55" height="55" alt="ユーザーアイコン">
+                    <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="50" height="50" alt="ユーザーアイコン">
                     @endif
-                </a>
-                @elseif(Auth::id() !== $user->id)
-                @if(!isset($user->image))
-                <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="55" height="55" alt="Noicon">
-                @else
-                <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="55" height="55" alt="ユーザーアイコン">
-                @endif
-                @endif
+                    @elseif(Auth::id() == $user->id)
+                    <a href="{{ route('users.image_edit', ['name' => $user->name]) }}" class="text-dark">
+                        @if(!isset($user->image))
+                        <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="50" height="50" alt="Noicon">
+                        @else
+                        <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="50" height="50" alt="ユーザーアイコン">
+                        @endif
+                    </a>
+                    @elseif(Auth::id() !== $user->id)
+                    @if(!isset($user->image))
+                    <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="50" height="50" alt="Noicon">
+                    @else
+                    <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" alt="ユーザーアイコン">
+                    @endif
+                    @endif
+                </div>
+
 
                 <!-- タグ表示 -->
-                <div class="card-text col">
+                <div class="card-text">
                     <div class="dropdown">
                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <button class="btn recent-tags-btn dropdown-toggle font-sm" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <button class="btn recent-tags-btn dropdown-toggle font-sm tag-button" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                                 最近使用したタグ
                             </button>
                         </a>
@@ -36,7 +39,7 @@
                             <div>
                                 @foreach($total_category as $category)
                                 <ul class="list-group">
-                                    <li class="list-group-item h6">{{$category}}</li>
+                                    <li class="list-group-item category-text font-sm">{{$category}}</li>
                                 </ul>
                                 @endforeach
                             </div>
@@ -46,7 +49,7 @@
 
                 <!-- 編集ボタン -->
                 @if(Auth::id() == $user->id)
-                <div class="card-text col row">
+                <div class="card-text">
                     <a href="{{route('users.edit',['name' => $user->name])}}"><input type="button" class="font-sm btn edit-button" value="編集"></a>
                 </div>
                 @endif
