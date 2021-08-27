@@ -1,7 +1,7 @@
-<div class="card mt-3 col-6">
-    <div class="card-body d-flex flex-row">
+<div class="card collection-body">
+    <div class="card-body collection-content">
         <a href="{{ route('collections.show', ['name' => $collection->name,'id' => Auth::id()]) }}" class="text-muted text-decoration-none">
-            <p id="collection-name" class="card-title m-1 p-1">{{ $collection->name }}</p>
+            <p id="collection-name" class="card-title collection-title font-sm">{{ $collection->name }}</p>
         </a>
         <!-- dropdown -->
         <div class="ml-auto card-text">
@@ -12,12 +12,12 @@
                     </button>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" data-toggle="modal" data-target="#modal-edit-{{ $collection->id }}">
-                        <i class=" fas fa-pen mr-1"></i>コレクション名を編集
+                    <a class="dropdown-item edit-text font-sm" data-toggle="modal" data-target="#modal-edit-{{ $collection->id }}">
+                        編集
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete-{{ $collection->id }}">
-                        <i class="fas fa-trash-alt mr-1"></i>コレクションを削除
+                    <a class="dropdown-item delete-text font-sm" data-toggle="modal" data-target="#modal-delete-{{ $collection->id }}">
+                        削除
                     </a>
                 </div>
             </div>
@@ -51,6 +51,7 @@
     </div>
 </div>
 <!-- modal -->
+
 <!-- modal -->
 <div id="modal-delete-{{ $collection->id }}" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -68,7 +69,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                    <button type="submit" class="btn btn-danger">削除する</button>
+                    <button type="submit" class="btn btn-danger">削除</button>
                 </div>
             </form>
         </div>
