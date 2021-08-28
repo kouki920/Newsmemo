@@ -1,7 +1,7 @@
 <div class="card collection-body">
     <div class="card-body collection-content">
-        <a href="{{ route('collections.show', ['name' => $collection->name,'id' => Auth::id()]) }}" class="text-muted text-decoration-none">
-            <p id="collection-name" class="card-title collection-title font-sm">{{ $collection->name }}</p>
+        <a href="{{ route('collections.show', ['name' => $collection->name,'id' => Auth::id()]) }}" class="card-title collection-title font-sm">
+            {{ $collection->name }}
         </a>
         <!-- dropdown -->
         <div class="ml-auto card-text">
