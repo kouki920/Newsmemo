@@ -51,8 +51,8 @@
                             投稿したメモを本当に削除しますか?
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn btn-danger">削除</button>
+                            <a class="btn btn-outline-grey font-sm" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn btn-danger font-sm">削除</button>
                         </div>
                     </form>
                 </div>
@@ -106,22 +106,17 @@
     <div class="card-text article-time font-sm">
         {{$article->created_at->format('Y/m/d H:i')}}
     </div>
-    <div class="row card-body pt-0 pb-0 pl-3">
-        <div class="card-text col-12 clearfix">
-            <div class="float-left">
-                <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
-                </article-like>
-            </div>
-            <div class="float-right">
-                <a class="dropdown-item text-success float-left" data-toggle="modal" data-target="#modal-store-{{ $article->id }}">
-                    <i class="far fa-folder fa-lg"></i>
-                </a>
-                <!-- <a class="dropdown-item text-danger float-left" data-toggle="modal" data-target="#modal-collection-delete-{{ $article->id }}">
-                    <i class="far fa-folder fa-lg"></i>
-                </a> -->
-            </div>
+    <div class="article-async-button card-body">
 
+        <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
+        </article-like>
+
+        <div class="collection-async-button">
+            <a class="dropdown-item collection-add-button" data-toggle="modal" data-target="#modal-store-{{ $article->id }}">
+                <i class="far fa-folder fa-lg collection-add-button-icon"></i>
+            </a>
         </div>
+
         <!-- コレクション 非同期 modal -->
         <div id="modal-store-{{ $article->id }}" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
