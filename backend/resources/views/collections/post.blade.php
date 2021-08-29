@@ -47,12 +47,12 @@
                     <form method="POST" action="{{ route('articles.destroy', compact('article')) }}">
                         @csrf
                         @method('DELETE')
-                        <div class="modal-body">
+                        <div class="modal-body font-sm">
                             投稿したメモを本当に削除しますか?
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <a class="btn btn-outline-grey font-sm" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn btn-danger font-sm">削除</button>
+                            <a class="btn btn-outline-grey font-sm article-cancel-button" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn btn-danger font-sm article-delete-button">削除</button>
                         </div>
                     </form>
                 </div>
@@ -150,12 +150,12 @@
                     <form method="POST" action="{{ route('collections.article_collection_destroy', compact('article','collection')) }}">
                         @csrf
                         @method('DELETE')
-                        <div class="modal-body">
+                        <div class="modal-body font-sm">
                             コレクションから削除しますか?
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn btn-danger">削除</button>
+                            <a class="btn btn-outline-grey font-sm" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn btn-danger font-sm">削除</button>
                         </div>
                     </form>
                 </div>
