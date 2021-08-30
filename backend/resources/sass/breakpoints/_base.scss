@@ -71,6 +71,7 @@ img {
 	box-shadow: none;
 	border: none;
 	background-color: #F9F9F9;
+	max-width: 300px;
 
 		.login-item{
 			margin: 10px 0px 0px;
@@ -549,6 +550,7 @@ margin: 2px;
 margin: 10px auto;
 display: block;
 box-shadow: none;
+max-width: 300px;
 
 	.collection-content{
 		display: flex;
@@ -574,5 +576,143 @@ box-shadow: none;
 			text-align: center;
 			padding: 0;
 		}
+	}
+}
+
+
+/****** 設定画面 ******/
+.setting-index-body{
+	margin: 10px auto 0px;
+	max-width: 300px;
+
+	.setting-title{
+		background-color: #87A8A4;
+	}
+
+	.setting-list-link{
+		padding: 10px;
+	}
+}
+
+
+/****** パスワード変更画面 ******/
+.password-reset-body{
+	margin: 10px auto;
+	text-align: center;
+	max-width: 300px;
+
+	.password-edit-form{
+		max-width: 300px;
+		margin: 0 auto;
+	}
+
+	.password-edit-button{
+		background-color: #6E85B2;
+		color: #fff;
+		margin: 0 auto;
+	}
+}
+
+
+/****** お問い合わせ内容入力画面 ******/
+.contact-form-body{
+	margin: 10px auto;
+	box-shadow: none;
+	max-width: 300px;
+
+	.contact-form-title{
+		margin: 10px auto 20px;
+	}
+
+	.contact-radio-button{
+		margin: 10px auto;
+	}
+
+	.contact-select-bar{
+		margin: 10px auto;
+	}
+
+	.contact-email-form{
+		margin: 20px auto;
+	}
+
+	.contact-content-form{
+		margin: 20px auto;
+	}
+
+	.contact-form-button{
+		background-color: #6E85B2;
+		color: #fff;
+		max-width: 200px;
+		text-align: center;
+	}
+}
+
+/****** お問い合わせ内容確認画面 ******/
+.confirm-body{
+	margin: 10px auto;
+	box-shadow: none;
+	max-width: 300px;
+
+	.confirm-body-content{
+		text-align: center;
+
+		.confirm-title{
+			margin: 10px auto;
+			text-align: center;
+		}
+
+		.confirm-content-list{
+			margin: 10px auto;
+
+			.confirm-content-item{
+				margin: 20px auto;
+
+				.confirm-content-required{
+					background-color: #DF2E2E;
+					color: #fff;
+					padding: 1px 2px;
+					margin-left: 5px;
+					border-radius: 3px;
+				}
+			}
+		}
+
+		.confirm-button{
+			margin: 0 auto;
+
+			.confirm-cancel-button{
+				box-shadow: none;
+				background-color: #C8C6C6;
+				color: #fff;
+			}
+
+			.confirm-submit-button{
+				box-shadow: none;
+				background-color: #6E85B2;
+				color: #fff;
+			}
+		}
+	}
+}
+
+
+/****** お問い合わせ完了画面 ******/
+.complete-body{
+	margin: 10px auto;
+	text-align: center;
+	box-shadow:none;
+	border: none;
+	max-width: 300px;
+
+	.complete-body-header{
+		background-color: #87A8A4;
+	}
+
+	.complete-button{
+		box-shadow: none;
+		background-color: #6E85B2;
+		color: #fff;
+		margin: 20px auto 0px;
 	}
 }

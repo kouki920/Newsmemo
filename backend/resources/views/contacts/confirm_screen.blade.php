@@ -1,48 +1,48 @@
-<div class="card mt-3">
-    <div class="card-body text-center">
-        <h2 class="h3 card-title text-center mt-2">確認画面</h2>
+<div class="card confirm-body">
+    <div class="card-body confirm-body-content">
+        <div class="card-title confirm-title font-md">-確認画面-</div>
 
         @include('error_list')
 
-        <div class="card-text mt-3">
+        <div class="card-text confirm-content-list">
             <form method="POST" action="{{ route('contacts.send',['id' => Auth::id()]) }}">
                 @csrf
 
-                <div class="form-group row">
-                    <p class="col-sm-4 col-form-label">性別<span class="badge badge-danger ml-1">必須</span></p>
-                    <div class="col-sm-8">
-                        {{ $inputs['gender'] }}
-                    </div>
+                <div class="form-group font-sm confirm-content-item">
+                    <p>・性別<span class="confirm-content-required">必須</span></p>
+
+                    {{ $inputs['gender'] }}
+
                     <input type="hidden" name="gender" value="{{ $inputs['gender'] }}">
                 </div>
 
-                <div class="form-group row">
-                    <p class="col-sm-4 col-form-label">メールアドレス<span class="badge badge-danger ml-1">必須</span></p>
-                    <div class="col-sm-8">
-                        {{ $inputs['email'] }}
-                    </div>
+                <div class="form-group font-sm confirm-content-item">
+                    <p>・メールアドレス<span class="confirm-content-required">必須</span></p>
+
+                    {{ $inputs['email'] }}
+
                     <input type="hidden" name="email" value="{{ $inputs['email'] }}">
                 </div>
 
-                <div class="form-group row">
-                    <p class="col-sm-4 col-form-label">年齢<span class="badge badge-danger ml-1">必須</span></p>
-                    <div class="col-sm-8">
-                        {{ $inputs['age'] }}
-                    </div>
+                <div class="form-group font-sm confirm-content-item">
+                    <p>・年齢<span class="confirm-content-required">必須</span></p>
+
+                    {{ $inputs['age'] }}代
+
                     <input type="hidden" name="age" value="{{ $inputs['age'] }}">
                 </div>
 
-                <div class="form-group row">
-                    <p class="col-sm-4 col-form-label">お問い合わせ内容<span class="badge badge-danger ml-1">必須</span></p>
-                    <div class="col-sm-8">
-                        {{ $inputs['content'] }}
-                    </div>
+                <div class="form-group font-sm confirm-content-item">
+                    <p>・お問い合わせ内容<span class="confirm-content-required">必須</span></p>
+
+                    {{ $inputs['content'] }}
+
                     <input type="hidden" name="content" value="{{ $inputs['content'] }}">
                 </div>
 
-                <div class="text-center">
-                    <button name="action" type="submit" value="back" class="btn btn-dark">入力画面に戻る</button>
-                    <button name="action" type="submit" value="submit" class="btn btn-primary">送信</button>
+                <div class="confirm-button">
+                    <button name="action" type="submit" value="back" class="btn confirm-cancel-button">入力画面に戻る</button>
+                    <button name="action" type="submit" value="submit" class="btn confirm-submit-button">送信</button>
                 </div>
             </form>
         </div>

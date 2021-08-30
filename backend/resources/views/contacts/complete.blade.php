@@ -5,14 +5,12 @@
 @section('content')
 @include('nav')
 
-<div class="card text-center m-3">
-    <div class="card-header">完了画面</div>
+<div class="card complete-body">
+    <div class="card-header complete-body-header font-md">-送信完了のお知らせ-</div>
     <div class="card-body">
-        <h5 class="card-title">お問い合わせありがとうございます</h5>
-        <p class="card-text">
-            今後ともどうぞよろしくお願い申し上げます。
-        </p>
-        <a href="{{route('articles.index')}}" class="btn btn-primary">トップページに戻る</a>
+        <div class="card-title font-sm">お問い合わせありがとうございます</div>
+        <div class="font-sm">今後ともどうぞよろしくお願い申し上げます</div>
+        <a href="{{route('articles.index')}}" class="btn complete-button font-sm">トップページに戻る</a>
     </div>
 </div>
 @endsection
