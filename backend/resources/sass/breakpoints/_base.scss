@@ -180,6 +180,7 @@ img {
 /*** プロフィール ***/
 .user-profile-body{
 	background-color: #fdffff;
+	box-shadow: none;
 
 	.profile-function-button{
 		display: flex;
@@ -257,6 +258,59 @@ margin: 2px;
 
 .user-data-contents{
 	background-color: #F1F6F9;
+}
+
+/*** フォロー・フォロワー画面 ***/
+.follow-tab-link{
+	background-color: #394867;
+	color:  #fff;
+	border-radius: 0px;
+
+	&:active{
+		background-color: #fff;
+		color: #000;
+		border-radius: 0px;
+	}
+}
+
+.follower-tab-link{
+	background-color: #394867;
+	color:  #fff;
+	border-radius: 0px;
+
+	&:active{
+		background-color: #fff;
+		color: #000;
+		border-radius: 0px;
+	}
+}
+
+/*** ユーザー一覧表示 ***/
+.follow-follower-body{
+	margin: 10px auto;
+	box-shadow: none;
+	max-width: 300px;
+
+	.follow-follower-content{
+		padding: 0px 10px;
+		display: flex;
+		align-items: center;
+
+		.follow-follower-user-icon{
+			padding: 0;
+			width: 55px;
+			height: 55px;
+		}
+
+		.follow-follower-user-name{
+			padding: 0;
+		}
+
+		.follow-follower-button{
+			padding: 0;
+			margin-left: auto;
+		}
+	}
 }
 
 
@@ -714,5 +768,33 @@ max-width: 300px;
 		background-color: #6E85B2;
 		color: #fff;
 		margin: 20px auto 0px;
+	}
+}
+
+
+/****** ページネーション ******/
+.pagination-body{
+	margin: 0 auto;
+
+	.pagination-body-content{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.pagination-previous-button{
+			padding: 5px;
+		}
+
+		.pagination-link-button{
+			padding: 5px;
+
+			.pagination-link-button-content{
+				background-color: #548CA8;
+			}
+		}
+
+		.pagination-next-button{
+			padding: 5px;
+		}
 	}
 }
