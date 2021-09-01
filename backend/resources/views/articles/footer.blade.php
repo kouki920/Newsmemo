@@ -1,8 +1,8 @@
-<footer class="text-center text-white">
+<footer class="footer-body font-sm">
     <!-- Copyright -->
-    <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <div class="footer-body-text">
         © 2021 Copyright:
-        <a class="text-dark" href="#"><i class="far fa-sticky-note fa-fw"></i>Newsmemo</a>
+        <i class="far fa-sticky-note fa-fw"></i>Newsmemo
     </div>
     <!-- Copyright -->
 </footer>

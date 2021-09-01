@@ -222,18 +222,26 @@ img {
 }
 
 /****** プロフィール更新画面 ******/
-.user-profile-update-button{
-background-color: #6E85B2;
-color: #fff;
-box-shadow: none;
-margin: 2px;
-}
-
-.user-profile-cancel-button{
-	background-color: #C8C6C6;
-	color: #fff;
+.user-profile-edit-body{
+	margin: 10px auto;
+	padding: 5px 10px;
+	text-align: center;
 	box-shadow: none;
-	margin: 2px;
+	max-width: 300px;
+
+	.user-profile-update-button{
+		background-color: #6E85B2;
+		color: #fff;
+		box-shadow: none;
+		margin: 2px;
+	}
+
+	.user-profile-cancel-button{
+		background-color: #C8C6C6;
+		color: #fff;
+		box-shadow: none;
+		margin: 2px;
+	}
 }
 
 /*** 最近使用したタグ機能 ***/
@@ -796,5 +804,18 @@ max-width: 300px;
 		.pagination-next-button{
 			padding: 5px;
 		}
+	}
+}
+
+
+/****** フッター ******/
+.footer-body{
+	margin-top: 10px;
+
+	.footer-body-text{
+		padding: 10px 5px;
+		text-align: center;
+		color: #fff;
+		background-color: #7e7d7db9;
 	}
 }
