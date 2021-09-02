@@ -168,7 +168,7 @@ img {
 .user-tabs{
 	background-color: #394867;
 	color: #5d627b;
-	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+	box-shadow: none;
 
 	.user-tabs-text{
 		font-size: 9px;
@@ -192,6 +192,7 @@ img {
 
 		.tag-button{
 			padding: 5px;
+			box-shadow: none;
 		}
 
 		.category-text{
@@ -201,6 +202,7 @@ img {
 
 		.edit-button{
 			padding: 5px;
+			box-shadow: none;
 		}
 	}
 
