@@ -223,7 +223,7 @@ img {
 	}
 }
 
-/****** プロフィール更新画面 ******/
+/*** プロフィール更新画面 ***/
 .user-profile-edit-body{
 	margin: 10px auto;
 	padding: 5px 10px;
@@ -262,13 +262,24 @@ img {
 }
 
 /*** ユーザーデータ ***/
-.user-data-header{
-	background-color: #D8D3CD;
+.user-data-body{
+	margin: 10px auto;
+
+	.user-data-header{
+		background-color: #D8D3CD;
+		text-align: center;
+		font-size: 10px;
+		line-height: 14px;
+	}
+
+	.user-data-contents{
+		background-color: #F1F6F9;
+		text-align: center;
+		font-size: 10px;
+		line-height: 14px;
+	}
 }
 
-.user-data-contents{
-	background-color: #F1F6F9;
-}
 
 /*** フォロー・フォロワー画面 ***/
 .follow-tab-link{
@@ -487,12 +498,19 @@ img {
 				}
 		}
 
+		.article-delete-text{
+			text-align: center;
+		}
+
 		.article-cancel-button{
 			box-shadow: none;
-			padding: 7px;
+			background-color: #C8C6C6;
+			color: #fff;
 		}
 		.article-delete-button{
 			box-shadow: none;
+			background-color: #c71111;
+			color: #fff;
 		}
 	}
 
@@ -640,6 +658,50 @@ max-width: 300px;
 			text-align: center;
 			padding: 0;
 		}
+	}
+
+	.collection-update-body{
+		margin: 10px auto;
+
+		.collection-update-content{
+			text-align: center;
+
+			.collection-update-text{
+				margin: 5px auto;
+			}
+
+			.collection-update-btn-body{
+				margin-bottom: 0px;
+
+				.collection-update-btn-content{
+					justify-content: space-between;
+
+					.collection-cancel-btn{
+						box-shadow: none;
+						background-color: #C8C6C6;
+						color: #fff;
+					}
+					.collection-update-btn{
+						box-shadow: none;
+						background-color: #6E85B2;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+
+
+	.collection-cancel-btn{
+		box-shadow: none;
+		background-color: #C8C6C6;
+		color: #fff;
+	}
+
+	.collection-delete-btn{
+		box-shadow: none;
+		background-color: #c71111;
+		color: #fff;
 	}
 }
 
