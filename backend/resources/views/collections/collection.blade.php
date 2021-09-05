@@ -24,7 +24,37 @@
         </div>
         <!-- dropdown -->
         <!-- 非同期 更新 modal -->
-        <div id="modal-edit-{{ $collection->id }}" class="modal fade" tabindex="-1" role="dialog">
+        <div id="modal-edit-{{ $collection->id }}" class="modal fade collection-update-body" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close collection-update-body-close" data-dismiss="modal" aria-label="閉じる">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action="{{ route('collections.update',['id' => Auth::id(),'collection'=> $collection]) }}">
+                        @csrf
+                        @method('PATCH')
+                        <div class="modal-body collection-update-content">
+                            <div class="collection-update-text font-sm">
+                                コレクション名を編集してください
+                            </div>
+                            <div class="form-group collection-update-btn-body">
+                                <input class="form-control font-sm" type="text" name="name" value="{{$collection->name ?? old('name')}}">
+                                <div class="modal-footer collection-update-btn-content">
+                                    <a class="btn collection-cancel-btn font-sm" data-dismiss="modal">キャンセル</a>
+                                    <button type="submit" class="btn collection-update-btn font-sm">更新</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- modal -->
+
+        <!-- modal -->
+        <div id="modal-delete-{{ $collection->id }}" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -32,49 +62,20 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST" action="{{ route('collections.update',['id' => Auth::id(),'collection'=> $collection]) }}">
+                    <form method="POST" action="{{ route('collections.destroy',['id' => Auth::id(),'collection'=> $collection]) }}">
                         @csrf
-                        @method('PATCH')
-                        <div class="modal-body text-center">
-                            コレクション名を編集してください
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="name" value="{{$collection->name ?? old('name')}}">
-                                <div class="modal-footer justify-content-between">
-                                    <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                                    <button type="submit" class="btn btn-success">更新</button>
-                                </div>
+                        @method('DELETE')
+                        <div class="modal-body text-center font-sm">
+                            コレクションを削除しますか?
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <a class="btn collection-cancel-btn font-sm" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn collection-delete-btn font-sm">削除</button>
+                        </div>
                     </form>
                 </div>
             </div>
-
         </div>
+        <!-- modal -->
     </div>
-</div>
-<!-- modal -->
-
-<!-- modal -->
-<div id="modal-delete-{{ $collection->id }}" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form method="POST" action="{{ route('collections.destroy',['id' => Auth::id(),'collection'=> $collection]) }}">
-                @csrf
-                @method('DELETE')
-                <div class="modal-body text-center">
-                    コレクションを削除しますか?
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                    <button type="submit" class="btn btn-danger">削除</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- modal -->
-</div>
 </div>
