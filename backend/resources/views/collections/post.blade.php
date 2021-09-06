@@ -23,11 +23,11 @@
                     </button>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item edit-text" href="{{ route('articles.edit', compact('article')) }}">
+                    <a class="dropdown-item edit-text font-sm" href="{{ route('articles.edit', compact('article')) }}">
                         編集
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item delete-text" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
+                    <a class="dropdown-item delete-text font-sm" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
                         削除
                     </a>
                 </div>
@@ -47,12 +47,12 @@
                     <form method="POST" action="{{ route('articles.destroy', compact('article')) }}">
                         @csrf
                         @method('DELETE')
-                        <div class="modal-body font-sm">
+                        <div class="modal-body article-delete-text font-sm">
                             投稿したメモを本当に削除しますか?
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <a class="btn btn-outline-grey font-sm article-cancel-button" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn btn-danger font-sm article-delete-button">削除</button>
+                            <a class="btn font-sm article-cancel-button" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn font-sm article-delete-button">削除</button>
                         </div>
                     </form>
                 </div>
@@ -150,12 +150,12 @@
                     <form method="POST" action="{{ route('collections.article_collection_destroy', compact('article','collection')) }}">
                         @csrf
                         @method('DELETE')
-                        <div class="modal-body font-sm">
+                        <div class="modal-body font-sm collection-article-delete-text">
                             コレクションから削除しますか?
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <a class="btn btn-outline-grey font-sm" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn btn-danger font-sm">削除</button>
+                            <a class="btn font-sm collection-article-cancel-button" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn font-sm collection-article-delete-button">削除</button>
                         </div>
                     </form>
                 </div>

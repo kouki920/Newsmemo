@@ -569,9 +569,22 @@ img {
 
 				.collection-delete-button-icon{
 					color: #c71111;
-
 				}
 			}
+	}
+
+	.collection-article-delete-text{
+		text-align: center;
+	}
+	.collection-article-cancel-button{
+		box-shadow: none;
+		background-color: #C8C6C6;
+		color: #fff;
+	}
+	.collection-article-delete-button{
+		box-shadow: none;
+		background-color: #c71111;
+		color: #fff;
 	}
 	}
 }
@@ -704,6 +717,18 @@ max-width: 300px;
 		color: #fff;
 	}
 }
+
+	.collection-article-cancel-btn{
+		box-shadow: none;
+		background-color: #C8C6C6;
+		color: #fff;
+	}
+
+	.collection-article-delete-btn{
+		box-shadow: none;
+		background-color: #c71111;
+		color: #fff;
+	}
 
 
 /****** 設定画面 ******/

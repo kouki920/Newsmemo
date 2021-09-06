@@ -49,9 +49,9 @@
                     <div class="check"></div>
                 </li>
             </ul>
-        </div>
-        <div class="form-group news-update-button">
-            <input class="news-update-button-body" type="submit" value="更新">
+            <div class="form-group news-update-button">
+                <input class="news-update-button-body font-sm" type="submit" value="更新">
+            </div>
         </div>
     </form>
 </div>
