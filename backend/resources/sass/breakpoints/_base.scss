@@ -210,11 +210,11 @@ img {
 		padding: 0px;
 
 		.profile-name{
-			margin: 2px 2px 2px 6px;
+			margin: 2px;
 		}
 
 		.profile-introduction{
-			margin: 2px;
+			margin: 8px 2px;
 		}
 
 		.profile-follow-follower-count{
@@ -268,15 +268,11 @@ img {
 	.user-data-header{
 		background-color: #D8D3CD;
 		text-align: center;
-		font-size: 10px;
-		line-height: 14px;
 	}
 
 	.user-data-contents{
 		background-color: #F1F6F9;
 		text-align: center;
-		font-size: 10px;
-		line-height: 14px;
 	}
 }
 
@@ -596,6 +592,33 @@ img {
 	color: #fff;
 	box-shadow: none;
 	margin: 0 auto;
+	}
+
+	/*** 投稿フォーム ***/
+	.article-create-body{
+		margin: 10px auto;
+		max-width: 300px;
+
+		.article-create-body-content{
+			padding: 0px 10px 15px;
+			align-items: center;
+
+			.article-create-news-link-text{
+				color: #5c3918;
+			}
+
+			.article-create-button-body{
+				text-align: center;
+
+				.article-create-button{
+					color: #fff;
+					background-color: #548CA8;
+					box-shadow: none;
+					width: 150px;
+				}
+			}
+
+		}
 	}
 
 
