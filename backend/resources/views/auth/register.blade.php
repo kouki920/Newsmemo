@@ -7,45 +7,54 @@
     @include('nav')
 </div>
 <div class="container">
-    <div class="row">
-        <div class="mx-auto col col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6">
-            <div class="card mt-3">
-                <div class="card-body text-center">
-                    <h2 class="h3 card-title text-center mt-2">ユーザー登録</h2>
+    <div class="card register-form-body">
+        <div class="card-body">
+            <h2 class="card-title register-form-title font-lg">-ユーザー登録-</h2>
 
-                    @include('error_list')
+            @include('error_list')
 
-                    <div class="card-text">
-                        <form action="{{route('register')}}" method="POST" 　novalidate="novalidate">
-                            @csrf
-                            <div class="md-form">
-                                <label for="name">お名前</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" required>
-                                <small class="text-muted ">※半角英数字8~16文字以内で入力して下さい</small>
-                            </div>
-                            <div class="md-form">
-                                <label for="email">メールアドレス</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" required>
-                            </div>
-                            <div class="md-form">
-                                <label for="password">パスワード</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="md-form">
-                                <label for="password_confirmation">パスワード(再確認)</label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
-                            </div>
-                            <button class="btn btn-block blue-gradient mt-2 mb-2" type="submit">登録</button>
-                        </form>
+            <div class="card-text">
+                <form action="{{route('register')}}" method="POST" novalidate="novalidate">
+                    @csrf
 
-                        <div class="mt-0">
-
-                            <a href="{{ route('login') }}" class="btn btn-block blue-gradient text-white mt-2 mb-2">ログインはこちら</a>
-
+                    <div class="register-name-body">
+                        <label for="name" class="font-sm register-name-text">-お名前-</label>
+                        <div class="md-form font-sm register-name-form">
+                            <input type="text" class="form-control font-sm" id="name" name="name" value="{{old('name')}}" required>
+                            <p>※半角英数字8~16文字以内で入力して下さい</p>
                         </div>
-
                     </div>
+
+                    <div class="register-email-body">
+                        <label for="email" class="font-sm register-email-text">-メールアドレス-</label>
+                        <div class="md-form font-sm register-email-form">
+                            <input type="email" class="form-control font-sm" id="email" name="email" value="{{old('email')}}" required>
+                        </div>
+                    </div>
+
+                    <div class="register-password-body">
+                        <label for="password" class="font-sm register-password-text">-パスワード-</label>
+                        <div class="md-form font-sm register-password-form">
+                            <input type="password" class="form-control font-sm" id="password" name="password" required>
+                        </div>
+                    </div>
+
+                    <div class="register-password-confirmation-body">
+                        <label for="password_confirmation" class="font-sm register-password-confirmation-text">-パスワード(再確認)-</label>
+                        <div class="md-form font-sm register-password-confirmation-form">
+                            <input type="password" class="form-control font-sm" id="password_confirmation" name="password_confirmation" required>
+                        </div>
+                    </div>
+
+                    <div class="user-register-button-body">
+                        <button class="btn btn-block user-register-button font-sm" type="submit">登録</button>
+                    </div>
+                </form>
+
+                <div class="register-login-button-body">
+                    <a href="{{ route('login') }}" class="btn btn-block register-login-link-button font-sm">ログインはこちら</a>
                 </div>
+
             </div>
         </div>
     </div>
