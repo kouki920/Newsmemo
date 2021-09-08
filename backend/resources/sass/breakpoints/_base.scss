@@ -134,6 +134,85 @@ img {
 		}
 }
 
+/****** ユーザー登録画面 ******/
+.register-form-body{
+	margin: 10px auto;
+	text-align: center;
+	box-shadow: none;
+	max-width: 300px;
+
+	.register-form-title{
+		margin: 10px auto;
+	}
+
+	.register-name-body{
+		margin-top: 10px;
+
+		.register-name-text{
+			margin: 10px auto 0px;
+		}
+		.register-name-form{
+			margin: 0px auto;
+			}
+	}
+
+
+		.register-email-body{
+			margin-top: 10px;
+
+			.register-email-text{
+				margin: 10px auto 0px;
+			}
+		.register-email-form{
+			margin: 5px auto;
+		}
+		}
+
+		.register-password-body{
+			margin-top: 10px;
+
+			.register-password-text{
+				margin: 10px auto 0px;
+			}
+			.register-password-form{
+				margin: 5px auto;
+			}
+		}
+
+		.register-password-confirmation-body{
+			margin-top: 10px;
+
+			.register-password-confirmation-text{
+				margin: 10px auto 0px;
+			}
+			.register-password-confirmation-form{
+				margin: 5px auto;
+			}
+	}
+
+	.user-register-button-body{
+		margin: 10px auto 0px;
+
+		.user-register-button{
+			background-color: #6E85B2;
+			color: #fff;
+			box-shadow: none;
+			width: 150px;
+		}
+	}
+
+	.register-login-button-body{
+		margin: 10px auto 0px;
+
+		.register-login-link-button{
+			background-color: #679B9B;
+			color: #fff;
+			box-shadow: none;
+			width: 150px;
+		}
+	}
+}
+
 
 /***トップへ戻るボタン***/
 #page-top {
