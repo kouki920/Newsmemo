@@ -101,7 +101,7 @@
     <div class="card-text memo-body">
         @include('error_list')
         @if( Auth::id() === $article->user_id )
-        <div class="card-text my-2"><i class="fas fa-lock fa-fw"></i>非公開メモ</div>
+        <div class="card-text my-2 font-sm"><i class="fas fa-lock fa-fw"></i>非公開メモ</div>
         @foreach($memos as $memo)
         @include('memos.add_memos_index')
         @endforeach

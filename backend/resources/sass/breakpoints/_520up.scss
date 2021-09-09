@@ -92,6 +92,11 @@ width: 490px;
 	max-width: 500px;
 }
 
+/****** お問い合わせ内容入力画面 ******/
+.contact-form-body{
+	max-width: 500px;
+}
+
 /****** お問い合わせ内容確認画面 ******/
 .confirm-body{
 	max-width: 500px;
@@ -114,6 +119,44 @@ width: 490px;
 
 /*** 投稿フォーム ***/
 .article-create-body{
-	margin: 10px auto;
+	max-width: 500px;
+}
+
+/****** ユーザー登録画面 ******/
+.register-form-body{
+	max-width: 500px;
+
+	.register-name-body{
+	.register-name-form{
+		max-width: 400px;
+		}
+	}
+
+	.register-email-body{
+		.register-email-form{
+			max-width: 400px;
+			}
+		}
+
+		.register-password-body{
+			.register-password-form{
+				max-width: 400px;
+				}
+			}
+
+			.register-password-confirmation-body{
+				.register-password-confirmation-form{
+					max-width: 400px;
+					}
+				}
+}
+
+/*** パスワードリセットメール画面 ***/
+.password-reset-email-body{
+	max-width: 500px;
+}
+
+/*** 新しいパスワード設定画面 ***/
+.password-new-setting-body{
 	max-width: 500px;
 }
