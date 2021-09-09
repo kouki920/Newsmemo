@@ -41,8 +41,8 @@
                 </div>
 
                 <div class="confirm-button">
-                    <button name="action" type="submit" value="back" class="btn confirm-cancel-button">入力画面に戻る</button>
-                    <button name="action" type="submit" value="submit" class="btn confirm-submit-button">送信</button>
+                    <button name="action" type="submit" value="back" class="btn confirm-cancel-button font-sm">入力画面に戻る</button>
+                    <button name="action" type="submit" value="submit" class="btn confirm-submit-button font-sm">送信</button>
                 </div>
             </form>
         </div>

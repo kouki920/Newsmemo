@@ -153,6 +153,7 @@ img {
 		}
 		.register-name-form{
 			margin: 0px auto;
+			max-width: 250px;
 			}
 	}
 
@@ -165,6 +166,7 @@ img {
 			}
 		.register-email-form{
 			margin: 5px auto;
+			max-width: 250px;
 		}
 		}
 
@@ -176,6 +178,7 @@ img {
 			}
 			.register-password-form{
 				margin: 5px auto;
+				max-width: 250px;
 			}
 		}
 
@@ -187,6 +190,7 @@ img {
 			}
 			.register-password-confirmation-form{
 				margin: 5px auto;
+				max-width: 250px;
 			}
 	}
 
@@ -195,9 +199,10 @@ img {
 
 		.user-register-button{
 			background-color: #6E85B2;
+			border: 1px solid #000;
 			color: #fff;
 			box-shadow: none;
-			width: 150px;
+			width: 160px;
 		}
 	}
 
@@ -206,9 +211,10 @@ img {
 
 		.register-login-link-button{
 			background-color: #679B9B;
+			border: 1px solid #000;
 			color: #fff;
 			box-shadow: none;
-			width: 150px;
+			width: 160px;
 		}
 	}
 }
@@ -312,6 +318,7 @@ img {
 
 	.user-profile-update-button{
 		background-color: #6E85B2;
+		border: 1px solid #000;
 		color: #fff;
 		box-shadow: none;
 		margin: 2px;
@@ -319,6 +326,7 @@ img {
 
 	.user-profile-cancel-button{
 		background-color: #C8C6C6;
+		border: 1px solid #000;
 		color: #fff;
 		box-shadow: none;
 		margin: 2px;
@@ -328,6 +336,7 @@ img {
 /*** 最近使用したタグ機能 ***/
 .recent-tags-btn{
 	background-color: #BBBFCA;
+	border: 1px solid #000;
 	}
 
 .category-dropdown-menu{
@@ -338,6 +347,7 @@ img {
 .edit-button{
 	color: #F1F6F9;
 	background-color: #00587A;
+	border: 1px solid #000;
 }
 
 /*** ユーザーデータ ***/
@@ -560,6 +570,7 @@ img {
 
 				.dropdown-menu{
 					width: 100px;
+					border: 1px solid #000;
 
 					.edit-text{
 						padding: 0;
@@ -580,11 +591,13 @@ img {
 		.article-cancel-button{
 			box-shadow: none;
 			background-color: #C8C6C6;
+			border: 1px solid #000;
 			color: #fff;
 		}
 		.article-delete-button{
 			box-shadow: none;
 			background-color: #c71111;
+			border: 1px solid #000;
 			color: #fff;
 		}
 	}
@@ -654,20 +667,27 @@ img {
 	.collection-article-cancel-button{
 		box-shadow: none;
 		background-color: #C8C6C6;
+		border: 1px solid #000;
 		color: #fff;
 	}
 	.collection-article-delete-button{
 		box-shadow: none;
 		background-color: #c71111;
+		border: 1px solid #000;
 		color: #fff;
 	}
 	}
 }
 
+/*** 投稿更新画面 ***/
+.article-update-news-link-text{
+	color: #5c3918;
+}
 
-.user-article-update-button{
+.article-update-button{
 	display: flex;
 	background-color: #6E85B2;
+	border: 1px solid #000;
 	color: #fff;
 	box-shadow: none;
 	margin: 0 auto;
@@ -692,6 +712,7 @@ img {
 				.article-create-button{
 					color: #fff;
 					background-color: #548CA8;
+					border: 1px solid #000;
 					box-shadow: none;
 					width: 150px;
 				}
@@ -711,6 +732,7 @@ img {
 				.memo-button{
 					margin: 10px auto;
 					background-color: rgb(73, 63, 63);
+					box-shadow: none;
 					color: #fff;
 					width: 100px;
 				}
@@ -720,23 +742,29 @@ img {
 			padding: 0px;
 
 			.memo-content-text{
+				display: flex;
 				align-items: center;
 				margin: 0 10px;
 			}
-			.memo-edit-button{
-				.edit-button{
+			.memo-edit-button-body{
+
+				.dropdown-menu{
+					border: 1px solid #000;
+
+				.memo-edit-button{
 					padding: 0;
 					text-align: center;
 					background-color: #fff;
 					color: #000;
 				}
-				.delete-button{
+				.memo-delete-button{
 					padding: 0;
 					text-align: center;
 					background-color: #fff;
 					color: #c71111;
 				}
 			}
+		}
 		}
 }
 
@@ -861,8 +889,69 @@ max-width: 300px;
 
 	.password-edit-button{
 		background-color: #6E85B2;
+		border: 1px solid #000;
 		color: #fff;
 		margin: 0 auto;
+	}
+}
+
+/****** パスワードリセットメール画面 ******/
+.password-reset-email-body{
+	margin: 10px auto;
+	text-align: center;
+	box-shadow: none;
+	max-width: 300px;
+
+	.password-reset-email-title{
+		text-align: center;
+	}
+
+	.password-reset-email-text{
+		margin: 10px auto;
+	}
+
+	.password-reset-email-form{
+		margin: 0 auto;
+		max-width: 300px;
+	}
+
+	.password-reset-email-button{
+		background-color: #6E85B2;
+		border: 1px solid #000;
+		color: #fff;
+		margin: 0 auto;
+		box-shadow: none;
+		width: 150px;
+	}
+}
+
+/****** 新しいパスワード設定画面 ******/
+.password-new-setting-body{
+	margin: 10px auto;
+	text-align: center;
+	box-shadow: none;
+	max-width: 300px;
+
+	.password-new-setting-title{
+		text-align: center;
+	}
+
+	.password-new-setting-text{
+		text-align: center;
+	}
+
+	.password-new-setting-from{
+		margin: 0 auto;
+		max-width: 300px;
+	}
+
+	.password-new-setting-button{
+		background-color: #6E85B2;
+		border: 1px solid #000;
+		color: #fff;
+		margin: 0 auto;
+		box-shadow: none;
+		width: 150px;
 	}
 }
 
@@ -895,6 +984,8 @@ max-width: 300px;
 
 	.contact-form-button{
 		background-color: #6E85B2;
+		border: 1px solid #000;
+		box-shadow: none;
 		color: #fff;
 		max-width: 200px;
 		text-align: center;
@@ -937,12 +1028,14 @@ max-width: 300px;
 			.confirm-cancel-button{
 				box-shadow: none;
 				background-color: #C8C6C6;
+				border: 1px solid #000;
 				color: #fff;
 			}
 
 			.confirm-submit-button{
 				box-shadow: none;
 				background-color: #6E85B2;
+				border: 1px solid #000;
 				color: #fff;
 			}
 		}
@@ -965,6 +1058,7 @@ max-width: 300px;
 	.complete-button{
 		box-shadow: none;
 		background-color: #6E85B2;
+		border: 1px solid #000;
 		color: #fff;
 		margin: 20px auto 0px;
 	}
@@ -989,6 +1083,7 @@ max-width: 300px;
 
 			.pagination-link-button-content{
 				background-color: #548CA8;
+				box-shadow: none;
 			}
 		}
 
