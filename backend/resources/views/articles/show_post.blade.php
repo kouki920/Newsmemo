@@ -8,7 +8,7 @@
                 <img class="article-icon image-upload rounded-circle img-responsive" src="/storage/{{$article->user->image}}" alt="ユーザーアイコン">
                 @endif
             </a>
-            <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="text-dark">
+            <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="article-name font-sm">
                 {{$article->user->name}}
             </a>
         </div>
@@ -87,15 +87,13 @@
     <div class="card-text article-time font-sm">
         {{$article->created_at->format('Y/m/d H:i')}}
     </div>
-    <div class="card-body pt-0 ">
-        <div class="card-text d-flex flex-row">
-            <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
-            </article-like>
-            <div class="twitter-icon">
-                @if( Auth::id() === $article->user_id )
-                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="{{$article->body}}" data-url="{{$article->newsLink->url}}" data-lang="en" data-hashtags="Newsmemo" data-show-count="false">Tweet</a>
-                @endif
-            </div>
+    <div class="card-body article-async-button">
+        <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
+        </article-like>
+        <div class="twitter-icon font-sm">
+            @if( Auth::id() === $article->user_id )
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="{{$article->body}}" data-url="{{$article->newsLink->url}}" data-lang="en" data-hashtags="Newsmemo" data-show-count="false">Tweet</a>
+            @endif
         </div>
     </div>
     <div class="card-text memo-body">
