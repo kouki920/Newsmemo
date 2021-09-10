@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Article;
 use App\Models\User;
 use App\Models\Memo;
+use App\Models\NewsLink;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -46,13 +47,19 @@ class MemoControllerTest extends TestCase
      */
     public function testAuthEdit()
     {
+        $this->withoutExceptionHandling();
+
         $user = factory(User::class)->create();
 
         $article = factory(Article::class)->create();
 
+        $news_link = factory(NewsLink::class)->create([
+            'article_id' => $article->id,
+        ]);
+
         $memo = factory(Memo::class)->create(['user_id' => $user->id, 'article_id' => $article->id]);
 
-        $response = $this->actingAs($user)->get(route('memos.edit', $memo));
+        $response = $this->actingAs($user)->get(route('memos.edit', $memo, $news_link));
 
         $response->assertStatus(200)->assertViewIs('memos.edit')
             ->assertSee('編集するメモ');

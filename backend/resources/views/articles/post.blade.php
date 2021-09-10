@@ -8,7 +8,7 @@
                 <img class="article-icon image-upload rounded-circle img-responsive" src="/storage/{{$article->user->image}}" alt="ユーザーアイコン">
                 @endif
             </a>
-            <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="article-name font-md text-dark">
+            <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="article-name font-md">
                 {{$article->user->name}}
             </a>
         </div>
