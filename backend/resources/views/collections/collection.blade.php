@@ -42,8 +42,8 @@
                             <div class="form-group collection-update-btn-body">
                                 <input class="form-control font-sm" type="text" name="name" value="{{$collection->name ?? old('name')}}">
                                 <div class="modal-footer collection-update-btn-content">
-                                    <a class="btn collection-cancel-btn font-sm" data-dismiss="modal">キャンセル</a>
-                                    <button type="submit" class="btn collection-update-btn font-sm">更新</button>
+                                    <a class="btn collection-cancel-button font-sm" data-dismiss="modal">キャンセル</a>
+                                    <button type="submit" class="btn collection-update-button font-sm">更新</button>
                                 </div>
                             </div>
                         </div>

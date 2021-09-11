@@ -811,6 +811,7 @@ max-width: 300px;
 		}
 	}
 	.dropdown-menu{
+		border: 1px solid #000;
 
 		.edit-text{
 			text-align: center;
@@ -840,31 +841,35 @@ max-width: 300px;
 				.collection-update-btn-content{
 					justify-content: space-between;
 
-					.collection-cancel-btn{
+					.collection-cancel-button{
 						box-shadow: none;
 						background-color: #C8C6C6;
+						border: 1px solid #000;
 						color: #fff;
 					}
-					.collection-update-btn{
+					.collection-update-button{
 						box-shadow: none;
 						background-color: #6E85B2;
+						border: 1px solid #000;
 						color: #fff;
 					}
 				}
 			}
-		}
+			}
 	}
 
 
 	.collection-cancel-btn{
 		box-shadow: none;
 		background-color: #C8C6C6;
+		border: 1px solid #000;
 		color: #fff;
 	}
 
 	.collection-delete-btn{
 		box-shadow: none;
 		background-color: #c71111;
+		border: 1px solid #000;
 		color: #fff;
 	}
 }
