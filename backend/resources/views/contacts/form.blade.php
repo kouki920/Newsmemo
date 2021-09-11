@@ -53,18 +53,18 @@
 
                     <!-- Email input -->
                     <div class="form-group contact-email-form">
-                        <label class="form-label font-sm" for="email">メールアドレス</label>
+                        <label class="form-label font-sm" for="email">-メールアドレス-</label>
                         <input type="email" id="email" name="email" class="form-control" value="{{old('email')}}" />
                     </div>
 
                     <!-- Content input -->
                     <div class="form-group contact-content-form">
-                        <label class="form-label font-sm" for="contactForm">お問い合わせ内容</label>
+                        <label class="form-label font-sm" for="contactForm">-お問い合わせ内容-</label>
                         <textarea class="form-control" id="contactForm" name="content" rows="4">{{old('content')}}</textarea>
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn contact-form-button">確認画面へ進む</button>
+                    <button type="submit" class="btn contact-form-button font-sm">確認画面へ進む</button>
                 </form>
             </div>
         </div>
