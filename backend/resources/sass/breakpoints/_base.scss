@@ -40,6 +40,11 @@ img {
 /****** navbar ******/
 .navbar{
 	background-color: #58585c;
+
+	.dropdown-menu{
+		border: 1px solid #000;
+		text-align: center;
+	}
 }
 
 
@@ -884,6 +889,18 @@ max-width: 300px;
 		color: #fff;
 	}
 
+	.collection-name-body{
+		box-shadow: none;
+		align-items: center;
+
+		.collection-name-content{
+			display: flex;
+
+			.collection-name{
+				margin: 0;
+			}
+		}
+	}
 
 /****** 設定画面 ******/
 .setting-index-body{
