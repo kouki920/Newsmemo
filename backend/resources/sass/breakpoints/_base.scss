@@ -794,9 +794,8 @@ img {
 
 
 /****** コレクション機能 ******/
-
 .collection-body{
-margin: 10px auto;
+margin: 15px auto;
 display: block;
 box-shadow: none;
 max-width: 300px;
@@ -892,15 +891,23 @@ max-width: 300px;
 	.collection-name-body{
 		box-shadow: none;
 		align-items: center;
+		background-color: #548CA8;
 
 		.collection-name-content{
 			display: flex;
+			padding: 10px;
 
 			.collection-name{
 				margin: 0;
+				color: #fff;
+			}
+
+			.collection-name-count{
+				color: #fff;
 			}
 		}
 	}
+
 
 /****** 設定画面 ******/
 .setting-index-body{
