@@ -7,11 +7,18 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
-    public function show(string $name)
+    /**
+     * タグに属する投稿の表示
+     *
+     * @param \App\Models\Tag $tag
+     * @param string $name
+     * @return Illuminate\View\View
+     */
+    public function show(Tag $tag, string $name)
     {
-        $tag = Tag::where('name', $name)->first();
+        $tag = $tag->getTagData($name);
 
-        $articles = $tag->articles->sortByDesc('created_at')->paginate(10);
+        $articles = $tag->getTagArticle();
 
         return view('tags.show', compact('tag', 'articles'));
     }

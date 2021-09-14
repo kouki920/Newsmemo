@@ -1,10 +1,10 @@
 <div>
-    <div class="form-outline mt-3">
+    <div class="form-outline memo-form">
         <form action="{{route('memos.store', compact('article'))}}" method="POST">
             @csrf
-            <textarea class="form-control add-memo-textarea" id="textAreaExample" rows="4" name="memo" placeholder="メモを入力する">{{old('memo')}}</textarea>
+            <textarea class="form-control add-memo-textarea font-sm" id="textAreaExample" rows="3" name="body" placeholder="メモを入力する">{{old('body')}}</textarea>
             <input type="hidden" name="article_id" value="{{$article->id}}">
-            <button type="submit" class="btn blue-gradient btn-block col-auto mx-auto mt-2" style="width: 100px;">保存</button>
+            <button type="submit" class="btn btn-block memo-button font-sm">保存</button>
         </form>
     </div>
 </div>

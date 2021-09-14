@@ -27,6 +27,8 @@
     <!-- toastr -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- twitter -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <!-- JavaScript -->
     <script src="{{ mix('js/app.js') }}"></script>
     @include('flash_message')

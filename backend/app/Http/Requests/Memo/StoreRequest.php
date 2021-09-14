@@ -24,21 +24,21 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'memo' => 'string | max:200',
+            'body' => 'required | string | max:255',
         ];
     }
 
     public function attributes()
     {
         return [
-            'memo' => '非公開メモ',
+            'body' => '非公開メモ',
         ];
     }
 
     /**
-     * 保存対象となるarticleのidを代入
+     * 保存対象となるarticleデータのidをarticle_id指定で取得
      */
-    public function articleId($request)
+    public function getArticleData($request)
     {
         if (isset($request->article_id)) {
             $article = $request->article_id;

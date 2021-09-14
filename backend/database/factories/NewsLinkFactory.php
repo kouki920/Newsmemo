@@ -11,7 +11,7 @@ $factory->define(NewsLink::class, function (Faker $faker) {
         'article_id' => function () {
             return factory(Article::class)->create()->id;
         },
-        'news' => $faker->text(255),
-        'url' => $faker->text(255),
+        'news' => 'Google ニュース',
+        'url' => 'https://news.google.com',
     ];
 });

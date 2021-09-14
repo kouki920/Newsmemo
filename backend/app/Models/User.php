@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Mail\BareMail;
 use App\Notifications\PasswordResetNotification;
-use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -21,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'introduction', 'image', 'password',
+        'name', 'email', 'introduction', 'image', 'password', 'last_login_at',
     ];
 
     /**
@@ -42,10 +41,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new PasswordResetNotification($token, new BareMail()));
-    }
+    /**
+     * last_login_atカラムを取得した際に自動的にDateTime型に置き換える
+     */
+    protected $dates = [
+        'last_login_at'
+    ];
+
+    protected $appends = [
+        'last_login_date'
+    ];
+
 
     /**
      * フォローにおけるユーザーモデルとユーザーモデルの関係は多対多なのでBelongsToManyを使用
@@ -56,37 +62,11 @@ class User extends Authenticatable
     }
 
     /**
-     * フォローとフォロー解除時に使用するメソッド
+     * フォローとフォロー解除時に使用するリレーション
      */
     public function followings(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\User', 'follows', 'follower_id', 'followee_id')->withTimestamps();
-    }
-
-    /**
-     * フォローしているかどうかを判定するメソッド
-     */
-    public function isFollowedBy(?User $user): bool
-    {
-        return $user
-            ? (bool)$this->followers->where('id', $user->id)->count()
-            : false;
-    }
-
-    /**
-     * フォロワー数を表示するアクセサ
-     */
-    public function getCountFollowersAttribute(): int
-    {
-        return $this->followers()->count();
-    }
-
-    /**
-     * フォロー数を表示するアクセサ
-     */
-    public function getCountFollowingsAttribute(): int
-    {
-        return $this->followings()->count();
     }
 
     /**
@@ -114,18 +94,115 @@ class User extends Authenticatable
     }
 
     /**
-     * ログインデータのリレーション
+     * コレクションとのリレーション
      */
-    public function logins(): HasMany
+    public function collections(): HasMany
     {
-        return $this->hasMany('App\Models\Login');
+        return $this->hasMany('App\Models\Collection');
     }
 
     /**
-     * 投稿数のカウントメソッド
+     * ユーザーデータをname指定で取得
+     *
+     * @param string $name
+     * @return object
      */
-    public function countArticle(): int
+    public function getUserData(string $name)
+    {
+        return $this->where('name', $name)->first();
+    }
+
+    /**
+     * ログインユーザーの投稿を10件ごとに取得
+     */
+    public function getUserArticleData()
+    {
+        return $this->articles->sortByDesc('created_at')->paginate(10);
+    }
+
+    /**
+     * ログインユーザーがいいねした投稿を10件ごとに取得
+     */
+    public function getUserLikedArticleData()
+    {
+        return $this->likes->sortByDesc('created_at')->paginate(10);
+    }
+
+    /**
+     * 投稿数の合計をカウント
+     *
+     * @return int
+     */
+    public function getCountArticle(): int
     {
         return $this->articles()->count();
+    }
+
+    /**
+     * フォロワー数を表示するアクセサ
+     *
+     * @return int
+     */
+    public function getCountFollowersAttribute(): int
+    {
+        return $this->followers()->count();
+    }
+
+    /**
+     * フォロー数を表示するアクセサ
+     *
+     * @return int
+     */
+    public function getCountFollowingsAttribute(): int
+    {
+        return $this->followings()->count();
+    }
+
+    /**
+     * フォローしているかどうかを判定するメソッド
+     *
+     * @return bool
+     */
+    public function isFollowedBy(?User $user): bool
+    {
+        return $user
+            ? (bool)$this->followers->where('id', $user->id)->count()
+            : false;
+    }
+
+    /**
+     * フォロワー詳細画面の表示
+     */
+    public function getUserFollower()
+    {
+        return $this->followers->sortByDesc('created_at');
+    }
+
+    /**
+     * フォロー詳細画面の表示
+     */
+    public function getUserFollowing()
+    {
+        return $this->followings->sortByDesc('created_at');
+    }
+
+    /**
+     * パスワードリセットに関するメソッドのオーバーライド
+     *
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordResetNotification($token, new BareMail()));
+    }
+
+    /**
+     * ユーザーの最終ログイン日時を文字列で取得
+     */
+    public function getLastLoginDateAttribute()
+    {
+        if (!$this->last_login_at == null) {
+            return $this->last_login_at->format('Y-m-d');
+        }
     }
 }

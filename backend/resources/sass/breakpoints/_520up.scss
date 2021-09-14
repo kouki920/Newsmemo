@@ -1,0 +1,162 @@
+/****** フォントサイズ ******/
+.font-sm {
+  font-size: 14px;
+	letter-spacing: 1px;
+	line-height: 18px;
+}
+.font-md {
+  font-size: 16px;
+	letter-spacing: 1px;
+	line-height: 20px;
+}
+.font-lr {
+  font-size: 18px;
+	letter-spacing: 1px;
+	line-height: 22px;
+}
+.font-lg {
+  font-size: 20px;
+	letter-spacing: 1px;
+	line-height: 24px;
+}
+
+
+/****** ニュースレイアウト ******/
+.news-body{
+
+	.news-content{
+
+			.news-thumbnail{
+				width: 120px;
+				height: 120px;
+			}
+	}
+}
+
+
+/****** ログイン画面 ******/
+.login-body{
+width: 490px;
+		.login-item{
+			margin: 20px 0px 0px;
+		}
+
+		.login-form{
+			margin: 5px;
+
+			.login-form-content{
+				width: 300px;
+				margin: 10px 0px;
+				padding: 10px 4px;
+			}
+		}
+
+		.login-password-forget{
+			margin: 20px auto;
+
+			.login-password-forget-text{
+				text-decoration: none;
+			}
+		}
+
+		.login-button{
+			margin: 10px auto;
+			padding: 5px 5px;
+			width: 200px;
+		}
+
+		.user-register-button{
+			margin: 10px auto;
+			padding: 5px 5px;
+			width: 200px;
+		}
+}
+
+/****** ログイン画面 ******/
+.login-body{
+	max-width: 500px;
+}
+
+/****** パスワード変更画面 ******/
+.password-reset-body{
+	max-width: 500px;
+}
+
+/****** コレクション機能 ******/
+.collection-body{
+	max-width: 500px;
+}
+
+/****** 設定画面 ******/
+.setting-index-body{
+	max-width: 500px;
+}
+
+/****** お問い合わせ内容入力画面 ******/
+.contact-form-body{
+	max-width: 500px;
+}
+
+/****** お問い合わせ内容確認画面 ******/
+.confirm-body{
+	max-width: 500px;
+}
+
+/****** お問い合わせ完了画面 ******/
+.complete-body{
+	max-width: 500px;
+}
+
+/*** ユーザー一覧表示 ***/
+.follow-follower-body{
+	max-width: 500px;
+}
+
+/****** プロフィール更新画面 ******/
+.user-profile-edit-body{
+	max-width: 500px;
+}
+
+/*** 投稿フォーム ***/
+.article-create-body{
+	max-width: 500px;
+}
+
+/****** ユーザー登録画面 ******/
+.register-form-body{
+	max-width: 500px;
+
+	.register-name-body{
+	.register-name-form{
+		max-width: 400px;
+		}
+	}
+
+	.register-email-body{
+		.register-email-form{
+			max-width: 400px;
+			}
+		}
+
+		.register-password-body{
+			.register-password-form{
+				max-width: 400px;
+				}
+			}
+
+			.register-password-confirmation-body{
+				.register-password-confirmation-form{
+					max-width: 400px;
+					}
+				}
+}
+
+/*** パスワードリセットメール画面 ***/
+.password-reset-email-body{
+	max-width: 500px;
+}
+
+/*** 新しいパスワード設定画面 ***/
+.password-new-setting-body{
+	max-width: 500px;
+}

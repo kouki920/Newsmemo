@@ -21,8 +21,7 @@ Auth::routes();
 Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
 
 # 投稿関連
-Route::resource('/articles', 'ArticleController')->except(['show', 'create'])->middleware('auth');
-Route::resource('/articles', 'ArticleController')->only(['show']);
+Route::resource('/articles', 'ArticleController')->except(['create'])->middleware('auth');
 Route::post('/articles/create', 'ArticleController@create')->name('articles.create')->middleware('auth');
 
 # いいね機能
@@ -49,11 +48,11 @@ Route::prefix('users')->name('users.')->group(function () {
     // プロフィールの更新
     Route::patch('/{name}/update', 'UserController@update')->name('update');
     // プロフィールアイコンの編集画面を表示
-    Route::get('/{name}/image/edit', 'UserController@imageEdit')->name('imageEdit');
+    Route::get('/{name}/image/edit', 'UserController@imageEdit')->name('image_edit');
     //ユーザーの削除(退会)
     Route::delete('/{name}/destroy', 'UserController@destroy')->name('destroy');
     // プロフィールアイコンの更新
-    Route::patch('/{name}/image/update', 'UserController@imageUpdate')->name('imageUpdate');
+    Route::patch('/{name}/image/update', 'UserController@imageUpdate')->name('image_update');
 
     Route::middleware('auth')->group(function () {
         // フォロー、フォロー解除
@@ -67,22 +66,41 @@ Route::prefix('users')->name('users.')->group(function () {
 
 # メモ追加機能
 Route::prefix('memos')->name('memos.')->middleware('auth')->group(function () {
-    Route::post('/{article}/store', 'MemoController@store')->name('store');
+    Route::post('/{article}store', 'MemoController@store')->name('store');
     Route::get('/{memo}/edit', 'MemoController@edit')->name('edit');
     Route::post('/{memo}/update', 'MemoController@update')->name('update');
     Route::delete('/{memo}/destroy', 'MemoController@destroy')->name('destroy');
 });
 
+# コレクション機能
+Route::prefix('collections')->name('collections.')->middleware('auth')->group(function () {
+    Route::post('/index/user/{id}', 'CollectionController@index')->name('index');
+    Route::post('/store/{article}', 'CollectionController@store')->name('store');
+    Route::get('/{collection}/edit', 'CollectionController@edit')->name('edit');
+    Route::patch('/{collection}/update/user/{id}', 'CollectionController@update')->name('update');
+    Route::delete('/{collection}/destroy/user/{id}', 'CollectionController@destroy')->name('destroy');
+    Route::delete('/{collection}/{article}/destroy', 'CollectionController@articleCollectionDestroy')->name('article_collection_destroy');
+    Route::get('/{name}/user/{id}', 'CollectionController@show')->name('show');
+});
+
 # 設定
-Route::prefix('setting')->name('setting.')->middleware('auth')->group(function () {
+Route::prefix('settings')->name('settings.')->middleware('auth')->group(function () {
     Route::post('/index', 'SettingController@index')->name('index');
     Route::get('/agreement', 'SettingController@agreement')->name('agreement');
 });
 
 # NEWS API関連機能
-Route::prefix('news')->name('news.')->group(function () {
-    Route::get('/default', 'NEWSAPI\HeadlineNewsController@defaultIndex')->name('default_index');
-    Route::post('/custom', 'NEWSAPI\HeadlineNewsController@customIndex')->name('custom_index');
+Route::prefix('news')->name('news.')->middleware('auth')->group(function () {
+    Route::get('/headline/default', 'NEWSAPI\HeadlineNewsController@defaultIndex')->name('default_index');
+    Route::post('/headline/custom', 'NEWSAPI\HeadlineNewsController@customIndex')->name('custom_index');
     Route::get('/covid/default', 'NEWSAPI\CovidNewsController@defaultIndex')->name('covid_default_index');
     Route::post('/covid/custom', 'NEWSAPI\CovidNewsController@customIndex')->name('covid_custom_index');
+});
+
+# お問い合わせフォーム
+Route::prefix('contacts')->name('contacts.')->group(function () {
+    Route::get('/form/user/{id}', 'ContactController@form')->name('form');
+    Route::post('/confirm/user/{id}', 'ContactController@confirm')->name('confirm');
+    Route::post('/send/user/{id}', 'ContactController@send')->name('send');
+    Route::get('/complete/user/{id}', 'ContactController@complete')->name('complete');
 });

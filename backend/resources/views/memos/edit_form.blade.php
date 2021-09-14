@@ -1,17 +1,15 @@
-<div class="form-outline mt-3">
+<div class="form-outline memo-edit-form">
     <form action="{{route('memos.update', compact('memo','article'))}}" method="POST">
         @csrf
-        <textarea class="form-control add-memo-textarea" id="textAreaExample" rows="4" name="memo" placeholder="メモを入力する">{{$memo->memo ?? old('memo')}}</textarea>
+        <textarea class="form-control add-memo-textarea font-sm" id="textAreaExample" rows="3" name="body" placeholder="メモを入力する">{{$memo->body ?? old('body')}}</textarea>
         <input type="hidden" name="article_id" value="{{$article->id}}">
-        <div class="btn-toolbar">
-            <div class="btn-group">
-                <input type="submit" class="btn blue-gradient btn-block mt-2" style="width: 100px;" value="更新">
-            </div>
+        <div class="float-right">
+            <input type="submit" class="btn btn-block font-sm update-button" value="更新">
+        </div>
     </form>
-    <div class="btn-group ml-auto">
+    <div class="float-left">
         <a href="{{route('articles.show',compact('article'))}}">
-            <input type="submit" class="btn blue-gradient btn-block mt-2" style="width: 100px;" value="キャンセル">
+            <input type="submit" class="btn btn-block font-sm cancel-button" value="キャンセル">
         </a>
     </div>
-</div>
 </div>

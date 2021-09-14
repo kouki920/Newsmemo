@@ -7,28 +7,37 @@ use App\Models\Article;
 use App\Models\NewsLink;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class ArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-
-    ### 投稿一覧表示機能のテスト ###
-
-    // 未ログイン時
+    /**
+     * 投稿一覧表示機能のテスト
+     * 未ログイン時、login画面にリダイレクトするかどうかをテスト
+     */
     public function testGuestIndex()
     {
+        // 未ログイン状態でgetリクエストを送る
         $response = $this->get(route('articles.index'));
 
+        // 引数として渡したURLにリダイレクトされたかどうかをテスト
         $response->assertRedirect('login');
     }
 
-    // ログイン時
+    /**
+     * 投稿一覧表示機能のテスト
+     * ログイン時、ステータスコード200かどうか、viewファイル(articles.index)が使用されているかのテスト
+     * 一覧画面で表示される文字列をテスト
+     */
     public function testAuthIndex()
     {
+        // 定義したファクトリーを利用してを作成
         $user = factory(User::class)->create();
 
+        // actingAs()で認証済み状態(ログイン状態)にしてgetリクエストを送る
         $response = $this->actingAs($user)
             ->get(route('articles.index'));
 
@@ -37,14 +46,15 @@ class ArticleControllerTest extends TestCase
             ->assertSee($user->name)
             ->assertSee('ニュース')
             ->assertSee('COVID-19')
-            ->assertSee('メモリスト')
-            ->assertSee('プロフィール');
+            ->assertSee('投稿')
+            ->assertSee('マイページ');
     }
 
 
-    ### 投稿画面表示機能のテスト ###
-
-    // 未ログイン時
+    /**
+     * 投稿画面の表示機能のテスト
+     * 未ログイン時、ログイン画面にリダイレクトするかのテスト
+     */
     public function testGuestCreate()
     {
         $response = $this->post(route('articles.create'));
@@ -52,11 +62,17 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect('login');
     }
 
-    // ログイン時
+    /**
+     * 投稿画面表示機能のテスト
+     * ログイン時、投稿画面に移動しステータスコードが200かどうかテスト
+     * viewファイル(articles/create)が利用されているかテスト
+     */
     public function testAuthCreate()
     {
+        // 定義したファクトリーを利用してを作成
         $user = factory(User::class)->create();
 
+        // actingAs()で認証済み状態(ログイン状態)にしてpostリクエストを送る
         $response = $this->actingAs($user)
             ->post(route('articles.create'));
 
@@ -65,9 +81,10 @@ class ArticleControllerTest extends TestCase
     }
 
 
-    ### 投稿機能のテスト ###
-
-    // 未ログイン時
+    /**
+     * 投稿機能のテスト
+     * 未ログイン時、ログイン画面にリダイレクトするかのテスト
+     */
     public function testGuestStore()
     {
         $response = $this->post(route('articles.store'));
@@ -75,46 +92,53 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect('login');
     }
 
-    // ログイン時
+    /**
+     * 投稿機能のテスト
+     * ログイン時、認証済みユーザーがデータを登録できるかのテスト
+     * DBにデータが登録されているかのテスト
+     * 登録成功時、投稿一覧画面に移動するかのテスト
+     */
     public function testAuthStore()
     {
-        // テストデータをDBに保存
+        // 定義したファクトリーを利用して、投稿データ、ニュースデータを作成
         $user = factory(User::class)->create();
 
-        $body = "テスト本文";
-        $user_id = $user->id;
-        $news = "テストニュース";
-        $url = "https://testexample.com/";
+        $article = factory(Article::class)->create();
+
+        $news_link = factory(NewsLink::class)->create([
+            'article_id' => $article->id,
+        ]);
 
         $response = $this->actingAs($user)
             ->post(route(
                 'articles.store',
                 [
-                    'body' => $body,
-                    'user_id' => $user_id,
-                    'news' => $news,
-                    'url' => $url,
+                    'body' => $article->body,
+                    'user_id' => $user->id,
+                    'news' => $news_link->news,
+                    'url' => $news_link->url,
                 ]
             ));
 
-        // テストデータがDBに登録されているかテスト
+        // テストデータが各DBに登録されているかテスト
         $this->assertDatabaseHas('articles', [
-            'body' => $body,
-            'user_id' => $user_id
+            'body' => $article->body,
+            'user_id' => $user->id,
         ]);
 
         $this->assertDatabaseHas('news_links', [
-            'news' => $news,
-            'url' => $url,
+            'news' => $news_link->news,
+            'url' => $news_link->url,
         ]);
 
         $response->assertRedirect(route('articles.index'));
     }
 
 
-    ### 投稿編集機能のテスト ###
-
-    // 未ログイン時
+    /**
+     * 投稿編集画面の表示機能のテスト
+     * 未ログイン時、ログイン画面にリダイレクトするかのテスト
+     */
     public function testGuestEdit()
     {
         $article = factory(Article::class)->create()->each(function (Article $article) {
@@ -122,60 +146,82 @@ class ArticleControllerTest extends TestCase
         });
 
         $response = $this->get(route('articles.edit', ['article' => $article]));
+
         $response->assertRedirect('login');
     }
 
-    // ログイン時
+    /**
+     * 投稿編集画面の表示機能のテスト
+     * ログイン時、に紐づく投稿データを引数として編集画面に移動しステータスコードが200かどうかテスト
+     * viewファイル(articles/edit)が利用されているかどうかのテスト
+     */
     public function testAuthEdit()
     {
         $this->withoutExceptionHandling();
 
         $article = factory(Article::class)->create();
-        $article->newsLink()->save(factory(NewsLink::class)->make());
+        $news_link = factory(NewsLink::class)->create([
+            'article_id' => $article->id,
+            'news' => 'Google ニュース',
+            'url' => 'https://news.google.com',
+        ]);
 
         $user = $article->user;
 
         $response = $this->actingAs($user)->get(route('articles.edit', ['article' => $article]));
 
-        $response->assertStatus(200)->assertViewIs('articles.edit');
+        $response->assertStatus(200)->assertViewIs('articles.edit')
+            ->assertSee($news_link->news)
+            ->assertSee($news_link->url);
     }
 
-    ### 投稿削除機能のテスト ###
-
-    // ログイン時
-    public function testDestroy()
+    /**
+     * 投稿削除機能のテスト
+     * ログイン時、投稿データとニュース関連のデータを削除できるかテスト
+     */
+    public function testAuthDestroy()
     {
         $this->withoutExceptionHandling();
 
-        // テストデータをDBに保存
+        // 定義したファクトリーを利用して、投稿データ、newsデータを作成
         $user = factory(User::class)->create();
 
-        $body = "テスト本文";
-        $user_id = $user->id;
-        $news = "テストニュース";
-        $url = "https://testexample.com/";
-
-        $article = Article::create(
+        $article = factory(Article::class)->create(
             [
-                'body' => $body,
-                'user_id' => $user_id,
-                'news' => $news,
-                'url' => $url,
+                'user_id' => $user->id,
             ]
         );
+
+        $news_link = factory(NewsLink::class)->create(
+            [
+                'article_id' => $article->id,
+            ]
+        );
+
+        $this->assertDatabaseHas('articles', [
+            'body' => $article->body,
+            'user_id' => $article->user_id,
+        ]);
+
+        $this->assertDatabaseHas('news_links', [
+            'article_id' => $news_link->article_id,
+            'news' => $news_link->news,
+            'url' => $news_link->url,
+        ]);
 
         // DBからテストデータを削除
         $response = $this->actingAs($user)->delete(route('articles.destroy', ['article' => $article]));
 
         // テストデータがDBから削除されているかテスト
         $this->assertDeleted('articles', [
-            'body' => $body,
-            'user_id' => $user_id
+            'body' => $article->body,
+            'user_id' => $user->id,
         ]);
 
         $this->assertDeleted('news_links', [
-            'news' => $news,
-            'url' => $url,
+            'article_id' => $article->id,
+            'news' => $news_link->news,
+            'url' => $news_link->url,
         ]);
 
         $response->assertRedirect(route('articles.index'));

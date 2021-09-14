@@ -11,13 +11,36 @@ class Tag extends Model
         'name',
     ];
 
+    public function articles(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Models\Article')->withTimestamps();
+    }
+
+    /**
+     * タグ機能で自動的にハッシュタグ文字が付与されるようにする
+     *
+     * @return string
+     */
     public function getHashtagAttribute(): string
     {
         return '#' . $this->name;
     }
 
-    public function articles(): BelongsToMany
+    /**
+     * タグ名指定でデータを取得する
+     *
+     * @param string $name
+     */
+    public function getTagData(string $name)
     {
-        return $this->belongsToMany('App\Models\Article')->withTimestamps();
+        return $this->where('name', $name)->first();
+    }
+
+    /**
+     * タグに属するメモデータを取得
+     */
+    public function getTagArticle()
+    {
+        return $this->articles->sortByDesc('created_at')->paginate(10);
     }
 }

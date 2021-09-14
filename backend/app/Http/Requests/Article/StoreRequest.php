@@ -26,10 +26,10 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'body' => 'required | max:255',
-            'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
+            'body' => 'required | max:200',
+            'tags' => 'nullable|json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
             'news' => 'required | string | max:255',
-            'url' => 'required | string | max:255',
+            'url' => 'required | url | max:255',
         ];
     }
     public function attributes()

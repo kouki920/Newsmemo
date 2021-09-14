@@ -4,15 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Tag;
-use App\Models\Memo;
+use App\Models\NewsLink;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
-use App\Http\Requests\Article\EditRequest;
-use App\Models\NewsLink;
-use Illuminate\Support\Facades\DB;
-use App\Models\User;
-use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
@@ -24,29 +19,30 @@ class ArticleController extends Controller
     }
 
     /**
-     * 投稿一覧の表示
-     * 検索機能実装
-     * @param Request $request
-     * @param Article $article
-     * @return \Illuminate\Http\Response
+     * 投稿の一覧を表示
+     * 検索機能、ランキング機能を実装
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Article $article
+     * @param \App\Models\NewsLink $newsLink
+     * @return Illuminate\View\View
      */
     public function index(Request $request, Article $article, NewsLink $newsLink)
     {
-        $articles = Article::with(['user', 'likes', 'tags', 'newsLink'])
-            ->orderBy('created_at', 'desc')
-            ->search($request->input('search'))
-            ->paginate(10);
+        $articles = $article->getArticleIndex($request);
 
-        $ranked_articles = $article->articleRanking();
-        $ranked_news = $newsLink->newsRanking();
+        $ranked_articles = $article->getArticleRanking();
+        $ranked_news = $newsLink->getNewsRanking();
 
         return view('articles.index', compact('articles', 'ranked_articles', 'ranked_news'));
     }
 
     /**
      * 新規投稿(メモ)フォームの表示
-     * @param Request $request
-     * @return \Illuminate\Http\Response
+     * APIで取得したデータを渡し、タグ登録時の状態をVue Tags Inputと同様にする
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -64,20 +60,20 @@ class ArticleController extends Controller
 
     /**
      * 投稿(メモ)の登録
+     * APIで取得したnewsへのリンク先とタイトルをnews_linksテーブルに保存、タグの登録と投稿とタグの紐付けも実行
      *
-     * @param \Illuminate\Http\Requests\Article\StoreRequest  $request
-     * @param Article $article
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\Article\StoreRequest  $request
+     * @param \App\Models\Article $article
+     * @return Illuminate\Http\RedirectResponse
      */
     public function store(StoreRequest $request, Article $article)
     {
-        $article->fill($request->all());
         $article->user_id = Auth::id();
-        $article->save();
+        $article->fill($request->validated())->save();
 
-        Article::find($article->id)->newsLink()->create($request->all());
+        Article::find($article->id)->newsLink()->create($request->validated());
 
-        // タグの登録と投稿・タグの紐付けを行う
+        // タグの登録、投稿とタグの紐付けも行う
         $request->tagsRegister($article);
 
         return redirect()->route('articles.index')->with('msg_success', '投稿が完了しました');
@@ -86,12 +82,12 @@ class ArticleController extends Controller
     /**
      * 投稿(メモ)詳細画面の表示
      *
-     * @param  Article $article
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Article $article
+     * @return Illuminate\View\View
      */
     public function show(Article $article)
     {
-        $memos = $article->memos->where('article_id', $article->id)->sortBy('created_at');
+        $memos = $article->getArticleMemo();
 
         return view('articles.show', compact('article', 'memos'));
     }
@@ -99,8 +95,8 @@ class ArticleController extends Controller
     /**
      * 投稿(メモ)編集フォームの表示
      *
-     * @param  Article $article
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Article $article
+     * @return Illuminate\View\View
      */
     public function edit(Article $article)
     {
@@ -119,14 +115,15 @@ class ArticleController extends Controller
 
     /**
      * 投稿(メモ)の更新
+     * タグの更新にも対応させる
      *
      * @param  \Illuminate\Http\Requests\Article\UpdateRequest  $request
-     * @param  Article $article
+     * @param \App\Models\Article $article
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateRequest $request, Article $article)
     {
-        $article->fill($request->all())->save();
+        $article->fill($request->validated())->save();
         // タグの更新
         $request->tagsRegister($article);
 
@@ -137,7 +134,7 @@ class ArticleController extends Controller
      * 投稿(メモ)の削除
      *
      * @param  Article $article
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Article $article)
     {

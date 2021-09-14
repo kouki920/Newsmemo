@@ -1,22 +1,22 @@
-<ul class="nav nav-tabs nav-justified py-1 bg-white">
-    <li class="nav-item header-title" id="header-title">
-        <a class="d-flex flex-column align-items-center nav-link bg-white text-muted {{ $hasNewsApi ? 'active' : '' }}" href="{{ route('news.default_index') }}"><i class="fas fa-newspaper"></i>
+<ul class="nav nav-tabs nav-justified">
+    <li class="nav-item news-tabs">
+        <a class="news-tabs-text d-flex flex-column align-items-center nav-link {{ $hasNewsApi ? 'active' : '' }}" href="{{ route('news.default_index') }}"><i class="news-tabs-icon fas fa-newspaper"></i>
             ニュース
         </a>
     </li>
-    <li class="nav-item header-title" id="header-title">
-        <a class="d-flex flex-column align-items-center nav-link bg-white text-muted {{ $hasCovidNews ? 'active' : '' }}" href="{{ route('news.covid_default_index') }}"><i class="fas fa-viruses"></i>
+    <li class="nav-item news-tabs">
+        <a class="news-tabs-text d-flex flex-column align-items-center nav-link {{ $hasCovidNews ? 'active' : '' }}" href="{{ route('news.covid_default_index') }}"><i class="news-tabs-icon fas fa-viruses"></i>
             COVID-19
         </a>
     </li>
-    <li class="nav-item header-title" id="header-title">
-        <a class="d-flex flex-column align-items-center nav-link bg-white text-muted {{ $hasArticles ? 'active' : '' }}" href="{{route('articles.index')}}"><i class="fas fa-list"></i>
-            メモリスト
+    <li class="nav-item news-tabs">
+        <a class="news-tabs-text d-flex flex-column align-items-center nav-link {{ $hasArticles ? 'active' : '' }}" href="{{route('articles.index')}}"><i class="news-tabs-icon fas fa-list"></i>
+            投稿
         </a>
     </li>
-    <li class="nav-item" id="header-title">
-        <a class="d-flex flex-column align-items-center nav-link bg-white text-muted {{ $hasMypage ? 'active' : '' }}" href="{{route('users.show', ['name' => Auth::user()->name])}}"><i class="fas fa-id-card"></i>
-            プロフィール
+    <li class="nav-item news-tabs">
+        <a class="news-tabs-text d-flex flex-column align-items-center nav-link {{ $hasMypage ? 'active' : '' }}" href="{{route('users.show', ['name' => Auth::user()->name])}}"><i class="news-tabs-icon fas fa-id-card"></i>
+            マイページ
         </a>
     </li>
 </ul>

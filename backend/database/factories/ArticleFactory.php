@@ -13,9 +13,9 @@ use Faker\Generator as Faker;
 
 $factory->define(Article::class, function (Faker $faker) {
     return [
-        'body' => $faker->text(255),
         'user_id' => function () {
             return factory(User::class)->create()->id;
-        }
+        },
+        'body' => '後で読む',
     ];
 });

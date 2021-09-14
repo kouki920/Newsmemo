@@ -6,49 +6,43 @@
 <div class="sticky-top">
     @include('nav')
 </div>
+
 <div class="container">
-    <div class="row">
-        <div class="mx-auto col col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6">
-            <div class="card mt-3">
-                <div class="card-body text-center">
-                    <h2 class="h3 card-title text-center mt-2">ログイン</h2>
+    <div class="card login-body">
+        <p class="card-title login-title font-lg">Login</p>
+        <div class="card-text">
+            @include('error_list')
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
 
-                    @include('error_list')
-
-                    <div class="card-text">
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-
-                            <div class="md-form">
-                                <label for="email">メールアドレス</label>
-                                <input class="form-control" type="text" id="email" name="email" required value="{{ old('email') }}">
-                            </div>
-
-                            <div class="md-form">
-                                <label for="password">パスワード</label>
-                                <input class="form-control" type="password" id="password" name="password" required>
-                            </div>
-
-                            <input type="hidden" name="remember" id="remember" value="on">
-
-                            <div class="text-left">
-                                <a href="{{ route('password.request') }}" class="card-text">パスワードを忘れた方</a>
-                            </div>
-
-                            <button class="btn btn-block blue-gradient mt-2 mb-2" type="submit">ログイン</button>
-
-                            <button class="btn btn-block blue-gradient mt-2 mb-2">
-                                <a href="{{ route('login.guest') }}" class="text-white text-decoration-none">{{ __('ゲストログイン') }}</a>
-                            </button>
-
-                        </form>
-
-                        <div class="mt-0">
-                            <a href="{{ route('register') }}" class="btn btn-block blue-gradient text-white mt-2 mb-2 card-text">ユーザー登録はこちら</a>
-                        </div>
-
-                    </div>
+                <label class="login-item font-md" for="email">-&ensp;e-mail&ensp;-</label>
+                <div class="md-form login-form">
+                    <input class="login-form-content font-sm" type="text" id="email" name="email" required value="{{ old('email') }}">
                 </div>
+
+                <label class="login-item font-md" for="password">-&ensp;password&ensp;-</label>
+                <div class="md-form login-form">
+                    <input class="login-form-content font-sm" type="password" id="password" name="password" required>
+                </div>
+
+                <input type="hidden" name="remember" id="remember" value="on">
+
+                <div class="login-password-forget">
+                    <a href="{{ route('password.request') }}" class="card-text login-password-forget-text font-sm">パスワードを忘れた場合</a>
+                </div>
+
+                <button class="login-button font-sm" type="submit">
+                    <p class="login-button-text font-sm">ログイン</p>
+                </button>
+
+                <button class="login-button">
+                    <a href="{{ route('login.guest') }}" class="login-button-text font-sm">{{ __('ゲストログイン') }}</a>
+                </button>
+
+            </form>
+
+            <div class="user-register-button">
+                <a href="{{ route('register') }}" class="btn-block card-text user-register-button-text font-sm">新規登録</a>
             </div>
         </div>
     </div>

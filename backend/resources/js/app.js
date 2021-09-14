@@ -15,6 +15,7 @@ import ArticleTagsInput from './components/ArticleTagsInput';
 import FollowButtonAndCount from './components/FollowButtonAndCount';
 import FollowButton from './components/FollowButton';
 import FollowCount from './components/FollowCount';
+import Collection from './components/Collection';
 
 library.add(faBookmark)
 
@@ -30,6 +31,7 @@ const app = new Vue({
     FollowButtonAndCount,
     FollowButton,
     FollowCount,
+    Collection,
   }
 });
 

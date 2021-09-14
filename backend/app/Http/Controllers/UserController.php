@@ -5,92 +5,84 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\Article;
-use App\Models\Login;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     /**
-     * ユーザー詳細画面の表示
-     * @param Article $article
+     * ユーザー詳細画面(プロフィール)を表示
+     *
+     * @param \App\Models\Article $article
+     * @param \App\Models\User $user
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
-    public function show(Article $article, string $name)
+    public function show(Article $article, User $user, string $name)
     {
-        $user = User::where('name', $name)->first()->load(['articles.user', 'articles.likes', 'articles.tags']);
+        $user = $user->getUserData($name)->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
 
-        $articles = $user->articles->sortByDesc('created_at')->paginate(10);
+        $articles = $user->getUserArticleData();
 
-        $logins = $user->logins;
+        $total_category = $article->getTotalCategory($user->id);
 
-        $articles_count = $user->countArticle();
-
-        $days_posted = $articles->groupBy('created_date')->count();
-
-        $total_category = $article->totalCategory($user->id);
-
-        $total_login = $logins->groupBy('login_date')->count();
-
-        return view('users.show', compact('user', 'articles', 'total_category', 'articles_count', 'days_posted', 'total_login'));
+        return view('users.show', compact('user', 'articles', 'total_category'));
     }
 
     /**
      * ユーザデータの編集
+     *
+     * @param \App\Models\User $user
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
-    public function edit(string $name)
+    public function edit(User $user, string $name)
     {
-        $user = User::where('name', $name)->first();
-
-        // UserPolicyのupdateメソッドでアクセス制限
-        // $this->authorize('update', $user);
+        $user = $user->getUserData($name);
 
         return view('users.edit', compact('user'));
     }
 
     /**
      * ユーザデータの更新
-     * @param UserRequest $request
+     *
+     * @param \App\Http\Requests\User\UserRequest $request
+     * @param \App\Models\User $user
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, string $name)
+    public function update(UpdateRequest $request, User $user, string $name)
     {
-        $user = User::where('name', $name)->first();
-
-        // UserPolicyのupdateメソッドでアクセス制限
-        // $this->authorize('update', $user);
-
-        $user->fill($request->all())->save();
+        $user = $user->getUserData($name);
+        $user->fill($request->validated())->save();
 
         return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールを編集しました');
     }
 
     /**
      * プロフィールアイコンの編集画面を表示
+     *
+     * @param \App\Models\User $user
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
-    public function imageEdit(string $name)
+    public function imageEdit(User $user, string $name)
     {
-        $user = User::where('name', $name)->first();
+        $user = $user->getUserData($name);
 
         return view('users.image_edit', compact('user'));
     }
 
     /**
      * プロフィールアイコンの更新
-     * @param UserRequest $request
+     *
+     * @param \App\Http\Requests\User\UserRequest $request
+     * @param \App\Models\User $user
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function imageUpdate(UpdateRequest $request, string $name)
+    public function imageUpdate(UpdateRequest $request, User $user, string $name)
     {
-        $user = User::where('name', $name)->first();
+        $user = $user->getUserData($name);
 
         $image = $request->getImage($request);
 
@@ -105,84 +97,91 @@ class UserController extends Controller
 
     /**
      * フォロワー詳細画面の表示
-     * @param Article $article
+     *
+     * @param \App\Models\Article $article
+     * @param \App\Models\User $user
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
-    public function follower(Article $article, string $name)
+    public function follower(User $user, Article $article, string $name)
     {
-        $user = User::where('name', $name)->first()->load('followers.followers');
+        $user = $user->getUserData($name)->load('followers.followers');
 
-        $followers = $user->followers->sortByDesc('created_at');
+        $followers = $user->getUserFollower();
 
-        $total_category = $article->totalCategory($user->id);
-
-        return view('users.follower', compact('user', 'followers', 'total_category'));
+        return view('users.follower', compact('user', 'followers'));
     }
 
     /**
      * フォロー詳細画面の表示
-     * @param Article $article
+     *
+     * @param \App\Models\Article $article
+     * @param \App\Models\User $user
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
-    public function following(Article $article, string $name)
+    public function following(User $user, Article $article, string $name)
     {
-        $user = User::where('name', $name)->first()->load('followings.followers');
+        $user = $user->getUserData($name)->load('followings.followers');
 
-        $followings = $user->followings->sortByDesc('created_at');
+        $followings = $user->getUserFollowing();
 
-        $total_category = $article->totalCategory($user->id);
-
-        return view('users.following', compact('user', 'followings', 'total_category'));
+        return view('users.following', compact('user', 'followings'));
     }
 
     /**
      * いいねした投稿を一覧表示
-     * @param Article $article
+     *
+     * @param \App\Models\User $user
+     * @param \App\Models\Article $article
      * @param string $name
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\View\View
      */
-    public function likes(Article $article, string $name)
+    public function likes(User $user, Article $article, string $name)
     {
-        $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
+        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
-        $articles = $user->likes->sortByDesc('created_at')->paginate(10);
+        $articles = $user->getUserLikedArticleData();
 
-        $articles_count = $user->countArticle();
+        $articles_count = $user->getCountArticle();
 
-        $total_category = $article->totalCategory($user->id);
+        $total_category = $article->getTotalCategory($user->id);
 
         return view('users.likes', compact('user', 'articles', 'total_category', 'articles_count'));
     }
 
     /**
      * ユーザーデータを表示
+     *
+     * @param \App\Models\User $user
+     * @param \App\Models\Article $article
+     * @return Illuminate\View\View
      */
-    public function userData(Article $article, string $name)
+    public function userData(User $user, Article $article, string $name)
     {
-        $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
+        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
-        $articles = $user->articles;
-        $logins = $user->logins;
+        $articles_count = $user->getCountArticle();
 
-        $articles_count = $user->countArticle();
+        $total_category = $article->getTotalCategory($user->id);
 
-        $total_category = $article->totalCategory($user->id);
+        $days_posted = $user->articles->groupBy('created_date')->count();
 
-        $days_posted = $articles->groupBy('created_date')->count();
+        $last_login = $user->last_login_date;
 
-        $total_login = $logins->groupBy('login_date')->count();
-
-        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted', 'total_login'));
+        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted', 'last_login'));
     }
 
     /**
      * パスワード変更
+     *
+     * @param \App\Models\User $user
+     * @param string $name
+     * @return Illuminate\View\View
      */
-    public function editPassword(string $name)
+    public function editPassword(User $user, string $name)
     {
-        $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
+        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         session()->flash('msg_success', 'パスワードを変更してください');
 
@@ -191,10 +190,15 @@ class UserController extends Controller
 
     /**
      * パスワードの更新
+     *
+     * @param \App\Http\Requests\User\UpdatePasswordRequest $request
+     * @param \App\Models\User $user
+     * @param string $name
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function updatePassword(UpdatePasswordRequest $request, string $name)
+    public function updatePassword(UpdatePasswordRequest $request, User $user, string $name)
     {
-        $user = User::where('name', $name)->first();
+        $user = $user->getUserData($name);
         $user->password = bcrypt($request->get('new_password'));
         $user->save();
 
@@ -204,11 +208,14 @@ class UserController extends Controller
 
     /**
      * ユーザーデータの削除(退会)
+     *
+     * @param \App\Models\User $user
      * @param string $name
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(string $name)
+    public function destroy(User $user, string $name)
     {
-        $user = User::where('name', $name)->first()->load(['likes.user', 'likes.likes', 'likes.tags']);
+        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         if ($user->id != config('user.guest_user_id')) {
             $user->delete();

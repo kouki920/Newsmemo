@@ -4,78 +4,35 @@ namespace App\Http\Controllers\NEWSAPI;
 
 use App\Http\Requests\Api\CovidCustomRequest;
 use App\Http\Controllers\Controller;
-use app\Interfaces\CovidNewsInterface;
 use App\Services\CovidNewsService;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7;
 
 class CovidNewsController extends Controller
 {
-    public function defaultIndex()
+    /**
+     * NEWSAPIからCOVID関連のニュースデータを取得
+     * serviceクラスで作成したGuzzleを利用したメソッドを指定
+     *
+     * @param \App\Services\CovidNewsService $covid_news_service
+     * @return array
+     */
+    public function defaultIndex(CovidNewsService $covid_news_service)
     {
-        try {
-            $url = config('newsapi.news_api_url') . "everything?q=+COVID-19 AND 新型コロナ&language=jp&pageSize=40&sortBy=publishedAt&apiKey=" . config('newsapi.news_api_key');
-            $method = "GET";
-
-            $client = new Client();
-            $response = $client->request($method, $url);
-
-            $results = $response->getBody();
-            $articles = json_decode($results, true);
-
-            $news = [];
-            $count = 40;
-
-            for ($id = 0; $id < $count; $id++) {
-                array_push($news, [
-                    'name' => $articles['articles'][$id]['title'],
-                    'url' => $articles['articles'][$id]['url'],
-                    'thumbnail' => $articles['articles'][$id]['urlToImage'],
-                ]);
-            }
-        } catch (RequestException $e) {
-            echo Psr7\Message::toString($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\Message::toString($e->getResponse());
-            }
-        }
+        $news = $covid_news_service->defaultIndex();
 
         return view('articles.covid_index', compact('news'));
     }
 
-    public function customIndex(CovidCustomRequest $request)
+    /**
+     * NEWSAPIからCOVID関連のニュースデータを取得
+     * serviceクラスで作成したGuzzleを利用したメソッドを指定
+     *
+     * @param \App\Http\Requests\Api\CovidCustomRequest
+     * @param \App\Services\CovidNewsService $covid_news_service
+     * @return array
+     */
+    public function customIndex(CovidCustomRequest $request, CovidNewsService $covid_news_service)
     {
-        try {
-            if (isset($request)) {
-                $language = $request->language;
-                $url = config('newsapi.news_api_url') . "everything?q=COVID-19&language=" . $language . "&pageSize=50&sortBy=publishedAt&apiKey=" . config('newsapi.news_api_key');
-            }
-
-            $method = "GET";
-
-            $client = new Client();
-            $response = $client->request($method, $url);
-
-            $results = $response->getBody();
-            $articles = json_decode($results, true);
-
-            $news = [];
-            $count = 50;
-
-            for ($id = 0; $id < $count; $id++) {
-                array_push($news, [
-                    'name' => $articles['articles'][$id]['title'],
-                    'url' => $articles['articles'][$id]['url'],
-                    'thumbnail' => $articles['articles'][$id]['urlToImage'],
-                ]);
-            }
-        } catch (RequestException $e) {
-            echo Psr7\Message::toString($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\Message::toString($e->getResponse());
-            }
-        }
+        $news = $covid_news_service->customIndex($request);
 
         return view('articles.covid_index', compact('news'));
     }
