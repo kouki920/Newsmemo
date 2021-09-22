@@ -6,6 +6,7 @@ use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\Article;
 use App\Models\User;
+use App\Models\NewsLink;
 
 class UserController extends Controller
 {
@@ -157,11 +158,14 @@ class UserController extends Controller
      * @param \App\Models\Article $article
      * @return Illuminate\View\View
      */
-    public function userData(User $user, Article $article, string $name)
+    public function userData(User $user, Article $article, NewsLink $newsLink, string $name)
     {
         $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         $articles_count = $user->getCountArticle();
+
+        $ranked_articles = $article->getArticleRanking();
+        $ranked_news = $newsLink->getNewsRanking();
 
         $total_category = $article->getTotalCategory($user->id);
 
@@ -169,7 +173,7 @@ class UserController extends Controller
 
         $last_login = $user->last_login_date;
 
-        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted', 'last_login'));
+        return view('users.data', compact('user', 'articles_count', 'total_category', 'ranked_articles', 'ranked_news', 'days_posted', 'last_login'));
     }
 
     /**

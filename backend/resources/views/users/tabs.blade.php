@@ -11,7 +11,7 @@
     </li>
     <li class="nav-item user-tabs">
         <a class="user-tabs-text font-sm nav-link {{ $hasData ? 'active' : '' }}" href="{{route('users.userData',['name' => $user->name])}}">
-            ユーザ情報
+            その他
         </a>
     </li>
 </ul>

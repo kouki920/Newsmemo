@@ -28,7 +28,7 @@ class UserControllerTest extends TestCase
             ->assertSee('編集')
             ->assertSee('投稿')
             ->assertSee('ブックマーク')
-            ->assertSee('ユーザ情報');
+            ->assertSee('その他');
     }
 
     /**
