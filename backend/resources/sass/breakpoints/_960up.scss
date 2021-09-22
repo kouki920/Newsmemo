@@ -401,6 +401,24 @@ $side-menu-border-radius: 5px;
     }
 }
 
+/****** マイページ ******/
+/*** ユーザーデータ ***/
+.user-data-body{
+
+  .articles-ranking-title{
+    display: none;
+  }
+  .articles-ranking-content{
+    display: none;
+  }
+
+  .news-ranking-title{
+    display: none;
+  }
+  .news-ranking-content{
+    display: none;
+  }
+}
 
 /****** ログイン画面 ******/
 .login-body{

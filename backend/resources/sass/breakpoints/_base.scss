@@ -357,6 +357,15 @@ img {
 .user-data-body{
 	margin: 10px auto;
 
+	.user-data-title{
+		padding: 5px;
+		text-align: center;
+		background-color: #6D8299;
+		color: #fff;
+	}
+	.user-data-table{
+		margin-bottom: 0px;
+
 	.user-data-header{
 		background-color: #D8D3CD;
 		text-align: center;
@@ -368,6 +377,32 @@ img {
 	}
 }
 
+		.articles-ranking-title{
+			text-align: center;
+			margin-top: 20px;
+			padding: 5px;
+			background-color: #6D8299;
+			color: #fff;
+		}
+		.articles-ranking-content{
+			text-align: center;
+			background-color: #F1F6F9;
+			padding: 12px 5px 0px;
+		}
+
+		.news-ranking-title{
+			text-align: center;
+			margin-top: 20px;
+			padding: 5px;
+			background-color: #6D8299;
+			color: #fff;
+		}
+		.news-ranking-content{
+			text-align: center;
+			background-color: #F1F6F9;
+			padding: 12px 5px 0px;
+		}
+}
 
 /*** フォロー・フォロワー画面 ***/
 .follow-tab-link{
