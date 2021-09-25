@@ -162,8 +162,6 @@ class ArticleControllerTest extends TestCase
         $article = factory(Article::class)->create();
         $news_link = factory(NewsLink::class)->create([
             'article_id' => $article->id,
-            'news' => 'Google ニュース',
-            'url' => 'https://news.google.com',
         ]);
 
         $user = $article->user;

@@ -24,9 +24,9 @@ class UserController extends Controller
 
         $articles = $user->getUserArticleData();
 
-        $total_category = $article->getTotalCategory($user->id);
+        $recent_tags = $article->getRecentTags($user->id);
 
-        return view('users.show', compact('user', 'articles', 'total_category'));
+        return view('users.show', compact('user', 'articles', 'recent_tags'));
     }
 
     /**
@@ -146,9 +146,9 @@ class UserController extends Controller
 
         $articles_count = $user->getCountArticle();
 
-        $total_category = $article->getTotalCategory($user->id);
+        $recent_tags = $article->getRecentTags($user->id);
 
-        return view('users.likes', compact('user', 'articles', 'total_category', 'articles_count'));
+        return view('users.likes', compact('user', 'articles', 'recent_tags', 'articles_count'));
     }
 
     /**
@@ -167,13 +167,13 @@ class UserController extends Controller
         $ranked_articles = $article->getArticleRanking();
         $ranked_news = $newsLink->getNewsRanking();
 
-        $total_category = $article->getTotalCategory($user->id);
+        $recent_tags = $article->getRecentTags($user->id);
 
         $days_posted = $user->articles->groupBy('created_date')->count();
 
         $last_login = $user->last_login_date;
 
-        return view('users.data', compact('user', 'articles_count', 'total_category', 'ranked_articles', 'ranked_news', 'days_posted', 'last_login'));
+        return view('users.data', compact('user', 'articles_count', 'recent_tags', 'ranked_articles', 'ranked_news', 'days_posted', 'last_login'));
     }
 
     /**

@@ -37,9 +37,9 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right category-dropdown-menu">
                             <div>
-                                @foreach($total_category as $category)
+                                @foreach($recent_tags as $tag)
                                 <ul class="list-group">
-                                    <li class="list-group-item category-text font-sm">{{$category}}</li>
+                                    <li class="list-group-item category-text font-sm">{{$tag}}</li>
                                 </ul>
                                 @endforeach
                             </div>
