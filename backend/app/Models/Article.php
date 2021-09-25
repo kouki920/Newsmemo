@@ -126,19 +126,19 @@ class Article extends Model
      * @param $query
      * @return array
      */
-    public function getTotalCategory($id)
+    public function getRecentTags($id)
     {
         $articles = Article::with('tags')
             ->where('user_id', $id)
             ->latest()->take(5)->get();
 
-        $tag_name = [];
-        foreach ($articles as $value) {
-            foreach ($value->tags as $values) {
-                $tag_name[] = $values->name;
+        foreach ($articles as $article) {
+            foreach ($article->tags as $tag) {
+                $tag_name[] = $tag->name;
             }
         }
-        return $tag_name;
+
+        return array_unique($tag_name);
     }
 
     /**
