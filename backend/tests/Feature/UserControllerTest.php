@@ -18,21 +18,21 @@ class UserControllerTest extends TestCase
      * ユーザーマイページ画面表示のテスト
      * ログイン時,ステータスコード200の確認、viewファイル('users.show')が利用されているかのテスト
      */
-    // public function testAuthShow()
-    // {
-    //     $this->withoutExceptionHandling();
+    public function testAuthShow()
+    {
+        $this->withoutExceptionHandling();
 
-    //     $user = factory(User::class)->create();
+        $user = factory(User::class)->create();
 
-    //     $response = $this->actingAs($user)->get(route('users.show', ['name' => $user->name]));
+        $response = $this->actingAs($user)->get(route('users.show', ['name' => $user->name]));
 
-    //     $response->assertStatus(200)->assertViewIs('users.show')
-    //         ->assertSee('最近使用したタグ')
-    //         ->assertSee('編集')
-    //         ->assertSee('投稿')
-    //         ->assertSee('ブックマーク')
-    //         ->assertSee('その他');
-    // }
+        $response->assertStatus(200)->assertViewIs('users.show')
+            ->assertSee('最近使用したタグ')
+            ->assertSee('編集')
+            ->assertSee('投稿')
+            ->assertSee('ブックマーク')
+            ->assertSee('その他');
+    }
 
     /**
      * ユーザー編集機能 画面表示のテスト
