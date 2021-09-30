@@ -132,6 +132,7 @@ class Article extends Model
             ->where('user_id', $id)
             ->latest()->take(5)->get();
 
+        $tag_name = [];
         foreach ($articles as $article) {
             foreach ($article->tags as $tag) {
                 $tag_name[] = $tag->name;
