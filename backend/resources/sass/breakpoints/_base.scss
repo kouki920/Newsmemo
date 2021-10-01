@@ -4,6 +4,10 @@ Stylesheet: ベーススタイル
 
 ******************************************************************/
 
+/****** 変数 ******/
+$font-family: 'Noto Sans JP', sans-serif;
+
+
 /****** ページ共通 ******/
 body{
 	background-color: #AAAAAA;
@@ -19,21 +23,25 @@ img {
   font-size: 12px;
 	letter-spacing: 1px;
 	line-height: 16px;
+	font-family: $font-family;
 }
 .font-md {
   font-size: 14px;
 	letter-spacing: 1px;
 	line-height: 20px;
+	font-family: $font-family;
 }
 .font-lr {
   font-size: 16px;
 	letter-spacing: 1px;
 	line-height: 22px;
+	font-family: $font-family;
 }
 .font-lg {
   font-size: 18px;
 	letter-spacing: 1px;
 	line-height: 28px;
+	font-family: $font-family;
 }
 
 
