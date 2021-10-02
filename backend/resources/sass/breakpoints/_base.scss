@@ -594,7 +594,7 @@ img {
 		/*** 投稿 アイコン・name ***/
 		.article-icon-name{
 			display: flex;
-			justify-content: start;
+			justify-content: flex-start;
 			align-items: center;
 
 			.article-icon{
