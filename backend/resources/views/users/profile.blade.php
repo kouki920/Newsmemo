@@ -31,7 +31,7 @@
                 <div class="card-text">
                     <div class="dropdown">
                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <button class="btn recent-tags-btn dropdown-toggle font-sm tag-button" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <button class="btn recent-tags-button dropdown-toggle font-sm tag-button" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                                 最近使用したタグ
                             </button>
                         </a>

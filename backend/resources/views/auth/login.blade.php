@@ -9,20 +9,20 @@
 
 <div class="container">
     <div class="card login-body">
-        <p class="card-title login-title font-lg">Login</p>
+        <p class="card-title login-body__title font-lg">Login</p>
         <div class="card-text">
             @include('error_list')
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <label class="login-item font-md" for="email">-&ensp;e-mail&ensp;-</label>
-                <div class="md-form login-form">
-                    <input class="login-form-content font-sm" type="text" id="email" name="email" required value="{{ old('email') }}">
+                <label class="login-body__item font-md" for="email">-&ensp;e-mail&ensp;-</label>
+                <div class="md-form login-body__form">
+                    <input class="login-body__form__content font-sm" type="text" id="email" name="email" required value="{{ old('email') }}">
                 </div>
 
-                <label class="login-item font-md" for="password">-&ensp;password&ensp;-</label>
-                <div class="md-form login-form">
-                    <input class="login-form-content font-sm" type="password" id="password" name="password" required>
+                <label class="login-body__item font-md" for="password">-&ensp;password&ensp;-</label>
+                <div class="md-form login-body__form">
+                    <input class="login-body__form__content font-sm" type="password" id="password" name="password" required>
                 </div>
 
                 <input type="hidden" name="remember" id="remember" value="on">
