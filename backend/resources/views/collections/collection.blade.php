@@ -39,9 +39,9 @@
                             <div class="collection-update-text font-sm">
                                 コレクション名を編集してください
                             </div>
-                            <div class="form-group collection-update-btn-body">
+                            <div class="form-group collection-update-button-body">
                                 <input class="form-control font-sm" type="text" name="name" value="{{$collection->name ?? old('name')}}">
-                                <div class="modal-footer collection-update-btn-content">
+                                <div class="modal-footer collection-update-button-content">
                                     <a class="btn collection-cancel-button font-sm" data-dismiss="modal">キャンセル</a>
                                     <button type="submit" class="btn collection-update-button font-sm">更新</button>
                                 </div>
@@ -69,8 +69,8 @@
                             コレクションを削除しますか?
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <a class="btn collection-cancel-btn font-sm" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn collection-delete-btn font-sm">削除</button>
+                            <a class="btn collection-cancel-button font-sm" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn collection-delete-button font-sm">削除</button>
                         </div>
                     </form>
                 </div>

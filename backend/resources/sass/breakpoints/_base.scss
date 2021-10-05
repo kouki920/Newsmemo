@@ -5,6 +5,9 @@ Stylesheet: ベーススタイル
 ******************************************************************/
 
 /****** 変数 ******/
+$update-button-color: #6E85B2;
+$cancel-button-color: #C8C6C6;
+$delete-button-color: #c71111;
 $font-family: 'Noto Sans JP', sans-serif;
 
 
@@ -63,12 +66,12 @@ img {
     border-top: solid 5px #616daa;
 		margin: 0px;
 
-	.news-tabs-text{
+	&__text{
 			font-size: 9px;
 			line-height: 13px;
 			color: #000000;
 
-		.news-tabs-icon{
+		&__icon{
 					font-size: 15px;
 					letter-spacing: 1px;
 					margin: 2px auto;
@@ -86,14 +89,18 @@ img {
 	background-color: #F9F9F9;
 	max-width: 300px;
 
-		.login-item{
+		&__title{
+			text-align: center;
+		}
+
+		&__item{
 			margin: 10px 0px 0px;
 		}
 
-		.login-form{
+		&__form{
 			margin: 0px;
 
-			.login-form-content{
+			&__content{
 				width: 250px;
 				margin: 10px 0px;
 				padding: 5px 2px;
@@ -211,7 +218,7 @@ img {
 		margin: 10px auto 0px;
 
 		.user-register-button{
-			background-color: #6E85B2;
+			background-color: $update-button-color;
 			border: 1px solid #000;
 			color: #fff;
 			box-shadow: none;
@@ -223,7 +230,7 @@ img {
 		margin: 10px auto 0px;
 
 		.register-login-link-button{
-			background-color: #679B9B;
+			background-color: $update-button-color;
 			border: 1px solid #000;
 			color: #fff;
 			box-shadow: none;
@@ -328,7 +335,7 @@ img {
 	max-width: 300px;
 
 	.user-profile-update-button{
-		background-color: #6E85B2;
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		box-shadow: none;
@@ -336,7 +343,7 @@ img {
 	}
 
 	.user-profile-cancel-button{
-		background-color: #C8C6C6;
+		background-color: $cancel-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		box-shadow: none;
@@ -345,7 +352,7 @@ img {
 }
 
 /*** 最近使用したタグ機能 ***/
-.recent-tags-btn{
+.recent-tags-button{
 	background-color: #BBBFCA;
 	border: 1px solid #000;
 	}
@@ -637,13 +644,13 @@ img {
 
 		.article-cancel-button{
 			box-shadow: none;
-			background-color: #C8C6C6;
+			background-color: $cancel-button-color;
 			border: 1px solid #000;
 			color: #fff;
 		}
 		.article-delete-button{
 			box-shadow: none;
-			background-color: #c71111;
+			background-color: $delete-button-color;
 			border: 1px solid #000;
 			color: #fff;
 		}
@@ -703,7 +710,7 @@ img {
 				padding: 4px 0px 0px;
 
 				.collection-delete-button-icon{
-					color: #c71111;
+					color: $delete-button-color;
 				}
 			}
 	}
@@ -713,13 +720,13 @@ img {
 	}
 	.collection-article-cancel-button{
 		box-shadow: none;
-		background-color: #C8C6C6;
+		background-color: $cancel-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
 	.collection-article-delete-button{
 		box-shadow: none;
-		background-color: #c71111;
+		background-color: $delete-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
@@ -733,7 +740,7 @@ img {
 
 .article-update-button{
 	display: flex;
-	background-color: #6E85B2;
+	background-color: $update-button-color;
 	border: 1px solid #000;
 	color: #fff;
 	box-shadow: none;
@@ -789,7 +796,7 @@ img {
 			margin: 10px 0;
 
 			.update-button{
-				background-color: #6E85B2;
+				background-color: $update-button-color;
 				border: 1px solid #000;
 				color: #fff;
 				box-shadow: none;
@@ -798,7 +805,7 @@ img {
 
 			.cancel-button{
 				box-shadow: none;
-				background-color: #C8C6C6;
+				background-color: $cancel-button-color;
 				border: 1px solid #000;
 				color: #fff;
 				margin: 10px auto;
@@ -828,7 +835,7 @@ img {
 					padding: 0;
 					text-align: center;
 					background-color: #fff;
-					color: #c71111;
+					color: $delete-button-color;
 				}
 			}
 		}
@@ -880,21 +887,21 @@ max-width: 300px;
 				margin: 5px auto;
 			}
 
-			.collection-update-btn-body{
+			.collection-update-button-body{
 				margin-bottom: 0px;
 
-				.collection-update-btn-content{
+				.collection-update-button-content{
 					justify-content: space-between;
 
 					.collection-cancel-button{
 						box-shadow: none;
-						background-color: #C8C6C6;
+						background-color: $cancel-button-color;
 						border: 1px solid #000;
 						color: #fff;
 					}
 					.collection-update-button{
 						box-shadow: none;
-						background-color: #6E85B2;
+						background-color: $update-button-color;
 						border: 1px solid #000;
 						color: #fff;
 					}
@@ -904,30 +911,30 @@ max-width: 300px;
 	}
 
 
-	.collection-cancel-btn{
+	.collection-cancel-button{
 		box-shadow: none;
-		background-color: #C8C6C6;
+		background-color: $cancel-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
 
-	.collection-delete-btn{
+	.collection-delete-button{
 		box-shadow: none;
-		background-color: #c71111;
+		background-color: $delete-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
 }
 
-	.collection-article-cancel-btn{
+	.collection-article-cancel-button{
 		box-shadow: none;
-		background-color: #C8C6C6;
+		background-color: $cancel-button-color;
 		color: #fff;
 	}
 
-	.collection-article-delete-btn{
+	.collection-article-delete-button{
 		box-shadow: none;
-		background-color: #c71111;
+		background-color: $delete-button-color;
 		color: #fff;
 	}
 
@@ -979,7 +986,7 @@ max-width: 300px;
 	}
 
 	.password-edit-button{
-		background-color: #6E85B2;
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		margin: 0 auto;
@@ -1007,7 +1014,7 @@ max-width: 300px;
 	}
 
 	.password-reset-email-button{
-		background-color: #6E85B2;
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		margin: 0 auto;
@@ -1037,7 +1044,7 @@ max-width: 300px;
 	}
 
 	.password-new-setting-button{
-		background-color: #6E85B2;
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		margin: 0 auto;
@@ -1074,7 +1081,7 @@ max-width: 300px;
 	}
 
 	.contact-form-button{
-		background-color: #6E85B2;
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		box-shadow: none;
 		color: #fff;
@@ -1118,14 +1125,14 @@ max-width: 300px;
 
 			.confirm-cancel-button{
 				box-shadow: none;
-				background-color: #C8C6C6;
+				background-color: $cancel-button-color;
 				border: 1px solid #000;
 				color: #fff;
 			}
 
 			.confirm-submit-button{
 				box-shadow: none;
-				background-color: #6E85B2;
+				background-color: $update-button-color;
 				border: 1px solid #000;
 				color: #fff;
 			}
@@ -1148,7 +1155,7 @@ max-width: 300px;
 
 	.complete-button{
 		box-shadow: none;
-		background-color: #6E85B2;
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		margin: 20px auto 0px;
