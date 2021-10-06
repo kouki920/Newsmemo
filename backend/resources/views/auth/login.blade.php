@@ -27,22 +27,22 @@
 
                 <input type="hidden" name="remember" id="remember" value="on">
 
-                <div class="login-password-forget">
-                    <a href="{{ route('password.request') }}" class="card-text login-password-forget-text font-sm">パスワードを忘れた場合</a>
+                <div class="login-password-link">
+                    <a href="{{ route('password.request') }}" class="card-text login-password-link__text font-sm">パスワードを忘れた場合</a>
                 </div>
 
                 <button class="login-button font-sm" type="submit">
-                    <p class="login-button-text font-sm">ログイン</p>
+                    <p class="login-button__text font-sm">ログイン</p>
                 </button>
 
                 <button class="login-button">
-                    <a href="{{ route('login.guest') }}" class="login-button-text font-sm">{{ __('ゲストログイン') }}</a>
+                    <a href="{{ route('login.guest') }}" class="login-button__text font-sm">{{ __('ゲストログイン') }}</a>
                 </button>
 
             </form>
 
             <div class="user-register-button">
-                <a href="{{ route('register') }}" class="btn-block card-text user-register-button-text font-sm">新規登録</a>
+                <a href="{{ route('register') }}" class="btn-block card-text user-register-button__text font-sm">新規登録</a>
             </div>
         </div>
     </div>
