@@ -107,10 +107,10 @@ img {
 			}
 		}
 
-		.login-password-forget{
+		.login-password-link{
 			margin: 10px auto;
 
-			.login-password-forget-text{
+			&__text{
 				text-decoration: none;
 			}
 		}
@@ -128,7 +128,7 @@ img {
 			border: 1px solid #000;
 			width: 150px;
 
-			.login-button-text{
+			&__text{
 				text-decoration: none;
 				color: #fff;
 				font-weight: bold;
@@ -145,7 +145,7 @@ img {
 			background-color: #F48B29;
 			width: 150px;
 
-			.user-register-button-text{
+			&__text{
 				color: #fff;
 				font-weight: bold;
 				text-decoration: none;
@@ -155,69 +155,70 @@ img {
 }
 
 /****** ユーザー登録画面 ******/
-.register-form-body{
+.register-body{
 	margin: 10px auto;
 	text-align: center;
 	box-shadow: none;
 	max-width: 300px;
 
-	.register-form-title{
+	&__title{
 		margin: 10px auto;
 	}
 
-	.register-name-body{
+	&__name{
 		margin-top: 10px;
 
-		.register-name-text{
+		&__text{
 			margin: 10px auto 0px;
 		}
-		.register-name-form{
+		&__form{
 			margin: 0px auto;
 			max-width: 250px;
 			}
 	}
 
 
-		.register-email-body{
+		&__email{
 			margin-top: 10px;
 
-			.register-email-text{
+			&__text{
 				margin: 10px auto 0px;
 			}
-		.register-email-form{
+		&__form{
 			margin: 5px auto;
 			max-width: 250px;
 		}
 		}
 
-		.register-password-body{
+		&__password{
 			margin-top: 10px;
 
-			.register-password-text{
+			&__text{
 				margin: 10px auto 0px;
 			}
-			.register-password-form{
+			&__form{
 				margin: 5px auto;
 				max-width: 250px;
 			}
-		}
 
-		.register-password-confirmation-body{
+
+		&__confirmation{
 			margin-top: 10px;
 
-			.register-password-confirmation-text{
+			&__text{
 				margin: 10px auto 0px;
 			}
-			.register-password-confirmation-form{
+			&__form{
 				margin: 5px auto;
 				max-width: 250px;
 			}
 	}
+}
 
-	.user-register-button-body{
+	&__user-register-button{
 		margin: 10px auto 0px;
 
-		.user-register-button{
+		&__body{
 			background-color: $update-button-color;
 			border: 1px solid #000;
 			color: #fff;
@@ -226,10 +227,11 @@ img {
 		}
 	}
 
-	.register-login-button-body{
+
+	&__login-button{
 		margin: 10px auto 0px;
 
-		.register-login-link-button{
+		&__body{
 			background-color: $update-button-color;
 			border: 1px solid #000;
 			color: #fff;
