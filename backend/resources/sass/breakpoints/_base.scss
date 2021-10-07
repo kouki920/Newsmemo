@@ -70,14 +70,15 @@ img {
 			font-size: 9px;
 			line-height: 13px;
 			color: #000000;
+			}
 
-		&__icon{
-					font-size: 15px;
-					letter-spacing: 1px;
-					margin: 2px auto;
-					}
+	&__icon{
+				font-size: 15px;
+				letter-spacing: 1px;
+				margin: 2px auto;
 			}
 }
+
 
 /****** ログイン画面 ******/
 .login-body{
@@ -99,15 +100,15 @@ img {
 
 		&__form{
 			margin: 0px;
+		}
 
-			&__content{
+		&__form-content{
 				width: 250px;
 				margin: 10px 0px;
 				padding: 5px 2px;
-			}
 		}
 
-		.login-password-link{
+		.password-setting-link{
 			margin: 10px auto;
 
 			&__text{
@@ -165,79 +166,86 @@ img {
 		margin: 10px auto;
 	}
 
+
 	&__name{
 		margin-top: 10px;
+	}
 
-		&__text{
-			margin: 10px auto 0px;
-		}
-		&__form{
-			margin: 0px auto;
-			max-width: 250px;
-			}
+	&__name-text{
+		margin: 10px auto 0px;
+	}
+
+	&__name-form{
+		margin: 0px auto;
+		max-width: 250px;
 	}
 
 
-		&__email{
-			margin-top: 10px;
-
-			&__text{
-				margin: 10px auto 0px;
-			}
-		&__form{
-			margin: 5px auto;
-			max-width: 250px;
-		}
-		}
-
-		&__password{
-			margin-top: 10px;
-
-			&__text{
-				margin: 10px auto 0px;
-			}
-			&__form{
-				margin: 5px auto;
-				max-width: 250px;
-			}
-
-
-		&__confirmation{
-			margin-top: 10px;
-
-			&__text{
-				margin: 10px auto 0px;
-			}
-			&__form{
-				margin: 5px auto;
-				max-width: 250px;
-			}
+	&__email{
+		margin-top: 10px;
 	}
-}
+
+	&__email-text{
+		margin: 10px auto 0px;
+	}
+
+	&__email-form{
+		margin: 5px auto;
+		max-width: 250px;
+	}
+
+
+	&__password{
+		margin-top: 10px;
+	}
+
+	&__password-text{
+		margin: 10px auto 0px;
+	}
+
+	&__password-form{
+		margin: 5px auto;
+		max-width: 250px;
+	}
+
+	&__password-confirmation{
+		margin-top: 10px;
+	}
+
+	&__password-confirmation-text{
+		margin: 10px auto 0px;
+	}
+
+	&__password-confirmation-form{
+		margin: 5px auto;
+		max-width: 250px;
+	}
+
 
 	&__user-register-button{
 		margin: 10px auto 0px;
+	}
 
-		&__body{
-			background-color: $update-button-color;
-			border: 1px solid #000;
-			color: #fff;
-			box-shadow: none;
-			width: 160px;
-		}
+	&__user-register-button-body{
+		background-color:
+		$update-button-color;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		width: 160px;
 	}
 
 
 	&__login-button{
 		margin: 10px auto 0px;
+	}
 
-		&__body{
-			background-color: $update-button-color;
-			border: 1px solid #000;
-			color: #fff;
-			box-shadow: none;
-			width: 160px;
-		}
+	&__login-button-body{
+		background-color: $update-button-color;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		width: 160px;
 	}
 }
 
@@ -257,6 +265,7 @@ img {
   padding: 0 0 0 35px;
   border-top: solid 1px;
 }
+
 #page-top::before {
   content: "";
   display: block;
@@ -271,13 +280,14 @@ img {
 
 
 /****** マイページ ******/
+
 /*** タブ ***/
 .user-tabs{
 	background-color: #394867;
 	color: #5d627b;
 	box-shadow: none;
 
-	.user-tabs-text{
+	&__text{
 		color: #F1F6F9;
 		}
 }
@@ -287,42 +297,51 @@ img {
 	background-color: #fdffff;
 	box-shadow: none;
 
-	.profile-function-button{
+	.profile-function-body{
 		display: flex;
 		align-items: center;
 
-		.profile-user-icon{
-			margin-right: 20px;
+		&__user-icon{
+			margin-right: 10px;
 		}
 
-		.tag-button{
+		&__tag-button{
 			padding: 5px;
 			box-shadow: none;
+			background-color: #BBBFCA;
+			border: 1px solid #000;
 		}
 
-		.category-text{
+		&__category-dropdown-menu{
+			padding: 0;
+		}
+
+		&__category-text{
 			text-align: center;
 			padding: 5px 0px;
 		}
 
-		.edit-button{
+		&__edit-button{
 			padding: 5px;
 			box-shadow: none;
+			color: #F1F6F9;
+			background-color: #00587A;
+			border: 1px solid #000;
 		}
 	}
 
-	.profile-content{
+	.profile-content-body{
 		padding: 0px;
 
-		.profile-name{
+		&__name{
 			margin: 2px;
 		}
 
-		.profile-introduction{
+		&__introduction{
 			margin: 8px 2px;
 		}
 
-		.profile-follow-follower-count{
+		.profile-follow-function-body{
 			margin: 2px 2px 2px 0px;
 		}
 	}
@@ -351,23 +370,6 @@ img {
 		box-shadow: none;
 		margin: 2px;
 	}
-}
-
-/*** 最近使用したタグ機能 ***/
-.recent-tags-button{
-	background-color: #BBBFCA;
-	border: 1px solid #000;
-	}
-
-.category-dropdown-menu{
-	padding: 0;
-}
-
-/*** 編集ボタン ***/
-.edit-button{
-	color: #F1F6F9;
-	background-color: #00587A;
-	border: 1px solid #000;
 }
 
 /*** ユーザーデータ ***/
