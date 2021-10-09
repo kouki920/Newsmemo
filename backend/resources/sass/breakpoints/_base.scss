@@ -251,7 +251,7 @@ img {
 
 
 /***トップへ戻るボタン***/
-#page-top {
+.page-top {
   position: fixed;
   right: 5px;
   bottom: 20px;
@@ -264,9 +264,8 @@ img {
   color: #fff;
   padding: 0 0 0 35px;
   border-top: solid 1px;
-}
 
-#page-top::before {
+&::before {
   content: "";
   display: block;
   position: absolute;
@@ -276,6 +275,7 @@ img {
   border-top: solid 1px;
   transform: rotate(35deg);
   transform-origin: left top;
+	}
 }
 
 
@@ -312,11 +312,11 @@ img {
 			border: 1px solid #000;
 		}
 
-		&__category-dropdown-menu{
+		&__tag-dropdown-menu{
 			padding: 0;
 		}
 
-		&__category-text{
+		&__tag-list{
 			text-align: center;
 			padding: 5px 0px;
 		}
@@ -355,7 +355,11 @@ img {
 	box-shadow: none;
 	max-width: 300px;
 
-	.user-profile-update-button{
+	&__caution-text{
+		color: $delete-button-color;
+	}
+
+	&__update-button{
 		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
@@ -363,7 +367,7 @@ img {
 		margin: 2px;
 	}
 
-	.user-profile-cancel-button{
+	&__cancel-button{
 		background-color: $cancel-button-color;
 		border: 1px solid #000;
 		color: #fff;
@@ -376,47 +380,47 @@ img {
 .user-data-body{
 	margin: 10px auto;
 
-	.user-data-title{
+	&__title{
 		padding: 5px;
 		text-align: center;
 		background-color: #6D8299;
 		color: #fff;
 	}
-	.user-data-table{
+	&__table{
 		margin-bottom: 0px;
 
-	.user-data-header{
+	&__header{
 		background-color: #D8D3CD;
 		text-align: center;
 	}
 
-	.user-data-contents{
+	&__contents{
 		background-color: #F1F6F9;
 		text-align: center;
 	}
 }
 
-		.articles-ranking-title{
+		&__articles-ranking-title{
 			text-align: center;
 			margin-top: 20px;
 			padding: 5px;
 			background-color: #6D8299;
 			color: #fff;
 		}
-		.articles-ranking-content{
+		&__articles-ranking-content{
 			text-align: center;
 			background-color: #F1F6F9;
 			padding: 12px 5px 0px;
 		}
 
-		.news-ranking-title{
+		&__news-ranking-title{
 			text-align: center;
 			margin-top: 20px;
 			padding: 5px;
 			background-color: #6D8299;
 			color: #fff;
 		}
-		.news-ranking-content{
+		&__news-ranking-content{
 			text-align: center;
 			background-color: #F1F6F9;
 			padding: 12px 5px 0px;
