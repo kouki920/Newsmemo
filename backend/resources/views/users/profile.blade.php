@@ -30,16 +30,16 @@
                 <!-- タグ表示 -->
                 <div class="card-text">
                     <div class="dropdown">
-                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <button class="btn recent-tags-button dropdown-toggle font-sm profile-function-body__tag-button" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <a data-toggle="dropdown">
+                            <button class="btn dropdown-toggle font-sm profile-function-body__tag-button" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                                 最近使用したタグ
                             </button>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right profile-function-body__category-dropdown-menu">
+                        <div class="dropdown-menu profile-function-body__tag-dropdown-menu">
                             <div>
                                 @foreach($recent_tags as $tag)
                                 <ul class="list-group">
-                                    <li class="list-group-item profile-function-body__category-text font-sm">{{$tag}}</li>
+                                    <li class="list-group-item profile-function-body__tag-list font-sm">{{$tag}}</li>
                                 </ul>
                                 @endforeach
                             </div>
