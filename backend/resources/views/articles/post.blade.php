@@ -1,21 +1,21 @@
 <div class="card article-body">
-    <div class="card-body article-content">
-        <div class="article-icon-name">
-            <a href="{{route('users.show',['name'=>$article->user->name])}}" class="article-icon">
+    <div class="card-body article-body__content">
+        <div class="article-body__icon-name">
+            <a href="{{route('users.show',['name'=>$article->user->name])}}" class="article-body__icon">
                 @if(empty($article->user->image))
                 <i class="fas fa-user-circle fa-3x profile-icon"></i>
                 @else
                 <img class="article-icon image-upload rounded-circle img-responsive" src="/storage/{{$article->user->image}}" alt="ユーザーアイコン">
                 @endif
             </a>
-            <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="article-name font-md">
+            <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="article-body__name font-md">
                 {{$article->user->name}}
             </a>
         </div>
         <!-- ログインユーザーidと投稿idが同じ場合のみ表示させる -->
         @if( Auth::id() === $article->user_id )
         <!-- dropdown -->
-        <div class="article-edit-button card-text">
+        <div class="article-body__dropdown-button card-text">
             <div class="dropdown">
                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <button type="button" class="btn btn-link text-muted m-0 p-2">
@@ -23,11 +23,11 @@
                     </button>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item edit-text font-sm" href="{{ route('articles.edit', compact('article')) }}">
+                    <a class="dropdown-item edit-button font-sm" href="{{ route('articles.edit', compact('article')) }}">
                         編集
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item delete-text font-sm" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
+                    <a class="dropdown-item delete-button font-sm" data-toggle="modal" data-target="#modal-delete-{{ $article->id }}">
                         削除
                     </a>
                 </div>

@@ -98,10 +98,11 @@ $side-menu-border-radius: 5px;
   .covid-news-index-select-menu{
     margin: 10px 150px 0px 0px;
 
-    .covid-news-tabs-body{
+    .select-box-body{
       display: none;
     }
 
+    /*** サイドメニュー ***/
     .covid-news-side-menu-body{
       display: block;
       position: sticky;
@@ -136,6 +137,16 @@ $side-menu-border-radius: 5px;
             height: auto;
             padding: 2px 0px 1px 5px;
           }
+        }
+      }
+      .news-update-button{
+        margin: 10px 10px;
+
+        .news-update-button-body{
+          color: #fff;
+          background-color: #548CA8;
+          border-radius: 5px;
+          border: 1px solid #000;
         }
       }
     }
@@ -210,7 +221,7 @@ $side-menu-border-radius: 5px;
   .headline-news-index-select-menu{
     margin: 10px 150px 0px 0px;
 
-    .headline-news-tabs-body{
+    .select-box-body{
       display: none;
     }
 
