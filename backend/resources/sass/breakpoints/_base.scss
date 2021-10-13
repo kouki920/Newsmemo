@@ -645,48 +645,58 @@ img {
 		}
 
 
-		.article-delete-text{
+		&__modal-delete-text{
 			text-align: center;
 		}
 
-		.article-cancel-button{
-			box-shadow: none;
-			background-color: $cancel-button-color;
-			border: 1px solid #000;
-			color: #fff;
-		}
-		.article-delete-button{
-			box-shadow: none;
-			background-color: $delete-button-color;
-			border: 1px solid #000;
-			color: #fff;
-		}
-	}
+		&__modal-button{
+			display: flex;
+			justify-content: space-between;
 
-	.hashtag-body{
-		padding: 0px;
-		margin: 8px 0px 8px 16px;
-
-		.hashtag-text{
-			padding: 2px;
+			&--cancel{
+				box-shadow: none;
+				background-color: $cancel-button-color;
+				border: 1px solid #000;
+				color: #fff;
+			}
+			&--delete{
+				box-shadow: none;
+				background-color: $delete-button-color;
+				border: 1px solid #000;
+				color: #fff;
+			}
 		}
-	}
 
-	.article-body-content{
-		margin: 0px;
+/*** 本文 ***/
+	&__content{
+		margin: 10px 0;
 		padding: 0px 16px;
 	}
+	&__content-text{
+		color: #000;
+		text-decoration: none;
+	}
 
-	.article-news-link{
+/*** ハッシュタグ ***/
+	&__hashtag{
+		padding: 0px;
+		margin: 8px 0px 8px 16px;
+	}
+		&__hashtag-text{
+			padding: 2px;
+		}
+
+/*** ニュースリンク先 ***/
+	&__news-link{
 		margin: 5px 16px;
-
-		.article-news-link-text{
+	}
+		&__news-link-text{
 			text-decoration: none;
 			color: #5c3918;
 		}
-	}
 
-	.article-time{
+/*** 日付 ***/
+	&__date{
 		padding: 2px 16px;
 	}
 
@@ -738,7 +748,7 @@ img {
 		color: #fff;
 	}
 	}
-
+}
 
 /*** 投稿更新画面 ***/
 .article-update-news-link-text{
