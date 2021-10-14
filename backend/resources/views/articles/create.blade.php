@@ -9,7 +9,7 @@
 </div>
 <div class="container">
     <div class="card article-create-body">
-        <div class="card-body article-create-body-content">
+        <div class="card-body article-create-body__content">
             @include('error_list')
             <div class="card-text">
                 <form method="POST" action="{{ route('articles.store') }}">

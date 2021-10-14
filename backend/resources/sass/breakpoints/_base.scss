@@ -480,10 +480,10 @@ img {
 }
 
 
-/****** 非公開メモ機能 ******/
-.add-memo-textarea{
-  resize:none;
-}
+// /****** 非公開メモ機能 ******/
+// .add-memo-textarea{
+//   resize:none;
+// }
 
 
 /****** ニュースレイアウト ******/
@@ -549,6 +549,7 @@ img {
 }
 }
 
+
 /****** covid-19ニュース一覧 ******/
 .covid-news-index-select-menu{
 	position: sticky;
@@ -559,6 +560,7 @@ img {
 		display: none;
 	}
 }
+
 
 /****** セレクトボックス ******/
 .select-box-body{
@@ -644,7 +646,7 @@ img {
 			}
 		}
 
-
+/*** 削除モーダルウィンドウ ***/
 		&__modal-delete-text{
 			text-align: center;
 		}
@@ -667,7 +669,7 @@ img {
 			}
 		}
 
-/*** 本文 ***/
+/*** 投稿本文 ***/
 	&__content{
 		margin: 10px 0;
 		padding: 0px 16px;
@@ -684,6 +686,9 @@ img {
 	}
 		&__hashtag-text{
 			padding: 2px;
+			color: #808080;
+			border: solid 1px #808080;
+			border-radius: 5px;
 		}
 
 /*** ニュースリンク先 ***/
@@ -700,95 +705,98 @@ img {
 		padding: 2px 16px;
 	}
 
-	.twitter-icon{
+	&__twitter-link{
 		margin: 7px 0px 0px 7px;
 	}
 
-	.article-async-button{
+	/*** コレクションボタン 非同期 ***/
+	&__async-button{
 		display: flex;
 		margin: 0px;
 		padding: 1px 12px 1px;
+	}
 
-		.collection-async-button{
+		&__collection-button{
 			display: flex;
 			margin: 0px;
+		}
+		&__collection-add-button{
+			margin: 4px 0px 0px 18px;
+			padding: 0px;
+		}
+		&__collection-add-icon{
+			color: #81c237;
+		}
 
-			.collection-add-button{
-				margin: 4px 0px 0px 18px;
-				padding: 0px;
+		&__collection-delete-button{
+			margin-left: 15px;
+			padding: 4px 0px 0px;
+		}
+		&__collection-delete-icon{
+			color: $delete-button-color;
+		}
 
-				.collection-add-button-icon{
-					color: #81c237;
-				}
-			}
-
-			.collection-delete-button{
-				margin-left: 15px;
-				padding: 4px 0px 0px;
-
-				.collection-delete-button-icon{
-					color: $delete-button-color;
-				}
-			}
-	}
-
-	.collection-article-delete-text{
+/*** コレクション削除モーダル ***/
+	&__collection-article-delete-text{
 		text-align: center;
 	}
-	.collection-article-cancel-button{
+	&__collection-modal-cancel-button{
 		box-shadow: none;
 		background-color: $cancel-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
-	.collection-article-delete-button{
+	&__collection-modal-delete-button{
 		box-shadow: none;
 		background-color: $delete-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
-	}
 }
 
-/*** 投稿更新画面 ***/
-.article-update-news-link-text{
-	color: #5c3918;
+
+/****** 投稿更新画面 ******/
+.article-edit-body{
+  margin: 10px auto;
+	background-color: #fdffff;
+	max-width: 300px;
+
+	&__content{
+		margin: 10px;
+	}
+	&__news-link{
+		color: #5c3918;
+	}
+	&__update-button{
+		display: flex;
+		background-color: $update-button-color;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		margin: 0 auto;
+		}
 }
 
-.article-update-button{
-	display: flex;
-	background-color: $update-button-color;
-	border: 1px solid #000;
-	color: #fff;
-	box-shadow: none;
-	margin: 0 auto;
-	}
-
-	/*** 投稿フォーム ***/
+/****** 投稿フォーム ******/
 	.article-create-body{
 		margin: 10px auto;
 		max-width: 300px;
 
-		.article-create-body-content{
+		&__content{
 			padding: 0px 10px 15px;
 			align-items: center;
+		}
+		&__news-link{
+			color: #5c3918;
+		}
 
-			.article-create-news-link-text{
-				color: #5c3918;
-			}
-
-			.article-create-button-body{
-				text-align: center;
-
-				.article-create-button{
-					color: #fff;
-					background-color: #548CA8;
-					border: 1px solid #000;
-					box-shadow: none;
-					width: 150px;
-				}
-			}
-
+		&__create-button{
+			display: flex;
+			color: #fff;
+			background-color: $update-button-color;
+			border: 1px solid #000;
+			box-shadow: none;
+			margin: 0 auto;
 		}
 	}
 
@@ -797,18 +805,25 @@ img {
 	.memo-body{
 		margin: 5px 16px;
 
-		.memo-form{
-				margin: 10px 0;
-
-				.memo-button{
-					margin: 10px auto;
-					background-color: rgb(73, 63, 63);
-					box-shadow: none;
-					color: #fff;
-					width: 100px;
-				}
+/*** メモ追加フォーム ***/
+		&__create-form{
+			margin: 10px 0;
+		}
+		&__textarea{
+			resize:none;
+		}
+		&__memo-button-wrap{
+			text-align: center;
+		}
+		&__memo-button{
+			margin: 10px auto 0px;
+			background-color:$update-button-color;
+			box-shadow: none;
+			color: #fff;
+			width: 100px;
 		}
 
+/*** メモ編集フォーム ***/
 		.memo-edit-form{
 			margin: 10px 0;
 

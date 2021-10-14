@@ -70,10 +70,10 @@
     </div>
     @foreach($article->tags as $tag)
     @if($loop->first)
-    <div class="card-body hashtag-body">
-        <div class="card-text line-height">
+    <div class="card-body article-body__hashtag">
+        <div class="card-text">
             @endif
-            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="hashtag-text border text-muted font-sm">
+            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="article-body__hashtag-text font-sm">
                 {{ $tag->hashtag }}
             </a>
             @if($loop->last)
@@ -81,16 +81,16 @@
     </div>
     @endif
     @endforeach
-    <div class="card-text article-news-link">
-        <a class="font-sm article-news-link-text" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$article->newsLink->news}}</a>
+    <div class="card-text article-body__news-link">
+        <a class="font-sm article-body__news-link-text" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$article->newsLink->news}}</a>
     </div>
-    <div class="card-text article-time font-sm">
+    <div class="card-text article-body__date font-sm">
         {{$article->created_at->format('Y/m/d H:i')}}
     </div>
-    <div class="card-body article-async-button">
+    <div class="card-body article-body__async-button">
         <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
         </article-like>
-        <div class="twitter-icon font-sm">
+        <div class="article-body__twitter-link font-sm">
             @if( Auth::id() === $article->user_id )
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="{{$article->body}}" data-url="{{$article->newsLink->url}}" data-lang="en" data-hashtags="Newsmemo" data-show-count="false">Tweet</a>
             @endif
