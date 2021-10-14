@@ -88,9 +88,9 @@
     @foreach($article->tags as $tag)
     @if($loop->first)
     <div class="card-body article-body__hashtag">
-        <div class="card-text line-height">
+        <div class="card-text">
             @endif
-            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="article-body__hashtag-text border text-muted font-sm">
+            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="article-body__hashtag-text font-sm">
                 {{ $tag->hashtag }}
             </a>
             @if($loop->last)
@@ -106,14 +106,14 @@
     <div class="card-text article-body__date font-sm">
         {{$article->created_at->format('Y/m/d H:i')}}
     </div>
-    <div class="article-async-button card-body">
+    <div class="article-body__async-button card-body">
 
         <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
         </article-like>
 
-        <div class="collection-async-button">
-            <a class="dropdown-item collection-add-button" data-toggle="modal" data-target="#modal-store-{{ $article->id }}">
-                <i class="far fa-folder fa-lg collection-add-button-icon"></i>
+        <div class="article-body__collection-button">
+            <a class="dropdown-item article-body__collection-add-button" data-toggle="modal" data-target="#modal-store-{{ $article->id }}">
+                <i class="far fa-folder fa-lg article-body__collection-add-icon"></i>
             </a>
         </div>
 

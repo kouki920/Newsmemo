@@ -87,10 +87,10 @@
     </div>
     @foreach($article->tags as $tag)
     @if($loop->first)
-    <div class="card-body hashtag-body">
-        <div class="card-text line-height">
+    <div class="card-body article-body__hashtag">
+        <div class="card-text">
             @endif
-            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="hashtag-text border text-muted font-sm">
+            <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="article-body__hashtag-text font-sm">
                 {{ $tag->hashtag }}
             </a>
             @if($loop->last)
@@ -99,24 +99,24 @@
     @endif
     @endforeach
     @if(isset($article->newsLink))
-    <div class="card-text article-news-link">
-        <a class="font-sm article-news-link-text" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$article->newsLink->news}}</a>
+    <div class="card-text article-body__news-link">
+        <a class="font-sm article-body__news-link-text" href="{{$article->newsLink->url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$article->newsLink->news}}</a>
     </div>
     @endif
-    <div class="card-text article-time font-sm">
+    <div class="card-text article-body__date font-sm">
         {{$article->created_at->format('Y/m/d H:i')}}
     </div>
-    <div class="article-async-button card-body">
+    <div class="article-body__async-button card-body">
 
         <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))' :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('articles.like', ['article' => $article]) }}">
         </article-like>
 
-        <div class="collection-async-button">
-            <a class="dropdown-item collection-add-button" data-toggle="modal" data-target="#modal-store-{{ $article->id }}">
-                <i class="far fa-folder fa-lg collection-add-button-icon"></i>
+        <div class="article-body__collection-button">
+            <a class="dropdown-item article-body__collection-add-button" data-toggle="modal" data-target="#modal-store-{{ $article->id }}">
+                <i class="far fa-folder fa-lg article-body__collection-add-icon"></i>
             </a>
-            <a class="dropdown-item collection-delete-button" data-toggle="modal" data-target="#modal-collection-delete-{{ $article->id }}">
-                <i class="far fa-folder fa-lg collection-delete-button-icon"></i>
+            <a class="dropdown-item article-body__collection-delete-button" data-toggle="modal" data-target="#modal-collection-delete-{{ $article->id }}">
+                <i class="far fa-folder fa-lg article-body__collection-delete-icon"></i>
             </a>
         </div>
 
@@ -150,12 +150,12 @@
                     <form method="POST" action="{{ route('collections.article_collection_destroy', compact('article','collection')) }}">
                         @csrf
                         @method('DELETE')
-                        <div class="modal-body font-sm collection-article-delete-text">
+                        <div class="modal-body font-sm article-body__collection-delete-text">
                             コレクションから削除しますか?
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <a class="btn font-sm collection-article-cancel-button" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn font-sm collection-article-delete-button">削除</button>
+                            <a class="btn font-sm article-body__collection-modal-cancel-button" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn font-sm article-body__collection-modal-delete-button">削除</button>
                         </div>
                     </form>
                 </div>

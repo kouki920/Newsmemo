@@ -107,7 +107,7 @@ width: 490px;
 	max-width: 500px;
 }
 
-/*** ユーザー一覧表示 ***/
+/****** ユーザー一覧表示 ******/
 .follow-follower-body{
 	max-width: 500px;
 }
@@ -117,9 +117,14 @@ width: 490px;
 	max-width: 500px;
 }
 
-/*** 投稿フォーム ***/
+/****** 投稿フォーム ******/
 .article-create-body{
 	max-width: 500px;
+}
+
+/****** 投稿更新画面 ******/
+.article-edit-body{
+max-width: 500px;
 }
 
 /****** ユーザー登録画面 ******/
@@ -151,12 +156,12 @@ width: 490px;
 				}
 }
 
-/*** パスワードリセットメール画面 ***/
+/****** パスワードリセットメール画面 ******/
 .password-reset-email-body{
 	max-width: 500px;
 }
 
-/*** 新しいパスワード設定画面 ***/
+/****** 新しいパスワード設定画面 ******/
 .password-new-setting-body{
 	max-width: 500px;
 }

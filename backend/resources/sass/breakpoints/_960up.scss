@@ -476,9 +476,14 @@ $side-menu-border-radius: 5px;
 	max-width: 900px;
 }
 
-/*** 投稿フォーム ***/
+/***** 投稿フォーム ******/
 .article-create-body{
 	max-width: 900px;
+}
+
+/****** 投稿更新画面 ******/
+.article-edit-body{
+  max-width: 900px;
 }
 
 /****** ユーザー登録画面 ******/
@@ -510,12 +515,12 @@ $side-menu-border-radius: 5px;
           }
 }
 
-/*** パスワードリセットメール画面 ***/
+/****** パスワードリセットメール画面 ******/
 .password-reset-email-body{
 	max-width: 900px;
 }
 
-/*** 新しいパスワード設定画面 ***/
+/****** 新しいパスワード設定画面 ******/
 .password-new-setting-body{
 	max-width: 900px;
 }
