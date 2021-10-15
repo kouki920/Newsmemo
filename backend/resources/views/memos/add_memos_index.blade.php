@@ -1,10 +1,10 @@
 <ul class="list-group">
     @if( $article->id === $memo->article_id )
-    <li class="list-group-item memo-content d-flex justify-content-between">
-        <div class="memo-content-text font-sm">{!! nl2br(e( $memo->body )) !!}</div>
+    <li class="list-group-item memo-body__content">
+        <div class="memo-body__content-text font-sm">{!! nl2br(e( $memo->body )) !!}</div>
         <!-- dropdown -->
         <div class="card-text">
-            <div class="dropdown memo-edit-button-body">
+            <div class="dropdown memo-body__button-list">
                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <button type="button" class="btn btn-link text-muted">
                         <i class="fas fa-ellipsis-v"></i>

@@ -8,18 +8,18 @@
     @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => false])
 </div>
 <div class="container">
-    <div class="setting-index-body">
+    <div class="setting-body">
         <ul class="list-group">
-            <li class="list-group-item font-md setting-title">-設定-</li>
+            <li class="list-group-item font-md setting-body__title">-設定-</li>
         </ul>
         <div class="list-group">
             @if( Auth::id() != config('user.guest_user_id'))
-            <a href="{{ route('users.edit_password',['name' => Auth::user()->name]) }}" class="list-group-item list-group-item-action  font-sm setting-list-link"><i class="fas fa-unlock-alt fa-fw mr-3"></i>パスワードの変更</a>
+            <a href="{{ route('users.edit_password',['name' => Auth::user()->name]) }}" class="list-group-item list-group-item-action  font-sm setting-body__link"><i class="fas fa-unlock-alt fa-fw mr-3"></i>パスワードの変更</a>
             @endif
-            <a href="{{ route('contacts.form',['id' => Auth::id()] )}}" class="list-group-item list-group-item-action setting-list-link"><i class="fas fa-envelope fa-fw mr-3 font-sm"></i>お問い合わせ</a>
-            <a href="{{ route('settings.agreement') }}" class="list-group-item list-group-item-action setting-list-link"><i class="fas fa-book-open fa-fw mr-3 font-sm"></i>利用規約</a>
+            <a href="{{ route('contacts.form',['id' => Auth::id()] )}}" class="list-group-item list-group-item-action setting-body__link"><i class="fas fa-envelope fa-fw mr-3 font-sm"></i>お問い合わせ</a>
+            <a href="{{ route('settings.agreement') }}" class="list-group-item list-group-item-action setting-body__link"><i class="fas fa-book-open fa-fw mr-3 font-sm"></i>利用規約</a>
             @if( Auth::id() != config('user.guest_user_id'))
-            <a class="list-group-item list-group-item-action dropdown-item text-danger font-sm setting-list-link" data-toggle="modal" data-target="#modal-delete-{{ Auth::user()->name }}">
+            <a class="list-group-item list-group-item-action dropdown-item text-danger font-sm setting-body__link" data-toggle="modal" data-target="#modal-delete-{{ Auth::user()->name }}">
                 <i class="fas fa-user-times fa-fw mr-3"></i>退会する&ensp;※復元不可
             </a>
             <!-- modal -->
