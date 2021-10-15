@@ -8,11 +8,11 @@
 </div>
 <div class="container">
     <div class="articles-index-body">
-        <aside class="side-menu">
+        <aside class="articles-index-body__side-menu">
             @include('articles.search')
             @include('sidebar.list')
         </aside>
-        <main class="articles-index-content">
+        <main class="articles-index-body__content">
             @foreach($articles as $article)
             @include('articles.post')
             @endforeach

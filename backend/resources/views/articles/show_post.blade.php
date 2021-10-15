@@ -103,7 +103,7 @@
         @foreach($memos as $memo)
         @include('memos.add_memos_index')
         @endforeach
-        @include('memos.add_memos')
+        @include('memos.add_form')
         @endif
     </div>
 </div>

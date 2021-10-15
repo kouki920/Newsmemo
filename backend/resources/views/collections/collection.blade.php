@@ -1,13 +1,13 @@
 <div class="card collection-body">
-    <div class="card-body collection-content">
-        <a href="{{ route('collections.show', ['name' => $collection->name,'id' => Auth::id()]) }}" class="card-title collection-title font-sm">
+    <div class="card-body collection-body__content">
+        <a href="{{ route('collections.show', ['name' => $collection->name,'id' => Auth::id()]) }}" class="card-title collection-body__name font-sm">
             {{ $collection->name }}
         </a>
         <!-- dropdown -->
-        <div class="ml-auto card-text">
+        <div class="card-text collection-body__edit-button">
             <div class="dropdown">
                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <button type="button" class="btn btn-link text-muted m-1 p-1">
+                    <button type="button" class="btn btn-link collection-body__edit-button-icon">
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                 </a>
@@ -23,27 +23,27 @@
             </div>
         </div>
         <!-- dropdown -->
-        <!-- 非同期 更新 modal -->
-        <div id="modal-edit-{{ $collection->id }}" class="modal fade collection-update-body" tabindex="-1" role="dialog">
+        <!-- 更新 modal -->
+        <div id="modal-edit-{{ $collection->id }}" class="modal fade collection-body__update-modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close collection-update-body-close" data-dismiss="modal" aria-label="閉じる">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form method="POST" action="{{ route('collections.update',['id' => Auth::id(),'collection'=> $collection]) }}">
                         @csrf
                         @method('PATCH')
-                        <div class="modal-body collection-update-content">
-                            <div class="collection-update-text font-sm">
+                        <div class="modal-body collection-body__update-modal-content">
+                            <div class="collection-body__update-modal-text font-sm">
                                 コレクション名を編集してください
                             </div>
-                            <div class="form-group collection-update-button-body">
+                            <div class="form-group collection-body__update-modal-button-list">
                                 <input class="form-control font-sm" type="text" name="name" value="{{$collection->name ?? old('name')}}">
-                                <div class="modal-footer collection-update-button-content">
-                                    <a class="btn collection-cancel-button font-sm" data-dismiss="modal">キャンセル</a>
-                                    <button type="submit" class="btn collection-update-button font-sm">更新</button>
+                                <div class="modal-footer collection-body__update-modal-button-content">
+                                    <a class="btn collection-body__cancel-button font-sm" data-dismiss="modal">キャンセル</a>
+                                    <button type="submit" class="btn collection-body__update-button font-sm">更新</button>
                                 </div>
                             </div>
                         </div>
@@ -53,8 +53,8 @@
         </div>
         <!-- modal -->
 
-        <!-- modal -->
-        <div id="modal-delete-{{ $collection->id }}" class="modal fade" tabindex="-1" role="dialog">
+        <!-- 削除modal -->
+        <div id="modal-delete-{{ $collection->id }}" class="modal fade collection-body__delete-modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -65,12 +65,12 @@
                     <form method="POST" action="{{ route('collections.destroy',['id' => Auth::id(),'collection'=> $collection]) }}">
                         @csrf
                         @method('DELETE')
-                        <div class="modal-body text-center font-sm">
+                        <div class="modal-body collection-body__delete-modal-text font-sm">
                             コレクションを削除しますか?
                         </div>
-                        <div class="modal-footer justify-content-between">
-                            <a class="btn collection-cancel-button font-sm" data-dismiss="modal">キャンセル</a>
-                            <button type="submit" class="btn collection-delete-button font-sm">削除</button>
+                        <div class="modal-footer collection-body__delete-modal-button-content justify-content-between">
+                            <a class="btn collection-body__cancel-button font-sm" data-dismiss="modal">キャンセル</a>
+                            <button type="submit" class="btn collection-body__delete-button font-sm">削除</button>
                         </div>
                     </form>
                 </div>

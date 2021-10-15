@@ -590,10 +590,10 @@ img {
 	margin: 20px 20px;
 	display: flex;
 
-	.side-menu{
+	&__side-menu{
 		display: none;
 	}
-	.articles-index-content{
+	&__content{
 		margin: 5px 0px;
 	}
 }
@@ -802,7 +802,7 @@ img {
 
 
 /****** 非公開メモ機能 ******/
-	.memo-body{
+.memo-body{
 		margin: 5px 16px;
 
 /*** メモ追加フォーム ***/
@@ -824,35 +824,37 @@ img {
 		}
 
 /*** メモ編集フォーム ***/
-		.memo-edit-form{
+		&__edit-form{
 			margin: 10px 0;
-
-			.update-button{
-				background-color: $update-button-color;
-				border: 1px solid #000;
-				color: #fff;
-				box-shadow: none;
-				margin: 10px auto;
-			}
-
-			.cancel-button{
-				box-shadow: none;
-				background-color: $cancel-button-color;
-				border: 1px solid #000;
-				color: #fff;
-				margin: 10px auto;
-			}
+		}
+		&__update-button{
+			background-color: $update-button-color;
+			border: 1px solid #000;
+			color: #fff;
+			box-shadow: none;
+			margin: 10px auto;
+		}
+		&__cancel-button{
+			box-shadow: none;
+			background-color: $cancel-button-color;
+			border: 1px solid #000;
+			color: #fff;
+			margin: 10px auto;
 		}
 
-		.memo-content{
-			padding: 0px;
 
-			.memo-content-text{
+		&__content{
+			display: flex;
+			justify-content: space-between;
+			padding: 0px;
+			margin: 5px 0px 5px;
+		}
+		&__content-text{
 				display: flex;
 				align-items: center;
 				margin: 0 10px;
 			}
-			.memo-edit-button-body{
+			&__button-list{
 
 				.dropdown-menu{
 					border: 1px solid #000;
@@ -871,28 +873,36 @@ img {
 				}
 			}
 		}
-		}
 }
 
 
 /****** コレクション機能 ******/
 .collection-body{
-margin: 15px auto;
+margin: 10px auto;
 display: block;
 box-shadow: none;
 max-width: 300px;
 
-	.collection-content{
+	&__content{
 		display: flex;
 		align-items: center;
 		padding: 5px;
-
-		.collection-title{
+	}
+	&__name{
 			margin-top: 8px;
 			margin-left: 6px;
 			text-decoration: none;
 			color: #000;
 		}
+
+/*** 編集・削除ドロップダウンボタン ***/
+	&__edit-button{
+		margin-left: auto;
+	}
+	&__edit-button-icon{
+		margin: 5px;
+		padding: 5px;
+		color: #000;
 	}
 	.dropdown-menu{
 		border: 1px solid #000;
@@ -903,54 +913,61 @@ max-width: 300px;
 		}
 
 		.delete-text{
-			color: #c71111;
+			color: $delete-button-color;
 			text-align: center;
 			padding: 0;
 		}
 	}
 
-	.collection-update-body{
-		margin: 10px auto;
-
-		.collection-update-content{
-			text-align: center;
-
-			.collection-update-text{
-				margin: 5px auto;
-			}
-
-			.collection-update-button-body{
-				margin-bottom: 0px;
-
-				.collection-update-button-content{
-					justify-content: space-between;
-
-					.collection-cancel-button{
-						box-shadow: none;
-						background-color: $cancel-button-color;
-						border: 1px solid #000;
-						color: #fff;
-					}
-					.collection-update-button{
-						box-shadow: none;
-						background-color: $update-button-color;
-						border: 1px solid #000;
-						color: #fff;
-					}
-				}
-			}
-			}
+/*** 更新モーダルウィンドウ ***/
+	&__update-modal{
+		margin: 0px auto;
+	}
+	&__update-modal-content{
+		text-align: center;
+	}
+	&__update-modal-text{
+		margin: 5px auto;
+	}
+	&__update-modal-button-list{
+		margin-bottom: 0px;
+	}
+	&__update-modal-button-content{
+		justify-content: space-between;
+	}
+	&__cancel-button{
+		box-shadow: none;
+		background-color: $cancel-button-color;
+		border: 1px solid #000;
+		color: #fff;
+	}
+	&__update-button{
+		box-shadow: none;
+		background-color: $update-button-color;
+		border: 1px solid #000;
+		color: #fff;
 	}
 
+/*** 削除モーダルウィンドウ ***/
+	&__delete-modal{
+		margin: 0 auto;
+	}
+	&__delete-modal-text{
+		text-align: center;
+	}
+	&__delete-modal-button-content{
+		display: flex;
+		justify-content: space-between;
+	}
 
-	.collection-cancel-button{
+	&__cancel-button{
 		box-shadow: none;
 		background-color: $cancel-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
 
-	.collection-delete-button{
+	&__delete-button{
 		box-shadow: none;
 		background-color: $delete-button-color;
 		border: 1px solid #000;
@@ -958,49 +975,49 @@ max-width: 300px;
 	}
 }
 
-	.collection-article-cancel-button{
-		box-shadow: none;
-		background-color: $cancel-button-color;
-		color: #fff;
-	}
+	// .collection-article-cancel-button{
+	// 	box-shadow: none;
+	// 	background-color: $cancel-button-color;
+	// 	color: #fff;
+	// }
 
-	.collection-article-delete-button{
-		box-shadow: none;
-		background-color: $delete-button-color;
-		color: #fff;
-	}
+	// .collection-article-delete-button{
+	// 	box-shadow: none;
+	// 	background-color: $delete-button-color;
+	// 	color: #fff;
+	// }
 
+/****** コレクション件数表示 ******/
 	.collection-name-body{
 		box-shadow: none;
-		align-items: center;
 		background-color: #548CA8;
 
-		.collection-name-content{
+		&__content{
 			display: flex;
+			justify-content: center;
 			padding: 10px;
-
-			.collection-name{
-				margin: 0;
-				color: #fff;
-			}
-
-			.collection-name-count{
-				color: #fff;
-			}
 		}
-	}
+		&__content-name{
+			margin: 0;
+			color: #fff;
+		}
+		&__content-count{
+			margin: 0;
+			color: #fff;
+		}
+}
 
 
 /****** 設定画面 ******/
-.setting-index-body{
+.setting-body{
 	margin: 10px auto 0px;
 	max-width: 300px;
 
-	.setting-title{
+	&__title{
 		background-color: #87A8A4;
 	}
 
-	.setting-list-link{
+	&__link{
 		padding: 10px;
 	}
 }
@@ -1012,12 +1029,12 @@ max-width: 300px;
 	text-align: center;
 	max-width: 300px;
 
-	.password-edit-form{
+	&__edit-form{
 		max-width: 300px;
 		margin: 0 auto;
 	}
 
-	.password-edit-button{
+	&__edit-button{
 		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
@@ -1032,20 +1049,20 @@ max-width: 300px;
 	box-shadow: none;
 	max-width: 300px;
 
-	.password-reset-email-title{
+	&__title{
 		text-align: center;
 	}
 
-	.password-reset-email-text{
+	&__text{
 		margin: 10px auto;
 	}
 
-	.password-reset-email-form{
+	&__form{
 		margin: 0 auto;
 		max-width: 300px;
 	}
 
-	.password-reset-email-button{
+	&__submit-button{
 		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;

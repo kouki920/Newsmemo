@@ -20,7 +20,7 @@
                         <div class="form-group font-sm">
                             <label for="current">現在のパスワード</label>
                             <div>
-                                <input id="current" type="password" class="form-control password-edit-form" name="current_password" required autofocus>
+                                <input id="current" type="password" class="form-control password-reset-body__edit-form" name="current_password" required autofocus>
                             </div>
                         </div>
                         <div class="form-group font-sm">
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div>
-                            <button type="submit" class="btn password-edit-button">変更</button>
+                            <button type="submit" class="btn password-reset-body__edit-button">変更</button>
                         </div>
                     </form>
                 </div>
