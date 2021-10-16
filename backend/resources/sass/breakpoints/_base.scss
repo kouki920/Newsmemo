@@ -1073,26 +1073,26 @@ max-width: 300px;
 }
 
 /****** 新しいパスワード設定画面 ******/
-.password-new-setting-body{
+.password-reset-body{
 	margin: 10px auto;
 	text-align: center;
 	box-shadow: none;
 	max-width: 300px;
 
-	.password-new-setting-title{
+	&__title{
 		text-align: center;
 	}
 
-	.password-new-setting-text{
+	&__text{
 		text-align: center;
 	}
 
-	.password-new-setting-from{
+	&__from{
 		margin: 0 auto;
 		max-width: 300px;
 	}
 
-	.password-new-setting-button{
+	&__submit-button{
 		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
@@ -1109,27 +1109,27 @@ max-width: 300px;
 	box-shadow: none;
 	max-width: 300px;
 
-	.contact-form-title{
+	&__title{
 		margin: 10px auto 20px;
 	}
 
-	.contact-radio-button{
+	&__radio-button{
 		margin: 10px auto;
 	}
 
-	.contact-select-bar{
+	&__select-bar{
 		margin: 10px auto;
 	}
 
-	.contact-email-form{
+	&__email-form{
 		margin: 20px auto;
 	}
 
-	.contact-content-form{
+	&__content-form{
 		margin: 20px auto;
 	}
 
-	.contact-form-button{
+	&__form-button{
 		background-color: $update-button-color;
 		border: 1px solid #000;
 		box-shadow: none;
@@ -1145,48 +1145,46 @@ max-width: 300px;
 	box-shadow: none;
 	max-width: 300px;
 
-	.confirm-body-content{
+	&__content{
 		text-align: center;
-
-		.confirm-title{
+	}
+		&__content-title{
 			margin: 10px auto;
 			text-align: center;
 		}
 
-		.confirm-content-list{
+		&__content-list{
 			margin: 10px auto;
-
-			.confirm-content-item{
-				margin: 20px auto;
-
-				.confirm-content-required{
-					background-color: #DF2E2E;
-					color: #fff;
-					padding: 1px 2px;
-					margin-left: 5px;
-					border-radius: 3px;
-				}
-			}
+		}
+		&__content-item{
+			margin: 20px auto;
+		}
+		&__content-text{
+			background-color: #DF2E2E;
+			color: #fff;
+			padding: 1px 2px;
+			margin-left: 5px;
+			border-radius: 3px;
 		}
 
-		.confirm-button{
-			margin: 0 auto;
 
-			.confirm-cancel-button{
+
+		&__button-list{
+			margin: 0 auto;
+		}
+			&__cancel-button{
 				box-shadow: none;
 				background-color: $cancel-button-color;
 				border: 1px solid #000;
 				color: #fff;
 			}
 
-			.confirm-submit-button{
+			&__submit-button{
 				box-shadow: none;
 				background-color: $update-button-color;
 				border: 1px solid #000;
 				color: #fff;
 			}
-		}
-	}
 }
 
 
@@ -1198,11 +1196,11 @@ max-width: 300px;
 	border: none;
 	max-width: 300px;
 
-	.complete-body-header{
+	&__header{
 		background-color: #87A8A4;
 	}
 
-	.complete-button{
+	&__complete-button{
 		box-shadow: none;
 		background-color: $update-button-color;
 		border: 1px solid #000;
@@ -1216,28 +1214,26 @@ max-width: 300px;
 .pagination-body{
 	margin: 0 auto;
 
-	.pagination-body-content{
+	&__content{
 		display: flex;
 		justify-content: center;
 		align-items: center;
 
-		.pagination-previous-button{
-			padding: 5px;
-		}
-
-		.pagination-link-button{
-			padding: 5px;
-
-			.pagination-link-button-content{
-				background-color: #548CA8;
-				box-shadow: none;
-			}
-		}
-
-		.pagination-next-button{
-			padding: 5px;
-		}
+	&__previous-button{
+		padding: 5px;
 	}
+
+	&__link-button{
+		padding: 5px;
+	}
+	&__link-button-content{
+		background-color: #548CA8;
+		box-shadow: none;
+	}
+	&__next-button{
+		padding: 5px;
+	}
+}
 }
 
 
@@ -1245,7 +1241,7 @@ max-width: 300px;
 .footer-body{
 	margin-top: 10px;
 
-	.footer-body-text{
+	&__text{
 		padding: 10px 5px;
 		text-align: center;
 		color: #fff;
