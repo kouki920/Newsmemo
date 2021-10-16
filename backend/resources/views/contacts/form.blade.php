@@ -9,14 +9,14 @@
 <div class="container">
     <div class="card contact-form-body">
         <div class="card-body text-center">
-            <div class="card-title contact-form-title font-md">-お問い合わせフォーム-</div>
+            <div class="card-title contact-form-body__title font-md">-お問い合わせフォーム-</div>
 
             @include('error_list')
 
             <div class="card-text">
                 <form method="POST" action="{{ route('contacts.confirm',['id' => Auth::id()]) }}">
                     @csrf
-                    <div class="form-group contact-radio-button font-sm">
+                    <div class="form-group contact-form-body__radio-button font-sm">
                         <label class="form-label">性別</label>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="gender" id="male" value="男性" />
@@ -34,7 +34,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group font-sm contact-select-bar">
+                    <div class="form-group font-sm contact-form-body__select-bar">
                         <label class="visually-hidden">年齢</label>
                         <select class="select" name="age">
                             <option hidden>選択してください</option>
@@ -52,19 +52,19 @@
 
 
                     <!-- Email input -->
-                    <div class="form-group contact-email-form">
+                    <div class="form-group contact-form-body__email-form">
                         <label class="form-label font-sm" for="email">-メールアドレス-</label>
                         <input type="email" id="email" name="email" class="form-control" value="{{old('email')}}" />
                     </div>
 
                     <!-- Content input -->
-                    <div class="form-group contact-content-form">
+                    <div class="form-group contact-form-body__content-form">
                         <label class="form-label font-sm" for="contactForm">-お問い合わせ内容-</label>
                         <textarea class="form-control" id="contactForm" name="content" rows="4">{{old('content')}}</textarea>
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn contact-form-button font-sm">確認画面へ進む</button>
+                    <button type="submit" class="btn contact-form-body__form-button font-sm">確認画面へ進む</button>
                 </form>
             </div>
         </div>
