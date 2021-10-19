@@ -24,39 +24,31 @@
 /****** ニュースレイアウト ******/
 .news-body{
 
-	.news-content{
-
-			.news-thumbnail{
-				width: 120px;
-				height: 120px;
-			}
+	&__content{
+		display: flex;
+		margin: 10px 10px;
+	}
+	&__thumbnail{
+		width: 120px;
+		height: 120px;
 	}
 }
 
 
 /****** ログイン画面 ******/
 .login-body{
-width: 490px;
-		.login-item{
+		width: 490px;
+		&__item{
 			margin: 20px 0px 0px;
 		}
 
-		.login-form{
+		&__form{
 			margin: 5px;
-
-			.login-form-content{
-				width: 300px;
-				margin: 10px 0px;
-				padding: 10px 4px;
-			}
 		}
-
-		.login-password-forget{
-			margin: 20px auto;
-
-			.login-password-forget-text{
-				text-decoration: none;
-			}
+		&__form-content{
+			width: 300px;
+			margin: 10px 0px;
+			padding: 10px 4px;
 		}
 
 		.login-button{
@@ -128,32 +120,24 @@ max-width: 500px;
 }
 
 /****** ユーザー登録画面 ******/
-.register-form-body{
+.register-body{
 	max-width: 500px;
 
-	.register-name-body{
-	.register-name-form{
+	&__name-form{
 		max-width: 400px;
-		}
 	}
 
-	.register-email-body{
-		.register-email-form{
-			max-width: 400px;
-			}
-		}
+	&__email-form{
+		max-width: 400px;
+	}
 
-		.register-password-body{
-			.register-password-form{
-				max-width: 400px;
-				}
-			}
+	&__password-form{
+		max-width: 400px;
+	}
 
-			.register-password-confirmation-body{
-				.register-password-confirmation-form{
-					max-width: 400px;
-					}
-				}
+	&__password-confirmation-form{
+		max-width: 400px;
+	}
 }
 
 /****** パスワードリセットメール画面 ******/
