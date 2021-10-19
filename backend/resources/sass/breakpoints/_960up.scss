@@ -25,44 +25,44 @@ $side-menu-border-radius: 5px;
 
 
 /****** 投稿一覧画面 ******/
-.articles-index{
+.articles-index-body{
 	margin: 20px auto;
 
 /*** ランキング ***/
-	.side-menu{
+	&__side-menu{
     display: block;
 
     .articles-ranking-body{
-      margin: 10px 10px 20px 0px;
+      margin: 10px;
       position: sticky;
       top: 210px;
 
-      .articles-ranking-title{
+      &__title{
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
         background-color: #394867;
         color: #fff;
       }
-      .articles-ranking-content{
+      &__content{
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
       }
     }
     .news-ranking-body{
-      margin: 10px 10px 50px 0px;
+      margin: 10px;
       position: sticky;
-      top: 680px;
+      top: 600px;
 
-      .news-ranking-title{
+      &__title{
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
         background-color: #394867;
         color: #fff;
       }
-      .news-ranking-content{
+      &__content{
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
@@ -70,16 +70,16 @@ $side-menu-border-radius: 5px;
     }
 
   /*** 検索フォーム ***/
-  .search-form{
-    margin: 5px 0px 30px 20px;
+  .search-form-body{
+    margin: 5px 0px 30px 30px;
     position: sticky;
     top: 140px;
 
-    .search-content{
+    &__content{
       width: 140px;
       border: 1px solid #626264;
     }
-    .search-button{
+    &__button{
       margin-left: 5px;
       color: #fff;
       background-color: #394867;
