@@ -1,5 +1,6 @@
 $side-menu-padding: 10px 40px;
 $side-menu-border-radius: 5px;
+$update-button-color: #6E85B2;
 
 /****** フォントサイズ ******/
 .font-sm {
@@ -102,7 +103,6 @@ $side-menu-border-radius: 5px;
       display: none;
     }
 
-    /*** サイドメニュー ***/
     .covid-news-side-menu-body{
       display: block;
       position: sticky;
@@ -138,15 +138,11 @@ $side-menu-border-radius: 5px;
             padding: 2px 0px 1px 5px;
           }
         }
-      }
-      .news-update-button{
-        margin: 10px 10px;
-
-        .news-update-button-body{
-          color: #fff;
-          background-color: #548CA8;
+        .news-update-button{
+          background-color: $update-button-color;
           border-radius: 5px;
-          border: 1px solid #000;
+          color: #fff;
+          padding: 5px 10px;
         }
       }
     }
@@ -290,6 +286,12 @@ $side-menu-border-radius: 5px;
             padding: 1px 0px 1px 5px;
           }
         }
+        .news-update-button{
+          background-color: $update-button-color;
+          border-radius: 5px;
+          color: #fff;
+          padding: 5px 10px;
+        }
       }
     }
     }
@@ -416,17 +418,17 @@ $side-menu-border-radius: 5px;
 /*** ユーザーデータ ***/
 .user-data-body{
 
-  .articles-ranking-title{
+  &__articles-ranking-title{
     display: none;
   }
-  .articles-ranking-content{
+  &__articles-ranking-content{
     display: none;
   }
 
-  .news-ranking-title{
+  &__news-ranking-title{
     display: none;
   }
-  .news-ranking-content{
+  &__news-ranking-content{
     display: none;
   }
 }
@@ -487,32 +489,24 @@ $side-menu-border-radius: 5px;
 }
 
 /****** ユーザー登録画面 ******/
-.register-form-body{
+.register-body{
 	max-width: 900px;
 
-  .register-name-body{
-    .register-name-form{
-      max-width: 500px;
-      }
+    &__name-form{
+      max-width: 400px;
     }
 
-    .register-email-body{
-      .register-email-form{
-        max-width: 500px;
-        }
-      }
+    &__email-form{
+      max-width: 400px;
+    }
 
-      .register-password-body{
-        .register-password-form{
-          max-width: 500px;
-          }
-        }
+    &__password-form{
+      max-width: 400px;
+    }
 
-        .register-password-confirmation-body{
-          .register-password-confirmation-form{
-            max-width: 500px;
-            }
-          }
+    &__password-confirmation-form{
+      max-width: 400px;
+    }
 }
 
 /****** パスワードリセットメール画面 ******/

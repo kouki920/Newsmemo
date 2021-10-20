@@ -32,8 +32,8 @@
                     <div class="check"></div>
                 </li>
             </ul>
-            <div class="form-group news-update-button">
-                <input class="news-update-button-body font-sm" type="submit" value="更新">
+            <div class="form-group news-update-button-body">
+                <input class="news-update-button font-sm" type="submit" value="更新">
             </div>
         </div>
 
