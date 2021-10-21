@@ -517,4 +517,8 @@ $update-button-color: #6E85B2;
 /****** 新しいパスワード設定画面 ******/
 .password-reset-body{
 	max-width: 900px;
+
+  &__from{
+    max-width: 400px;
+  }
 }
