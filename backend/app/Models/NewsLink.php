@@ -27,8 +27,9 @@ class NewsLink extends Model
     {
         return $this->select('url', 'news', DB::raw('count(*) as total'))
             ->groupBy('url', 'news')
-            ->having('total', '>', 1)
             ->latest('total')
+            // ->having('total', '>', 1)
+            // ->whereRaw('created_at > NOW() - INTERVAL 1 MONTH')
             ->limit(3)->get();
     }
 }
