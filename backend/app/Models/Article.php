@@ -107,6 +107,7 @@ class Article extends Model
     }
 
     /**
+     * トレンドメモのランキングデータの取得
      * 後で読むボタンを押された数が多い順にメモデータを取得する
      *
      * @param $query
@@ -116,6 +117,8 @@ class Article extends Model
     {
         return $this->withCount('likes')
             ->latest('likes_count')
+            // ->having('likes_count', '>', 1)
+            // ->whereRaw('created_at > NOW() - INTERVAL 1 MONTH')
             ->limit(3)->get();
     }
 

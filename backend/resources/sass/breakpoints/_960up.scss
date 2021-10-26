@@ -489,25 +489,25 @@ $update-button-color: #6E85B2;
 }
 
 /****** ユーザー登録画面 ******/
-// .register-body{
-// 	max-width: 900px;
+.register-body{
+	max-width: 900px;
 
-//     &__name-form{
-//       max-width: 400px;
-//     }
+    &__name-form{
+      max-width: 400px;
+    }
 
-//     &__email-form{
-//       max-width: 400px;
-//     }
+    &__email-form{
+      max-width: 400px;
+    }
 
-//     &__password-form{
-//       max-width: 400px;
-//     }
+    &__password-form{
+      max-width: 400px;
+    }
 
-//     &__password-confirmation-form{
-//       max-width: 400px;
-//     }
-// }
+    &__password-confirmation-form{
+      max-width: 400px;
+    }
+}
 
 /****** パスワードリセットメール画面 ******/
 .password-reset-email-body{
