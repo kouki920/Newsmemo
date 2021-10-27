@@ -116,10 +116,8 @@ class Article extends Model
     public function getArticleRanking()
     {
         return $this->withCount('likes')
-            ->latest('likes_count')
-            // ->having('likes_count', '>', 1)
-            // ->whereRaw('created_at > NOW() - INTERVAL 1 MONTH')
-            ->limit(3)->get();
+            ->orderBy('likes_count', 'desc')
+            ->take(3)->get();
     }
 
     /**
