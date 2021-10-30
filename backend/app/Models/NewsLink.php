@@ -29,7 +29,7 @@ class NewsLink extends Model
             ->groupBy('url', 'news')
             ->having('total', '>', 1)
             ->latest('total')
-            // ->whereRaw('created_at > NOW() - INTERVAL 1 MONTH')
+            ->whereRaw('created_at > NOW() - INTERVAL 1 MONTH')
             ->limit(3)->get();
     }
 }

@@ -117,6 +117,7 @@ class Article extends Model
     {
         return $this->withCount('likes')
             ->orderBy('likes_count', 'desc')
+            ->whereRaw('created_at > NOW() - INTERVAL 1 MONTH')
             ->take(3)->get();
     }
 
