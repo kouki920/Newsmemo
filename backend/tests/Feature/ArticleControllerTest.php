@@ -34,6 +34,12 @@ class ArticleControllerTest extends TestCase
      */
     public function testAuthIndex()
     {
+        if (!extension_loaded('mysqli')) {
+            $this->markTestSkipped(
+                'MySQLi 拡張モジュールが使用できません。'
+            );
+        }
+
         $this->withoutExceptionHandling();
         // 定義したファクトリーを利用してを作成
         $user = factory(User::class)->create();
