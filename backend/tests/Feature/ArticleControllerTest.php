@@ -36,7 +36,7 @@ class ArticleControllerTest extends TestCase
     {
         if (!extension_loaded('mysqli')) {
             $this->markTestSkipped(
-                'MySQLi 拡張モジュールが使用できません。'
+                'ドライバの理由上、実行できないテスト'
             );
         }
 
