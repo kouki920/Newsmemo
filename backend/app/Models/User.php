@@ -205,4 +205,12 @@ class User extends Authenticatable
             return $this->last_login_at->format('Y-m-d');
         }
     }
+
+    /**
+     * ユーザーの累計投稿日数ランキングデータを取得
+     */
+    public function getPostedDateRanking()
+    {
+        //
+    }
 }
