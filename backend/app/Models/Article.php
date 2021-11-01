@@ -108,7 +108,7 @@ class Article extends Model
 
     /**
      * トレンドメモのランキングデータの取得
-     * 後で読むボタンを押された数が多い順にメモデータを取得する
+     * ブックマークされた数が多い順にメモデータを取得する
      *
      * @param $query
      * @return array
