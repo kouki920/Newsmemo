@@ -49,12 +49,13 @@ $update-button-color: #6E85B2;
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
+        height: 90px;
       }
     }
     .news-ranking-body{
       margin: 10px;
       position: sticky;
-      top: 600px;
+      top: 650px;
 
       &__title{
         text-align: center;
@@ -67,6 +68,7 @@ $update-button-color: #6E85B2;
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
+        height: 90px;
       }
     }
 
