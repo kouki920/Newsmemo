@@ -885,8 +885,13 @@ max-width: 300px;
 	&__name{
 			margin-top: 8px;
 			margin-left: 6px;
-			text-decoration: none;
+			text-decoration: none!important;
 			color: #000;
+
+			&:hover{
+				// text-decoration: none機能せず
+				color: #000;;
+			}
 		}
 
 /*** 編集・削除ドロップダウンボタン ***/
