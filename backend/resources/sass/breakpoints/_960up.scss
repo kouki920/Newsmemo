@@ -32,11 +32,14 @@ $update-button-color: #6E85B2;
 /*** ランキング ***/
 	&__side-menu{
     display: block;
+    z-index: 1;
+    margin-right: 200px;
 
     .articles-ranking-body{
       margin: 10px;
-      position: sticky;
+      position: fixed;
       top: 210px;
+      width: 350px;
 
       &__title{
         text-align: center;
@@ -54,8 +57,9 @@ $update-button-color: #6E85B2;
     }
     .news-ranking-body{
       margin: 10px;
-      position: sticky;
-      top: 650px;
+      position: fixed;
+      top: 600px;
+      width: 350px;
 
       &__title{
         text-align: center;
@@ -83,7 +87,7 @@ $update-button-color: #6E85B2;
       border: 1px solid #626264;
     }
     &__button{
-      margin-left: 5px;
+      margin: 10px 0;
       color: #fff;
       background-color: #394867;
       box-shadow: none;
