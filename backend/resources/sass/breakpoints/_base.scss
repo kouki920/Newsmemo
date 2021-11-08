@@ -64,6 +64,8 @@ img {
 		background-color: #D8D3CD;
     color: #5d627b;
     border-top: solid 5px #616daa;
+		border-bottom: solid 1px #000;
+		border-right: solid 1px #000;
 		margin: 0px;
 
 	&__text{
@@ -284,6 +286,8 @@ img {
 /*** タブ ***/
 .user-tabs{
 	background-color: #394867;
+	border-top: solid 1px #707070;
+	border-right: solid 1px #707070;
 	color: #5d627b;
 	box-shadow: none;
 
