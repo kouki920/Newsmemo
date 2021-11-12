@@ -5,16 +5,16 @@
 @section('content')
 @include('nav')
 
-<div class="card text-center m-3">
-    <div class="card-header font-md">エラーページ</div>
+<div class="card error-page-body">
+    <div class="card-header error-page-body__header font-md">エラーページ</div>
     <div class="card-body">
-        <h5 class="card-title">リクエスト制限の発生</h5>
-        <p class="card-text">
+        <h5 class="card-title font-md">-アクセス制限中です-</h5>
+        <p class="card-text font-sm">
             1分間におけるリクエスト制限が発生しました。
-            <br>時間を置いてから、再度ご利用ください。
+            <br>時間を置いてから、再度ニュースを更新してください。
             <br>お手数をおかけしますが、よろしくお願い致します。
         </p>
-        <a href="{{route('articles.index')}}" class="btn btn-primary font-sm">トップページに戻る</a>
+        <a href="{{route('articles.index')}}" class="btn error-page-body__button font-sm">トップページに戻る</a>
     </div>
 </div>
 @endsection
