@@ -8,6 +8,9 @@
 </div>
 
 <div class="container">
+    <div class="logo-body">
+        <img src="{{asset('/assets/images/Newsmemo.png')}}" alt="logo">
+    </div>
     <div class="card login-body">
         <p class="card-title login-body__title font-lg">Login</p>
         <div class="card-text">
