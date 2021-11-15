@@ -28,7 +28,7 @@ class CovidNewsService
             $articles = json_decode($results, true);
 
             $news = [];
-            $count = 35;
+            $count = 25;
 
             for ($id = 0; $id < $count; $id++) {
                 array_push($news, [
