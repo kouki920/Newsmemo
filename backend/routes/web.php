@@ -86,7 +86,7 @@ Route::prefix('settings')->name('settings.')->middleware('auth')->group(function
 });
 
 # NEWS API関連機能
-Route::prefix('news')->name('news.')->middleware('auth', 'throttle:1,1')->group(function () {
+Route::prefix('news')->name('news.')->middleware('auth', 'throttle:20,1')->group(function () {
     Route::get('/headline/default', 'NEWSAPI\HeadlineNewsController@defaultIndex')->name('default_index');
     Route::post('/headline/custom', 'NEWSAPI\HeadlineNewsController@customIndex')->name('custom_index');
     Route::get('/covid/default', 'NEWSAPI\CovidNewsController@defaultIndex')->name('covid_default_index');
