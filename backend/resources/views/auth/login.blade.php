@@ -9,8 +9,29 @@
 
 <div class="container">
     <div class="logo-body">
-        <img src="{{asset('/assets/images/Newsmemo.png')}}" alt="logo">
+        <div class="logo-body__title font-lg">
+            Welcome
+        </div>
+        <img src="{{asset('/assets/images/Newsmemo_logo.png')}}" alt="logo" class="logo-body__img">
     </div>
+    <section class="login-introduction-body">
+        <div class="login-introduction-body__text">
+            <p class="font-md">
+                本サービスは、世の中に対する日々の気づきを記録するサービスです。
+                <br>
+                ビジネスマンから学生まで、誰でも簡単にご利用いただけます。
+                <br>
+                まずは会員登録から始めましょう！
+            </p>
+            <p class="text-muted font-sm">
+                ※このサービスは、ポートフォリオ用に制作しているものである為
+                <br>
+                現段階では定期的にデータを更新しております。
+                <br>
+                予めご了承ください。
+            </p>
+        </div>
+    </section>
     <div class="card login-body">
         <p class="card-title login-body__title font-lg">Login</p>
         <div class="card-text">

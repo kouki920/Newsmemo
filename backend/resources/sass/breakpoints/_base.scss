@@ -84,9 +84,25 @@ img {
 
 /****** ログイン画面 ******/
 .logo-body{
+	display: flex;
+	padding: 5px;
 	background-color: #99C2EC;
 	width: 100%;
 	text-align: center;
+
+	&__title{
+		text-align: center;
+	}
+	&__img{
+		text-align: center;
+		width: 200px;
+		height: 50px;
+	}
+}
+.login-introduction-body{
+	text-align: center;
+	background-color: #F9F9F9;
+	padding: 5px;
 }
 .login-body{
 	text-align: center;
