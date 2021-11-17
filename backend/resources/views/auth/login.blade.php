@@ -9,10 +9,7 @@
 
 <div class="container">
     <div class="logo-body">
-        <div class="logo-body__title font-lg">
-            Welcome
-        </div>
-        <img src="{{asset('/assets/images/Newsmemo_logo.png')}}" alt="logo" class="logo-body__img">
+        <img src="{{asset('/assets/images/Newsmemo.png')}}" alt="logo" class="logo-body__img">
     </div>
     <section class="login-introduction-body">
         <div class="login-introduction-body__text">
@@ -23,7 +20,7 @@
                 <br>
                 まずは会員登録から始めましょう！
             </p>
-            <p class="text-muted font-sm">
+            <p class="font-sm">
                 ※このサービスは、ポートフォリオ用に制作しているものである為
                 <br>
                 現段階では定期的にデータを更新しております。
@@ -32,8 +29,10 @@
             </p>
         </div>
     </section>
+    <div class="login-header-body">
+        <p class="login-header-body__title font-lg">-Login-</p>
+    </div>
     <div class="card login-body">
-        <p class="card-title login-body__title font-lg">Login</p>
         <div class="card-text">
             @include('error_list')
             <form method="POST" action="{{ route('login') }}">
