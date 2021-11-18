@@ -441,6 +441,12 @@ $update-button-color: #6E85B2;
 }
 
 /****** ログイン画面 ******/
+.logo-body{
+	&__img{
+		width: 40%;
+		height: 40%;
+	}
+}
 .login-body{
 	max-width: 900px;
 }
