@@ -36,6 +36,12 @@
 
 
 /****** ログイン画面 ******/
+.logo-body{
+	&__img{
+		width: 50%;
+		height: 50%;
+	}
+}
 .login-body{
 		width: 490px;
 		&__item{
