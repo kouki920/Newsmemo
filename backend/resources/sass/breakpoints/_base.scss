@@ -96,36 +96,6 @@ img {
 		margin: 30px auto;
 	}
 }
-.subtitle-body{
-	display: flex;
-	justify-content: center;
-	background-color: #1B6DC1;
-	margin-top: 10px;
-	margin-right: calc(50% - 50vw);
-  margin-left: calc(50% - 50vw);
-
-	&__img{
-		justify-content: center;
-		margin: 2px 0px;
-		width: 200px;
-		height: 50px;
-	}
-}
-
-.login-introduction-body{
-	text-align: center;
-	background-color: #f2f1eb;
-	margin: 30px auto;
-
-	&__text{
-		color: #000;
-
-		&--mute{
-			margin-top: 30px;
-			color: #9f9c9c;
-		}
-	}
-}
 
 .login-header-body{
 	text-align: center;
@@ -136,6 +106,7 @@ img {
 
 	&__title{
 		color: #000;
+		font-weight: 900;
 		padding-top: 11px;
 	}
 }
@@ -211,6 +182,66 @@ img {
 
 		}
 }
+
+.subtitle-body{
+	display: flex;
+	justify-content: center;
+	background-color: #1B6DC1;
+	margin-top: 10px;
+	margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
+
+	&__img{
+		justify-content: center;
+		margin: 2px 0px;
+		width: 200px;
+		height: 50px;
+	}
+}
+
+.app-introduction-body{
+	text-align: center;
+	margin: 30px auto;
+
+	&__text{
+		color: #000;
+
+		&--mute{
+			margin-top: 30px;
+			color: #9f9c9c;
+		}
+	}
+}
+
+.app-guide-body{
+	display: flex;
+	justify-content: center;
+	background-color: #1B6DC1;
+	margin-top: 10px;
+	margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
+
+	&__title{
+		color: #000;
+		font-weight: 900;
+		padding-top: 11px;
+	}
+}
+
+.app-image-body{
+	text-align: center;
+	margin: 30px auto;
+
+	&__text{
+		color: #000;
+
+		&--mute{
+			margin-top: 30px;
+			color: #9f9c9c;
+		}
+	}
+}
+
 
 /****** ユーザー登録画面 ******/
 .register-body{
