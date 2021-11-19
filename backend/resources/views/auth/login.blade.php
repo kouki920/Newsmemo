@@ -54,19 +54,36 @@
     <div class="subtitle-body">
         <img src="{{asset('/assets/images/Newsmemo_subtitle.png')}}" alt="logo" class="subtitle-body__img">
     </div>
-    <div class="login-introduction-body">
-        <div class="login-introduction-body__text">
+    <div class="app-introduction-body">
+        <div class="app-introduction-body__text">
             <p class="font-md">
                 本サービスは、世の中に対する日々の気づきを記録するサービスです。
                 <br>
-                ビジネスマンから学生まで、誰でも簡単にご利用いただけます。
+                社会人の方や学生の方も、誰でも簡単にご利用いただけます。
                 <br>
                 まずは会員登録から始めましょう！
             </p>
-            <p class="font-sm login-introduction-body__text--mute">
+            <p class="font-sm app-introduction-body__text--mute">
                 ※このサービスは、ポートフォリオ用に制作しているものである為
                 <br>
                 現段階では定期的にデータを更新しております。
+                <br>
+                予めご了承ください。
+            </p>
+        </div>
+    </div>
+    <div class="app-guide-body">
+        <p class="app-guide-body__title font-lg">-&ensp;What&ensp;about&ensp;Newsmemo&ensp;-</p>
+    </div>
+    <div class="app-image-body">
+        <div class="app-image-body__text">
+            <p class="font-md">
+                ログイン後、下記の機能をご利用いただけます。
+            </p>
+            <p class="font-sm app-image-body__text--mute">
+                ※このサービスは、ポートフォリオ用に制作しているものである為
+                <br>
+                機能を追加・修正する可能性がございます。
                 <br>
                 予めご了承ください。
             </p>
