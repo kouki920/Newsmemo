@@ -13,7 +13,7 @@ $font-family: 'Noto Sans JP', sans-serif;
 
 /****** ページ共通 ******/
 body{
-	background-color: #f2f1eb;
+	background-color: #fdffff;
 }
 
 img {
@@ -117,7 +117,7 @@ img {
 	padding: 10px 20px;
 	box-shadow: none;
 	border: none;
-	background-color: #f2f1eb;
+	background-color: #fdffff;
 	// margin-right: calc(50% - 50vw);
   // margin-left: calc(50% - 50vw);
 
@@ -349,7 +349,7 @@ img {
   transform: rotate(90deg);
   font-size: 90%;
   line-height: 1.5rem;
-  color: #fff;
+  color: #000;
   padding: 0 0 0 35px;
   border-top: solid 1px;
 
@@ -572,7 +572,7 @@ img {
 
 /****** ニュースレイアウト ******/
 .news-body{
-	background-color: #fdffff;
+	background-color: #e8e8e8;
 	border-radius: 10px;
 	border: 1px solid #000;
 	margin: 15px 15px;
@@ -650,7 +650,7 @@ img {
 .select-box-body{
 	display: flex;
 	justify-content: center;
-	background-color: #AAAAAA;
+	background-color: #fdffff;
 
 	.select-box {
 		margin: 10px 10px;
@@ -686,7 +686,7 @@ img {
 /****** 投稿レイアウト ******/
 .article-body{
   margin: 10px auto;
-	background-color: #fdffff;
+	background-color: #e8e8e8;
 
 	&__content{
 		display: flex;
