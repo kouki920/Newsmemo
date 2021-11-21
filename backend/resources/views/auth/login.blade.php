@@ -78,7 +78,7 @@
     <div class="app-image-body">
         <div class="app-image-body__text">
             <p class="font-md">
-                ログイン後、下記の機能をご利用いただけます。
+                会員登録後、下記の機能をご利用いただけます。
             </p>
             <p class="font-sm app-image-body__text--mute">
                 ※このサービスは、ポートフォリオ用に制作しているものである為
@@ -89,8 +89,13 @@
             </p>
         </div>
     </div>
-    <div class="fixed-bottom">
-        @include('articles.footer')
+    <div class="app-footer-body">
+        <!-- Copyright -->
+        <div class="app-footer-body__text font-sm">
+            © 2021 Copyright:
+            <i class="far fa-sticky-note fa-fw"></i>Newsmemo
+        </div>
+        <!-- Copyright -->
     </div>
 </div>
 @endsection

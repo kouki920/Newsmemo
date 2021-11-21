@@ -199,20 +199,6 @@ img {
 	}
 }
 
-.app-introduction-body{
-	text-align: center;
-	margin: 30px auto;
-
-	&__text{
-		color: #000;
-
-		&--mute{
-			margin-top: 30px;
-			color: #9f9c9c;
-		}
-	}
-}
-
 .app-guide-body{
 	display: flex;
 	justify-content: center;
@@ -228,7 +214,7 @@ img {
 	}
 }
 
-.app-image-body{
+.app-introduction-body{
 	text-align: center;
 	margin: 30px auto;
 
@@ -239,6 +225,36 @@ img {
 			margin-top: 30px;
 			color: #9f9c9c;
 		}
+	}
+}
+
+.app-image-body{
+	text-align: center;
+	margin-top: 30px auto;
+	position: relative;
+
+	&__text{
+		margin-top: 30px;
+		color: #000;
+
+		&--mute{
+			margin-top: 30px;
+			color: #9f9c9c;
+		}
+	}
+}
+
+.app-footer-body{
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+	margin-right: calc(50% - 50vw);
+	margin-left: calc(50% - 50vw);
+	background-color: #7e7d7db9;
+
+	&__text{
+		padding: 10px 5px;
+		color: #fff;
 	}
 }
 
@@ -1313,19 +1329,6 @@ max-width: 300px;
 		padding: 5px;
 	}
 }
-}
-
-
-/****** フッター ******/
-.footer-body{
-	margin-top: 10px;
-
-	&__text{
-		padding: 10px 5px;
-		text-align: center;
-		color: #fff;
-		background-color: #7e7d7db9;
-	}
 }
 
 
