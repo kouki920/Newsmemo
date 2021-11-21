@@ -10,5 +10,4 @@
 <div class="container">
     @include('settings.agreement_form')
 </div>
-@include('articles.footer')
 @endsection
