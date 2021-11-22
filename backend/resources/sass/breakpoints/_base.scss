@@ -482,6 +482,31 @@ img {
 	}
 }
 
+.user-image-edit-body{
+	margin: 10px auto;
+	padding: 5px 10px;
+	text-align: center;
+	box-shadow: none;
+	max-width: 300px;
+
+	&__update-button{
+		background-color: $update-button-color;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		margin: 2px;
+	}
+
+	&__cancel-button{
+		background-color: $cancel-button-color;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		margin: 2px;
+	}
+}
+
+
 /*** ユーザーデータ ***/
 .user-data-body{
 	margin: 10px auto;
