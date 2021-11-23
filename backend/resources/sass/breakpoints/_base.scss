@@ -230,17 +230,46 @@ img {
 
 .app-image-body{
 	text-align: center;
-	margin-top: 30px auto;
+	margin-top: 40px;
 	position: relative;
 
 	&__text{
-		margin-top: 30px;
+		margin-top: 40px;
 		color: #000;
 
 		&--mute{
-			margin-top: 30px;
+			margin-top: 40px;
 			color: #9f9c9c;
 		}
+	}
+}
+
+.app-function-body{
+	margin: 30px auto;
+
+	&__box{
+		margin: 0px auto;
+
+		&--two{
+			margin-top: 0px;
+		}
+	}
+	&__content{
+		margin: 10px auto 0px;
+		padding: 10px 5px;
+		height: 200px;
+		border: 1px solid #000;
+		border-radius: 5px;
+	}
+	&__title{
+		display: flex;
+		justify-content: center;
+	}
+	&__text{
+		display: flex;
+		justify-content: center;
+		color: #808080;
+		margin-top: 90px;
 	}
 }
 
