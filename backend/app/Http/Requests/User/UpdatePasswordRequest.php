@@ -19,7 +19,7 @@ class UpdatePasswordRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * ゲストユーザーログイン時に、パスワードを変更できないよう対策
      *
      * @return array
      */

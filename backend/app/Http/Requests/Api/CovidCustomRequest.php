@@ -27,11 +27,4 @@ class CovidCustomRequest extends FormRequest
             'language' => 'required | string',
         ];
     }
-
-    public function attributes()
-    {
-        return [
-            'language' => '語圏',
-        ];
-    }
 }

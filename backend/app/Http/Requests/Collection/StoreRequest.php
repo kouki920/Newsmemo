@@ -30,13 +30,6 @@ class StoreRequest extends FormRequest
         ];
     }
 
-    public function attributes()
-    {
-        return [
-            'collections' => 'コレクション',
-        ];
-    }
-
     /**
      * JSON形式の文字列のままだとPHPで取り扱うことはできないので、json_decode関数で連想配列に変換
      */

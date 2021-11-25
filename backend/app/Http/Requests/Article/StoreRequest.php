@@ -32,15 +32,6 @@ class StoreRequest extends FormRequest
             'url' => 'required | url | max:255',
         ];
     }
-    public function attributes()
-    {
-        return [
-            'body' => '本文',
-            'tags' => 'タグ',
-            'news' => 'ニュース',
-            'url' => 'ニュースURL',
-        ];
-    }
 
     /**
      * バリデーション後、下記メソッド内でjson形式の文字列を連想配列に変換

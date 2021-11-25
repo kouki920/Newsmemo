@@ -28,13 +28,6 @@ class StoreRequest extends FormRequest
         ];
     }
 
-    public function attributes()
-    {
-        return [
-            'body' => '非公開メモ',
-        ];
-    }
-
     /**
      * 保存対象となるarticleデータのidをarticle_id指定で取得
      */
