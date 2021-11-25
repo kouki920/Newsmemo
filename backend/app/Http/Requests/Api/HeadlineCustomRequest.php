@@ -28,12 +28,4 @@ class HeadlineCustomRequest extends FormRequest
             'category' => 'string | nullable',
         ];
     }
-
-    public function attributes()
-    {
-        return [
-            'country' => '国名',
-            'category' => 'カテゴリー',
-        ];
-    }
 }

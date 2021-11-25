@@ -31,14 +31,4 @@ class ConfirmRequest extends FormRequest
             'content' => 'required | max:700',
         ];
     }
-
-    public function attributes()
-    {
-        return [
-            'gender' => '性別',
-            'age' => '年齢',
-            'email' => 'メールアドレス',
-            'content' => 'お問い合わせ内容',
-        ];
-    }
 }
