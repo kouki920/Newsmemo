@@ -1,7 +1,8 @@
 @if ($paginator->hasPages())
 <nav class="pagination-body">
     <ul class="pagination pagination-body__content">
-        {{-- Previous Page Link --}}@cannot('update', Model::class)
+        <!-- Previous Page Link -->
+        @cannot('update', Model::class)
 
         @endcannot
         @if ($paginator->onFirstPage())
@@ -14,14 +15,14 @@
         </li>
         @endif
 
-        {{-- Pagination Elements --}}
+        <!-- Pagination Elements -->
         @foreach ($elements as $element)
-        {{-- "Three Dots" Separator --}}
+        <!-- "Three Dots" Separator -->
         @if (is_string($element))
         <li class="page-item disabled" aria-disabled="true"><span class="page-link">{{ $element }}</span></li>
         @endif
 
-        {{-- Array Of Links --}}
+        <!-- Array Of Links -->
         @if (is_array($element))
         @foreach ($element as $page => $url)
         @if ($page == $paginator->currentPage())
@@ -33,7 +34,7 @@
         @endif
         @endforeach
 
-        {{-- Next Page Link --}}
+        <!-- Next Page Link -->
         @if ($paginator->hasMorePages())
         <li class="page-item">
             <a class="page-link pagination-body__next-button" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&raquo;</a>

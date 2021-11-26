@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand navbar-dark ">
 
-    <a class="navbar-brand font-md" href="{{route('news.default_index')}}"><i class="far fa-sticky-note mr-1"></i>Newsmemo</a>
+    <a class="navbar-brand font-md" href="{{route('news.default_index')}}">
+        <i class="fas fa-search fa-fw"></i>Newsmemo
+    </a>
 
     <ul class="navbar-nav ml-auto">
 
