@@ -34,9 +34,9 @@ class HeadlineNewsControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertViewIs('articles.news_index')
-            ->assertSee('ニュース')
+            ->assertSee('NEWS')
             ->assertSee('COVID-19')
-            ->assertSee('投稿')
-            ->assertSee('マイページ');
+            ->assertSee('POST')
+            ->assertSee('PROFILE');
     }
 }

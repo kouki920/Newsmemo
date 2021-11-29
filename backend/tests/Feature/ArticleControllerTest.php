@@ -51,10 +51,10 @@ class ArticleControllerTest extends TestCase
         $response->assertStatus(200)
             ->assertViewIs('articles.index')
             ->assertSee($user->name)
-            ->assertSee('ニュース')
+            ->assertSee('NEWS')
             ->assertSee('COVID-19')
-            ->assertSee('投稿')
-            ->assertSee('マイページ');
+            ->assertSee('POST')
+            ->assertSee('PROFILE');
     }
 
 

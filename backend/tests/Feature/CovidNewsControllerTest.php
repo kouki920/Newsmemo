@@ -36,9 +36,9 @@ class CovidNewsControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertViewIs('articles.covid_index')
-            ->assertSee('ニュース')
+            ->assertSee('NEWS')
             ->assertSee('COVID-19')
-            ->assertSee('投稿')
-            ->assertSee('マイページ');
+            ->assertSee('POST')
+            ->assertSee('PROFILE');
     }
 }
