@@ -643,7 +643,7 @@ img {
 	background-color: #e8e8e8;
 	border-radius: 10px;
 	border: 1px solid #000;
-	margin: 15px 15px;
+	margin: 15px 20px;
 
 	&__content{
 		display: flex;
@@ -834,12 +834,12 @@ img {
 /*** ハッシュタグ ***/
 	&__hashtag{
 		padding: 0px;
-		margin: 8px 0px 8px 16px;
+		margin: 5px 16px;
 	}
 		&__hashtag-text{
 			padding: 2px;
-			color: #808080;
-			border: solid 1px #808080;
+			color: #3f5752;
+			border: solid 1px #3f5752;
 			border-radius: 5px;
 		}
 
