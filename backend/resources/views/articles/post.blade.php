@@ -91,7 +91,7 @@
         <div class="card-text">
             @endif
             <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="article-body__hashtag-text font-sm">
-                {{ $tag->hashtag }}
+                {{ Str::limit($tag->hashtag, 11,'...') }}
             </a>
             @if($loop->last)
         </div>

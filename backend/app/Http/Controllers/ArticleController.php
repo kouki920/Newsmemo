@@ -109,7 +109,6 @@ class ArticleController extends Controller
             return ['text' => optional($tag)->name];
         });
 
-        session()->flash('msg_success', '投稿を編集してください');
         return view('articles.edit', compact('article', 'tagNames', 'allTagNames'));
     }
 
