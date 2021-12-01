@@ -57,7 +57,7 @@ class StoreRequest extends FormRequest
     {
         $this->tags->each(function ($tagName) use ($article) {
             $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $article->tags()->attach($tag);
+            $article->tags()->sync($tag);
         });
     }
 }
