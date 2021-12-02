@@ -1029,6 +1029,10 @@ img {
 
 
 /****** コレクション機能 ******/
+.collection-body-title{
+	margin: 10px auto;
+	text-align: center;
+}
 .collection-body{
 margin: 10px auto;
 display: block;
@@ -1038,6 +1042,7 @@ max-width: 300px;
 	&__content{
 		display: flex;
 		align-items: center;
+		background-color: #EAEAEA;
 		padding: 5px;
 	}
 	&__name{
