@@ -89,38 +89,38 @@
             </p>
         </div>
     </div>
-    <div class="app-function-body row">
-        <div class="app-function-body__box col-sm-6">
+    <div class="app-function-body">
+        <div class="app-function-body__box">
             <div class="app-function-body__content">
-                <h3><span class="app-function-body__title font-md">最新のニュースが読める</span></h3>
-                <img class="app-function-body__image" src="">
+                <h3><span class="app-function-body__title font-md">-&ensp;最新のニュースが読める&ensp;-</span></h3>
+                <img class="app-function-body__image" src="{{asset('/assets/images/news960.png')}}">
                 <p class="font-sm app-function-body__text">様々なサイトのニュースを読むことができます。</p>
             </div>
             <div class="app-function-body__content">
-                <h3><span class="app-function-body__title font-md">気になるニュースをストック可能</span></h3>
-                <img class="app-function-body__image" src="">
-                <p class="font-sm app-function-body__text">気になるニュースを後で読めるようにストックできます。</p>
+                <h3><span class="app-function-body__title font-md">-&ensp;タグ機能で投稿を管理&ensp;-</span></h3>
+                <img class="app-function-body__image" src="{{asset('/assets/images/tag960.png')}}">
+                <p class="font-sm app-function-body__text">タグ機能で投稿をタグ別で検索できます。</p>
             </div>
             <div class="app-function-body__content three">
-                <h3><span class="app-function-body__title font-md">気になる人をフォロー</span></h3>
-                <img class="app-function-body__image" src="">
-                <p class="font-sm app-function-body__text">気になったユーザーをフォローできます。</p>
+                <h3><span class="app-function-body__title font-md">-&ensp;気になる人をフォロー&ensp;-</span></h3>
+                <img class="app-function-body__image" src="{{asset('/assets/images/follow960.png')}}">
+                <p class="font-sm app-function-body__text">気になるユーザーをフォローできます。</p>
             </div>
         </div>
-        <div class="app-function-body__box--two col-sm-6">
+        <div class="app-function-body__box--two">
             <div class="app-function-body__content">
-                <h3><span class="app-function-body__title font-md">ニュースから得た知識を記録</span></h3>
-                <img class="app-function-body__image" src="">
+                <h3><span class="app-function-body__title font-md">-&ensp;ニュースから得た知識を記録&ensp;-</span></h3>
+                <img class="app-function-body__image" src="{{asset('/assets/images/profile960.png')}}">
                 <p class="font-sm app-function-body__text">ニュースで得た知識を記録することができます。</p>
             </div>
             <div class="app-function-body__content">
-                <h3><span class="app-function-body__title font-md">知識に対するアウトプットを記録</span></h3>
-                <img class="app-function-body__image" src="">
+                <h3><span class="app-function-body__title font-md">-&ensp;知識に対するアウトプットを記録&ensp;-</span></h3>
+                <img class="app-function-body__image" src="{{asset('/assets/images/output960.png')}}">
                 <p class="font-sm app-function-body__text">知識に対する自分なりのアウトプットを記録できます。</p>
             </div>
             <div class="app-function-body__content">
-                <h3><span class="app-function-body__title font-md">コレクション機能で投稿を管理</span></h3>
-                <img class="app-function-body__image" src="">
+                <h3><span class="app-function-body__title font-md">-&ensp;コレクション機能で投稿を管理&ensp;-</span></h3>
+                <img class="app-function-body__image" src="{{asset('/assets/images/collection960.png')}}">
                 <p class="font-sm app-function-body__text">コレクション機能で投稿をジャンルごとに管理できます。</p>
             </div>
         </div>

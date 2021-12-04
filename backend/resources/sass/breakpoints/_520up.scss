@@ -43,7 +43,7 @@
 	}
 }
 .login-body{
-		width: 490px;
+		max-width: 500px;
 		&__item{
 			margin: 20px 0px 0px;
 		}
@@ -70,10 +70,17 @@
 		}
 }
 
-/****** ログイン画面 ******/
-.login-body{
-	max-width: 500px;
+.app-function-body{
+	&__content{
+		width: 460px;
+		height: 360px;
+	}
+	&__image{
+		width: 460px;
+		height: 360px;
+	}
 }
+
 
 /****** パスワード変更画面 ******/
 .password-reset-body{
