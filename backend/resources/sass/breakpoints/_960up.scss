@@ -370,8 +370,30 @@ $update-button-color: #6E85B2;
 		height: 40%;
 	}
 }
+
 .login-body{
 	max-width: 900px;
+}
+
+.app-function-body{
+  display: flex;
+
+  &__box{
+		width: 50%;
+
+		&--two{
+			width: 50%;
+		}
+	}
+
+	&__content{
+		width: 340px;
+		height: 250px;
+	}
+	&__image{
+		width: 340px;
+		height: 250px;
+	}
 }
 
 /****** パスワード変更画面 ******/
