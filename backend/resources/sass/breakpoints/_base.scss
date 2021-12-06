@@ -1181,6 +1181,23 @@ max-width: 300px;
 	}
 }
 
+/****** 利用規約画面 ******/
+.agreement-body{
+	margin: 10px auto;
+
+	&__title{
+		text-align: center;
+	}
+
+	&__text{
+		margin: 10px auto;
+		list-style-type: none;
+	}
+
+	&__footer{
+		text-align: center;
+	}
+}
 
 /****** パスワード変更画面 ******/
 .password-reset-body{
