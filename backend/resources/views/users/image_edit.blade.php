@@ -3,7 +3,10 @@
 @section('title','ユーザー登録')
 
 @section('content')
-@include('nav')
+<div class="sticky-top">
+    @include('nav')
+    @include('articles.tabs', ['hasNewsApi' => false, 'hasCovidNews' => false, 'hasArticles' => false,'hasMypage' => true])
+</div>
 <div class="container">
     <div class="card user-image-edit-body">
         <div class="card-body">
