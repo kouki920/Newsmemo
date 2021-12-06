@@ -62,7 +62,7 @@ class MemoControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('memos.edit', $memo, $news_link));
 
         $response->assertStatus(200)->assertViewIs('memos.edit')
-            ->assertSee('編集するメモ');
+            ->assertSee('編集');
     }
 
     /**
