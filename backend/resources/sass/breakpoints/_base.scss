@@ -489,6 +489,7 @@ img {
 	padding: 5px 10px;
 	text-align: center;
 	box-shadow: none;
+	background-color: #e8e8e8;
 	max-width: 300px;
 
 	&__caution-text{
@@ -517,6 +518,7 @@ img {
 	padding: 5px 10px;
 	text-align: center;
 	box-shadow: none;
+	background-color: #e8e8e8;
 	max-width: 300px;
 
 	&__update-button{
@@ -556,7 +558,7 @@ img {
 	}
 
 	&__contents{
-		background-color: #F1F6F9;
+		background-color: #e8e8e8;
 		text-align: center;
 	}
 
@@ -570,7 +572,7 @@ img {
 		}
 		&__articles-ranking-content{
 			text-align: center;
-			background-color: #F1F6F9;
+			background-color: #e8e8e8;
 			padding: 12px 5px 0px;
 		}
 
@@ -583,7 +585,7 @@ img {
 		}
 		&__news-ranking-content{
 			text-align: center;
-			background-color: #F1F6F9;
+			background-color: #e8e8e8;
 			padding: 12px 5px 0px;
 		}
 }
@@ -668,6 +670,7 @@ img {
 		height: 110px;
 		object-fit: cover;
 		border: none;
+		border-radius: 5px;
 		padding: 0px;
 	}
 
@@ -1166,6 +1169,7 @@ max-width: 300px;
 .setting-body{
 	margin: 10px auto 0px;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
 	&__title{
 		background-color: #87A8A4;
@@ -1173,6 +1177,7 @@ max-width: 300px;
 
 	&__link{
 		padding: 10px;
+		background-color: #e8e8e8;
 	}
 }
 
@@ -1180,6 +1185,7 @@ max-width: 300px;
 /****** パスワード変更画面 ******/
 .password-reset-body{
 	margin: 10px auto;
+	background-color: #e8e8e8;
 
 	&__content{
 		margin: 0 auto;
