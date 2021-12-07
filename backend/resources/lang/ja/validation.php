@@ -163,6 +163,8 @@ return [
         'content' => 'お問い合わせ内容',
         'introduction' => '自己紹介',
         'image' => '画像',
+        'new_password' => '新しいパスワード',
+        'current_password' => '現在のパスワード',
     ],
 
 ];
