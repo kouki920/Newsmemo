@@ -39,9 +39,9 @@
                                 <br>
                                 <i class="fas fa-exclamation-circle fa-fw"></i>注意&ensp;:&ensp;退会するとアカウントの復元はできません。
                             </div>
-                            <div class="modal-footer justify-content-between">
-                                <a class="btn btn-outline-grey" data-dismiss="modal">キャンセル</a>
-                                <button type="submit" class="btn btn-danger">退会する</button>
+                            <div class="modal-footer setting-body__modal-button justify-content-between">
+                                <a class="btn setting-body__modal-button--cancel" data-dismiss="modal">キャンセル</a>
+                                <button type="submit" class="btn setting-body__modal-button--resign">退会する</button>
                             </div>
                         </form>
                     </div>
