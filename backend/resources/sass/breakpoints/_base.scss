@@ -1179,6 +1179,20 @@ max-width: 300px;
 		padding: 10px;
 		background-color: #e8e8e8;
 	}
+
+	&__modal-button{
+		display: flex;
+		justify-content: space-between;
+
+		&--cancel{
+			background-color: $cancel-button-color;
+			box-shadow: none;
+		}
+		&--resign{
+			background-color: $delete-button-color;
+			box-shadow: none;
+		}
+	}
 }
 
 /****** 利用規約画面 ******/
@@ -1286,6 +1300,7 @@ max-width: 300px;
 	margin: 10px auto;
 	box-shadow: none;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
 	&__title{
 		margin: 10px auto 20px;
@@ -1322,6 +1337,7 @@ max-width: 300px;
 	margin: 10px auto;
 	box-shadow: none;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
 	&__content{
 		text-align: center;
@@ -1372,6 +1388,7 @@ max-width: 300px;
 	text-align: center;
 	box-shadow:none;
 	border: none;
+	background-color: #e8e8e8;
 	max-width: 300px;
 
 	&__header{
