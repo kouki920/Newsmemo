@@ -7,6 +7,7 @@ use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\Article;
 use App\Models\User;
 use App\Models\NewsLink;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -203,8 +204,8 @@ class UserController extends Controller
     public function updatePassword(UpdatePasswordRequest $request, User $user, string $name)
     {
         $user = $user->getUserData($name);
-        $user->password = bcrypt($request->get('new_password'));
-        $user->save();
+
+        $user->fill(['password' => Hash::make($request->input('new_password'))])->save();
 
         return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'パスワードを変更しました');
     }
