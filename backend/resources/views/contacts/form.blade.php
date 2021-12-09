@@ -9,7 +9,7 @@
 <div class="container">
     <div class="card contact-form-body">
         <div class="card-body text-center">
-            <div class="card-title contact-form-body__title font-md">-お問い合わせフォーム-</div>
+            <div class="card-title contact-form-body__title font-md">-&ensp;お問い合わせフォーム&ensp;-</div>
 
             @include('error_list')
 
@@ -53,13 +53,13 @@
 
                     <!-- Email input -->
                     <div class="form-group contact-form-body__email-form">
-                        <label class="form-label font-sm" for="email">-メールアドレス-</label>
+                        <label class="form-label font-sm" for="email">-&ensp;メールアドレス&ensp;-</label>
                         <input type="email" id="email" name="email" class="form-control" value="{{old('email')}}" />
                     </div>
 
                     <!-- Content input -->
                     <div class="form-group contact-form-body__content-form">
-                        <label class="form-label font-sm" for="contactForm">-お問い合わせ内容-</label>
+                        <label class="form-label font-sm" for="contactForm">-&ensp;お問い合わせ内容&ensp;-</label>
                         <textarea class="form-control" id="contactForm" name="content" rows="4">{{old('content')}}</textarea>
                     </div>
 

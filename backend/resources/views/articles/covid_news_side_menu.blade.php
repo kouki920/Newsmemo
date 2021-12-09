@@ -2,7 +2,7 @@
     <form class="form-inline" method="post" action="{{route('news.covid_custom_index')}}">
         @csrf
         <div class="form-group covid-news-language-menu font-sm">
-            <p class="covid-news-side-menu-title">Country</p>
+            <p class="covid-news-side-menu-title">-&ensp;Country&ensp;-</p>
             <ul class="covid-news-language-list font-sm">
                 <li class="covid-news-language-item"><input type="radio" class="covid-news-language-item__radio" id="jp-option" name="language" value="jp"><label for="jp-option" class="covid-news-language-item__label">
                         <div class="covid-news-language-item__text">Japan</div>
