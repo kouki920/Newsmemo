@@ -10,7 +10,7 @@
 <div class="container">
     <div class="setting-body">
         <ul class="list-group">
-            <li class="list-group-item font-md setting-body__title">-設定-</li>
+            <li class="list-group-item font-md setting-body__title">-&ensp;設定&ensp;-</li>
         </ul>
         <div class="list-group">
             @if( Auth::id() != config('user.guest_user_id'))

@@ -295,6 +295,7 @@ img {
 	text-align: center;
 	box-shadow: none;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
 	&__title{
 		margin: 10px auto;
@@ -620,6 +621,7 @@ img {
 	margin: 10px auto;
 	box-shadow: none;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
 	&__content{
 		padding: 0px 10px;
@@ -916,7 +918,7 @@ img {
 /****** 投稿更新画面 ******/
 .article-edit-body{
   margin: 10px auto;
-	background-color: #fdffff;
+	background-color: #e8e8e8;
 	max-width: 300px;
 
 	&__content{
@@ -943,6 +945,7 @@ img {
 		&__content{
 			padding: 0px 10px 15px;
 			align-items: center;
+			background-color: #e8e8e8;
 		}
 		&__news-link{
 			color: #5c3918;

@@ -2,7 +2,7 @@
     <form class="form-inline" method="post" action="{{route('news.custom_index')}}">
         @csrf
         <div class="form-group headline-news-country-menu font-sm">
-            <p class="headline-news-side-menu-title font-sm">Country</p>
+            <p class="headline-news-side-menu-title font-sm">-&ensp;Country&ensp;-</p>
             <ul class="headline-news-country-list font-sm">
                 <li class="headline-news-country-item"><input type="radio" class="headline-news-country-item__radio" id="jp-option" name="country" value="jp"><label for="jp-option" class="headline-news-country-item__label">
                         <div class="headline-news-country-item__text">Japan</div>
@@ -42,7 +42,7 @@
             </ul>
         </div>
         <div class="form-group headline-news-category-menu font-sm">
-            <p class="headline-news-side-menu-title font-sm">Category</p>
+            <p class="headline-news-side-menu-title font-sm">-&ensp;Category&ensp;-</p>
             <ul class="headline-news-category-list font-sm">
                 <li class="headline-news-category-item"><input type="radio" class="headline-news-category-item__radio" id="general-option" name="category" value="general"><label for="general-option" class="headline-news-category-item__label">
                         <div class="headline-news-category-item__text">General</div>

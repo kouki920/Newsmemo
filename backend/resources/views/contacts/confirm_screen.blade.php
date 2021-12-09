@@ -1,6 +1,6 @@
 <div class="card confirm-body">
     <div class="card-body confirm-body__content">
-        <div class="card-title confirm-body__content-title font-md">-確認画面-</div>
+        <div class="card-title confirm-body__content-title font-md">-&ensp;確認画面&ensp;-</div>
 
         @include('error_list')
 
