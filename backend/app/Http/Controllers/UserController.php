@@ -41,6 +41,9 @@ class UserController extends Controller
     {
         $user = $user->getUserData($name);
 
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
+
         return view('users.edit', compact('user'));
     }
 
@@ -55,6 +58,10 @@ class UserController extends Controller
     public function update(UpdateRequest $request, User $user, string $name)
     {
         $user = $user->getUserData($name);
+
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
+
         $user->fill($request->validated())->save();
 
         return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールを編集しました');
@@ -71,6 +78,9 @@ class UserController extends Controller
     {
         $user = $user->getUserData($name);
 
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
+
         return view('users.image_edit', compact('user'));
     }
 
@@ -85,6 +95,9 @@ class UserController extends Controller
     public function imageUpdate(UpdateRequest $request, User $user, string $name)
     {
         $user = $user->getUserData($name);
+
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
 
         $image = $request->getImage($request);
 
@@ -188,6 +201,9 @@ class UserController extends Controller
     {
         $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
+
         session()->flash('msg_success', 'パスワードを変更してください');
 
         return view('users.password_edit', compact('user'));
@@ -205,6 +221,9 @@ class UserController extends Controller
     {
         $user = $user->getUserData($name);
 
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
+
         $user->fill(['password' => Hash::make($request->input('new_password'))])->save();
 
         return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'パスワードを変更しました');
@@ -221,6 +240,9 @@ class UserController extends Controller
     public function destroy(User $user, string $name)
     {
         $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
+
+        // UserPolicyのdeleteメソッドでアクセス制限
+        $this->authorize('delete', $user);
 
         if ($user->id != config('user.guest_user_id')) {
             $user->delete();
