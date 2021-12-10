@@ -122,6 +122,9 @@ class ArticleController extends Controller
      */
     public function update(UpdateRequest $request, Article $article)
     {
+        // ArticlePolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $article);
+
         $article->fill($request->validated())->save();
         // タグの更新
         $request->tagsRegister($article);
@@ -137,6 +140,9 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        // ArticlePolicyのdeleteメソッドでアクセス制限
+        $this->authorize('delete', $article);
+
         $article->delete();
         return redirect()->route('articles.index')->with('msg_success', '投稿を削除しました');
     }
