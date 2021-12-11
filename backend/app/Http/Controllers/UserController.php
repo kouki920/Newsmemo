@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     /**
      * ユーザー詳細画面(プロフィール)を表示
      *
