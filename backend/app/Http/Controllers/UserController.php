@@ -11,26 +11,33 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct(User $user)
-    {
+    private User $user;
+    private Article $article;
+    private NewsLink $news_link;
+
+    public function __construct(
+        User $user,
+        Article $article,
+        NewsLink $news_link
+    ) {
         $this->user = $user;
+        $this->article = $article;
+        $this->news_link = $news_link;
     }
 
     /**
      * ユーザー詳細画面(プロフィール)を表示
      *
-     * @param \App\Models\Article $article
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function show(Article $article, User $user, string $name)
+    public function show(string $name)
     {
-        $user = $user->getUserData($name)->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
+        $user = $this->user->getUserData($name)->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
 
         $articles = $user->getUserArticleData();
 
-        $recent_tags = $article->getRecentTags($user->id);
+        $recent_tags = $this->article->getRecentTags($user->id);
 
         return view('users.show', compact('user', 'articles', 'recent_tags'));
     }
@@ -38,13 +45,12 @@ class UserController extends Controller
     /**
      * ユーザデータの編集
      *
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function edit(User $user, string $name)
+    public function edit(string $name)
     {
-        $user = $user->getUserData($name);
+        $user = $this->user->getUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -56,13 +62,12 @@ class UserController extends Controller
      * ユーザデータの更新
      *
      * @param \App\Http\Requests\User\UserRequest $request
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, User $user, string $name)
+    public function update(UpdateRequest $request, string $name)
     {
-        $user = $user->getUserData($name);
+        $user = $this->user->getUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -75,13 +80,12 @@ class UserController extends Controller
     /**
      * プロフィールアイコンの編集画面を表示
      *
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function imageEdit(User $user, string $name)
+    public function imageEdit(string $name)
     {
-        $user = $user->getUserData($name);
+        $user = $this->user->getUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -93,13 +97,12 @@ class UserController extends Controller
      * プロフィールアイコンの更新
      *
      * @param \App\Http\Requests\User\UserRequest $request
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\Http\RedirectResponse
      */
-    public function imageUpdate(UpdateRequest $request, User $user, string $name)
+    public function imageUpdate(UpdateRequest $request, string $name)
     {
-        $user = $user->getUserData($name);
+        $user = $this->user->getUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -118,14 +121,12 @@ class UserController extends Controller
     /**
      * フォロワー詳細画面の表示
      *
-     * @param \App\Models\Article $article
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function follower(User $user, Article $article, string $name)
+    public function follower(string $name)
     {
-        $user = $user->getUserData($name)->load('followers.followers');
+        $user = $this->user->getUserData($name)->load('followers.followers');
 
         $followers = $user->getUserFollower();
 
@@ -135,14 +136,12 @@ class UserController extends Controller
     /**
      * フォロー詳細画面の表示
      *
-     * @param \App\Models\Article $article
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function following(User $user, Article $article, string $name)
+    public function following(string $name)
     {
-        $user = $user->getUserData($name)->load('followings.followers');
+        $user = $this->user->getUserData($name)->load('followings.followers');
 
         $followings = $user->getUserFollowing();
 
@@ -152,20 +151,18 @@ class UserController extends Controller
     /**
      * いいねした投稿を一覧表示
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Article $article
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function likes(User $user, Article $article, string $name)
+    public function likes(string $name)
     {
-        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
+        $user = $this->user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         $articles = $user->getUserLikedArticleData();
 
         $articles_count = $user->getCountArticle();
 
-        $recent_tags = $article->getRecentTags($user->id);
+        $recent_tags = $this->article->getRecentTags($user->id);
 
         return view('users.likes', compact('user', 'articles', 'recent_tags', 'articles_count'));
     }
@@ -173,20 +170,18 @@ class UserController extends Controller
     /**
      * ユーザーデータを表示
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Article $article
      * @return Illuminate\View\View
      */
-    public function userData(User $user, Article $article, NewsLink $newsLink, string $name)
+    public function userData(string $name)
     {
-        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
+        $user = $this->user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         $articles_count = $user->getCountArticle();
 
-        $ranked_articles = $article->getArticleRanking();
-        $ranked_news = $newsLink->getNewsRanking();
+        $ranked_articles = $this->article->getArticleRanking();
+        $ranked_news = $this->news_link->getNewsRanking();
 
-        $recent_tags = $article->getRecentTags($user->id);
+        $recent_tags = $this->article->getRecentTags($user->id);
 
         $days_posted = $user->articles->groupBy('created_date')->count();
 
@@ -198,13 +193,12 @@ class UserController extends Controller
     /**
      * パスワード変更
      *
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function editPassword(User $user, string $name)
+    public function editPassword(string $name)
     {
-        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
+        $user = $this->user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -218,13 +212,12 @@ class UserController extends Controller
      * パスワードの更新
      *
      * @param \App\Http\Requests\User\UpdatePasswordRequest $request
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\Http\RedirectResponse
      */
-    public function updatePassword(UpdatePasswordRequest $request, User $user, string $name)
+    public function updatePassword(UpdatePasswordRequest $request, string $name)
     {
-        $user = $user->getUserData($name);
+        $user = $this->user->getUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -238,13 +231,12 @@ class UserController extends Controller
     /**
      * ユーザーデータの削除(退会)
      *
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(User $user, string $name)
+    public function destroy(string $name)
     {
-        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
+        $user = $this->user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         // UserPolicyのdeleteメソッドでアクセス制限
         $this->authorize('delete', $user);
