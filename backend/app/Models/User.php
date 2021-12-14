@@ -94,6 +94,14 @@ class User extends Authenticatable
     }
 
     /**
+     * お問い合わせモデルとのリレーション
+     */
+    public function contacts(): HasMany
+    {
+        return $this->hasMany('App\Models\Contact');
+    }
+
+    /**
      * コレクションとのリレーション
      */
     public function collections(): HasMany

@@ -38,7 +38,7 @@ class ContactControllerTest extends TestCase
 
         $user = factory(User::class)->create();
 
-        $contact = factory(Contact::class)->make(['user_id' => $user->id]);
+        $contact = factory(Contact::class)->create();
 
         $response = $this->actingAs($user)->post(route(
             'contacts.confirm',
@@ -71,10 +71,10 @@ class ContactControllerTest extends TestCase
 
         $contact = factory(Contact::class)->create();
 
-        $response = $this->actingAs($user)->from('contacts')->post(route(
+        $response = $this->actingAs($user)->post(route(
             'contacts.send',
-            ['id' => Auth::id()],
             [
+                'id' => $user->id,
                 'user_id' => $contact->user_id,
                 'gender' => $contact->gender,
                 'email' => $contact->email,
