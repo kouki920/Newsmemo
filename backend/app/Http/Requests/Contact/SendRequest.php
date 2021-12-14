@@ -3,9 +3,8 @@
 namespace App\Http\Requests\Contact;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class ConfirmRequest extends FormRequest
+class SendRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

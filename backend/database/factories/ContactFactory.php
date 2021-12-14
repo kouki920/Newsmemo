@@ -13,8 +13,8 @@ $factory->define(Contact::class, function (Faker $faker) {
             return factory(User::class)->create()->id;
         },
         'gender' => $faker->randomElement($array = ['男性', '女性', '無回答']),
-        'email' => Str::random(15) . '@sample.com',
+        'email' => substr($faker->unique()->userName(), 0, 10) . '@' . $faker->safeEmailDomain(),
         'age' => $faker->randomElement(['10', '20', '30', '40', '50', '60', '70', '80', '90']),
-        'content' => 'テスト',
+        'content' => $faker->sentence(),
     ];
 });
