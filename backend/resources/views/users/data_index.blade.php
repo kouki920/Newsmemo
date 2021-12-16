@@ -23,7 +23,7 @@
     <ul class="list-group">
         <li class="list-group-item user-data-body__articles-ranking-title font-sm">-トレンドメモTOP3-</li>
     </ul>
-    @foreach($ranked_articles as $article)
+    @foreach($rankedArticles as $article)
     <div class="list-group">
         <a href="{{route('articles.show',compact('article'))}}" class="list-group-item list-group-item-action user-data-body__articles-ranking-content">
             <p class="font-sm">{!! nl2br(e(Str::limit($article->body,60))) !!}<br><i class="fas fa-bookmark fa-fw"></i>{{$article->likes_count}}件</p>
@@ -35,7 +35,7 @@
     <ul class="list-group">
         <li class="list-group-item user-data-body__news-ranking-title font-sm">-トレンドニュースTOP3-</li>
     </ul>
-    @foreach($ranked_news as $news)
+    @foreach($rankedNews as $news)
     <div class="list-group">
         <a href="{{$news->url}}" class="list-group-item list-group-item-action user-data-body__news-ranking-content" target=”_blank” rel="noopener noreferrer">
             <p class="font-sm">{!! nl2br(e(Str::limit($news->news,60))) !!}</p>
