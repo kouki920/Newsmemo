@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Tag;
 use App\Models\NewsLink;
-use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
@@ -31,56 +32,61 @@ class ArticleController extends Controller
     {
         $articles = $article->getArticleIndex($request);
 
-        $ranked_articles = $article->getArticleRanking();
-        $ranked_news = $newsLink->getNewsRanking();
+        $rankedArticles = $article->getArticleRanking();
 
-        return view('articles.index', compact('articles', 'ranked_articles', 'ranked_news'));
+        $rankedNews = $newsLink->getNewsRanking();
+
+        return view('articles.index', compact('articles', 'rankedArticles', 'rankedNews'));
     }
 
     /**
      * 新規投稿(メモ)フォームの表示
-     * APIで取得したデータを渡し、タグ登録時の状態をVue Tags Inputと同様にする
+     * APIで取得したデータ(news,url)を渡し、タグ登録時の状態をVue Tags Inputと同様にする
+     * $tag->tag_associative_arrayで\App\Models\Tagのアクセサを利用
      *
      * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Tag $tag
      * @return Illuminate\View\View
      */
-    public function create(Request $request)
+    public function create(Request $request, Tag $tag)
     {
-        // Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
-        $allTagNames = Tag::all()->map(function ($tag) {
-            return ['text' => $tag->name];
-        });
+        // タグ入力欄でVue Tags Inputを利用して予測変換を表示させる
+        $allTagNames = $tag->tag_associative_array;
 
+        // 外部API(NEW API)で取得したデータを利用
         $news = $request->news;
+
+        // 外部API(NEW API)で取得したデータを利用
         $url = $request->url;
 
-        session()->flash('msg_success', '投稿してください');
         return view('articles.create', compact('allTagNames', 'news', 'url'));
     }
 
     /**
      * 投稿(メモ)の登録
-     * APIで取得したnewsへのリンク先とタイトルをnews_linksテーブルに保存、タグの登録と投稿とタグの紐付けも実行
+     * 外部API(NEW API)で取得したnewsへのリンク先とタイトルをnews_linksテーブルに保存
+     * タグの登録と投稿とタグの紐付けを実行
      *
      * @param \App\Http\Requests\Article\StoreRequest  $request
      * @param \App\Models\Article $article
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store(StoreRequest $request, Article $article)
+    public function store(StoreRequest $request, Article $article): RedirectResponse
     {
         $article->user_id = Auth::id();
         $article->fill($request->validated())->save();
 
+        // Articleモデルとリレーション関係であるNewsLinkモデル(news_linksテーブル)にデータ(news,url)を保存
         Article::find($article->id)->newsLink()->create($request->validated());
 
-        // タグの登録、投稿とタグの紐付けも行う
+        // タグの登録、投稿とタグの紐付けを実行
         $request->tagsRegister($article);
 
-        return redirect()->route('articles.index')->with('msg_success', '投稿が完了しました');
+        return redirect()->route('articles.index')->with('msg_success', __('app.article_create'));
     }
 
     /**
-     * 投稿(メモ)詳細画面の表示
+     * 投稿詳細画面の表示
      *
      * @param \App\Models\Article $article
      * @return Illuminate\View\View

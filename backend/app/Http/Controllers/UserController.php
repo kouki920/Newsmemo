@@ -178,8 +178,8 @@ class UserController extends Controller
 
         $articles_count = $user->getCountArticle();
 
-        $ranked_articles = $this->article->getArticleRanking();
-        $ranked_news = $this->news_link->getNewsRanking();
+        $rankedArticles = $this->article->getArticleRanking();
+        $rankedNews = $this->news_link->getNewsRanking();
 
         $recent_tags = $this->article->getRecentTags($user->id);
 
@@ -187,7 +187,7 @@ class UserController extends Controller
 
         $last_login = $user->last_login_date;
 
-        return view('users.data', compact('user', 'articles_count', 'recent_tags', 'ranked_articles', 'ranked_news', 'days_posted', 'last_login'));
+        return view('users.data', compact('user', 'articles_count', 'recent_tags', 'rankedArticles', 'rankedNews', 'days_posted', 'last_login'));
     }
 
     /**
