@@ -14,6 +14,7 @@ return [
     */
 
     'article_store' => '投稿が完了しました',
-
+    'article_update' => '投稿が更新されました',
+    'article_delete' => '投稿が削除されました',
 
 ];

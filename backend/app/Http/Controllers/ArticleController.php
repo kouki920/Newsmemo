@@ -82,7 +82,7 @@ class ArticleController extends Controller
         // タグの登録、投稿とタグの紐付けを実行
         $request->tagsRegister($article);
 
-        return redirect()->route('articles.index')->with('msg_success', __('app.article_create'));
+        return redirect()->route('articles.index')->with('msg_success', __('app.article_store'));
     }
 
     /**
@@ -93,6 +93,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
+        // 投稿詳細画面でarticleデータに付属する非公開メモ(アウトプット)を取得する
         $memos = $article->getArticleMemo();
 
         return view('articles.show', compact('article', 'memos'));
@@ -102,18 +103,18 @@ class ArticleController extends Controller
      * 投稿(メモ)編集フォームの表示
      *
      * @param \App\Models\Article $article
+     * @param \App\Models\Tag $tag
      * @return Illuminate\View\View
      */
-    public function edit(Article $article)
+    public function edit(Article $article, Tag $tag)
     {
         // Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
         $tagNames = $article->tags->map(function ($tag) {
             return ['text' => optional($tag)->name];
         });
 
-        $allTagNames = Tag::all()->map(function ($tag) {
-            return ['text' => optional($tag)->name];
-        });
+        // タグ入力欄でVue Tags Inputを利用して予測変換を表示させる
+        $allTagNames = $tag->tag_associative_array;
 
         return view('articles.edit', compact('article', 'tagNames', 'allTagNames'));
     }
@@ -126,7 +127,7 @@ class ArticleController extends Controller
      * @param \App\Models\Article $article
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, Article $article)
+    public function update(UpdateRequest $request, Article $article): RedirectResponse
     {
         // ArticlePolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $article);
@@ -135,7 +136,7 @@ class ArticleController extends Controller
         // タグの更新
         $request->tagsRegister($article);
 
-        return redirect()->route('articles.index')->with('msg_success', '投稿を編集しました');
+        return redirect()->route('articles.index')->with('msg_success', __('app.article_update'));
     }
 
     /**
@@ -144,12 +145,12 @@ class ArticleController extends Controller
      * @param  Article $article
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Article $article)
+    public function destroy(Article $article): RedirectResponse
     {
         // ArticlePolicyのdeleteメソッドでアクセス制限
         $this->authorize('delete', $article);
 
         $article->delete();
-        return redirect()->route('articles.index')->with('msg_success', '投稿を削除しました');
+        return redirect()->route('articles.index')->with('msg_success', __('app.article_delete'));
     }
 }
