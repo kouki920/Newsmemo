@@ -32,8 +32,10 @@ class ArticleController extends Controller
     {
         $articles = $article->getArticleIndex($request);
 
+        // ランキングデータを取得
         $rankedArticles = $article->getArticleRanking();
 
+        // ランキングデータを取得
         $rankedNews = $newsLink->getNewsRanking();
 
         return view('articles.index', compact('articles', 'rankedArticles', 'rankedNews'));
