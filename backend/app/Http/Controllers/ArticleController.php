@@ -16,6 +16,7 @@ class ArticleController extends Controller
 
     public function __construct()
     {
+        // ArticlePolicyの適用
         $this->authorizeResource(Article::class, 'article');
     }
 
@@ -30,6 +31,7 @@ class ArticleController extends Controller
      */
     public function index(Request $request, Article $article, NewsLink $newsLink)
     {
+        // Articleテーブルに関するデータを取得
         $articles = $article->getArticleIndex($request);
 
         // ランキングデータを取得
@@ -42,9 +44,9 @@ class ArticleController extends Controller
     }
 
     /**
-     * 新規投稿(メモ)フォームの表示
-     * APIで取得したデータ(news,url)を渡し、タグ登録時の状態をVue Tags Inputと同様にする
-     * $tag->tag_associative_arrayで\App\Models\Tagのアクセサを利用
+     * 新規投稿フォームの表示
+     * 外部APIから取得したデータ(news,url)を渡し、タグデータの状態をVue Tags Input形式と同様にして予測変換を機能させる
+     * $tag->tag_associative_arrayで\App\Models\Tagのアクセサ(getTagAssociativeArrayAttribute)を利用
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Tag $tag
@@ -65,7 +67,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * 投稿(メモ)の登録
+     * 投稿の登録
      * 外部API(NEW API)で取得したnewsへのリンク先とタイトルをnews_linksテーブルに保存
      * タグの登録と投稿とタグの紐付けを実行
      *
@@ -110,7 +112,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article, Tag $tag)
     {
-        // Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
+        // Vue Tags Inputでは、タグ名に対しtextというキーが付いている形式['text' => 'タグ名']である必要がある
+        // mapメソッドを使用してarticleデータに関するtagデータを同様の連想配列にする
         $tagNames = $article->tags->map(function ($tag) {
             return ['text' => optional($tag)->name];
         });
@@ -131,10 +134,8 @@ class ArticleController extends Controller
      */
     public function update(UpdateRequest $request, Article $article): RedirectResponse
     {
-        // ArticlePolicyのupdateメソッドでアクセス制限
-        $this->authorize('update', $article);
-
         $article->fill($request->validated())->save();
+
         // タグの更新
         $request->tagsRegister($article);
 
@@ -149,10 +150,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article): RedirectResponse
     {
-        // ArticlePolicyのdeleteメソッドでアクセス制限
-        $this->authorize('delete', $article);
-
         $article->delete();
+
         return redirect()->route('articles.index')->with('msg_success', __('app.article_delete'));
     }
 }
