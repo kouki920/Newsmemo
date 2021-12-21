@@ -66,7 +66,8 @@ class Article extends Model
     }
 
     /**
-     *  現在のいいね数を算出するアクセサ($article->count_likesで呼び出せるようにする)
+     *  現在のいいね数を算出するアクセサ
+     * $article->count_likesで呼び出せるようにする
      *
      * @return int
      */
