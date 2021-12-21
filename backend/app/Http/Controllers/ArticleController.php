@@ -46,7 +46,7 @@ class ArticleController extends Controller
     /**
      * 新規投稿フォームの表示
      * 外部APIから取得したデータ(news,url)を渡し、タグデータの状態をVue Tags Input形式と同様にして予測変換を機能させる
-     * $tag->tag_associative_arrayで\App\Models\Tagのアクセサ(getTagAssociativeArrayAttribute)を利用
+     * $tag->tag_predictive_conversionで\App\Models\Tagのアクセサ(getTagPredictiveConversionAttribute)を利用
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Tag $tag
@@ -55,7 +55,7 @@ class ArticleController extends Controller
     public function create(Request $request, Tag $tag)
     {
         // タグ入力欄でVue Tags Inputを利用して予測変換を表示させる
-        $allTagNames = $tag->tag_associative_array;
+        $allTagNames = $tag->tag_predictive_conversion;
 
         // 外部API(NEW API)で取得したデータを利用
         $news = $request->news;
@@ -105,6 +105,7 @@ class ArticleController extends Controller
 
     /**
      * 投稿(メモ)編集フォームの表示
+     * $tag->tag_predictive_conversionで\App\Models\Tagのアクセサ(getTagPredictiveConversionAttribute)を利用
      *
      * @param \App\Models\Article $article
      * @param \App\Models\Tag $tag
@@ -119,7 +120,7 @@ class ArticleController extends Controller
         });
 
         // タグ入力欄でVue Tags Inputを利用して予測変換を表示させる
-        $allTagNames = $tag->tag_associative_array;
+        $allTagNames = $tag->tag_predictive_conversion;
 
         return view('articles.edit', compact('article', 'tagNames', 'allTagNames'));
     }

@@ -48,7 +48,7 @@ class Tag extends Model
      * タグ入力時に予測変換を表示させる
      * Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
      */
-    public function getTagAssociativeArrayAttribute()
+    public function getTagPredictiveConversionAttribute()
     {
         return $this->all()->map(function ($tag) {
             return ['text' => $tag->name];

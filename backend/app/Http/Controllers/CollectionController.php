@@ -27,8 +27,8 @@ class CollectionController extends Controller
 
 
     /**
-     * 新規コレクションや既存コレクションにメモを保存
-     * vue.jsを利用して非同期処理を実行する
+     * 新規コレクションや既存コレクションに投稿を保存
+     * vue.jsを利用して非同期処理でコレクションを実行する
      *
      * @param  \App\Http\Requests\Collection\StoreRequest  $request
      * @param  \App\Models\Article  $article
@@ -36,10 +36,7 @@ class CollectionController extends Controller
      */
     public function store(StoreRequest $request, Article $article)
     {
-        $request->collections->each(function ($collectionName) use ($article) {
-            $collection = Collection::firstOrCreate(['name' => $collectionName, 'user_id' => Auth::id()]);
-            $article->collections()->syncWithoutDetaching($collection);
-        });
+        $request->collectionRegister($article);
     }
 
 
