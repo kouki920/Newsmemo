@@ -20,7 +20,7 @@ class CollectionController extends Controller
      */
     public function index(Collection $collection, $id)
     {
-        $collections = $collection->getCollectionIndex(Auth::id());
+        $collections = $collection->getCollectionIndex($id);
 
         return view('collections.index', compact('collections'));
     }
@@ -29,6 +29,7 @@ class CollectionController extends Controller
     /**
      * 新規コレクションや既存コレクションに投稿を保存
      * vue.jsを利用して非同期処理でコレクションを実行する
+     * collectionRegister()でコレクションを保存
      *
      * @param  \App\Http\Requests\Collection\StoreRequest  $request
      * @param  \App\Models\Article  $article
@@ -41,8 +42,9 @@ class CollectionController extends Controller
 
 
     /**
-     * コレクション名を選択することでそのコレクションに属するメモを一覧で取得
+     * コレクション名を選択することでそのコレクションに属する投稿を一覧で取得
      *
+     * @param \App\Models\Collection $collection
      * @param  int  $id
      * @param string $name
      * @return Illuminate\View\View
@@ -61,6 +63,7 @@ class CollectionController extends Controller
      * コレクション名を更新
      *
      * @param  \App\Http\Requests\Collection\UpdateRequest  $request
+     * @param \App\Models\Collection $collection
      * @param  int  $id
      * @return Illuminate\View\View
      */
@@ -68,7 +71,7 @@ class CollectionController extends Controller
     {
         $collection->fill($request->validated())->save();
 
-        $collections = $collection->getCollectionIndex(Auth::id());
+        $collections = $collection->getCollectionIndex($id);
 
         return view('collections.index', compact('collections'));
     }
@@ -84,7 +87,7 @@ class CollectionController extends Controller
     {
         $collection->delete();
 
-        $collections = $collection->getCollectionIndex(Auth::id());
+        $collections = $collection->getCollectionIndex($id);
         return view('collections.index', compact('collections'));
     }
 
@@ -95,13 +98,14 @@ class CollectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param Collection $collection
      * @param Article $article
+     * @param  int  $id
      * @return Illuminate\View\View
      */
-    public function articleCollectionDestroy(Request $request, Collection $collection, Article $article)
+    public function articleCollectionDestroy(Request $request, Collection $collection, Article $article, $id)
     {
         $article->collections()->detach(['article_id' => $article->id, 'collection_id' => $collection->id]);
 
-        $collections = $collection->getCollectionIndex(Auth::id())->load('articles');
+        $collections = $collection->getCollectionIndex($id)->load('articles');
 
         return view('collections.index', compact('collections'));
     }
