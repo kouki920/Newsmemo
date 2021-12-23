@@ -6,13 +6,12 @@ use App\Models\Article;
 use App\Models\Collection;
 use App\Http\Requests\Collection\StoreRequest;
 use App\Http\Requests\Collection\UpdateRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CollectionController extends Controller
 {
     /**
-     * ログインユーザーが保持するコレクション名を一覧で取得
+     * ログインユーザーが保持するコレクションデータを一覧で取得
      *
      * @param \App\Models\Collection $collection
      * @param int $id
@@ -28,7 +27,7 @@ class CollectionController extends Controller
 
     /**
      * 新規コレクションや既存コレクションに投稿を保存
-     * vue.jsを利用して非同期処理でコレクションを実行する
+     * vue.jsを利用して非同期処理で保存を実行する
      * collectionRegister()でコレクションを保存
      *
      * @param  \App\Http\Requests\Collection\StoreRequest  $request

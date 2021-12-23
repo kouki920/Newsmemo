@@ -8,6 +8,14 @@ use App\Services\CovidNewsService;
 
 class CovidNewsController extends Controller
 {
+    private CovidNewsService $covidNewsService;
+
+    public function __construct(
+        CovidNewsService $covidNewsService
+    ) {
+        $this->covidNewsService = $covidNewsService;
+    }
+
     /**
      * NEWSAPIからCOVID関連のニュースデータを取得
      * serviceクラスで作成したGuzzleを利用したメソッドを指定
@@ -15,9 +23,9 @@ class CovidNewsController extends Controller
      * @param \App\Services\CovidNewsService $covidNewsService
      * @return array
      */
-    public function defaultIndex(CovidNewsService $covidNewsService)
+    public function defaultIndex()
     {
-        $news = $covidNewsService->defaultIndex();
+        $news = $this->covidNewsService->defaultIndex();
 
         return view('articles.covid_index', compact('news'));
     }
@@ -30,9 +38,9 @@ class CovidNewsController extends Controller
      * @param \App\Services\CovidNewsService $covidNewsService
      * @return array
      */
-    public function customIndex(CovidCustomRequest $request, CovidNewsService $covidNewsService)
+    public function customIndex(CovidCustomRequest $request)
     {
-        $news = $covidNewsService->customIndex($request);
+        $news = $this->covidNewsService->customIndex($request);
 
         return view('articles.covid_index', compact('news'));
     }

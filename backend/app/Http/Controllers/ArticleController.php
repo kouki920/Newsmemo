@@ -69,9 +69,10 @@ class ArticleController extends Controller
     /**
      * 投稿の登録
      * 外部API(NEW API)で取得したnewsへのリンク先とタイトルをnews_linksテーブルに保存
+     * $article->newsLink()でリレーションのインスタンスが返るのでcreate()でデータを登録
      * タグの登録と投稿とタグの紐付けを実行
      *
-     * @param \App\Http\Requests\Article\StoreRequest  $request
+     * @param \App\Http\Requests\Article\StoreRequest $request
      * @param \App\Models\Article $article
      * @return Illuminate\Http\RedirectResponse
      */
@@ -113,11 +114,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article, Tag $tag)
     {
-        // Vue Tags Inputでは、タグ名に対しtextというキーが付いている形式['text' => 'タグ名']である必要がある
-        // mapメソッドを使用してarticleデータに関するtagデータを同様の連想配列にする
-        $tagNames = $article->tags->map(function ($tag) {
-            return ['text' => optional($tag)->name];
-        });
+        // 編集対象となるタグの形式を変換するアクセサを利用
+        $tagNames = $article->change_tag_format;
 
         // タグ入力欄でVue Tags Inputを利用して予測変換を表示させる
         $allTagNames = $tag->tag_predictive_conversion;
