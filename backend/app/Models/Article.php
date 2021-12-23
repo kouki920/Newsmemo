@@ -146,6 +146,19 @@ class Article extends Model
     }
 
     /**
+     * tagテーブルにあるデータをVue Tags Input形式に変換する
+     * Vue Tags Inputでは、タグ名に対しtextというキーが付いている形式['text' => 'タグ名']である必要がある
+     * tagのデータはcollection形式なので、mapメソッドを使用してコレクションであるarticleデータに関するtagデータを同様の連想配列に変換する繰り返し処理を実行させる(呼び出し元のコレクションは変更しない)
+     * optionalヘルパでオブジェクト(tag)のプロパティ(name)にアクセスする
+     */
+    public function getChangeTagFormatAttribute()
+    {
+        return $this->tags->map(function ($tag) {
+            return ['text' => optional($tag)->name];
+        });
+    }
+
+    /**
      * created_atカラムのフォーマットを変更するアクセサ
      *
      * @return string

@@ -8,6 +8,14 @@ use App\Services\HeadlineNewsService;
 
 class HeadlineNewsController extends Controller
 {
+    private HeadlineNewsService $headlineNewsService;
+
+    public function __construct(
+        HeadlineNewsService $headlineNewsService
+    ) {
+        $this->headlineNewsService = $headlineNewsService;
+    }
+
     /**
      * NEWSAPIからヘッドラインニュースデータを取得
      * serviceクラスで作成したGuzzleを利用したメソッドを指定
@@ -15,11 +23,11 @@ class HeadlineNewsController extends Controller
      * @param \App\Services\HeadlineNewsService $headNewsService
      * @return array
      */
-    public function defaultIndex(HeadlineNewsService $headNewsService)
+    public function defaultIndex()
     {
-        $news = $headNewsService->defaultIndex();
+        $news = $this->headlineNewsService->defaultIndex();
 
-        return view('articles.news_index', ['news' => $news]);
+        return view('articles.news_index', compact('news'));
     }
 
     /**
@@ -30,9 +38,9 @@ class HeadlineNewsController extends Controller
      * @param \App\Services\HeadlineNewsService $headNewsService
      * @return array
      */
-    public function customIndex(HeadlineCustomRequest $request, HeadlineNewsService $headNewsService)
+    public function customIndex(HeadlineCustomRequest $request)
     {
-        $news = $headNewsService->customIndex($request);
+        $news = $this->headlineNewsService->customIndex($request);
 
         return view('articles.news_index', compact('news'));
     }
