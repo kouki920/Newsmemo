@@ -70,13 +70,13 @@ Route::prefix('memos')->name('memos.')->middleware('auth')->group(function () {
 
 # コレクション機能
 Route::prefix('collections')->name('collections.')->middleware('auth')->group(function () {
-    Route::post('/index/user/{id}', 'CollectionController@index')->name('index');
+    Route::post('/index/{id}', 'CollectionController@index')->name('index');
     Route::post('/store/{article}', 'CollectionController@store')->name('store');
     Route::get('/{collection}/edit', 'CollectionController@edit')->name('edit');
-    Route::patch('/{collection}/update/user/{id}', 'CollectionController@update')->name('update');
-    Route::delete('/{collection}/destroy/user/{id}', 'CollectionController@destroy')->name('destroy');
+    Route::patch('/{collection}/update/{id}', 'CollectionController@update')->name('update');
+    Route::delete('/{collection}/destroy/{id}', 'CollectionController@destroy')->name('destroy');
     Route::delete('/{collection}/{article}/destroy/{id}', 'CollectionController@articleCollectionDestroy')->name('article_collection_destroy');
-    Route::get('/{name}/user/{id}', 'CollectionController@show')->name('show');
+    Route::get('/{name}/{id}', 'CollectionController@show')->name('show');
 });
 
 # 設定
