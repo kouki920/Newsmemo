@@ -42,19 +42,24 @@ class CollectionController extends Controller
 
     /**
      * コレクション名を選択することでそのコレクションに属する投稿を一覧で取得
+     * $collection->articlesの戻り値がコレクションオブジェクト(Illuminate\...\Collection)なので
+     * foreach処理できるようcompact('articles')で値を渡す
      *
      * @param \App\Models\Collection $collection
-     * @param  int  $id
      * @param string $name
+     * @param  int  $id
      * @return Illuminate\View\View
      */
     public function show(Collection $collection, string $name, $id)
     {
         $collection = $collection->getCollectionShow($name, $id);
+        // dd($collection);
 
+        // コレクションに属するarticlesデータを取得, 'articles'
+        //     @include('tags.pagination')
         $articles = $collection->getCollectionArticleData();
 
-        return view('collections.show', compact('collection', 'articles'));
+        return view('collections.show', compact('collection'));
     }
 
 
@@ -72,6 +77,7 @@ class CollectionController extends Controller
 
         $collections = $collection->getCollectionIndex($id);
 
+        // return redirect()->route('collections.index', ['id' => $id]);
         return view('collections.index', compact('collections'));
     }
 
@@ -87,6 +93,7 @@ class CollectionController extends Controller
         $collection->delete();
 
         $collections = $collection->getCollectionIndex($id);
+
         return view('collections.index', compact('collections'));
     }
 
