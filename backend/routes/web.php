@@ -64,13 +64,13 @@ Route::prefix('users')->name('users.')->group(function () {
 Route::prefix('memos')->name('memos.')->middleware('auth')->group(function () {
     Route::post('/{article}store', 'MemoController@store')->name('store');
     Route::get('/{memo}/edit', 'MemoController@edit')->name('edit');
-    Route::post('/{memo}/update', 'MemoController@update')->name('update');
+    Route::patch('/{memo}/update', 'MemoController@update')->name('update');
     Route::delete('/{memo}/destroy', 'MemoController@destroy')->name('destroy');
 });
 
 # コレクション機能
 Route::prefix('collections')->name('collections.')->middleware('auth')->group(function () {
-    Route::post('/index/{id}', 'CollectionController@index')->name('index');
+    Route::get('/index/{id}', 'CollectionController@index')->name('index');
     Route::post('/store/{article}', 'CollectionController@store')->name('store');
     Route::get('/{collection}/edit', 'CollectionController@edit')->name('edit');
     Route::patch('/{collection}/update/{id}', 'CollectionController@update')->name('update');
@@ -81,7 +81,7 @@ Route::prefix('collections')->name('collections.')->middleware('auth')->group(fu
 
 # 設定
 Route::prefix('settings')->name('settings.')->middleware('auth')->group(function () {
-    Route::post('/index', 'SettingController@index')->name('index');
+    Route::get('/index', 'SettingController@index')->name('index');
     Route::get('/agreement', 'SettingController@agreement')->name('agreement');
 });
 

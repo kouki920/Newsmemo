@@ -1,6 +1,7 @@
 <div class="form-outline memo-body__edit-form">
     <form action="{{route('memos.update', compact('memo','article'))}}" method="POST">
         @csrf
+        @method('PATCH')
         <textarea class="form-control memo-body__textarea font-sm" id="textAreaExample" rows="3" name="body" placeholder="アウトプットを追加">{{$memo->body ?? old('body')}}</textarea>
         <input type="hidden" name="article_id" value="{{$article->id}}">
         <div class="float-right">
