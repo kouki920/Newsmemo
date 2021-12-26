@@ -53,11 +53,6 @@ class CollectionController extends Controller
     public function show(Collection $collection, string $name, $id)
     {
         $collection = $collection->getCollectionShow($name, $id);
-        // dd($collection);
-
-        // コレクションに属するarticlesデータを取得, 'articles'
-        //     @include('tags.pagination')
-        $articles = $collection->getCollectionArticleData();
 
         return view('collections.show', compact('collection'));
     }
@@ -75,10 +70,7 @@ class CollectionController extends Controller
     {
         $collection->fill($request->validated())->save();
 
-        $collections = $collection->getCollectionIndex($id);
-
-        // return redirect()->route('collections.index', ['id' => $id]);
-        return view('collections.index', compact('collections'));
+        return redirect()->route('collections.index', compact('id'))->with('msg_success', __('app.collection_update'));
     }
 
     /**
@@ -92,9 +84,7 @@ class CollectionController extends Controller
     {
         $collection->delete();
 
-        $collections = $collection->getCollectionIndex($id);
-
-        return view('collections.index', compact('collections'));
+        return redirect()->route('collections.index', compact('id'))->with('msg_success', __('app.collection_delete'));
     }
 
     /**

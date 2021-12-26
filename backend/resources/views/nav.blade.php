@@ -53,11 +53,9 @@
         <form id="logout-button" method="POST" action="{{route('logout')}}">
             @csrf
         </form>
-        <form id="setting-button" method="POST" action="{{route('settings.index',['name' => Auth::user()->name])}}">
-            @csrf
+        <form id="setting-button" action="{{route('settings.index',['name' => Auth::user()->name])}}">
         </form>
-        <form id="collection-button" method="POST" action="{{route('collections.index',['id' => Auth::id()])}}">
-            @csrf
+        <form id="collection-button" action="{{route('collections.index',['id' => Auth::id()])}}">
         </form>
         <!-- Dropdown -->
         @endauth
