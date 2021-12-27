@@ -101,8 +101,6 @@ class CollectionController extends Controller
     {
         $article->collections()->detach(['article_id' => $article->id, 'collection_id' => $collection->id]);
 
-        $collections = $collection->getCollectionIndex($id)->load('articles');
-
-        return view('collections.index', compact('collections'));
+        return redirect()->route('collections.index', compact('id'))->with('msg_success', __('app.collection_article'));
     }
 }
