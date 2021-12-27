@@ -18,4 +18,5 @@ return [
     'article_delete' => '投稿が削除されました',
     'collection_update' => 'コレクションが更新されました',
     'collection_delete' => 'コレクションが削除されました',
+    'collection_article' => 'コレクションに登録済みの投稿が削除されました',
 ];
