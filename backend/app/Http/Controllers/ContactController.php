@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Http\Requests\Contact\ConfirmRequest;
 use App\Http\Requests\Contact\SendRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
@@ -41,7 +42,7 @@ class ContactController extends Controller
      * @param  \App\Models\Contact  $contact
      * @return Illuminate\Http\RedirectResponse
      */
-    public function send(SendRequest $request, Contact $contact)
+    public function send(SendRequest $request, Contact $contact): RedirectResponse
     {
         // 確認画面でクリックしたボタン(name="contact")のvalue値を判断する
         $contactValue = $request->input('contact', 'back');
@@ -59,10 +60,9 @@ class ContactController extends Controller
     /**
      * 送信完了画面を表示
      *
-     * @param \Illuminate\Http\Request $request
      * @return Illuminate\View\View
      */
-    public function complete(Request $request)
+    public function complete()
     {
         return view('contacts.complete');
     }

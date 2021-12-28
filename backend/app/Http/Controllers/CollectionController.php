@@ -7,6 +7,7 @@ use App\Models\Collection;
 use App\Http\Requests\Collection\StoreRequest;
 use App\Http\Requests\Collection\UpdateRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class CollectionController extends Controller
 {
@@ -64,9 +65,9 @@ class CollectionController extends Controller
      * @param  \App\Http\Requests\Collection\UpdateRequest  $request
      * @param \App\Models\Collection $collection
      * @param  int  $id
-     * @return Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, Collection $collection, $id)
+    public function update(UpdateRequest $request, Collection $collection, $id): RedirectResponse
     {
         $collection->fill($request->validated())->save();
 
@@ -78,9 +79,9 @@ class CollectionController extends Controller
      *
      * @param  \App\Models\Collection  $collection
      * @param  int  $id
-     * @return Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Collection $collection, $id)
+    public function destroy(Collection $collection, $id): RedirectResponse
     {
         $collection->delete();
 
@@ -95,9 +96,9 @@ class CollectionController extends Controller
      * @param Collection $collection
      * @param Article $article
      * @param  int  $id
-     * @return Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function articleCollectionDestroy(Request $request, Collection $collection, Article $article, $id)
+    public function articleCollectionDestroy(Request $request, Collection $collection, Article $article, $id): RedirectResponse
     {
         $article->collections()->detach(['article_id' => $article->id, 'collection_id' => $collection->id]);
 
