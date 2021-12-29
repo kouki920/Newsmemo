@@ -114,7 +114,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article, Tag $tag)
     {
-        // 編集対象となるタグの形式を変換するアクセサを利用
+        // 編集対象となるタグデータの形式を変換するアクセサを利用
         $tagNames = $article->change_tag_format;
 
         // タグ入力欄でVue Tags Inputを利用して予測変換を表示させる
@@ -135,7 +135,7 @@ class ArticleController extends Controller
     {
         $article->fill($request->validated())->save();
 
-        // タグの更新
+        // タグデータの更新
         $request->tagsRegister($article);
 
         return redirect()->route('articles.index')->with('msg_success', __('app.article_update'));

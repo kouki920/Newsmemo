@@ -44,7 +44,7 @@ class CollectionController extends Controller
     /**
      * コレクション名を選択することでそのコレクションに属する投稿を一覧で取得
      * $collection->articlesの戻り値がコレクションオブジェクト(Illuminate\...\Collection)なので
-     * foreach処理できるようcompact('articles')で値を渡す
+     * foreach処理できるようcompact('collection')で値を渡す
      *
      * @param \App\Models\Collection $collection
      * @param string $name
@@ -53,9 +53,10 @@ class CollectionController extends Controller
      */
     public function show(Collection $collection, string $name, $id)
     {
-        $collection = $collection->getCollectionShow($name, $id);
+        $collections = $collection->getCollectionShow($name, $id);
+        // dd($collections);
 
-        return view('collections.show', compact('collection'));
+        return view('collections.show', compact('collections'));
     }
 
 

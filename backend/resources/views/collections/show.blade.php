@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', $collection->name)
+@section('title', $collections->name)
 
 @section('content')
 
@@ -10,7 +10,7 @@
     @include('collections.collections_name')
 </div>
 <div class="container">
-    @foreach($collection->articles as $article)
+    @foreach($collections->articles as $article)
     @include('collections.post')
     @endforeach
 </div>
