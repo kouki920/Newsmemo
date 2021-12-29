@@ -44,10 +44,14 @@ class Collection extends Model
 
     /**
      * ログイン済みのユーザが保持するコレクションデータを取得
-     * 他のキーを指定してデータを取得するのでfirst()を使う
+     * first()の返り値はModelのオブジェクト
      */
     public function getCollectionShow(string $name, $id)
     {
-        return $this->where([['name', $name], ['user_id', $id]])->first()->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
+        return $this->where([['name', $name], ['user_id', $id]])->get()->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
+
+        // return $this->with(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink'])->where([['name', $name], ['user_id', $id]])->first();
+
+        // return $this->with('articles')->where([['name', $name], ['user_id', $id]])->get();
     }
 }
