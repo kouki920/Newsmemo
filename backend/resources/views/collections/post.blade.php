@@ -147,7 +147,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST" action="{{ route('collections.article_collection_destroy', ['article' => $article, 'collection' => $collections, 'id' => Auth::id()]) }}">
+                    <form method="POST" action="{{ route('collections.article_collection_destroy', ['article' => $article, 'collection' => $collection, 'id' => Auth::id()]) }}">
                         @csrf
                         @method('DELETE')
                         <div class="modal-body font-sm article-body__collection-delete-text">

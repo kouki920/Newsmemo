@@ -53,10 +53,13 @@ class CollectionController extends Controller
      */
     public function show(Collection $collection, string $name, $id)
     {
-        $collections = $collection->getCollectionShow($name, $id);
-        // dd($collections);
+        // リクエストフォームで送られてきた$nameと$idに一致するcollectionデータを取得
+        $collection = $collection->getCollectionData($name, $id);
 
-        return view('collections.show', compact('collections'));
+        // $nameと$idに一致するコレクションデータに属するarticlesデータを取得
+        $articles = $collection->getCollectionArticleData();
+
+        return view('collections.show', compact('collection', 'articles'));
     }
 
 
