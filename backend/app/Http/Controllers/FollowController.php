@@ -15,10 +15,12 @@ class FollowController extends Controller
      * @param string $name
      * @return array
      */
-    public function follow(Request $request, string $name)
+    public function follow(Request $request, User $user, string $name)
     {
-        $user = User::where('name', $name)->first();
+        // ユーザーデータをname指定で取得
+        $user = $user->getUserData($name);
 
+        // 取得したデータとリクエスト側のユーザーデータが一致指定していない場合、エラーページを表示させる
         if ($user->id === $request->user()->id) {
             return abort('404', 'Cannot follow yourself.');
         }
@@ -41,14 +43,17 @@ class FollowController extends Controller
      * @param string $name
      * @return array
      */
-    public function unfollow(Request $request, string $name)
+    public function unfollow(Request $request, User $user, string $name)
     {
-        $user = User::where('name', $name)->first();
+        // ユーザーデータをname指定で取得
+        $user = $user->getUserData($name);
 
+        // 取得したデータとリクエスト側のユーザーデータが一致指定していない場合、エラーページを表示させる
         if ($user->id === $request->user()->id) {
             return abort('404', 'Cannot follow yourself.');
         }
 
+        // フォロー解除
         $request->user()->followings()->detach($user);
 
         return [
