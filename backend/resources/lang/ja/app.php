@@ -19,4 +19,7 @@ return [
     'collection_update' => 'コレクションが更新されました',
     'collection_delete' => 'コレクションが削除されました',
     'collection_article' => 'コレクションに登録済みの投稿が削除されました',
+    'memo_store' => 'アウトプットを記録しました',
+    'memo_update' => 'アウトプットを更新しました',
+    'memo_delete' => 'アウトプットを削除しました',
 ];
