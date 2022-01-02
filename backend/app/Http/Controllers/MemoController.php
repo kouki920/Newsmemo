@@ -28,7 +28,7 @@ class MemoController extends Controller
 
         $article = $request->getArticleData($request);
 
-        return redirect()->route('articles.show', compact('article'))->with('msg_success', '非公開メモを追加しました');
+        return redirect()->route('articles.show', compact('article'))->with('msg_success', __('app.memo_store'));
     }
 
     /**
@@ -61,7 +61,7 @@ class MemoController extends Controller
 
         $article = $request->getArticleData($request);
 
-        return redirect()->route('articles.show', compact('article'))->with('msg_success', '非公開メモを更新しました');
+        return redirect()->route('articles.show', compact('article'))->with('msg_success', __('app.memo_update'));
     }
 
     /**
@@ -73,6 +73,6 @@ class MemoController extends Controller
     public function destroy(Memo $memo)
     {
         $memo->delete();
-        return back()->with('msg_success', '非公開メモを削除しました');
+        return back()->with('msg_success', __('app.memo_delete'));
     }
 }
