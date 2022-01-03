@@ -147,7 +147,7 @@ class User extends Authenticatable
     }
 
     /**
-     * フォロワー数を表示するアクセサ
+     * フォロワー数をカウントするアクセサ
      *
      * @return int
      */
@@ -157,7 +157,7 @@ class User extends Authenticatable
     }
 
     /**
-     * フォロー数を表示するアクセサ
+     * フォロー数をカウントするアクセサ
      *
      * @return int
      */

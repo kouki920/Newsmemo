@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Memo\StoreRequest;
 use App\Http\Requests\Memo\UpdateRequest;
-use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Memo;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\Console\Input\Input;
 
 class MemoController extends Controller
 {
@@ -20,7 +19,7 @@ class MemoController extends Controller
      * @param \App\Models\Memo $memo
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store(StoreRequest $request, Memo $memo)
+    public function store(StoreRequest $request, Memo $memo): RedirectResponse
     {
         $memo->user_id = Auth::id();
         $memo->article_id = $request->article_id;
@@ -53,7 +52,7 @@ class MemoController extends Controller
      * @param int $id
      * @return Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request, $id): RedirectResponse
     {
         $memo = Memo::where('id', $id)->first();
 
@@ -70,7 +69,7 @@ class MemoController extends Controller
      * @param \App\Models\Memo $memo
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(Memo $memo)
+    public function destroy(Memo $memo): RedirectResponse
     {
         $memo->delete();
         return back()->with('msg_success', __('app.memo_delete'));
