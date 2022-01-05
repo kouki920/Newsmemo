@@ -54,12 +54,12 @@ class CollectionController extends Controller
     public function show(Collection $collection, string $name, $id)
     {
         // リクエストフォームで送られてきた$nameと$idに一致するcollectionデータを取得
-        $collection = $collection->getCollectionData($name, $id);
+        $collections = $collection->getCollectionData($name, $id);
 
         // $nameと$idに一致するコレクションデータに属するarticlesデータを取得
-        $articles = $collection->getCollectionArticleData();
+        $articles = $collections->getCollectionArticleData();
 
-        return view('collections.show', compact('collection', 'articles'));
+        return view('collections.show', compact('collections', 'articles'));
     }
 
 
@@ -93,12 +93,12 @@ class CollectionController extends Controller
     }
 
     /**
-     * コレクションに登録されたメモをコレクション内から削除する
-     * メモ自体はテーブルから削除されない
+     * コレクションに登録された投稿をコレクション内から削除する
+     * 投稿自体はarticlesテーブルから削除されない
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param Collection $collection
-     * @param Article $article
+     * @param \App\Models\Collection $collection
+     * @param \App\Models\Article $article
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
