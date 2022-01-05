@@ -9,7 +9,6 @@ use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -70,7 +69,7 @@ class ArticleController extends Controller
      * 投稿の登録
      * 外部API(NEW API)で取得したnewsへのリンク先とタイトルをnews_linksテーブルに保存
      * $article->newsLink()でリレーションのインスタンスが返るのでcreate()でデータを登録
-     * タグの登録と投稿とタグの紐付けを実行
+     * 投稿に関するタグの登録、投稿とタグの紐付けを実行
      *
      * @param \App\Http\Requests\Article\StoreRequest $request
      * @param \App\Models\Article $article
@@ -78,11 +77,11 @@ class ArticleController extends Controller
      */
     public function store(StoreRequest $request, Article $article): RedirectResponse
     {
-        $article->user_id = Auth::id();
+        $article->user_id = $request->user()->id;
         $article->fill($request->validated())->save();
 
-        // Articleモデルとリレーション関係であるNewsLinkモデル(news_linksテーブル)にデータ(news,url)を保存
-        Article::find($article->id)->newsLink()->create($request->validated());
+        // Articleモデルとリレーション関係であるNewsLinkモデル(news_linksテーブル)にデータ(article_id,news,url)を保存
+        $article->newsLink()->create($request->validated());
 
         // タグの登録、投稿とタグの紐付けを実行
         $request->tagsRegister($article);
@@ -98,7 +97,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        // 投稿詳細画面でarticleデータに付属する非公開メモ(アウトプット)を取得する
+        // 投稿詳細画面でarticleデータに付属するマインドマップ(アウトプット)を取得する
         $memos = $article->getArticleMemo();
 
         return view('articles.show', compact('article', 'memos'));

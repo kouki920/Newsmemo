@@ -13,7 +13,7 @@ class MemoController extends Controller
 {
 
     /**
-     * 非公開メモの登録
+     * マインドマップの登録
      *
      * @param \App\Http\Requests\Memo\StoreRequest $request
      * @param \App\Models\Memo $memo
@@ -21,7 +21,7 @@ class MemoController extends Controller
      */
     public function store(StoreRequest $request, Memo $memo): RedirectResponse
     {
-        $memo->user_id = Auth::id();
+        $memo->user_id = $request->user()->id;
         $memo->article_id = $request->article_id;
         $memo->fill($request->validated())->save();
 

@@ -60,7 +60,7 @@
                     <!-- Content input -->
                     <div class="form-group contact-form-body__content-form">
                         <label class="form-label font-sm" for="contactForm">-&ensp;お問い合わせ内容&ensp;-</label>
-                        <textarea class="form-control" id="contactForm" name="content" rows="4">{{old('content')}}</textarea>
+                        <textarea class="form-control" id="contactForm" name="content" rows="4" placeholder="700文字以内">{{old('content')}}</textarea>
                     </div>
 
                     <!-- Submit button -->
