@@ -7,7 +7,6 @@ use App\Http\Requests\Memo\UpdateRequest;
 use App\Models\Article;
 use App\Models\Memo;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 
 class MemoController extends Controller
 {
@@ -25,7 +24,8 @@ class MemoController extends Controller
         $memo->article_id = $request->article_id;
         $memo->fill($request->validated())->save();
 
-        $article = $request->getArticleData($request);
+        // マインドマップ登録対象となるarticleデータのidを$requestから取得する
+        $article = $request->getArticleId($request);
 
         return redirect()->route('articles.show', compact('article'))->with('msg_success', __('app.memo_store'));
     }
