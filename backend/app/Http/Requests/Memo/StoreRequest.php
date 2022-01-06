@@ -31,11 +31,10 @@ class StoreRequest extends FormRequest
     /**
      * 保存対象となるarticleデータのidをarticle_id指定で取得
      */
-    public function getArticleData($request)
+    public function getArticleId($request): int
     {
         if (isset($request->article_id)) {
-            $article = $request->article_id;
-            return $article;
+            return $request->article_id;
         }
     }
 }
