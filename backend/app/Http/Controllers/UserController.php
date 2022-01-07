@@ -170,6 +170,7 @@ class UserController extends Controller
     /**
      * ユーザーデータを表示
      *
+     * @param string $name
      * @return Illuminate\View\View
      */
     public function userData(string $name)
