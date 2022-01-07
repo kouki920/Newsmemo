@@ -98,9 +98,9 @@
     </div>
     <div class="card-text memo-body">
         @include('error_list')
-        <div class="card-text my-2 font-sm"><i class="fas fa-lock fa-fw"></i>編集</div>
+        <div class="card-text my-2 font-sm"><i class="fas fa-pencil-alt fa-fw"></i>&ensp;編集&ensp;</div>
         @if( Auth::id() === $article->user_id )
-        @include('memos.add_memos_index')
+
         @include('memos.edit_form')
         @endif
     </div>

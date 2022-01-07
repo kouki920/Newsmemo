@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Memo;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Psy\CodeCleaner\IssetPass;
 
 class StoreRequest extends FormRequest
 {
@@ -33,8 +34,6 @@ class StoreRequest extends FormRequest
      */
     public function getArticleId($request): int
     {
-        if (isset($request->article_id)) {
-            return $request->article_id;
-        }
+        return (isset($request->article_id)) ? $request->article_id : abort('404', 'Could not find article_id.');
     }
 }

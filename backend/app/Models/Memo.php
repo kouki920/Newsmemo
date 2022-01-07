@@ -22,12 +22,10 @@ class Memo extends Model
     }
 
     /**
-     * memosテーブルからデータを取得
-     *
-     * @param int $id
+     * articlesテーブルのデータを条件付きで取得する
      */
-    public function getMemosData($id)
+    public function getArticleData()
     {
-        return $this->where('id', $id)->first();
+        return $this->article->with(['user', 'likes', 'tags'])->where('id', $this->article_id)->first();
     }
 }

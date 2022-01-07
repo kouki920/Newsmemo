@@ -26,7 +26,7 @@ class MemoControllerTest extends TestCase
 
         $article = factory(Article::class)->create(['user_id' => $user->id]);
 
-        $response = $this->actingAs($user)->from('articles.show')->post(route('memos.store', $article),  [
+        $response = $this->actingAs($user)->from('articles.show')->post(route('memos.store', ['article' => $article]),  [
             'user_id' => $user->id,
             'article_id' => $article->id,
             'body' => 'テスト',
@@ -59,7 +59,7 @@ class MemoControllerTest extends TestCase
 
         $memo = factory(Memo::class)->create(['user_id' => $user->id, 'article_id' => $article->id]);
 
-        $response = $this->actingAs($user)->get(route('memos.edit', $memo, $news_link));
+        $response = $this->actingAs($user)->get(route('memos.edit', ['memo' => $memo, 'article' => $article]));
 
         $response->assertStatus(200)->assertViewIs('memos.edit')
             ->assertSee('編集');
@@ -88,7 +88,7 @@ class MemoControllerTest extends TestCase
             'body' => $memo->body,
         ]);
 
-        $response = $this->actingAs($user)->from('articles.show')->delete(route('memos.destroy', $memo));
+        $response = $this->actingAs($user)->from('articles.show')->delete(route('memos.destroy', ['memo' => $memo]));
 
         $this->assertDeleted('memos', [
             'user_id' => $memo->user_id,
