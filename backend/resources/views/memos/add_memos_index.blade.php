@@ -11,11 +11,11 @@
                     </button>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item memo-edit-button font-sm" href="{{ route('memos.edit', ['memo' => $memo->id]) }}">
+                    <a class="dropdown-item memo-edit-button font-sm" href="{{ route('memos.edit', compact('memo','article')) }}">
                         編集
                     </a>
                     <div class="dropdown-divider"></div>
-                    <form method="POST" action="{{ route('memos.destroy', ['memo' => $memo->id]) }}">
+                    <form method="POST" action="{{ route('memos.destroy', ['memo' => $memo]) }}">
                         @csrf
                         @method('DELETE')
                         <input type="submit" class="dropdown-item memo-delete-button font-sm" value="削除">
