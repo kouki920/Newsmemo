@@ -43,9 +43,6 @@ class UpdateRequest extends FormRequest
      */
     public function getImage($request)
     {
-        if (isset($request->image)) {
-            $image = $request->image;
-            return $image;
-        }
+        return (isset($request->image)) ? $request->image : abort('404', 'Could not find image data.');
     }
 }

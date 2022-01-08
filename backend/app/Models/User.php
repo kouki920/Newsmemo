@@ -117,11 +117,13 @@ class User extends Authenticatable
      */
     public function getUserData(string $name)
     {
-        return $this->where('name', $name)->first();
+        return $this->with(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink'])->where('name', $name)->first();
     }
 
     /**
      * ログインユーザーの投稿を10件ごとに取得
+     *
+     * @return object
      */
     public function getUserArticleData()
     {

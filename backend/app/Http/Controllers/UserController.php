@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function show(string $name)
     {
-        $user = $this->user->getUserData($name)->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
+        $user = $this->user->getUserData($name);
 
         $articles = $user->getUserArticleData();
 
