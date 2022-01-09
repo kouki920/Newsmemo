@@ -74,7 +74,7 @@ class UserController extends Controller
 
         $user->fill($request->validated())->save();
 
-        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールを編集しました');
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', __('app.user_update'));
     }
 
     /**
@@ -115,7 +115,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールアイコンを変更しました');
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', __('app.icon_update'));
     }
 
     /**
@@ -204,7 +204,7 @@ class UserController extends Controller
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
 
-        session()->flash('msg_success', 'パスワードを変更してください');
+        session()->flash('msg_success', __('app.password_notification'));
 
         return view('users.password_edit', compact('user'));
     }
@@ -225,7 +225,7 @@ class UserController extends Controller
 
         $user->fill(['password' => Hash::make($request->input('new_password'))])->save();
 
-        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'パスワードを変更しました');
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', __('app.password_update'));
     }
 
 
@@ -246,6 +246,6 @@ class UserController extends Controller
             $user->delete();
         }
 
-        return redirect('register')->with('msg_success', 'ユーザー登録をしてください');
+        return redirect('register')->with('msg_success', __('app.user_notification'));
     }
 }

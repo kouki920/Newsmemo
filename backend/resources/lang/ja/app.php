@@ -22,4 +22,9 @@ return [
     'memo_store' => 'アウトプットを記録しました',
     'memo_update' => 'アウトプットを更新しました',
     'memo_delete' => 'アウトプットを削除しました',
+    'user_update' => 'ユーザー情報を更新しました',
+    'user_notification' => 'ユーザー登録をして下さい',
+    'icon_update' => 'アイコンを更新しました',
+    'password_update' => 'パスワードを更新しました',
+    'password_notification' => 'パスワードを変更して下さい',
 ];
