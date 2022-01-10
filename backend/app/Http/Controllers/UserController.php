@@ -126,7 +126,7 @@ class UserController extends Controller
      */
     public function follower(string $name)
     {
-        $user = $this->user->getUserData($name)->load('followers.followers');
+        $user = $this->user->getUserFollowerData($name);
 
         $followers = $user->getUserFollower();
 
@@ -141,7 +141,7 @@ class UserController extends Controller
      */
     public function following(string $name)
     {
-        $user = $this->user->getUserData($name)->load('followings.followers');
+        $user = $this->user->getUserFollowingData($name);
 
         $followings = $user->getUserFollowing();
 

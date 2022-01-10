@@ -121,6 +121,28 @@ class User extends Authenticatable
     }
 
     /**
+     * ユーザーデータとフォロワーデータを取得
+     *
+     * @param string $name
+     * @return object
+     */
+    public function getUserFollowerData(string $name)
+    {
+        return $this->with('followers')->where('name', $name)->first();
+    }
+
+    /**
+     * ユーザーデータとフォローデータを取得
+     *
+     * @param string $name
+     * @return object
+     */
+    public function getUserFollowingData(string $name)
+    {
+        return $this->with('followings')->where('name', $name)->first();
+    }
+
+    /**
      * ログインユーザーの投稿を10件ごとに取得
      *
      * @return object
