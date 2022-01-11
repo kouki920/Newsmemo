@@ -135,14 +135,14 @@ class Article extends Model
             ->where('user_id', $id)
             ->latest()->take(5)->get();
 
-        $tag_name = [];
+        $recentTags = [];
         foreach ($articles as $article) {
             foreach ($article->tags as $tag) {
-                $tag_name[] = $tag->name;
+                $recentTags[] = $tag->name;
             }
         }
 
-        return array_unique($tag_name);
+        return array_unique($recentTags);
     }
 
     /**

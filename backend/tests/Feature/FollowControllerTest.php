@@ -17,6 +17,8 @@ class FollowControllerTest extends TestCase
      */
     public function testAuthFollow()
     {
+        $this->withoutExceptionHandling();
+
         $user_one = factory(User::class)->create();
 
         $user_two = factory(User::class)->create();
@@ -37,6 +39,8 @@ class FollowControllerTest extends TestCase
      */
     public function testAuthUnFollow()
     {
+        $this->withoutExceptionHandling();
+
         $user_one = factory(User::class)->create();
 
         $user_two = factory(User::class)->create();

@@ -17,10 +17,10 @@ class FollowController extends Controller
      */
     public function follow(Request $request, User $user, string $name)
     {
-        // ユーザーデータをname指定で取得
-        $user = $user->getUserData($name);
+        // ユーザーデータをname指定で取得(フォローされる側)
+        $user = $user->getLoginUserData($name);
 
-        // 取得したデータとリクエスト側のユーザーデータが一致指定していない場合、エラーページを表示させる
+        // 取得したuserデータのidとリクエスト側のログインユーザーのidが一致した場合、エラーページを表示させる
         if ($user->id === $request->user()->id) {
             return abort('404', 'Cannot follow yourself.');
         }
@@ -29,6 +29,7 @@ class FollowController extends Controller
         $request->user()->followings()->detach($user);
         $request->user()->followings()->attach($user);
 
+        // 非同期通信に対するレスポンス(JSON形式に変換されてレスポンス)
         return [
             'name' => $name,
             'countFollowings' => $user->count_followings,
@@ -46,9 +47,9 @@ class FollowController extends Controller
     public function unfollow(Request $request, User $user, string $name)
     {
         // ユーザーデータをname指定で取得
-        $user = $user->getUserData($name);
+        $user = $user->getLoginUserData($name);
 
-        // 取得したデータとリクエスト側のユーザーデータが一致指定していない場合、エラーページを表示させる
+        // 取得したuserデータのidとリクエスト側のログインユーザーのidが一致した場合、エラーページを表示させる
         if ($user->id === $request->user()->id) {
             return abort('404', 'Cannot follow yourself.');
         }
@@ -56,6 +57,7 @@ class FollowController extends Controller
         // フォロー解除
         $request->user()->followings()->detach($user);
 
+        // 非同期通信に対するレスポンス(JSON形式に変換されてレスポンス)
         return [
             'name' => $name,
             'countFollowings' => $user->count_followings,

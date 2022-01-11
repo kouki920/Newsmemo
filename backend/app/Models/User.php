@@ -55,6 +55,12 @@ class User extends Authenticatable
 
     /**
      * フォローにおけるユーザーモデルとユーザーモデルの関係は多対多なのでBelongsToManyを使用
+     *
+     * 中間テーブルのカラム名と、リレーション元/先のテーブル名(users)に[リレーション元/先のテーブル名の単数形_id]
+     * という規則性がない為、第3引数と第4引数に中間テーブルのカラム名を指定
+     * followee_id = フォローしている側のuserのid(リレーション元)、follower_id = フォローされている側のuserのid(リレーション先)
+     *
+     * あるユーザーがあるユーザーをフォロー中かどうか判定するメソッドで使用される
      */
     public function followers(): BelongsToMany
     {
@@ -62,7 +68,11 @@ class User extends Authenticatable
     }
 
     /**
-     * フォローとフォロー解除時に使用するリレーション
+     * フォローとフォロー解除時に使用するリレーションメソッド(FollowControllerで使用)
+     *
+     * 中間テーブルのカラム名と、リレーション元/先のテーブル名(users)に[リレーション元/先のテーブル名の単数形_id]
+     * という規則性がない為、中間テーブルのカラム名を指定
+     * follower_id = フォローする側のuserのid(リレーション元)、followee_id = フォローされる側のuserのid(リレーション先)
      */
     public function followings(): BelongsToMany
     {
@@ -115,35 +125,39 @@ class User extends Authenticatable
      * @param string $name
      * @return object
      */
-    public function getUserData(string $name)
+    public function getLoginUserData(string $name)
+    {
+        return $this->where('name', $name)->first();
+    }
+
+    /**
+     * ユーザーデータをname指定で取得
+     *
+     * リレーションデータをwith()で取得
+     *
+     * @param string $name
+     * @return object
+     */
+    public function getUserAndArticleData(string $name)
     {
         return $this->with(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink'])->where('name', $name)->first();
     }
 
     /**
-     * ユーザーデータとフォロワーデータを取得
+     * ユーザーデータをname指定で取得(いいね欄の表示時)
+     *
+     * リレーションデータをwith()で取得
      *
      * @param string $name
      * @return object
      */
-    public function getUserFollowerData(string $name)
+    public function getUserLikedData(string $name)
     {
-        return $this->with('followers')->where('name', $name)->first();
+        return $this->with(['likes.user', 'likes.likes', 'likes.tags'])->where('name', $name)->first();
     }
 
     /**
-     * ユーザーデータとフォローデータを取得
-     *
-     * @param string $name
-     * @return object
-     */
-    public function getUserFollowingData(string $name)
-    {
-        return $this->with('followings')->where('name', $name)->first();
-    }
-
-    /**
-     * ログインユーザーの投稿を10件ごとに取得
+     * ユーザーの投稿を10件ごとに取得
      *
      * @return object
      */
@@ -193,6 +207,8 @@ class User extends Authenticatable
     /**
      * フォローしているかどうかを判定するメソッド
      *
+     * ユーザーがログイン状態である時に、ユーザーページに表示されるフォローボタンの初期状態を決める
+     *
      * @return bool
      */
     public function isFollowedBy(?User $user): bool
@@ -203,19 +219,19 @@ class User extends Authenticatable
     }
 
     /**
-     * フォロワー詳細画面の表示
+     * 特定のユーザーデータを利用してそのユーザーのフォロワーデータを取得
      */
-    public function getUserFollower()
+    public function getFollowerOfUser()
     {
-        return $this->followers->sortByDesc('created_at');
+        return $this->followers->sortByDesc('created_at')->load('followers');
     }
 
     /**
      * フォロー詳細画面の表示
      */
-    public function getUserFollowing()
+    public function getFollowingOfUser()
     {
-        return $this->followings->sortByDesc('created_at');
+        return $this->followings->sortByDesc('created_at')->load('followings');
     }
 
     /**
@@ -236,5 +252,15 @@ class User extends Authenticatable
         if (!$this->last_login_at == null) {
             return $this->last_login_at->format('Y-m-d');
         }
+    }
+
+    /**
+     * 投稿日数の累計をカウント
+     *
+     * @return int
+     */
+    public function getCountArticleDate(): int
+    {
+        return $this->articles->groupBy('created_date')->count();
     }
 }
