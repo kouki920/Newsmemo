@@ -37,7 +37,7 @@
                         </a>
                         <div class="dropdown-menu profile-function-body__tag-dropdown-menu">
                             <div>
-                                @foreach($recent_tags as $tag)
+                                @foreach($recentTags as $tag)
                                 <ul class="list-group">
                                     <li class="list-group-item profile-function-body__tag-list font-sm">{{$tag}}</li>
                                 </ul>
