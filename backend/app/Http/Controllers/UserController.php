@@ -226,9 +226,7 @@ class UserController extends Controller
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
 
-        session()->flash('msg_success', __('app.password_notification'));
-
-        return view('users.password_edit', compact('user'));
+        return view('users.password_edit', compact('user'))->with('msg_success', __('app.password_notification'));
     }
 
     /**
@@ -266,6 +264,7 @@ class UserController extends Controller
         // UserPolicyのdeleteメソッドでアクセス制限
         $this->authorize('delete', $user);
 
+        // ゲストーユーザー以外を削除
         if ($user->id != config('user.guest_user_id')) {
             $user->delete();
         }
