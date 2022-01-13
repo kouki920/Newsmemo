@@ -35,7 +35,7 @@ class CollectionController extends Controller
      * @param  \App\Models\Article  $article
      * @return void
      */
-    public function store(StoreRequest $request, Article $article)
+    public function store(StoreRequest $request, Article $article): void
     {
         $request->collectionRegister($article);
     }

@@ -12,6 +12,7 @@ class FollowController extends Controller
      *
      *
      * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User $user
      * @param string $name
      * @return array
      */
@@ -41,6 +42,7 @@ class FollowController extends Controller
      * フォローを解除するメソッド
      *
      * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User $user
      * @param string $name
      * @return array
      */
