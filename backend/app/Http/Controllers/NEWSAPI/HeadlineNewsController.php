@@ -20,8 +20,7 @@ class HeadlineNewsController extends Controller
      * NEWSAPIからヘッドラインニュースデータを取得
      * serviceクラスで作成したGuzzleを利用したメソッドを指定
      *
-     * @param \App\Services\HeadlineNewsService $headNewsService
-     * @return array
+     * @return Illuminate\View\View
      */
     public function defaultIndex()
     {
@@ -35,8 +34,7 @@ class HeadlineNewsController extends Controller
      * serviceクラスで作成したGuzzleを利用したメソッドを指定
      *
      * @param \App\Http\Requests\Api\HeadlineCustomRequest $request
-     * @param \App\Services\HeadlineNewsService $headNewsService
-     * @return array
+     * @return Illuminate\View\View
      */
     public function customIndex(HeadlineCustomRequest $request)
     {
