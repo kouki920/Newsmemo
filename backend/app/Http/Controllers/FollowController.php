@@ -9,7 +9,7 @@ class FollowController extends Controller
 {
     /**
      * フォローするメソッド
-     *
+     * $request->user()で、リクエストを行なったユーザーのユーザーモデルを返しfollowings()を使いフォローする
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User $user
@@ -40,6 +40,7 @@ class FollowController extends Controller
 
     /**
      * フォローを解除するメソッド
+     * $request->user()で、リクエストを行なったユーザーのユーザーモデルを返しfollowings()を使いフォローを解除する
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User $user

@@ -44,7 +44,8 @@ class ArticleController extends Controller
 
     /**
      * 新規投稿フォームの表示
-     * 外部APIから取得したデータ(news,url)を渡し、タグデータの状態をVue Tags Input形式と同様にして予測変換を機能させる
+     * 外部APIから取得したデータ(news,url)を渡す
+     * タグデータの状態をVue Tags Input形式と同様にして予測変換を機能させる
      * $tag->tag_predictive_conversionで\App\Models\Tagのアクセサ(getTagPredictiveConversionAttribute)を利用
      *
      * @param \Illuminate\Http\Request $request
@@ -104,7 +105,8 @@ class ArticleController extends Controller
     }
 
     /**
-     * 投稿(メモ)編集フォームの表示
+     * 投稿編集フォームの表示
+     * タグデータの状態をVue Tags Input形式と同様にして予測変換を機能させる
      * $tag->tag_predictive_conversionで\App\Models\Tagのアクセサ(getTagPredictiveConversionAttribute)を利用
      *
      * @param \App\Models\Article $article
@@ -123,7 +125,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * 投稿(メモ)の更新
+     * 投稿の更新
      * タグの更新にも対応させる
      *
      * @param  \Illuminate\Http\Requests\Article\UpdateRequest  $request
@@ -141,7 +143,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * 投稿(メモ)の削除
+     * 投稿の削除
      *
      * @param  Article $article
      * @return \Illuminate\Http\RedirectResponse

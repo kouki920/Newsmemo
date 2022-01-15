@@ -44,7 +44,7 @@ class CollectionController extends Controller
     /**
      * コレクション名を選択することでそのコレクションに属する投稿を一覧で取得
      * $collection->articlesの戻り値がコレクションオブジェクト(Illuminate\...\Collection)なので
-     * foreach処理できるようcompact('collection')で値を渡す
+     * foreach処理できるようcompact('collections')で値を渡す
      *
      * @param \App\Models\Collection $collection
      * @param string $name
