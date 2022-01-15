@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Arr;
 
 class Article extends Model
 {
@@ -56,6 +55,8 @@ class Article extends Model
     /**
      * ユーザーがいいね済みかどうかを判定
      * where()で記事をいいねしたユーザーの中に、引数として渡された$userがいるかどうかを判定
+     * trueの場合、Articleモデルからlikesテーブル経由で紐付くユーザーモデルをwhere()で絞ってコレクションの要素数を数値で返す
+     * (bool)で論理値に変換する、1以上の数値を論理値へ型キャストしてtrueにする、0の場合論理値がfalseになる
      *
      * @param \App\Models\User $user
      * @return bool
@@ -66,7 +67,7 @@ class Article extends Model
     }
 
     /**
-     *  現在のいいね数を算出するアクセサ
+     * 現在のいいね数を算出するアクセサ
      * $article->count_likesで呼び出せるようにする
      *
      * @return int
@@ -78,6 +79,9 @@ class Article extends Model
 
     /**
      * 一覧表示するためにarticlesテーブルからデータを取得する
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
      */
     public function getArticleIndex($request)
     {
@@ -88,23 +92,23 @@ class Article extends Model
     }
 
     /**
-     * 検索ワードを含むarticleデータだけに限定する
+     * キーワード検索(クエリスコープ)
      * リレーション先のテーブル(news_linksのnewsカラム)を含めた検索
      *
-     * @param $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSearch($query, $request)
+    public function scopeSearch(Builder $query, $params)
     {
-        if (null !== $request) {
-            return Article::with(['user', 'likes', 'tags', 'newsLink'])
-                ->whereIn('articles.id', function ($query) use ($request) {
-                    $query->from('news_links')->select('news_links.article_id')
-                        ->where('news', 'like', '%' . $request . '%')
-                        ->orWhere('body', 'like', '%' . $request . '%');
-                });
+        if (!empty($params)) {
+            $query->whereIn('articles.id', function ($query) use ($params) {
+                $query->from('news_links')->select('news_links.article_id')
+                    ->where('news', 'like', '%' . $params . '%')
+                    ->orWhere('body', 'like', '%' . $params . '%');
+            });
         }
+        return $query;
     }
 
     /**
@@ -150,6 +154,8 @@ class Article extends Model
      * Vue Tags Inputでは、タグ名に対しtextというキーが付いている形式['text' => 'タグ名']である必要がある
      * tagのデータはcollection形式なので、mapメソッドを使用してコレクションであるarticleデータに関するtagデータを同様の連想配列に変換する繰り返し処理を実行させる(呼び出し元のコレクションは変更しない)
      * optionalヘルパでオブジェクト(tag)のプロパティ(name)にアクセスする
+     *
+     * @return array
      */
     public function getChangeTagFormatAttribute()
     {
@@ -170,6 +176,8 @@ class Article extends Model
 
     /**
      * articleデータに付属する非公開メモを取得する
+     *
+     * @return array
      */
     public function getArticleMemo()
     {
