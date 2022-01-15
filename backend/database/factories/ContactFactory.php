@@ -15,6 +15,6 @@ $factory->define(Contact::class, function (Faker $faker) {
         'gender' => $faker->randomElement($array = ['男性', '女性', '無回答']),
         'email' => substr($faker->unique()->userName(), 0, 10) . '@' . $faker->safeEmailDomain(),
         'age' => $faker->randomElement(['10', '20', '30', '40', '50', '60', '70', '80', '90']),
-        'content' => $faker->text(255),
+        'content' => $faker->text(20),
     ];
 });

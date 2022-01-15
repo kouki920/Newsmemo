@@ -1,3 +1,3 @@
 <div class="m-3">
-    {{$articles->links('vendor.pagination.custom_pagination')}}
+    {{$articles->appends(request()->input())->links('vendor.pagination.custom_pagination')}}
 </div>
