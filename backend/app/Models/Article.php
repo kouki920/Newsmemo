@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Carbon\Carbon;
 
 class Article extends Model
 {
@@ -112,30 +113,36 @@ class Article extends Model
     }
 
     /**
-     * トレンドメモのランキングデータの取得
-     * ブックマークされた数が多い順にメモデータを取得する
+     * 投稿のランキングデータの取得(過去30日間)
+     * withCount(リレーション名)でリレーション先のいいね数の合計を計算する
+     * リレーション先(likes)の合計値はリレーション関数名_countというkey名で取得できる
+     * ブックマークされた数(likes_count)が多い順にメモデータを取得する
      *
      * @param $query
      * @return array
      */
     public function getArticleRanking()
     {
+        // Carbonを利用し対象データの範囲を本日から30日間とする
+        $rankingPeriod = Carbon::today()->subDay(30);
+
         return $this->withCount('likes')
             ->orderBy('likes_count', 'desc')
-            ->whereRaw('created_at > NOW() - INTERVAL 1 MONTH')
+            ->whereDate('created_at', '>=', $rankingPeriod)
             ->take(3)->get();
     }
 
     /**
-     * 各メモデータにあるタグ情報を使いユーザが最近使用したタグを表示させる
-     * メモに紐づくタグデータをtags-tableから最新順で5件分のみ取得
+     * 各投稿データにあるタグ情報を使いユーザが最近使用したタグを表示させる
+     * 投稿に紐づくタグデータを最新順で5件分のみ取得
+     * articlesのリレーション先であるtagsのnameデータ配列が欲しいのでforeachで繰り返し処理
      *
      * @param $query
      * @return array
      */
     public function getRecentTags($id)
     {
-        $articles = Article::with('tags')
+        $articles = $this->with('tags')
             ->where('user_id', $id)
             ->latest()->take(5)->get();
 
@@ -175,7 +182,7 @@ class Article extends Model
     }
 
     /**
-     * articleデータに付属する非公開メモを取得する
+     * articleデータに付属するマインドマップ(アウトプット)を取得する
      *
      * @return array
      */
