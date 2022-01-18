@@ -27,6 +27,7 @@ class Collection extends Model
      * 引数の$idでログインユーザーのidを受け取る
      *
      * @param int $id
+     * @return array
      */
     public function getCollectionIndex($id)
     {
@@ -36,6 +37,8 @@ class Collection extends Model
     /**
      * コレクションに属するarticleデータを条件付きで取得
      * コレクションメソッドのsortByDescを利用して日付降順でデータを並び替え
+     *
+     * @return array
      */
     public function getCollectionArticleData()
     {
@@ -45,6 +48,8 @@ class Collection extends Model
     /**
      * ログイン済みのユーザが保持するコレクションデータを取得
      * first()の返り値はapp\Models\Collectionのオブジェクト
+     *
+     * @return object
      */
     public function getCollectionData(string $name, $id)
     {

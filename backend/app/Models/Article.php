@@ -80,6 +80,7 @@ class Article extends Model
 
     /**
      * 一覧表示するためにarticlesテーブルからデータを取得する
+     * search()でscopeSearchを利用
      *
      * @param \Illuminate\Http\Request $request
      * @return array
@@ -118,7 +119,6 @@ class Article extends Model
      * リレーション先(likes)の合計値はリレーション関数名_countというkey名で取得できる
      * ブックマークされた数(likes_count)が多い順にメモデータを取得する
      *
-     * @param $query
      * @return array
      */
     public function getArticleRanking()
@@ -135,9 +135,10 @@ class Article extends Model
     /**
      * 各投稿データにあるタグ情報を使いユーザが最近使用したタグを表示させる
      * 投稿に紐づくタグデータを最新順で5件分のみ取得
-     * articlesのリレーション先であるtagsのnameデータ配列が欲しいのでforeachで繰り返し処理
+     * articlesのリレーション先であるtagsのnameデータ配列が欲しいのでforeachの繰り返し処理で配列を作成
+     * array_unique()で配列の重複データを除外
      *
-     * @param $query
+     * @param  int $id
      * @return array
      */
     public function getRecentTags($id)

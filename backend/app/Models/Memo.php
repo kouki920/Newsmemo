@@ -20,12 +20,4 @@ class Memo extends Model
     {
         return $this->belongsTo('App\Models\Article');
     }
-
-    /**
-     * articlesテーブルのデータを条件付きで取得する
-     */
-    public function getArticleData()
-    {
-        return $this->article->with(['user', 'likes', 'tags'])->where('id', $this->article_id)->first();
-    }
 }
