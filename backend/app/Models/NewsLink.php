@@ -28,7 +28,7 @@ class NewsLink extends Model
         // Carbonを利用し対象データの範囲を本日から30日間とする
         $rankingPeriod = Carbon::today()->subDay(30);
 
-        return $this->select('url', 'news', DB::raw('count(*) as total'))
+        return $this->select('url', 'news', DB::raw('count(news) as total'))
             ->groupBy('url', 'news')
             ->having('total', '>', 1)
             ->latest('total')

@@ -38,7 +38,6 @@ class ArticleController extends Controller
 
         // ランキングデータを取得
         $rankedNews = $newsLink->getNewsRanking();
-        ddd($rankedNews);
 
         return view('articles.index', compact('articles', 'rankedArticles', 'rankedNews'));
     }

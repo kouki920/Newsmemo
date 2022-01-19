@@ -168,6 +168,8 @@ class User extends Authenticatable
 
     /**
      * ログインユーザーがいいねした投稿を10件ごとに取得
+     *
+     * @return array
      */
     public function getUserLikedArticleData()
     {
@@ -248,6 +250,8 @@ class User extends Authenticatable
 
     /**
      * ユーザーの最終ログイン日時を文字列で取得
+     *
+     * @return string
      */
     public function getLastLoginDateAttribute()
     {

@@ -30,6 +30,7 @@ class Tag extends Model
      * タグ名指定でデータを取得する
      *
      * @param string $name
+     * @return object
      */
     public function getTagData(string $name)
     {
@@ -38,6 +39,8 @@ class Tag extends Model
 
     /**
      * タグに属するメモデータを取得
+     *
+     * @return array
      */
     public function getTagArticle()
     {
@@ -47,6 +50,8 @@ class Tag extends Model
     /**
      * タグ入力時に予測変換を表示させる
      * Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
+     *
+     * @return array
      */
     public function getTagPredictiveConversionAttribute()
     {
