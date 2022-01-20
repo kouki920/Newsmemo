@@ -132,7 +132,6 @@ class User extends Authenticatable
 
     /**
      * ユーザーデータをname指定で取得
-     *
      * リレーションデータをwith()で取得
      *
      * @param string $name
@@ -145,7 +144,6 @@ class User extends Authenticatable
 
     /**
      * ユーザーデータをname指定で取得(いいね欄の表示時)
-     *
      * リレーションデータをwith()で取得
      *
      * @param string $name
@@ -177,11 +175,11 @@ class User extends Authenticatable
     }
 
     /**
-     * 投稿数の合計をカウント
+     * 投稿数の合計をカウントするアクセサ
      *
      * @return int
      */
-    public function getCountArticle(): int
+    public function getCountArticleAttribute(): int
     {
         return $this->articles()->count();
     }
@@ -261,11 +259,11 @@ class User extends Authenticatable
     }
 
     /**
-     * 投稿日数の累計をカウント
+     * 投稿日数の累計をカウントするアクセサ
      *
      * @return int
      */
-    public function getCountArticleDate(): int
+    public function getCountArticleDateAttribute(): int
     {
         return $this->articles->groupBy('created_date')->count();
     }

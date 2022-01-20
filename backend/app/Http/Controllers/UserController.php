@@ -191,8 +191,8 @@ class UserController extends Controller
         // ログインユーザーのデータを取得
         $user = $this->user->getLoginUserData($name);
 
-        // 取得したユーザーの投稿数の合計を取得
-        $articles_count = $user->getCountArticle();
+        // 取得したユーザーの投稿数の合計を取得(アクセサの使用)
+        $articles_count = $user->count_article;
 
         // 投稿ランキングデータを取得
         $rankedArticles = $this->article->getArticleRanking();
@@ -203,8 +203,8 @@ class UserController extends Controller
         // 最近使用したタグデータを取得
         $recentTags = $this->article->getRecentTags($user->id);
 
-        // 投稿日数の累計データを取得
-        $days_posted = $user->getCountArticleDate();
+        // 投稿日数の累計データを取得(アクセサの使用)
+        $days_posted = $user->count_article_date;
 
         // ログインユーザーの最終ログイン日時を取得(アクセサの使用)
         $last_login = $user->last_login_date;
