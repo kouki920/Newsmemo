@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Repositories\Article\ArticleRepositoryInterface;
+use App\Services\Article\ArticleServiceInterface;
 use App\Models\Tag;
 use App\Models\NewsLink;
 use App\Http\Requests\Article\StoreRequest;
@@ -12,11 +14,15 @@ use Illuminate\Http\RedirectResponse;
 
 class ArticleController extends Controller
 {
+    private ArticleRepositoryInterface $articleRepository;
 
-    public function __construct()
-    {
+
+    public function __construct(
+        ArticleRepositoryInterface $articleRepository
+    ) {
         // ArticlePolicyの適用
         $this->authorizeResource(Article::class, 'article');
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -150,7 +156,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article): RedirectResponse
     {
-        $article->delete();
+        $this->articleRepository->delete($article);
 
         return redirect()->route('articles.index')->with('msg_success', __('app.article_delete'));
     }
