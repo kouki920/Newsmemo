@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Services\Article\ArticleService;
+use App\Services\Article\ArticleServiceInterface;
+use App\Repositories\Article\ArticleRepository;
+use App\Repositories\Article\ArticleRepositoryInterface;
+use App\Services\Tag\TagService;
+use App\Services\Tag\TagServiceInterface;
+use App\Repositories\Tag\TagRepository;
+use App\Repositories\Tag\TagRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -15,7 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ArticleServiceInterface::class, ArticleService::class);
+        $this->app->bind(ArticleRepositoryInterface::class, ArticleRepository::class);
+        $this->app->bind(TagServiceInterface::class, TagService::class);
+        $this->app->bind(TagRepositoryInterface::class, TagRepository::class);
     }
 
     /**

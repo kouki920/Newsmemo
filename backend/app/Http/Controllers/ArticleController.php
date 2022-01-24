@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Repositories\Article\ArticleRepositoryInterface;
+use App\Services\Article\ArticleServiceInterface;
 use App\Models\Tag;
+use App\Repositories\Tag\TagRepositoryInterface;
+use App\Services\Tag\TagServiceInterface;
 use App\Models\NewsLink;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
@@ -12,10 +16,26 @@ use Illuminate\Http\RedirectResponse;
 
 class ArticleController extends Controller
 {
-    public function __construct()
-    {
+    private ArticleRepositoryInterface $articleRepository;
+    private TagRepositoryInterface $tagRepository;
+
+    private ArticleServiceInterface $articleService;
+    private TagServiceInterface $tagService;
+
+    public function __construct(
+        ArticleRepositoryInterface $articleRepository,
+        TagRepositoryInterface $tagRepository,
+        ArticleServiceInterface $articleService,
+        TagServiceInterface $tagService
+    ) {
         // ArticlePolicyの適用
         $this->authorizeResource(Article::class, 'article');
+
+        $this->articleRepository = $articleRepository;
+        $this->tagRepository = $tagRepository;
+
+        $this->articleService = $articleService;
+        $this->tagService = $tagService;
     }
 
     /**
@@ -30,10 +50,10 @@ class ArticleController extends Controller
     public function index(Request $request, Article $article, NewsLink $newsLink)
     {
         // Articleテーブルに関するデータを取得
-        $articles = $article->getArticleIndex($request);
+        $articles = $this->articleService->getArticleIndex($article, $request);
 
         // ランキングデータを取得
-        $rankedArticles = $article->getArticleRanking();
+        $rankedArticles = $this->articleService->getArticleRanking($article);
 
         // ランキングデータを取得
         $rankedNews = $newsLink->getNewsRanking();
@@ -54,7 +74,7 @@ class ArticleController extends Controller
     public function create(Request $request, Tag $tag)
     {
         // タグ入力欄でVue Tags Inputを利用して予測変換を表示させる
-        $allTagNames = $tag->tag_predictive_conversion;
+        $allTagNames = $this->tagService->getAllTagNames();
 
         // 外部API(NEW API)で取得したデータを利用
         $news = $request->news;
