@@ -12,4 +12,6 @@ interface ArticleServiceInterface
     public function getArticleRanking(Article $article);
 
     public function getArticleIndex(Article $article, $request);
+
+    public function store(Article $article, array $articleRecord, Collection $tags);
 }

@@ -26,11 +26,23 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id' => 'required | integer',
             'body' => 'required | max:200',
             'tags' => 'nullable | json | regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
             'news' => 'required | string | max:255',
             'url' => 'required | url | max:255',
         ];
+    }
+
+    /**
+     * バリデーションする前に実行させる
+     * userのidをmergeする
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'user_id' => auth()->id()
+        ]);
     }
 
     /**
