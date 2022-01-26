@@ -88,7 +88,6 @@ class ArticleController extends Controller
     /**
      * 投稿の登録
      * 外部API(NEW API)で取得したnewsへのリンク先とタイトルをnews_linksテーブルに保存
-     * $article->newsLink()でリレーションのインスタンスが返るのでcreate()でデータを登録
      * 投稿に関するタグの登録、投稿とタグの紐付けを実行
      *
      * @param \App\Http\Requests\Article\StoreRequest $request
@@ -97,14 +96,10 @@ class ArticleController extends Controller
      */
     public function store(StoreRequest $request, Article $article): RedirectResponse
     {
-        $article->user_id = $request->user()->id;
-        $article->fill($request->validated())->save();
+        $articleRecord = $request->validated();
+        $tags = $request->tags;
 
-        // Articleモデルとリレーション関係であるNewsLinkモデル(news_linksテーブル)にデータ(article_id,news,url)を保存
-        $article->newsLink()->create($request->validated());
-
-        // タグの登録、投稿とタグの紐付けを実行
-        $request->tagsRegister($article);
+        $this->articleService->store($article, $articleRecord, $tags);
 
         return redirect()->route('articles.index')->with('msg_success', __('app.article_store'));
     }
