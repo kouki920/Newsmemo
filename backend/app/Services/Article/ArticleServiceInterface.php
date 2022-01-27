@@ -2,9 +2,7 @@
 
 namespace App\Services\Article;
 
-use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
-use App\Repositories\Article\ArticleRepository;
 use Illuminate\Support\Collection;
 
 interface ArticleServiceInterface
@@ -14,4 +12,6 @@ interface ArticleServiceInterface
     public function getArticleIndex(Article $article, $request);
 
     public function store(Article $article, array $articleRecord, Collection $tags);
+
+    public function getMemoData(Article $article);
 }

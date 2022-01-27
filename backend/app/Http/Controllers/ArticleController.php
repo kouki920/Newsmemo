@@ -11,6 +11,7 @@ use App\Services\Tag\TagServiceInterface;
 use App\Models\NewsLink;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
+use App\Services\NewsLink\NewsLinkServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -21,12 +22,14 @@ class ArticleController extends Controller
 
     private ArticleServiceInterface $articleService;
     private TagServiceInterface $tagService;
+    private NewsLinkServiceInterface $newsLinkService;
 
     public function __construct(
         ArticleRepositoryInterface $articleRepository,
         TagRepositoryInterface $tagRepository,
         ArticleServiceInterface $articleService,
-        TagServiceInterface $tagService
+        TagServiceInterface $tagService,
+        NewsLinkServiceInterface $newsLinkService
     ) {
         // ArticlePolicyの適用
         $this->authorizeResource(Article::class, 'article');
@@ -36,6 +39,7 @@ class ArticleController extends Controller
 
         $this->articleService = $articleService;
         $this->tagService = $tagService;
+        $this->newsLinkService = $newsLinkService;
     }
 
     /**
@@ -56,7 +60,7 @@ class ArticleController extends Controller
         $rankedArticles = $this->articleService->getArticleRanking($article);
 
         // ランキングデータを取得
-        $rankedNews = $newsLink->getNewsRanking();
+        $rankedNews = $this->newsLinkService->getNewsRanking($newsLink);
 
         return view('articles.index', compact('articles', 'rankedArticles', 'rankedNews'));
     }
@@ -65,7 +69,6 @@ class ArticleController extends Controller
      * 新規投稿フォームの表示
      * 外部APIから取得したデータ(news,url)を渡す
      * タグデータの状態をVue Tags Input形式と同様にして予測変換を機能させる
-     * $tag->tag_predictive_conversionで\App\Models\Tagのアクセサ(getTagPredictiveConversionAttribute)を利用
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Tag $tag
@@ -112,8 +115,8 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        // 投稿詳細画面でarticleデータに付属するマインドマップ(アウトプット)を取得する
-        $memos = $article->getArticleMemo();
+        // 投稿詳細画面でarticleデータに付属するマインドマップ(アウトプットデータ)を取得する
+        $memos = $this->articleService->getMemoData($article);
 
         return view('articles.show', compact('article', 'memos'));
     }
@@ -121,7 +124,6 @@ class ArticleController extends Controller
     /**
      * 投稿編集フォームの表示
      * タグデータの状態をVue Tags Input形式と同様にして予測変換を機能させる
-     * $tag->tag_predictive_conversionで\App\Models\Tagのアクセサ(getTagPredictiveConversionAttribute)を利用
      *
      * @param \App\Models\Article $article
      * @param \App\Models\Tag $tag
@@ -129,11 +131,11 @@ class ArticleController extends Controller
      */
     public function edit(Article $article, Tag $tag)
     {
-        // 編集対象となるタグデータの形式を変換するアクセサを利用
-        $tagNames = $article->change_tag_format;
+        // 編集対象となるタグデータの形式を変換する
+        $tagNames = $this->tagService->getTagNamesOfArticle($article);
 
         // タグ入力欄でVue Tags Inputを利用して予測変換を表示させる
-        $allTagNames = $tag->tag_predictive_conversion;
+        $allTagNames = $this->tagService->getAllTagNames();
 
         return view('articles.edit', compact('article', 'tagNames', 'allTagNames'));
     }
