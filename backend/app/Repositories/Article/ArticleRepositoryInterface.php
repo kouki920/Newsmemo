@@ -17,4 +17,6 @@ interface ArticleRepositoryInterface
     public function attachTags(Article $article, Collection $tags): void;
 
     public function registerNewsLink($articleData, array $articleRecord): void;
+
+    public function getMemoData(Article $article);
 }

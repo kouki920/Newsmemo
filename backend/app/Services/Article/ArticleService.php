@@ -58,4 +58,14 @@ class ArticleService implements ArticleServiceInterface
 
         $this->articleRepository->registerNewsLink($articleData, $articleRecord);
     }
+
+    /**
+     * 投稿に関するメモ(マインドマップ)データを取得する
+     *
+     * @param \App\Models\Article $article
+     */
+    public function getMemoData(Article $article)
+    {
+        return $this->articleRepository->getMemoData($article);
+    }
 }

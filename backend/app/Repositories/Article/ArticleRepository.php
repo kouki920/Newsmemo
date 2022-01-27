@@ -21,6 +21,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      * 一覧表示するためにarticlesテーブルからデータを取得する
      * search()でscopeSearchを利用
      *
+     * @param \App\Models\Article $article
      * @param \Illuminate\Http\Request $request
      * @return object
      */
@@ -94,6 +95,8 @@ class ArticleRepository implements ArticleRepositoryInterface
      * 存在すればそのモデルを返しテーブルに存在しなければ、そのレコードをテーブルに保存した上で、Tagモデルを返す
      * 変数$tagにはTagモデルが代入されるので、sync()でリレーション先(中間テーブル = article_tagテーブル)にデータを追加する
      *
+     * @param \App\Models\Article $article
+     * @param \Illuminate\Support\Collection $tags
      */
     public function attachTags(Article $article, Collection $tags): void
     {
@@ -104,8 +107,25 @@ class ArticleRepository implements ArticleRepositoryInterface
     }
 
     /**
+     * tagテーブルにあるデータをVue Tags Input形式に変換する
+     * Vue Tags Inputでは、タグ名に対しtextというキーが付いている形式['text' => 'タグ名']である必要がある
+     * tagのデータはcollection形式なので、mapメソッドを使用してコレクションであるarticleデータに関するtagデータを同様の連想配列に変換する繰り返し処理を実行させる(呼び出し元のコレクションは変更しない)
+     * optionalヘルパでオブジェクト(tag)のプロパティ(name)にアクセスする
+     *
+     * @return array
+     */
+    public function changeTagFormat()
+    {
+        return $this->tags->map(function ($tag) {
+            return ['text' => optional($tag)->name];
+        });
+    }
+
+    /**
      * ニュースのurlとtitleを登録、投稿と紐付けを行う
      * Articleモデルとリレーション関係であるNewsLinkモデル(news_linksテーブル)にデータ(article_id,news,url)を保存
+     *
+     * @param array $articleRecord
      */
     public function registerNewsLink($articleData, array $articleRecord): void
     {
@@ -114,5 +134,15 @@ class ArticleRepository implements ArticleRepositoryInterface
             'url' => $articleRecord['url'],
             'news' => $articleRecord['news'],
         ]);
+    }
+
+    /**
+     * 投稿に関するメモ(マインドマップ)データを取得する
+     *
+     * @param \App\Models\Article $article
+     */
+    public function getMemoData(Article $article)
+    {
+        return $article->memos()->where('article_id', $article->id)->oldest()->get();
     }
 }
