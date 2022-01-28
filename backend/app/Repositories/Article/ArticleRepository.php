@@ -17,6 +17,47 @@ class ArticleRepository implements ArticleRepositoryInterface
         $this->article = $article;
     }
 
+
+    /**
+     * 投稿の登録
+     *
+     * @param \App\Models\Article $article
+     * @param array $articleRecord
+     */
+    public function store(Article $article, array $articleRecord)
+    {
+        $article = $this->article->create($articleRecord);
+
+        return $article;
+    }
+
+
+    /**
+     * 投稿の更新
+     *
+     * @param \App\Models\Article $article
+     * @param array $articleRecord
+     */
+    public function update(Article $article, array $articleRecord)
+    {
+        $article->fill($articleRecord)->save();
+
+        $article->tags()->detach();
+
+        return $article;
+    }
+
+
+    /**
+     * 投稿の削除
+     *
+     * @param \App\Models\Article $article
+     */
+    public function delete(Article $article)
+    {
+        $article->delete();
+    }
+
     /**
      * 一覧表示するためにarticlesテーブルからデータを取得する
      * search()でscopeSearchを利用
@@ -73,18 +114,6 @@ class ArticleRepository implements ArticleRepositoryInterface
             ->take(3)->get();
     }
 
-    /**
-     * 投稿の登録
-     *
-     * @param \App\Models\Article $article
-     * @param array $articleRecord
-     */
-    public function store(Article $article, array $articleRecord)
-    {
-        $article = $this->article->create($articleRecord);
-
-        return $article;
-    }
 
     /**
      * タグの登録と投稿・タグの紐付けを行う

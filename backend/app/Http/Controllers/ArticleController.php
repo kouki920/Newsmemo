@@ -142,7 +142,7 @@ class ArticleController extends Controller
 
     /**
      * 投稿の更新
-     * タグの更新にも対応させる
+     * タグの更新も対応
      *
      * @param  \Illuminate\Http\Requests\Article\UpdateRequest  $request
      * @param \App\Models\Article $article
@@ -150,10 +150,10 @@ class ArticleController extends Controller
      */
     public function update(UpdateRequest $request, Article $article): RedirectResponse
     {
-        $article->fill($request->validated())->save();
+        $articleRecord = $request->validated();
+        $tags = $request->tags;
 
-        // タグデータの更新
-        $request->tagsRegister($article);
+        $this->articleService->update($article, $articleRecord, $tags);
 
         return redirect()->route('articles.index')->with('msg_success', __('app.article_update'));
     }
@@ -166,7 +166,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article): RedirectResponse
     {
-        $article->delete();
+        $this->articleService->delete($article);
 
         return redirect()->route('articles.index')->with('msg_success', __('app.article_delete'));
     }
