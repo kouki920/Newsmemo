@@ -3,7 +3,6 @@
 namespace App\Repositories\Article;
 
 use App\Models\Article;
-use App\Models\User;
 use Illuminate\Support\Collection;
 
 interface ArticleRepositoryInterface
@@ -13,6 +12,10 @@ interface ArticleRepositoryInterface
     public function getArticleRanking(Article $article);
 
     public function store(Article $article, array $articleRecord);
+
+    public function update(Article $article, array $articleRecord);
+
+    public function delete(Article $article);
 
     public function attachTags(Article $article, Collection $tags): void;
 
