@@ -14,6 +14,10 @@ use App\Services\NewsLink\NewsLinkService;
 use App\Services\NewsLink\NewsLinkServiceInterface;
 use App\Repositories\NewsLink\NewsLinkRepository;
 use App\Repositories\NewsLink\NewsLinkRepositoryInterface;
+use App\Services\Collection\CollectionService;
+use App\Services\Collection\CollectionServiceInterface;
+use App\Repositories\Collection\CollectionRepository;
+use App\Repositories\Collection\CollectionRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -33,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TagRepositoryInterface::class, TagRepository::class);
         $this->app->bind(NewsLinkServiceInterface::class, NewsLinkService::class);
         $this->app->bind(NewsLinkRepositoryInterface::class, NewsLinkRepository::class);
+        $this->app->bind(CollectionServiceInterface::class, CollectionService::class);
+        $this->app->bind(CollectionRepositoryInterface::class, CollectionRepository::class);
     }
 
     /**
