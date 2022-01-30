@@ -48,7 +48,9 @@ class CollectionController extends Controller
      */
     public function store(StoreRequest $request, Article $article): void
     {
-        $request->collectionRegister($article);
+        $collections = $request->collections;
+
+        $this->collectionService->registerCollection($article, $collections);
     }
 
 
@@ -65,10 +67,14 @@ class CollectionController extends Controller
     public function show(Collection $collection, string $name, $id)
     {
         // リクエストフォームで送られてきた$nameと$idに一致するcollectionデータを取得
-        $collections = $collection->getCollectionData($name, $id);
+        // $collections = $collection->getCollectionData($name, $id);
+
+        $collections = $this->collectionService->getCollectionData($collection, $name, $id);
 
         // $nameと$idに一致するコレクションデータに属するarticlesデータを取得
-        $articles = $collections->getCollectionArticleData();
+        // $articles = $collections->getCollectionArticleData();
+
+        $articles = $this->collectionService->getCollectionArticleData($collections);
 
         return view('collections.show', compact('collections', 'articles'));
     }
