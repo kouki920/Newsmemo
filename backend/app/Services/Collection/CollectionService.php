@@ -41,18 +41,59 @@ class CollectionService implements CollectionServiceInterface
 
     /**
      * コレクションデータを取得する
+     *
+     * @param \App\Models\Collection $collection
+     * @param string $name
+     * @param int $id
      */
-    public function getCollectionData($collection, string $name, $id)
+    public function getCollectionData(Collection $collection, string $name, $id)
     {
         // リクエストフォームで送られてきた$nameと$idに一致するcollectionデータを取得
         return $this->collectionRepository->getCollectionData($collection, $name, $id);
     }
 
+    /**
+     * コレクションに属するArticleデータを取得する
+     */
     public  function getCollectionArticleData($collections)
     {
         // $nameと$idに一致するコレクションデータに属するarticlesデータを取得
         $articles = $this->collectionRepository->getCollectionArticleData($collections);
 
         return $articles;
+    }
+
+    /**
+     * コレクションデータを更新する
+     * 対象カラムはname
+     *
+     * @param \App\Models\Collection $collection
+     * @param array $collectionRecord
+     */
+    public function update(Collection $collection, array $collectionRecord)
+    {
+        $this->collectionRepository->update($collection, $collectionRecord);
+    }
+
+    /**
+     * コレクションの削除
+     *
+     * @param  \App\Models\Collection  $collection
+     */
+    public function destroy(Collection $collection)
+    {
+        $this->collectionRepository->destroy($collection);
+    }
+
+    /**
+     * コレクションに登録された投稿をコレクション内から削除する
+     * 投稿自体はarticlesテーブルから削除されない
+     *
+     * @param \App\Models\Collection $collection
+     * @param \App\Models\Article $article
+     */
+    public function destroyArticleInCollection(Collection $collection, Article $article)
+    {
+        $this->collectionRepository->destroyArticleInCollection($collection, $article);
     }
 }

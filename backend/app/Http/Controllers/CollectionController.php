@@ -67,13 +67,9 @@ class CollectionController extends Controller
     public function show(Collection $collection, string $name, $id)
     {
         // リクエストフォームで送られてきた$nameと$idに一致するcollectionデータを取得
-        // $collections = $collection->getCollectionData($name, $id);
-
         $collections = $this->collectionService->getCollectionData($collection, $name, $id);
 
         // $nameと$idに一致するコレクションデータに属するarticlesデータを取得
-        // $articles = $collections->getCollectionArticleData();
-
         $articles = $this->collectionService->getCollectionArticleData($collections);
 
         return view('collections.show', compact('collections', 'articles'));
@@ -90,7 +86,9 @@ class CollectionController extends Controller
      */
     public function update(UpdateRequest $request, Collection $collection, $id): RedirectResponse
     {
-        $collection->fill($request->validated())->save();
+        $collectionRecord = $request->validated();
+
+        $this->collectionService->update($collection, $collectionRecord);
 
         return redirect()->route('collections.index', compact('id'))->with('msg_success', __('app.collection_update'));
     }
@@ -104,7 +102,7 @@ class CollectionController extends Controller
      */
     public function destroy(Collection $collection, $id): RedirectResponse
     {
-        $collection->delete();
+        $this->collectionService->destroy($collection);
 
         return redirect()->route('collections.index', compact('id'))->with('msg_success', __('app.collection_delete'));
     }
@@ -113,15 +111,14 @@ class CollectionController extends Controller
      * コレクションに登録された投稿をコレクション内から削除する
      * 投稿自体はarticlesテーブルから削除されない
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param \App\Models\Collection $collection
      * @param \App\Models\Article $article
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function articleCollectionDestroy(Request $request, Collection $collection, Article $article, $id): RedirectResponse
+    public function destroyArticleInCollection(Collection $collection, Article $article, $id): RedirectResponse
     {
-        $article->collections()->detach(['article_id' => $article->id, 'collection_id' => $collection->id]);
+        $this->collectionService->destroyArticleInCollection($collection, $article);
 
         return redirect()->route('collections.index', compact('id'))->with('msg_success', __('app.collection_article'));
     }

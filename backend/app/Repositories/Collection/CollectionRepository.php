@@ -21,6 +21,7 @@ class CollectionRepository implements CollectionRepositoryInterface
      * コレクション名の一覧を取得
      * 引数の$idでログインユーザーのidを受け取る
      *
+     * @param \App\Models\Collection $collection
      * @param int $id
      * @return array
      */
@@ -38,7 +39,7 @@ class CollectionRepository implements CollectionRepositoryInterface
      * 存在すればそのモデルを返しテーブルに存在しなければ、そのレコードをテーブルに保存した上で、Collectionモデルを返す
      * 変数$collectionにはCollectionモデルが代入されるので、syncWithoutDetaching()で中間テーブル = article_collectionテーブルにデータを追加
      *
-     * @param Article $article
+     * @param \App\Models\Article $article
      */
     public function registerCollection(Article $article, $collections)
     {
@@ -50,8 +51,11 @@ class CollectionRepository implements CollectionRepositoryInterface
 
     /**
      * リクエストフォームで送られてきた$nameと$idに一致するcollectionデータを取得
+     *
+     * @param \App\Models\Collection $collection
+     * @param string $name
      */
-    public function getCollectionData($collection, string $name, $id)
+    public function getCollectionData(Collection $collection, string $name, $id)
     {
         return $collection->with(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink'])->where([['name', $name], ['user_id', $id]])->first();
     }
@@ -62,5 +66,39 @@ class CollectionRepository implements CollectionRepositoryInterface
     public function getCollectionArticleData($collections)
     {
         return $collections->articles->sortByDesc('created_at')->paginate(10);
+    }
+
+    /**
+     * コレクションデータを更新する
+     * 対象カラムはname
+     *
+     * @param \App\Models\Collection $collection
+     * @param array $collectionRecord
+     */
+    public function update(Collection $collection, array $collectionRecord)
+    {
+        $collection->fill($collectionRecord)->save();
+    }
+
+    /**
+     * コレクションの削除
+     *
+     * @param  \App\Models\Collection  $collection
+     */
+    public function destroy(Collection $collection)
+    {
+        $collection->delete();
+    }
+
+    /**
+     * コレクションに登録された投稿をコレクション内から削除する
+     * 投稿自体はarticlesテーブルから削除されない
+     *
+     * @param \App\Models\Collection $collection
+     * @param \App\Models\Article $article
+     */
+    public function destroyArticleInCollection(Collection $collection, Article $article)
+    {
+        $article->collections()->detach(['article_id' => $article->id, 'collection_id' => $collection->id]);
     }
 }
