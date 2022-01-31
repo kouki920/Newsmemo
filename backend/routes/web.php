@@ -75,7 +75,7 @@ Route::prefix('collections')->name('collections.')->middleware('auth')->group(fu
     Route::get('/{collection}/edit', 'CollectionController@edit')->name('edit');
     Route::patch('/{collection}/update/{id}', 'CollectionController@update')->name('update');
     Route::delete('/{collection}/destroy/{id}', 'CollectionController@destroy')->name('destroy');
-    Route::delete('/{collection}/{article}/destroy/{id}', 'CollectionController@articleCollectionDestroy')->name('article_collection_destroy');
+    Route::delete('/{collection}/{article}/destroy/{id}', 'CollectionController@destroyArticleInCollection')->name('article_collection_destroy');
     Route::get('/{name}/{id}', 'CollectionController@show')->name('show');
 });
 
