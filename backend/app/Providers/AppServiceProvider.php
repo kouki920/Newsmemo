@@ -18,6 +18,10 @@ use App\Services\Collection\CollectionService;
 use App\Services\Collection\CollectionServiceInterface;
 use App\Repositories\Collection\CollectionRepository;
 use App\Repositories\Collection\CollectionRepositoryInterface;
+use App\Services\Contact\ContactService;
+use App\Services\Contact\ContactServiceInterface;
+use App\Repositories\Contact\ContactRepository;
+use App\Repositories\Contact\ContactRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -39,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(NewsLinkRepositoryInterface::class, NewsLinkRepository::class);
         $this->app->bind(CollectionServiceInterface::class, CollectionService::class);
         $this->app->bind(CollectionRepositoryInterface::class, CollectionRepository::class);
+        $this->app->bind(ContactServiceInterface::class, ContactService::class);
+        $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
     }
 
     /**
