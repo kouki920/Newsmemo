@@ -5,10 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Http\Requests\Contact\ConfirmRequest;
 use App\Http\Requests\Contact\SendRequest;
+use App\Services\Contact\ContactServiceInterface;
 use Illuminate\Http\RedirectResponse;
 
 class ContactController extends Controller
 {
+    private ContactServiceInterface $contactService;
+
+    public function __construct(
+        ContactServiceInterface $contactService
+    ) {
+        $this->contactService = $contactService;
+    }
+
     /**
      * お問い合わせフォームを表示
      *
@@ -44,10 +53,11 @@ class ContactController extends Controller
     {
         // 確認画面でクリックしたボタン(name="contact")のvalue値を判断する
         $contactValue = $request->input('contact', 'back');
+        $contactRecord = $request->validated();
 
         if ($contactValue === 'submit') {
-            $contact->user_id = $request->user()->id;
-            $contact->fill($request->validated())->save();
+
+            $this->contactService->send($contact, $contactRecord);
 
             return redirect()->route('contacts.complete', ['id' => $request->user()->id]);
         } else {

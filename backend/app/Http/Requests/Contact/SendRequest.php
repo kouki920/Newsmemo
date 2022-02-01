@@ -24,10 +24,22 @@ class SendRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'required | integer',
             'gender' =>  'required',
             'age' => 'required |integer | max:90',
             'email' => 'required | email | string | max:255',
             'content' => 'required | max:700',
         ];
+    }
+
+    /**
+     * バリデーションする前に実行させる
+     * userのidをmergeする
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'user_id' => auth()->id()
+        ]);
     }
 }
