@@ -25,8 +25,20 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'required | integer',
             'body' => 'required | string | max:255',
         ];
+    }
+
+    /**
+     * バリデーションする前に実行させる
+     * userのidをmergeする
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'user_id' => auth()->id()
+        ]);
     }
 
     /**

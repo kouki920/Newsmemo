@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Repositories\User\UserRepositoryInterface;
 
 class FollowController extends Controller
 {
+    private UserRepositoryInterface $userRepository;
+
+    public function __construct(
+        User $user,
+        UserRepositoryInterface $userRepository
+    ) {
+        $this->user = $user;
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * フォローするメソッド
      * $request->user()で、リクエストを行なったユーザーのユーザーモデルを返しfollowings()を使いフォローする
@@ -19,7 +30,7 @@ class FollowController extends Controller
     public function follow(Request $request, User $user, string $name)
     {
         // ユーザーデータをname指定で取得(フォローされる側)
-        $user = $user->getLoginUserData($name);
+        $user = $this->userRepository->getLoginUserData($user, $name);
 
         // 取得したuserデータのidとリクエスト側のログインユーザーのidが一致した場合、エラーページを表示させる
         if ($user->id === $request->user()->id) {
@@ -50,7 +61,7 @@ class FollowController extends Controller
     public function unfollow(Request $request, User $user, string $name)
     {
         // ユーザーデータをname指定で取得
-        $user = $user->getLoginUserData($name);
+        $user = $this->userRepository->getLoginUserData($user, $name);
 
         // 取得したuserデータのidとリクエスト側のログインユーザーのidが一致した場合、エラーページを表示させる
         if ($user->id === $request->user()->id) {

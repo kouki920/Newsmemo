@@ -22,6 +22,12 @@ use App\Services\Contact\ContactService;
 use App\Services\Contact\ContactServiceInterface;
 use App\Repositories\Contact\ContactRepository;
 use App\Repositories\Contact\ContactRepositoryInterface;
+use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Services\Memo\MemoService;
+use App\Services\Memo\MemoServiceInterface;
+use App\Repositories\Memo\MemoRepository;
+use App\Repositories\Memo\MemoRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -45,6 +51,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CollectionRepositoryInterface::class, CollectionRepository::class);
         $this->app->bind(ContactServiceInterface::class, ContactService::class);
         $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(MemoServiceInterface::class, MemoService::class);
+        $this->app->bind(MemoRepositoryInterface::class, MemoRepository::class);
     }
 
     /**

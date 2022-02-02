@@ -6,10 +6,19 @@ use App\Http\Requests\Memo\StoreRequest;
 use App\Http\Requests\Memo\UpdateRequest;
 use App\Models\Article;
 use App\Models\Memo;
+use App\Repositories\Memo\MemoRepositoryInterface;
+use App\Services\Memo\MemoServiceInterface;
 use Illuminate\Http\RedirectResponse;
 
 class MemoController extends Controller
 {
+    private MemoServiceInterface $memoService;
+
+    public function __construct(
+        MemoServiceInterface $memoService
+    ) {
+        $this->memoService = $memoService;
+    }
 
     /**
      * マインドマップの登録
@@ -24,6 +33,9 @@ class MemoController extends Controller
         $memo->user_id = $request->user()->id;
         $memo->article_id = $request->article_id;
         $memo->fill($request->validated())->save();
+
+        // $memoRecord = $request->validated();
+        // $this->memoService->store($request, $memo, $memoRecord);
 
         return redirect()->route('articles.show', compact('article'))->with('msg_success', __('app.memo_store'));
     }
