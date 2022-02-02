@@ -35,18 +35,18 @@ class MemoStoreRequestTest extends TestCase
     {
         return [
             'OK' => [
-                ['body'],
-                ['test'],
+                ['user_id', 'body'],
+                ['1', 'test'],
                 true
             ],
             '文字数エラー' => [
-                ['body'],
-                [str_repeat('a', 256)],
+                ['user_id', 'body'],
+                ['1', str_repeat('a', 256)],
                 false
             ],
             '未入力エラー' => [
-                ['body'],
-                [null],
+                ['user_id', 'body'],
+                ['1', null],
                 false
             ]
         ];
