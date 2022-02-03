@@ -3,6 +3,7 @@
 namespace App\Services\Tag;
 
 use App\Models\Article;
+use App\Models\Tag;
 use App\Repositories\Tag\TagRepositoryInterface;
 use Illuminate\Support\Collection;
 
@@ -39,5 +40,32 @@ class TagService implements TagServiceInterface
         return $article->tags->map(function ($tag) {
             return ['text' => $tag->name];
         });
+    }
+
+    /**
+     * タグ名指定でデータを取得する
+     *
+     * @param \App\Models\Tag $tag
+     * @param string $name
+     * @return object
+     */
+    public function getTagData(Tag $tag, string $name)
+    {
+        $tag = $this->tagRepository->getTagData($tag, $name);
+
+        return $tag;
+    }
+
+    /**
+     * タグに属するメモデータを取得
+     *
+     * @param \App\Models\Tag $tag
+     * @return array
+     */
+    public function getTagArticle(Tag $tag)
+    {
+        $articles = $this->tagRepository->getTagArticle($tag);
+
+        return $articles;
     }
 }

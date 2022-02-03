@@ -102,7 +102,7 @@ class ArticleController extends Controller
         $articleRecord = $request->validated();
         $tags = $request->tags;
 
-        $this->articleService->store($article, $articleRecord, $tags);
+        $this->articleService->store($articleRecord, $tags);
 
         return redirect()->route('articles.index')->with('msg_success', __('app.article_store'));
     }

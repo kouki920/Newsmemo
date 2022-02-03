@@ -28,4 +28,8 @@ interface TagRepositoryInterface
      * @return Collection
      */
     public function getMainTags(): Collection;
+
+    public function getTagData(Tag $tag, string $name);
+
+    public function getTagArticle(Tag $tag);
 }

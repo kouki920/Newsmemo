@@ -27,15 +27,4 @@ class UpdateRequest extends FormRequest
             'body' => 'required | string | max:255',
         ];
     }
-
-    /**
-     * 保存対象となるarticleデータのidをarticle_id指定で取得
-     */
-    public function getArticleData($request)
-    {
-        if (isset($request->article_id)) {
-            $article = $request->article_id;
-            return $article;
-        }
-    }
 }
