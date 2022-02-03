@@ -20,14 +20,33 @@ class MemoRepository implements MemoRepositoryInterface
     /**
      * マインドマップの登録
      *
-     * @param \App\Http\Requests\Memo\StoreRequest $request
-     * @param \App\Models\Memo $memo
-     * @param \App\Models\Article $article
-     * @return Illuminate\Http\RedirectResponse
+     * @param array $memoRecord
+     * @param int $articleId
      */
-    public function store($memo, $request, $memoRecord)
+    public function store(array $memoRecord, int $articleId)
     {
-        $memo->article_id = $request->article_id;
+        $this->memo->article_id = $articleId;
+        $this->memo->fill($memoRecord)->save();
+    }
+
+    /**
+     * マインドマップの更新
+     *
+     * @param \App\Models\Memo $memo
+     * @param array $memoRecord
+     */
+    public function update(Memo $memo, array $memoRecord)
+    {
         $memo->fill($memoRecord)->save();
+    }
+
+    /**
+     * マインドマップの削除
+     *
+     * @param \App\Models\Memo $memo
+     */
+    public function delete(Memo $memo)
+    {
+        $memo->delete();
     }
 }

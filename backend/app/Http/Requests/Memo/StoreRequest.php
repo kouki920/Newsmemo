@@ -40,12 +40,4 @@ class StoreRequest extends FormRequest
             'user_id' => auth()->id()
         ]);
     }
-
-    /**
-     * 保存対象となるarticleデータのidをarticle_id指定で取得
-     */
-    public function getArticleId($request): int
-    {
-        return (isset($request->article_id)) ? $request->article_id : abort('404', 'Could not find article_id.');
-    }
 }

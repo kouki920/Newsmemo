@@ -24,7 +24,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      * @param \App\Models\Article $article
      * @param array $articleRecord
      */
-    public function store(Article $article, array $articleRecord)
+    public function store(array $articleRecord)
     {
         $article = $this->article->create($articleRecord);
 
@@ -156,10 +156,10 @@ class ArticleRepository implements ArticleRepositoryInterface
      *
      * @param array $articleRecord
      */
-    public function registerNewsLink($articleData, array $articleRecord): void
+    public function registerNewsLink(Article $article, array $articleRecord): void
     {
-        $articleData->newsLink()->create([
-            'article_id' => $articleData['id'],
+        $article->newsLink()->create([
+            'article_id' => $article['id'],
             'url' => $articleRecord['url'],
             'news' => $articleRecord['news'],
         ]);

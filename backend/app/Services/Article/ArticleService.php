@@ -22,18 +22,17 @@ class ArticleService implements ArticleServiceInterface
      * 外部API(NEW API)で取得したnewsへのリンク先とタイトルをnews_linksテーブルに保存
      * 投稿に関するタグの登録、投稿とタグの紐付けを実行
      *
-     * @param \App\Http\Requests\Article\StoreRequest $request
-     * @param \App\Models\Article $article
      * @param array $articleRecord
+     * @param \Illuminate\Support\Collection $tags
      */
-    public function store(Article $article, array $articleRecord, Collection $tags)
+    public function store(array $articleRecord, Collection $tags)
     {
-        $articleData = $this->articleRepository->store($article, $articleRecord);
+        $article = $this->articleRepository->store($articleRecord);
 
         // タグの登録、投稿とタグの紐付けを実行
         $this->articleRepository->attachTags($article, $tags);
 
-        $this->articleRepository->registerNewsLink($articleData, $articleRecord);
+        $this->articleRepository->registerNewsLink($article, $articleRecord);
     }
 
 

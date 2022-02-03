@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 interface ArticleServiceInterface
 {
-    public function store(Article $article, array $articleRecord, Collection $tags);
+    public function store(array $articleRecord, Collection $tags);
 
     public function update(Article $article, array $articleRecord, Collection $tags);
 

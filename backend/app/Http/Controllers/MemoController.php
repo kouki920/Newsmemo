@@ -28,14 +28,12 @@ class MemoController extends Controller
      * @param \App\Models\Article $article
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store(StoreRequest $request, Memo $memo, Article $article): RedirectResponse
+    public function store(StoreRequest $request, Article $article): RedirectResponse
     {
-        $memo->user_id = $request->user()->id;
-        $memo->article_id = $request->article_id;
-        $memo->fill($request->validated())->save();
+        $articleId = $request->article_id;
+        $memoRecord = $request->validated();
 
-        // $memoRecord = $request->validated();
-        // $this->memoService->store($request, $memo, $memoRecord);
+        $this->memoService->store($memoRecord, $articleId);
 
         return redirect()->route('articles.show', compact('article'))->with('msg_success', __('app.memo_store'));
     }
@@ -63,7 +61,9 @@ class MemoController extends Controller
      */
     public function update(UpdateRequest $request, Memo $memo, Article $article): RedirectResponse
     {
-        $memo->fill($request->validated())->save();
+        $memoRecord = $request->validated();
+
+        $this->memoService->update($memo, $memoRecord);
 
         return redirect()->route('articles.show', compact('article'))->with('msg_success', __('app.memo_update'));
     }
@@ -76,7 +76,7 @@ class MemoController extends Controller
      */
     public function destroy(Memo $memo): RedirectResponse
     {
-        $memo->delete();
+        $this->memoService->delete($memo);
 
         return back()->with('msg_success', __('app.memo_delete'));
     }

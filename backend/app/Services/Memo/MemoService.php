@@ -16,8 +16,35 @@ class MemoService implements MemoServiceInterface
         $this->memoRepository = $memoRepository;
     }
 
-    public function store($memo, $request, $memoRecord)
+    /**
+     * マインドマップの登録
+     *
+     * @param array $memoRecord
+     * @param int $articleId
+     */
+    public function store(array $memoRecord, int $articleId)
     {
-        $this->memoRepository->store($memo, $request, $memoRecord);
+        $this->memoRepository->store($memoRecord, $articleId);
+    }
+
+    /**
+     * マインドマップの更新
+     *
+     * @param \App\Models\Memo $memo
+     * @param array $memoRecord
+     */
+    public function update(Memo $memo, array $memoRecord)
+    {
+        $this->memoRepository->update($memo, $memoRecord);
+    }
+
+    /**
+     * マインドマップの削除
+     *
+     * @param \App\Models\Memo $memo
+     */
+    public function delete(Memo $memo)
+    {
+        $this->memoRepository->delete($memo);
     }
 }
