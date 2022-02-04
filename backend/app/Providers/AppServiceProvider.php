@@ -24,10 +24,16 @@ use App\Repositories\Contact\ContactRepository;
 use App\Repositories\Contact\ContactRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Services\User\UserService;
+use App\Services\User\UserServiceInterface;
 use App\Services\Memo\MemoService;
 use App\Services\Memo\MemoServiceInterface;
 use App\Repositories\Memo\MemoRepository;
 use App\Repositories\Memo\MemoRepositoryInterface;
+use App\Services\API\CovidNewsService;
+use App\Services\API\CovidNewsServiceInterface;
+use App\Services\API\HeadlineNewsService;
+use App\Services\API\HeadlineNewsServiceInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -52,8 +58,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ContactServiceInterface::class, ContactService::class);
         $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(MemoServiceInterface::class, MemoService::class);
         $this->app->bind(MemoRepositoryInterface::class, MemoRepository::class);
+        $this->app->bind(CovidNewsServiceInterface::class, CovidNewsService::class);
+        $this->app->bind(HeadlineNewsServiceInterface::class, HeadlineNewsService::class);
     }
 
     /**

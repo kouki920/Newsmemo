@@ -7,6 +7,8 @@ use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\Article;
 use App\Models\User;
 use App\Models\NewsLink;
+use App\Services\User\UserServiceInterface;
+use App\Services\Article\ArticleServiceInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,15 +17,21 @@ class UserController extends Controller
     private User $user;
     private Article $article;
     private NewsLink $news_link;
+    private UserServiceInterface $userService;
+    private ArticleServiceInterface $articleService;
 
     public function __construct(
         User $user,
         Article $article,
-        NewsLink $news_link
+        NewsLink $news_link,
+        UserServiceInterface $userService,
+        ArticleServiceInterface $articleService
     ) {
         $this->user = $user;
         $this->article = $article;
         $this->news_link = $news_link;
+        $this->userService = $userService;
+        $this->articleService = $articleService;
     }
 
     /**
@@ -32,13 +40,13 @@ class UserController extends Controller
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function show(string $name)
+    public function show(User $user, string $name)
     {
         // ログインユーザーの情報を取得
-        $user = $this->user->getUserAndArticleData($name);
+        $user = $this->userService->getUserAndArticleData($name);
 
         // 取得したユーザーデータをもとにユーザーの投稿データを取得
-        $articles = $user->getUserArticleData();
+        $articles = $this->userService->getUserArticleData($user);
 
         // ログインユーザーが使用したタグデータを取得
         $recentTags = $this->article->getRecentTags($user->id);
@@ -55,7 +63,7 @@ class UserController extends Controller
     public function edit(string $name)
     {
         // ログインユーザーの情報を取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -73,12 +81,15 @@ class UserController extends Controller
     public function update(UpdateRequest $request, string $name): RedirectResponse
     {
         // ログインユーザーの情報を取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
 
-        $user->fill($request->validated())->save();
+        $userRecord = $request->validated();
+
+        // ユーザーデータの更新
+        $this->userService->update($user, $userRecord);
 
         return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', __('app.user_update'));
     }
@@ -92,7 +103,7 @@ class UserController extends Controller
     public function imageEdit(string $name)
     {
         // ログインユーザーの情報を取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -110,7 +121,7 @@ class UserController extends Controller
     public function imageUpdate(UpdateRequest $request, string $name): RedirectResponse
     {
         // ログインユーザーの情報を取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -135,7 +146,7 @@ class UserController extends Controller
     public function follower(string $name)
     {
         // ログインユーザーのデータを取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // 取得したユーザーデータを利用してフォロワーデータを取得
         $followers = $user->getFollowerOfUser();
@@ -152,7 +163,7 @@ class UserController extends Controller
     public function following(string $name)
     {
         // ログインユーザーのデータを取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // 取得したユーザーデータを利用してフォローデータを取得
         $followings = $user->getFollowingOfUser();
@@ -175,7 +186,7 @@ class UserController extends Controller
         $articles = $user->getUserLikedArticleData();
 
         // 最近使用したタグデータを取得
-        $recentTags = $this->article->getRecentTags($user->id);
+        $recentTags = $this->articleService->getRecentTags($user->id);
 
         return view('users.likes', compact('user', 'articles', 'recentTags'));
     }
@@ -189,7 +200,7 @@ class UserController extends Controller
     public function userData(string $name)
     {
         // ログインユーザーのデータを取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // 取得したユーザーの投稿数の合計を取得(アクセサの使用)
         $articles_count = $user->count_article;
@@ -221,7 +232,7 @@ class UserController extends Controller
     public function editPassword(string $name)
     {
         // ログインユーザーのデータを取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -239,7 +250,7 @@ class UserController extends Controller
     public function updatePassword(UpdatePasswordRequest $request, string $name): RedirectResponse
     {
         // ログインユーザーのデータを取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
@@ -259,7 +270,7 @@ class UserController extends Controller
     public function destroy(string $name): RedirectResponse
     {
         // ログインユーザーのデータを取得
-        $user = $this->user->getLoginUserData($name);
+        $user = $this->userService->getLoginUserData($name);
 
         // UserPolicyのdeleteメソッドでアクセス制限
         $this->authorize('delete', $user);

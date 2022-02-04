@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\NEWSAPI;
 
 use App\Http\Requests\Api\CovidCustomRequest;
+use App\Services\API\CovidNewsServiceInterface;
 use App\Http\Controllers\Controller;
-use App\Services\CovidNewsService;
 
 class CovidNewsController extends Controller
 {
-    private CovidNewsService $covidNewsService;
+    private CovidNewsServiceInterface $covidNewsService;
 
     public function __construct(
-        CovidNewsService $covidNewsService
+        CovidNewsServiceInterface $covidNewsService
     ) {
         $this->covidNewsService = $covidNewsService;
     }

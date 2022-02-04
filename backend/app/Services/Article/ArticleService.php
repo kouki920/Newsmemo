@@ -90,4 +90,14 @@ class ArticleService implements ArticleServiceInterface
     {
         return $this->articleRepository->getMemoData($article);
     }
+
+    /**
+     * 最近使用したタグを取得する
+     *
+     * @param int $id
+     */
+    public function getRecentTags($id)
+    {
+        return $this->articleRepository->getRecentTags($id);
+    }
 }

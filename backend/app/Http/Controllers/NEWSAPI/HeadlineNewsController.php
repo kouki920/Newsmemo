@@ -4,14 +4,14 @@ namespace App\Http\Controllers\NEWSAPI;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\HeadlineCustomRequest;
-use App\Services\HeadlineNewsService;
+use App\Services\API\HeadlineNewsServiceInterface;
 
 class HeadlineNewsController extends Controller
 {
-    private HeadlineNewsService $headlineNewsService;
+    private HeadlineNewsServiceInterface $headlineNewsService;
 
     public function __construct(
-        HeadlineNewsService $headlineNewsService
+        HeadlineNewsServiceInterface $headlineNewsService
     ) {
         $this->headlineNewsService = $headlineNewsService;
     }

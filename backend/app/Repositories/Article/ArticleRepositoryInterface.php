@@ -22,4 +22,6 @@ interface ArticleRepositoryInterface
     public function registerNewsLink(Article $article, array $articleRecord): void;
 
     public function getMemoData(Article $article);
+
+    public function getRecentTags($id);
 }
