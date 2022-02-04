@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\API;
 
 use App\Http\Requests\Api\CovidCustomRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
 
-class CovidNewsService
+class CovidNewsService implements CovidNewsServiceInterface
 {
     /**
      * NEWSAPI(外部API)を利用してニュースデータを取得

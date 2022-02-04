@@ -18,4 +18,6 @@ interface ArticleServiceInterface
     public function getArticleIndex(Article $article, $request);
 
     public function getMemoData(Article $article);
+
+    public function getRecentTags($id);
 }

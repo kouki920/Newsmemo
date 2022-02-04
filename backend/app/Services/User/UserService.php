@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Services\User;
 
-use App\Models\Article;
 use App\Models\User;
 use App\Http\Requests\User\UpdateRequest;
-use Carbon\CarbonImmutable as Carbon;
-use Illuminate\Database\Eloquent\Collection;
+use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Support\Collection;
 
-class UserRepository implements UserRepositoryInterface
+class UserService implements UserServiceInterface
 {
-    private User $user;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct(User $user)
-    {
-        $this->user = $user;
+    public function __construct(
+        UserRepositoryInterface $userRepository
+    ) {
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -26,8 +26,9 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getLoginUserData(string $name)
     {
-        return $this->user->where('name', $name)->first();
+        return $this->userRepository->getLoginUserData($name);
     }
+
 
     /**
      * ユーザーの投稿を10件ごとに取得
@@ -36,7 +37,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getUserArticleData(User $user)
     {
-        return $user->articles->sortByDesc('created_at')->paginate(10);
+        return $this->userRepository->getUserArticleData($user);
     }
 
     /**
@@ -48,7 +49,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getUserAndArticleData(string $name)
     {
-        return $this->user->with(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink'])->where('name', $name)->first();
+        return $this->userRepository->getUserAndArticleData($name);
     }
 
     /**
@@ -59,6 +60,6 @@ class UserRepository implements UserRepositoryInterface
      */
     public function update(User $user, array $userRecord)
     {
-        $user->fill($userRecord)->save();
+        $this->userRepository->update($user, $userRecord);
     }
 }

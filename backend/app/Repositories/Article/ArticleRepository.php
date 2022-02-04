@@ -174,4 +174,29 @@ class ArticleRepository implements ArticleRepositoryInterface
     {
         return $article->memos()->where('article_id', $article->id)->oldest()->get();
     }
+
+    /**
+     * 各投稿データにあるタグ情報を使いユーザが最近使用したタグを表示させる
+     * 投稿に紐づくタグデータを最新順で5件分のみ取得
+     * articlesのリレーション先であるtagsのnameデータ配列が欲しいのでforeachの繰り返し処理で配列を作成
+     * array_unique()で配列の重複データを除外
+     *
+     * @param  int $id
+     * @return array
+     */
+    public function getRecentTags($id)
+    {
+        $articles = $this->article->with('tags')
+            ->where('user_id', $id)
+            ->latest()->take(5)->get();
+
+        $recentTags = [];
+        foreach ($articles as $article) {
+            foreach ($article->tags as $tag) {
+                $recentTags[] = $tag->name;
+            }
+        }
+
+        return array_unique($recentTags);
+    }
 }

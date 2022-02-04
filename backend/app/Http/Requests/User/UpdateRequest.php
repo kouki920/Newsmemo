@@ -38,6 +38,7 @@ class UpdateRequest extends FormRequest
             ];
         }
     }
+
     /**
      * 更新対象となる画像を代入
      */

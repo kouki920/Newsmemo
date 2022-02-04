@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Services\User;
 
-use App\Models\Article;
 use App\Models\User;
 use App\Http\Requests\User\UpdateRequest;
-use Exception;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
-interface UserRepositoryInterface
+interface UserServiceInterface
 {
     public function getLoginUserData(string $name);
 

@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Repositories\User\UserRepositoryInterface;
+use App\Services\User\UserServiceInterface;
 
 class FollowController extends Controller
 {
-    private UserRepositoryInterface $userRepository;
+    private UserServiceInterface $userService;
 
     public function __construct(
         User $user,
-        UserRepositoryInterface $userRepository
+        UserServiceInterface $userService
     ) {
         $this->user = $user;
-        $this->userRepository = $userRepository;
+        $this->userService = $userService;
     }
 
     /**
@@ -29,8 +29,8 @@ class FollowController extends Controller
      */
     public function follow(Request $request, User $user, string $name)
     {
-        // ユーザーデータをname指定で取得(フォローされる側)
-        $user = $this->userRepository->getLoginUserData($user, $name);
+        // ユーザーデータをname指定で取得
+        $user = $this->userService->getLoginUserData($name);
 
         // 取得したuserデータのidとリクエスト側のログインユーザーのidが一致した場合、エラーページを表示させる
         if ($user->id === $request->user()->id) {
@@ -61,7 +61,7 @@ class FollowController extends Controller
     public function unfollow(Request $request, User $user, string $name)
     {
         // ユーザーデータをname指定で取得
-        $user = $this->userRepository->getLoginUserData($user, $name);
+        $user = $this->userService->getLoginUserData($name);
 
         // 取得したuserデータのidとリクエスト側のログインユーザーのidが一致した場合、エラーページを表示させる
         if ($user->id === $request->user()->id) {
