@@ -9,8 +9,9 @@ use App\Models\User;
 use App\Models\NewsLink;
 use App\Services\User\UserServiceInterface;
 use App\Services\Article\ArticleServiceInterface;
+use App\Services\NewsLink\NewsLinkService;
+use App\Services\NewsLink\NewsLinkServiceInterface;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -19,24 +20,28 @@ class UserController extends Controller
     private NewsLink $news_link;
     private UserServiceInterface $userService;
     private ArticleServiceInterface $articleService;
+    private NewsLinkServiceInterface $newsLinkService;
 
     public function __construct(
         User $user,
         Article $article,
         NewsLink $news_link,
         UserServiceInterface $userService,
-        ArticleServiceInterface $articleService
+        ArticleServiceInterface $articleService,
+        NewsLinkServiceInterface $newsLinkService
     ) {
         $this->user = $user;
         $this->article = $article;
         $this->news_link = $news_link;
         $this->userService = $userService;
         $this->articleService = $articleService;
+        $this->newsLinkService = $newsLinkService;
     }
 
     /**
      * ユーザー詳細画面(プロフィール)を表示
      *
+     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
@@ -48,8 +53,8 @@ class UserController extends Controller
         // 取得したユーザーデータをもとにユーザーの投稿データを取得
         $articles = $this->userService->getUserArticleData($user);
 
-        // ログインユーザーが使用したタグデータを取得
-        $recentTags = $this->article->getRecentTags($user->id);
+        // ログインユーザーが最近使用したタグデータを取得
+        $recentTags = $this->userService->getRecentTags($user);
 
         return view('users.show', compact('user', 'articles', 'recentTags'));
     }
@@ -149,7 +154,7 @@ class UserController extends Controller
         $user = $this->userService->getLoginUserData($name);
 
         // 取得したユーザーデータを利用してフォロワーデータを取得
-        $followers = $user->getFollowerOfUser();
+        $followers = $this->userService->getFollowerOfUser($user);
 
         return view('users.follower', compact('user', 'followers'));
     }
@@ -166,7 +171,7 @@ class UserController extends Controller
         $user = $this->userService->getLoginUserData($name);
 
         // 取得したユーザーデータを利用してフォローデータを取得
-        $followings = $user->getFollowingOfUser();
+        $followings = $this->userService->getFollowingOfUser($user);
 
         return view('users.following', compact('user', 'followings'));
     }
@@ -180,13 +185,13 @@ class UserController extends Controller
     public function likes(string $name)
     {
         // ログインユーザーのデータを取得(+いいねに関するデータ)
-        $user = $this->user->getUserLikedData($name);
+        $user = $this->userService->getUserLikedData($name);
 
         // いいねに関する投稿データを取得
-        $articles = $user->getUserLikedArticleData();
+        $articles = $this->userService->getUserLikedArticleData($user);
 
         // 最近使用したタグデータを取得
-        $recentTags = $this->articleService->getRecentTags($user->id);
+        $recentTags = $this->userService->getRecentTags($user);
 
         return view('users.likes', compact('user', 'articles', 'recentTags'));
     }
@@ -195,30 +200,32 @@ class UserController extends Controller
      * ユーザーデータを表示
      *
      * @param string $name
+     * @param \App\Models\NewsLink $newsLink
+     * @param \App\Models\Article $article
      * @return Illuminate\View\View
      */
-    public function userData(string $name)
+    public function userData(string $name, NewsLink $newsLink, Article $article)
     {
         // ログインユーザーのデータを取得
         $user = $this->userService->getLoginUserData($name);
 
-        // 取得したユーザーの投稿数の合計を取得(アクセサの使用)
-        $articles_count = $user->count_article;
+        // 取得したユーザーの投稿数の合計を取得
+        $articles_count = $this->userService->getCountArticle($user);
 
         // 投稿ランキングデータを取得
-        $rankedArticles = $this->article->getArticleRanking();
+        $rankedArticles = $this->articleService->getArticleRanking($article);
 
         // ニュースランキングデータを取得
-        $rankedNews = $this->news_link->getNewsRanking();
+        $rankedNews = $this->newsLinkService->getNewsRanking($newsLink);
 
         // 最近使用したタグデータを取得
-        $recentTags = $this->article->getRecentTags($user->id);
+        $recentTags = $this->userService->getRecentTags($user);
 
-        // 投稿日数の累計データを取得(アクセサの使用)
-        $days_posted = $user->count_article_date;
+        // 投稿日数の累計データを取得
+        $days_posted = $this->userService->getCountArticleDate($user);
 
-        // ログインユーザーの最終ログイン日時を取得(アクセサの使用)
-        $last_login = $user->last_login_date;
+        // ログインユーザーの最終ログイン日時を取得
+        $last_login = $this->userService->getLastLoginDate($user);
 
         return view('users.data', compact('user', 'articles_count', 'recentTags', 'rankedArticles', 'rankedNews', 'days_posted', 'last_login'));
     }
@@ -255,7 +262,8 @@ class UserController extends Controller
         // UserPolicyのupdateメソッドでアクセス制限
         $this->authorize('update', $user);
 
-        $user->fill(['password' => Hash::make($request->input('new_password'))])->save();
+        // パスワードの更新
+        $this->userService->updateUserPassword($user, $request);
 
         return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', __('app.password_update'));
     }
@@ -276,9 +284,7 @@ class UserController extends Controller
         $this->authorize('delete', $user);
 
         // ゲストーユーザー以外を削除
-        if ($user->id != config('user.guest_user_id')) {
-            $user->delete();
-        }
+        $this->userService->destroy($user);
 
         return redirect('register')->with('msg_success', __('app.user_notification'));
     }

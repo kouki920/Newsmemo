@@ -253,7 +253,7 @@ class User extends Authenticatable
      */
     public function getLastLoginDateAttribute()
     {
-        if (!$this->last_login_at == null) {
+        if (isset($this->last_login_at)) {
             return $this->last_login_at->format('Y-m-d');
         }
     }
