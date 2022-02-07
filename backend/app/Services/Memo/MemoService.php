@@ -4,7 +4,6 @@ namespace App\Services\Memo;
 
 use App\Models\Memo;
 use App\Repositories\Memo\MemoRepositoryInterface;
-use Illuminate\Support\Collection;
 
 class MemoService implements MemoServiceInterface
 {

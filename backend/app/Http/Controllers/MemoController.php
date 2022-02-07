@@ -6,7 +6,6 @@ use App\Http\Requests\Memo\StoreRequest;
 use App\Http\Requests\Memo\UpdateRequest;
 use App\Models\Article;
 use App\Models\Memo;
-use App\Repositories\Memo\MemoRepositoryInterface;
 use App\Services\Memo\MemoServiceInterface;
 use Illuminate\Http\RedirectResponse;
 
@@ -24,7 +23,6 @@ class MemoController extends Controller
      * マインドマップの登録
      *
      * @param \App\Http\Requests\Memo\StoreRequest $request
-     * @param \App\Models\Memo $memo
      * @param \App\Models\Article $article
      * @return Illuminate\Http\RedirectResponse
      */

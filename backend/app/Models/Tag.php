@@ -25,38 +25,4 @@ class Tag extends Model
     {
         return '#' . $this->name;
     }
-
-    /**
-     * タグ名指定でデータを取得する
-     *
-     * @param string $name
-     * @return object
-     */
-    public function getTagData(string $name)
-    {
-        return $this->where('name', $name)->first();
-    }
-
-    /**
-     * タグに属するメモデータを取得
-     *
-     * @return array
-     */
-    public function getTagArticle()
-    {
-        return $this->articles->sortByDesc('created_at')->paginate(10);
-    }
-
-    /**
-     * タグ入力時に予測変換を表示させる
-     * Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
-     *
-     * @return array
-     */
-    public function getTagPredictiveConversionAttribute()
-    {
-        return $this->all()->map(function ($tag) {
-            return ['text' => $tag->name];
-        });
-    }
 }

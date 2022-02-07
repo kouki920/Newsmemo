@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Carbon\Carbon;
 
 class Article extends Model
 {
@@ -79,21 +78,6 @@ class Article extends Model
     }
 
     /**
-     * 一覧表示するためにarticlesテーブルからデータを取得する
-     * search()でscopeSearchを利用
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return array
-     */
-    public function getArticleIndex($request)
-    {
-        return $this->with(['user', 'likes', 'tags', 'newsLink'])
-            ->latest()
-            ->search($request->input('search'))
-            ->paginate(10);
-    }
-
-    /**
      * キーワード検索(クエリスコープ)
      * リレーション先のテーブル(news_linksのnewsカラム)を含めた検索
      *
@@ -114,65 +98,6 @@ class Article extends Model
     }
 
     /**
-     * 投稿のランキングデータの取得(過去30日間)
-     * withCount(リレーション名)でリレーション先のいいね数の合計を計算する
-     * リレーション先(likes)の合計値はリレーション関数名_countというkey名で取得できる
-     * ブックマークされた数(likes_count)が多い順にメモデータを取得する
-     *
-     * @return array
-     */
-    public function getArticleRanking()
-    {
-        // Carbonを利用し対象データの範囲を本日から30日間とする
-        $rankingPeriod = Carbon::today()->subDay(30);
-
-        return $this->withCount('likes')
-            ->orderBy('likes_count', 'desc')
-            ->whereDate('created_at', '>=', $rankingPeriod)
-            ->take(3)->get();
-    }
-
-    /**
-     * 各投稿データにあるタグ情報を使いユーザが最近使用したタグを表示させる
-     * 投稿に紐づくタグデータを最新順で5件分のみ取得
-     * articlesのリレーション先であるtagsのnameデータ配列が欲しいのでforeachの繰り返し処理で配列を作成
-     * array_unique()で配列の重複データを除外
-     *
-     * @param  int $id
-     * @return array
-     */
-    public function getRecentTags($id)
-    {
-        $articles = $this->with('tags')
-            ->where('user_id', $id)
-            ->latest()->take(5)->get();
-
-        $recentTags = [];
-        foreach ($articles as $article) {
-            foreach ($article->tags as $tag) {
-                $recentTags[] = $tag->name;
-            }
-        }
-
-        return array_unique($recentTags);
-    }
-
-    /**
-     * tagテーブルにあるデータをVue Tags Input形式に変換する
-     * Vue Tags Inputでは、タグ名に対しtextというキーが付いている形式['text' => 'タグ名']である必要がある
-     * tagのデータはcollection形式なので、mapメソッドを使用してコレクションであるarticleデータに関するtagデータを同様の連想配列に変換する繰り返し処理を実行させる(呼び出し元のコレクションは変更しない)
-     * optionalヘルパでオブジェクト(tag)のプロパティ(name)にアクセスする
-     *
-     * @return array
-     */
-    public function getChangeTagFormatAttribute()
-    {
-        return $this->tags->map(function ($tag) {
-            return ['text' => optional($tag)->name];
-        });
-    }
-
-    /**
      * created_atカラムのフォーマットを変更するアクセサ
      *
      * @return string
@@ -180,15 +105,5 @@ class Article extends Model
     public function getCreatedDateAttribute(): string
     {
         return $this->created_at->format('Y-m-d');
-    }
-
-    /**
-     * articleデータに付属するマインドマップ(アウトプット)を取得する
-     *
-     * @return array
-     */
-    public function getArticleMemo()
-    {
-        return $this->memos->where('article_id', $this->id)->sortBy('created_at');
     }
 }

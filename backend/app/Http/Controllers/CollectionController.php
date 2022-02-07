@@ -6,7 +6,6 @@ use App\Models\Article;
 use App\Models\Collection;
 use App\Http\Requests\Collection\StoreRequest;
 use App\Http\Requests\Collection\UpdateRequest;
-use App\Repositories\Collection\CollectionRepositoryInterface;
 use App\Services\Collection\CollectionServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +15,6 @@ class CollectionController extends Controller
     private CollectionServiceInterface $collectionService;
 
     public function __construct(
-        CollectionRepositoryInterface $collectionRepository,
         CollectionServiceInterface $collectionService
     ) {
         $this->collectionService = $collectionService;

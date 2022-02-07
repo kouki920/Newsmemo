@@ -21,7 +21,6 @@ class ArticleRepository implements ArticleRepositoryInterface
     /**
      * 投稿の登録
      *
-     * @param \App\Models\Article $article
      * @param array $articleRecord
      */
     public function store(array $articleRecord)
@@ -60,7 +59,7 @@ class ArticleRepository implements ArticleRepositoryInterface
 
     /**
      * 一覧表示するためにarticlesテーブルからデータを取得する
-     * search()でscopeSearchを利用
+     * search()でscopeSearch(ローカルスコープ)を利用
      *
      * @param \App\Models\Article $article
      * @param \Illuminate\Http\Request $request
@@ -72,26 +71,6 @@ class ArticleRepository implements ArticleRepositoryInterface
             ->latest()
             ->search($request->input('search'))
             ->paginate(10);
-    }
-
-    /**
-     * キーワード検索(クエリスコープ)
-     * リレーション先のテーブル(news_linksのnewsカラム)を含めた検索
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeSearch(Builder $query, $params)
-    {
-        if (!empty($params)) {
-            $query->whereIn('articles.id', function ($query) use ($params) {
-                $query->from('news_links')->select('news_links.article_id')
-                    ->where('news', 'like', '%' . $params . '%')
-                    ->orWhere('body', 'like', '%' . $params . '%');
-            });
-        }
-        return $query;
     }
 
     /**
@@ -113,7 +92,6 @@ class ArticleRepository implements ArticleRepositoryInterface
             ->whereDate('created_at', '>=', $rankingPeriod)
             ->take(3)->get();
     }
-
 
     /**
      * タグの登録と投稿・タグの紐付けを行う

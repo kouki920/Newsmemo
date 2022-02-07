@@ -41,6 +41,7 @@ class ArticleService implements ArticleServiceInterface
      *
      * @param \App\Models\Article $article
      * @param array $articleRecord
+     * @param \Illuminate\Support\Collection $tags
      */
     public function update(Article $article, array $articleRecord, Collection $tags)
     {
@@ -51,6 +52,8 @@ class ArticleService implements ArticleServiceInterface
 
     /**
      * 投稿の削除
+     *
+     * @param \App\Models\Article $article
      */
     public function delete(Article $article)
     {
@@ -73,6 +76,7 @@ class ArticleService implements ArticleServiceInterface
     /**
      * 投稿のランキングデータの取得(過去30日間)
      *
+     * @param \App\Models\Article $article
      * @return array
      */
     public function getArticleRanking(Article $article)

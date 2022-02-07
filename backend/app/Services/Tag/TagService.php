@@ -33,7 +33,9 @@ class TagService implements TagServiceInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Vue Tags Inputでは、タグ名に対しtextというキーが付いている必要があるのでmapメソッドを使用して同様の連想配列を作成
+     *
+     * @param \App\Models\Article $article
      */
     public function getTagNamesOfArticle(Article $article): Collection
     {
