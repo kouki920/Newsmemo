@@ -120,71 +120,6 @@ class User extends Authenticatable
     }
 
     /**
-     * ユーザーデータをname指定で取得
-     *
-     * @param string $name
-     * @return object
-     */
-    public function getLoginUserData(string $name)
-    {
-        return $this->where('name', $name)->first();
-    }
-
-    /**
-     * ユーザーデータをname指定で取得
-     * リレーションデータをwith()で取得
-     *
-     * @param string $name
-     * @return object
-     */
-    public function getUserAndArticleData(string $name)
-    {
-        return $this->with(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink'])->where('name', $name)->first();
-    }
-
-    /**
-     * ユーザーデータをname指定で取得(いいね欄の表示時)
-     * リレーションデータをwith()で取得
-     *
-     * @param string $name
-     * @return object
-     */
-    public function getUserLikedData(string $name)
-    {
-        return $this->with(['likes.user', 'likes.likes', 'likes.tags'])->where('name', $name)->first();
-    }
-
-    /**
-     * ユーザーの投稿を10件ごとに取得
-     *
-     * @return object
-     */
-    public function getUserArticleData()
-    {
-        return $this->articles->sortByDesc('created_at')->paginate(10);
-    }
-
-    /**
-     * ログインユーザーがいいねした投稿を10件ごとに取得
-     *
-     * @return array
-     */
-    public function getUserLikedArticleData()
-    {
-        return $this->likes->sortByDesc('created_at')->paginate(10);
-    }
-
-    /**
-     * 投稿数の合計をカウントするアクセサ
-     *
-     * @return int
-     */
-    public function getCountArticleAttribute(): int
-    {
-        return $this->articles()->count();
-    }
-
-    /**
      * フォロワー数をカウントするアクセサ
      *
      * @return int
@@ -221,22 +156,6 @@ class User extends Authenticatable
     }
 
     /**
-     * 特定のユーザーデータを利用してそのユーザーのフォロワーデータを取得
-     */
-    public function getFollowerOfUser()
-    {
-        return $this->followers->sortByDesc('created_at')->load('followers');
-    }
-
-    /**
-     * フォロー詳細画面の表示
-     */
-    public function getFollowingOfUser()
-    {
-        return $this->followings->sortByDesc('created_at')->load('followings');
-    }
-
-    /**
      * パスワードリセットに関するメソッドのオーバーライド
      *
      * @return void
@@ -244,27 +163,5 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordResetNotification($token, new BareMail()));
-    }
-
-    /**
-     * ユーザーの最終ログイン日時を文字列で取得
-     *
-     * @return string
-     */
-    public function getLastLoginDateAttribute()
-    {
-        if (isset($this->last_login_at)) {
-            return $this->last_login_at->format('Y-m-d');
-        }
-    }
-
-    /**
-     * 投稿日数の累計をカウントするアクセサ
-     *
-     * @return int
-     */
-    public function getCountArticleDateAttribute(): int
-    {
-        return $this->articles->groupBy('created_date')->count();
     }
 }

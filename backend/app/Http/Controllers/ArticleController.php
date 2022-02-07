@@ -5,37 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Repositories\Article\ArticleRepositoryInterface;
 use App\Services\Article\ArticleServiceInterface;
+use App\Http\Requests\Article\StoreRequest;
+use App\Http\Requests\Article\UpdateRequest;
 use App\Models\Tag;
 use App\Repositories\Tag\TagRepositoryInterface;
 use App\Services\Tag\TagServiceInterface;
 use App\Models\NewsLink;
-use App\Http\Requests\Article\StoreRequest;
-use App\Http\Requests\Article\UpdateRequest;
 use App\Services\NewsLink\NewsLinkServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
 class ArticleController extends Controller
 {
-    private ArticleRepositoryInterface $articleRepository;
-    private TagRepositoryInterface $tagRepository;
-
     private ArticleServiceInterface $articleService;
     private TagServiceInterface $tagService;
     private NewsLinkServiceInterface $newsLinkService;
 
     public function __construct(
-        ArticleRepositoryInterface $articleRepository,
-        TagRepositoryInterface $tagRepository,
         ArticleServiceInterface $articleService,
         TagServiceInterface $tagService,
         NewsLinkServiceInterface $newsLinkService
     ) {
         // ArticlePolicyの適用
         $this->authorizeResource(Article::class, 'article');
-
-        $this->articleRepository = $articleRepository;
-        $this->tagRepository = $tagRepository;
 
         $this->articleService = $articleService;
         $this->tagService = $tagService;
@@ -97,7 +89,7 @@ class ArticleController extends Controller
      * @param \App\Models\Article $article
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store(StoreRequest $request, Article $article): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         $articleRecord = $request->validated();
         $tags = $request->tags;

@@ -3,10 +3,6 @@
 namespace App\Repositories\Memo;
 
 use App\Models\Memo;
-use App\Models\Article;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
-use Carbon\Carbon;
 
 class MemoRepository implements MemoRepositoryInterface
 {

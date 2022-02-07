@@ -16,7 +16,6 @@ class UserRepository implements UserRepositoryInterface
         $this->user = $user;
     }
 
-
     /**
      * ユーザーデータの更新
      *
