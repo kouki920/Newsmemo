@@ -4,7 +4,6 @@ namespace App\Repositories\Article;
 
 use App\Models\Article;
 use App\Models\Tag;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 
