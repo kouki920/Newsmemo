@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', $collection->name)
+@section('title', 'コレクションの詳細')
 
 @section('content')
 
@@ -13,6 +13,6 @@
     @foreach($articles as $article)
     @include('collections.post')
     @endforeach
-    @include('tags.pagination')
+    @include('collections.pagination')
 </div>
 @endsection

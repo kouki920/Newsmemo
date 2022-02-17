@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Collection;
 
-use App\Models\Article;
+use App\Models\Collection;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class StoreRequest extends FormRequest
 {
@@ -30,15 +30,12 @@ class StoreRequest extends FormRequest
         ];
     }
 
-    public function attributes()
-    {
-        return [
-            'collections' => 'コレクション',
-        ];
-    }
-
     /**
      * JSON形式の文字列のままだとPHPで取り扱うことはできないので、json_decode関数で連想配列に変換
+     * 連想配列をcollect関数でコレクションに変換後、コレクションメソッドでデータを加工する
+     * sliceメソッドでタグの個数制限と、mapメソッドの繰り返し処理で登録するタグデータをタグ名('Example')のみの新しいコレクションとして作成する
+     * mapメソッドのクロージャの引数($requestTag)にはmapメソッドで利用するコレクションの要素が入る(フォームで入力したtagデータのコレクション形式)
+     * 結果的にmapメソッドの戻り値は、return $requestTag->textで['text' => 'Example',]に該当する['Example',]といったコレクションになる
      */
     public function passedValidation()
     {

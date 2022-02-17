@@ -6,38 +6,72 @@ use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Models\Article;
 use App\Models\User;
+use App\Models\NewsLink;
+use App\Services\User\UserServiceInterface;
+use App\Services\Article\ArticleServiceInterface;
+use App\Services\NewsLink\NewsLinkService;
+use App\Services\NewsLink\NewsLinkServiceInterface;
+use Illuminate\Http\RedirectResponse;
 
 class UserController extends Controller
 {
+    private User $user;
+    private Article $article;
+    private NewsLink $news_link;
+    private UserServiceInterface $userService;
+    private ArticleServiceInterface $articleService;
+    private NewsLinkServiceInterface $newsLinkService;
+
+    public function __construct(
+        User $user,
+        Article $article,
+        NewsLink $news_link,
+        UserServiceInterface $userService,
+        ArticleServiceInterface $articleService,
+        NewsLinkServiceInterface $newsLinkService
+    ) {
+        $this->user = $user;
+        $this->article = $article;
+        $this->news_link = $news_link;
+        $this->userService = $userService;
+        $this->articleService = $articleService;
+        $this->newsLinkService = $newsLinkService;
+    }
+
     /**
      * ユーザー詳細画面(プロフィール)を表示
      *
-     * @param \App\Models\Article $article
      * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function show(Article $article, User $user, string $name)
+    public function show(User $user, string $name)
     {
-        $user = $user->getUserData($name)->load(['articles.user', 'articles.likes', 'articles.tags', 'articles.newsLink']);
+        // ログインユーザーの情報を取得
+        $user = $this->userService->getUserAndArticleData($name);
 
-        $articles = $user->getUserArticleData();
+        // 取得したユーザーデータをもとにユーザーの投稿データを取得
+        $articles = $this->userService->getUserArticleData($user);
 
-        $total_category = $article->getTotalCategory($user->id);
+        // ログインユーザーが最近使用したタグデータを取得
+        $recentTags = $this->userService->getRecentTags($user);
 
-        return view('users.show', compact('user', 'articles', 'total_category'));
+        return view('users.show', compact('user', 'articles', 'recentTags'));
     }
 
     /**
      * ユーザデータの編集
      *
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function edit(User $user, string $name)
+    public function edit(string $name)
     {
-        $user = $user->getUserData($name);
+        // ログインユーザーの情報を取得
+        $user = $this->userService->getLoginUserData($name);
+
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
 
         return view('users.edit', compact('user'));
     }
@@ -46,28 +80,38 @@ class UserController extends Controller
      * ユーザデータの更新
      *
      * @param \App\Http\Requests\User\UserRequest $request
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, User $user, string $name)
+    public function update(UpdateRequest $request, string $name): RedirectResponse
     {
-        $user = $user->getUserData($name);
-        $user->fill($request->validated())->save();
+        // ログインユーザーの情報を取得
+        $user = $this->userService->getLoginUserData($name);
 
-        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールを編集しました');
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
+
+        $userRecord = $request->validated();
+
+        // ユーザーデータの更新
+        $this->userService->update($user, $userRecord);
+
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', __('app.user_update'));
     }
 
     /**
      * プロフィールアイコンの編集画面を表示
      *
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function imageEdit(User $user, string $name)
+    public function imageEdit(string $name)
     {
-        $user = $user->getUserData($name);
+        // ログインユーザーの情報を取得
+        $user = $this->userService->getLoginUserData($name);
+
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
 
         return view('users.image_edit', compact('user'));
     }
@@ -76,13 +120,16 @@ class UserController extends Controller
      * プロフィールアイコンの更新
      *
      * @param \App\Http\Requests\User\UserRequest $request
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\Http\RedirectResponse
      */
-    public function imageUpdate(UpdateRequest $request, User $user, string $name)
+    public function imageUpdate(UpdateRequest $request, string $name): RedirectResponse
     {
-        $user = $user->getUserData($name);
+        // ログインユーザーの情報を取得
+        $user = $this->userService->getLoginUserData($name);
+
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
 
         $image = $request->getImage($request);
 
@@ -92,22 +139,22 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'プロフィールアイコンを変更しました');
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', __('app.icon_update'));
     }
 
     /**
      * フォロワー詳細画面の表示
      *
-     * @param \App\Models\Article $article
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function follower(User $user, Article $article, string $name)
+    public function follower(string $name)
     {
-        $user = $user->getUserData($name)->load('followers.followers');
+        // ログインユーザーのデータを取得
+        $user = $this->userService->getLoginUserData($name);
 
-        $followers = $user->getUserFollower();
+        // 取得したユーザーデータを利用してフォロワーデータを取得
+        $followers = $this->userService->getFollowerOfUser($user);
 
         return view('users.follower', compact('user', 'followers'));
     }
@@ -115,16 +162,16 @@ class UserController extends Controller
     /**
      * フォロー詳細画面の表示
      *
-     * @param \App\Models\Article $article
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function following(User $user, Article $article, string $name)
+    public function following(string $name)
     {
-        $user = $user->getUserData($name)->load('followings.followers');
+        // ログインユーザーのデータを取得
+        $user = $this->userService->getLoginUserData($name);
 
-        $followings = $user->getUserFollowing();
+        // 取得したユーザーデータを利用してフォローデータを取得
+        $followings = $this->userService->getFollowingOfUser($user);
 
         return view('users.following', compact('user', 'followings'));
     }
@@ -132,95 +179,113 @@ class UserController extends Controller
     /**
      * いいねした投稿を一覧表示
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Article $article
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function likes(User $user, Article $article, string $name)
+    public function likes(string $name)
     {
-        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
+        // ログインユーザーのデータを取得(+いいねに関するデータ)
+        $user = $this->userService->getUserLikedData($name);
 
-        $articles = $user->getUserLikedArticleData();
+        // いいねに関する投稿データを取得
+        $articles = $this->userService->getUserLikedArticleData($user);
 
-        $articles_count = $user->getCountArticle();
+        // 最近使用したタグデータを取得
+        $recentTags = $this->userService->getRecentTags($user);
 
-        $total_category = $article->getTotalCategory($user->id);
-
-        return view('users.likes', compact('user', 'articles', 'total_category', 'articles_count'));
+        return view('users.likes', compact('user', 'articles', 'recentTags'));
     }
 
     /**
      * ユーザーデータを表示
      *
-     * @param \App\Models\User $user
+     * @param string $name
+     * @param \App\Models\NewsLink $newsLink
      * @param \App\Models\Article $article
      * @return Illuminate\View\View
      */
-    public function userData(User $user, Article $article, string $name)
+    public function userData(string $name, NewsLink $newsLink, Article $article)
     {
-        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
+        // ログインユーザーのデータを取得
+        $user = $this->userService->getLoginUserData($name);
 
-        $articles_count = $user->getCountArticle();
+        // 取得したユーザーの投稿数の合計を取得
+        $articles_count = $this->userService->getCountArticle($user);
 
-        $total_category = $article->getTotalCategory($user->id);
+        // 投稿ランキングデータを取得
+        $rankedArticles = $this->articleService->getArticleRanking($article);
 
-        $days_posted = $user->articles->groupBy('created_date')->count();
+        // ニュースランキングデータを取得
+        $rankedNews = $this->newsLinkService->getNewsRanking($newsLink);
 
-        $last_login = $user->last_login_date;
+        // 最近使用したタグデータを取得
+        $recentTags = $this->userService->getRecentTags($user);
 
-        return view('users.data', compact('user', 'articles_count', 'total_category', 'days_posted', 'last_login'));
+        // 投稿日数の累計データを取得
+        $days_posted = $this->userService->getCountArticleDate($user);
+
+        // ログインユーザーの最終ログイン日時を取得
+        $last_login = $this->userService->getLastLoginDate($user);
+
+        return view('users.data', compact('user', 'articles_count', 'recentTags', 'rankedArticles', 'rankedNews', 'days_posted', 'last_login'));
     }
 
     /**
      * パスワード変更
      *
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\View\View
      */
-    public function editPassword(User $user, string $name)
+    public function editPassword(string $name)
     {
-        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
+        // ログインユーザーのデータを取得
+        $user = $this->userService->getLoginUserData($name);
 
-        session()->flash('msg_success', 'パスワードを変更してください');
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
 
-        return view('users.password_edit', compact('user'));
+        return view('users.password_edit', compact('user'))->with('msg_success', __('app.password_notification'));
     }
 
     /**
      * パスワードの更新
      *
      * @param \App\Http\Requests\User\UpdatePasswordRequest $request
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\Http\RedirectResponse
      */
-    public function updatePassword(UpdatePasswordRequest $request, User $user, string $name)
+    public function updatePassword(UpdatePasswordRequest $request, string $name): RedirectResponse
     {
-        $user = $user->getUserData($name);
-        $user->password = bcrypt($request->get('new_password'));
-        $user->save();
+        // ログインユーザーのデータを取得
+        $user = $this->userService->getLoginUserData($name);
 
-        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', 'パスワードを変更しました');
+        // UserPolicyのupdateメソッドでアクセス制限
+        $this->authorize('update', $user);
+
+        // パスワードの更新
+        $this->userService->updateUserPassword($user, $request);
+
+        return redirect()->route('users.show', ['name' => $user->name])->with('msg_success', __('app.password_update'));
     }
 
 
     /**
      * ユーザーデータの削除(退会)
      *
-     * @param \App\Models\User $user
      * @param string $name
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(User $user, string $name)
+    public function destroy(string $name): RedirectResponse
     {
-        $user = $user->getUserData($name)->load(['likes.user', 'likes.likes', 'likes.tags']);
+        // ログインユーザーのデータを取得
+        $user = $this->userService->getLoginUserData($name);
 
-        if ($user->id != config('user.guest_user_id')) {
-            $user->delete();
-        }
+        // UserPolicyのdeleteメソッドでアクセス制限
+        $this->authorize('delete', $user);
 
-        return redirect('register')->with('msg_success', 'ユーザー登録をしてください');
+        // ゲストーユーザー以外を削除
+        $this->userService->destroy($user);
+
+        return redirect('register')->with('msg_success', __('app.user_notification'));
     }
 }

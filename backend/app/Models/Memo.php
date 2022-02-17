@@ -20,14 +20,4 @@ class Memo extends Model
     {
         return $this->belongsTo('App\Models\Article');
     }
-
-    /**
-     * memosテーブルからデータを取得
-     *
-     * @param int $id
-     */
-    public function getMemosData($id)
-    {
-        return $this->where('id', $id)->first();
-    }
 }

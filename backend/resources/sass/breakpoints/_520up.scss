@@ -24,39 +24,37 @@
 /****** ニュースレイアウト ******/
 .news-body{
 
-	.news-content{
-
-			.news-thumbnail{
-				width: 120px;
-				height: 120px;
-			}
+	&__content{
+		display: flex;
+		margin: 10px 10px;
+	}
+	&__thumbnail{
+		width: 120px;
+		height: 120px;
 	}
 }
 
 
 /****** ログイン画面 ******/
+.logo-body{
+	&__img{
+		width: 50%;
+		height: 50%;
+	}
+}
 .login-body{
-width: 490px;
-		.login-item{
+		max-width: 500px;
+		&__item{
 			margin: 20px 0px 0px;
 		}
 
-		.login-form{
+		&__form{
 			margin: 5px;
-
-			.login-form-content{
-				width: 300px;
-				margin: 10px 0px;
-				padding: 10px 4px;
-			}
 		}
-
-		.login-password-forget{
-			margin: 20px auto;
-
-			.login-password-forget-text{
-				text-decoration: none;
-			}
+		&__form-content{
+			width: 300px;
+			margin: 10px 0px;
+			padding: 10px 4px;
 		}
 
 		.login-button{
@@ -72,10 +70,17 @@ width: 490px;
 		}
 }
 
-/****** ログイン画面 ******/
-.login-body{
-	max-width: 500px;
+.app-function-body{
+	&__content{
+		width: 480px;
+		height: 380px;
+	}
+	&__image{
+		width: 480px;
+		height: 380px;
+	}
 }
+
 
 /****** パスワード変更画面 ******/
 .password-reset-body{
@@ -88,7 +93,7 @@ width: 490px;
 }
 
 /****** 設定画面 ******/
-.setting-index-body{
+.setting-body{
 	max-width: 500px;
 }
 
@@ -107,7 +112,7 @@ width: 490px;
 	max-width: 500px;
 }
 
-/*** ユーザー一覧表示 ***/
+/****** ユーザー一覧表示 ******/
 .follow-follower-body{
 	max-width: 500px;
 }
@@ -117,46 +122,48 @@ width: 490px;
 	max-width: 500px;
 }
 
-/*** 投稿フォーム ***/
+/****** ユーザーアイコン編集画面 ******/
+.user-image-edit-body{
+	max-width: 500px;
+}
+
+/****** 投稿フォーム ******/
 .article-create-body{
 	max-width: 500px;
 }
 
-/****** ユーザー登録画面 ******/
-.register-form-body{
-	max-width: 500px;
-
-	.register-name-body{
-	.register-name-form{
-		max-width: 400px;
-		}
-	}
-
-	.register-email-body{
-		.register-email-form{
-			max-width: 400px;
-			}
-		}
-
-		.register-password-body{
-			.register-password-form{
-				max-width: 400px;
-				}
-			}
-
-			.register-password-confirmation-body{
-				.register-password-confirmation-form{
-					max-width: 400px;
-					}
-				}
+/****** 投稿更新画面 ******/
+.article-edit-body{
+max-width: 500px;
 }
 
-/*** パスワードリセットメール画面 ***/
+/****** ユーザー登録画面 ******/
+.register-body{
+	max-width: 500px;
+
+	&__name-form{
+		max-width: 400px;
+	}
+
+	&__email-form{
+		max-width: 400px;
+	}
+
+	&__password-form{
+		max-width: 400px;
+	}
+
+	&__password-confirmation-form{
+		max-width: 400px;
+	}
+}
+
+/****** パスワードリセットメール画面 ******/
 .password-reset-email-body{
 	max-width: 500px;
 }
 
-/*** 新しいパスワード設定画面 ***/
-.password-new-setting-body{
+/****** 新しいパスワード設定画面 ******/
+.password-reset-body{
 	max-width: 500px;
 }

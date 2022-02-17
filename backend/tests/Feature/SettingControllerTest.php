@@ -21,7 +21,7 @@ class SettingControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->post(route('settings.index'));
+        $response = $this->actingAs($user)->get(route('settings.index'));
 
         $response->assertStatus(200)->assertViewIs('settings.index')
             ->assertSee('利用規約')

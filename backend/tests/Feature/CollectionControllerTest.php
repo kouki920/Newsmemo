@@ -26,7 +26,7 @@ class CollectionControllerTest extends TestCase
 
         $collection = factory(Collection::class)->create(['user_id' => $user->id]);
 
-        $response = $this->actingAs($user)->post(route('collections.index', ['id' => $user->id]));
+        $response = $this->actingAs($user)->get(route('collections.index', ['id' => $user->id]));
 
         $response->assertStatus(200)->assertViewIs('collections.index')->assertSee($collection->name);
     }
@@ -68,7 +68,7 @@ class CollectionControllerTest extends TestCase
             'name' => $data,
         ]);
 
-        $response->assertStatus(200)->assertViewIs('collections.index');
+        $response->assertRedirect(route('collections.index', ['id' => $user->id]));
     }
 
     /**
@@ -98,6 +98,6 @@ class CollectionControllerTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $response->assertStatus(200)->assertViewIs('collections.index');
+        $response->assertRedirect(route('collections.index', ['id' => $user->id]));
     }
 }

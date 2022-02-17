@@ -8,18 +8,18 @@
       <vue-tags-input
         v-model="collection"
         :collections="collections"
-        placeholder="コレクション名を入力してください"
+        placeholder="コレクション名を１つ入力してください"
         :autocomplete-items="filteredItems"
         :add-on-key="[13]"
         @tags-changed="newCollections => collections = newCollections"
       />
-      <div class="d-flex justify-content-end">
-      <button class="btn btn-info d-flex justify-content-end mt-2 p-2" type="submit"
+      <div class="submit-btn-wrapper">
+      <button class="btn submit-btn" type="submit"
       >
-      登録する
+      登録
       </button>
       <transition>
-      <div v-show="show" class="store">
+      <div v-show="show" class="submit-btn-store">
       登録完了
       </div>
       </transition>
@@ -92,18 +92,20 @@ export default {
   }
 </style>
 <style>
-.store {
+.submit-btn-store {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     color: white;
     width: 150px;
-    height: 50px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 5px;
     background-color: #2d2d2d;
 }
 
 .v-leave-active {
-    transition: opacity 3s;
+    transition: opacity 20s;
 }
 .v-leave {
     opacity: 1;
@@ -111,5 +113,18 @@ export default {
 
 .v-leave-to {
     opacity: 0;
+}
+
+.submit-btn-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.submit-btn {
+    margin-top: 10px;
+    background-color: #6E85B2;
+    color: #fff;
+    border: 1px solid #000;
+    box-shadow: none;
 }
 </style>

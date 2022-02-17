@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Memo;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Psy\CodeCleaner\IssetPass;
 
 class StoreRequest extends FormRequest
 {
@@ -24,25 +25,19 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'required | integer',
             'body' => 'required | string | max:255',
         ];
     }
 
-    public function attributes()
-    {
-        return [
-            'body' => '非公開メモ',
-        ];
-    }
-
     /**
-     * 保存対象となるarticleデータのidをarticle_id指定で取得
+     * バリデーションする前に実行させる
+     * userのidをmergeする
      */
-    public function getArticleData($request)
+    protected function prepareForValidation(): void
     {
-        if (isset($request->article_id)) {
-            $article = $request->article_id;
-            return $article;
-        }
+        $this->merge([
+            'user_id' => auth()->id()
+        ]);
     }
 }

@@ -55,6 +55,12 @@ class User extends Authenticatable
 
     /**
      * フォローにおけるユーザーモデルとユーザーモデルの関係は多対多なのでBelongsToManyを使用
+     *
+     * 中間テーブルのカラム名と、リレーション元/先のテーブル名(users)に[リレーション元/先のテーブル名の単数形_id]
+     * という規則性がない為、第3引数と第4引数に中間テーブルのカラム名を指定
+     * followee_id = フォローしている側のuserのid(リレーション元)、follower_id = フォローされている側のuserのid(リレーション先)
+     *
+     * あるユーザーがあるユーザーをフォロー中かどうか判定するメソッドで使用される
      */
     public function followers(): BelongsToMany
     {
@@ -62,7 +68,11 @@ class User extends Authenticatable
     }
 
     /**
-     * フォローとフォロー解除時に使用するリレーション
+     * フォローとフォロー解除時に使用するリレーションメソッド(FollowControllerで使用)
+     *
+     * 中間テーブルのカラム名と、リレーション元/先のテーブル名(users)に[リレーション元/先のテーブル名の単数形_id]
+     * という規則性がない為、中間テーブルのカラム名を指定
+     * follower_id = フォローする側のuserのid(リレーション元)、followee_id = フォローされる側のuserのid(リレーション先)
      */
     public function followings(): BelongsToMany
     {
@@ -94,6 +104,14 @@ class User extends Authenticatable
     }
 
     /**
+     * お問い合わせモデルとのリレーション
+     */
+    public function contacts(): HasMany
+    {
+        return $this->hasMany('App\Models\Contact');
+    }
+
+    /**
      * コレクションとのリレーション
      */
     public function collections(): HasMany
@@ -102,44 +120,7 @@ class User extends Authenticatable
     }
 
     /**
-     * ユーザーデータをname指定で取得
-     *
-     * @param string $name
-     * @return object
-     */
-    public function getUserData(string $name)
-    {
-        return $this->where('name', $name)->first();
-    }
-
-    /**
-     * ログインユーザーの投稿を10件ごとに取得
-     */
-    public function getUserArticleData()
-    {
-        return $this->articles->sortByDesc('created_at')->paginate(10);
-    }
-
-    /**
-     * ログインユーザーがいいねした投稿を10件ごとに取得
-     */
-    public function getUserLikedArticleData()
-    {
-        return $this->likes->sortByDesc('created_at')->paginate(10);
-    }
-
-    /**
-     * 投稿数の合計をカウント
-     *
-     * @return int
-     */
-    public function getCountArticle(): int
-    {
-        return $this->articles()->count();
-    }
-
-    /**
-     * フォロワー数を表示するアクセサ
+     * フォロワー数をカウントするアクセサ
      *
      * @return int
      */
@@ -149,7 +130,7 @@ class User extends Authenticatable
     }
 
     /**
-     * フォロー数を表示するアクセサ
+     * フォロー数をカウントするアクセサ
      *
      * @return int
      */
@@ -161,6 +142,10 @@ class User extends Authenticatable
     /**
      * フォローしているかどうかを判定するメソッド
      *
+     * ユーザーがログイン状態である時に、ユーザーページに表示されるフォローボタンの初期状態を決める
+     * trueの場合、Articleモデルからlikesテーブル経由で紐付くユーザーモデルをwhere()で絞ってコレクションの要素数を数値で返す
+     * (bool)で論理値に変換する、1以上の数値を論理値へ型キャストしてtrueにする、0の場合論理値がfalseになる
+     *
      * @return bool
      */
     public function isFollowedBy(?User $user): bool
@@ -171,22 +156,6 @@ class User extends Authenticatable
     }
 
     /**
-     * フォロワー詳細画面の表示
-     */
-    public function getUserFollower()
-    {
-        return $this->followers->sortByDesc('created_at');
-    }
-
-    /**
-     * フォロー詳細画面の表示
-     */
-    public function getUserFollowing()
-    {
-        return $this->followings->sortByDesc('created_at');
-    }
-
-    /**
      * パスワードリセットに関するメソッドのオーバーライド
      *
      * @return void
@@ -194,15 +163,5 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordResetNotification($token, new BareMail()));
-    }
-
-    /**
-     * ユーザーの最終ログイン日時を文字列で取得
-     */
-    public function getLastLoginDateAttribute()
-    {
-        if (!$this->last_login_at == null) {
-            return $this->last_login_at->format('Y-m-d');
-        }
     }
 }

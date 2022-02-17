@@ -4,22 +4,29 @@ namespace App\Http\Controllers\NEWSAPI;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\HeadlineCustomRequest;
-use App\Services\HeadlineNewsService;
+use App\Services\API\HeadlineNewsServiceInterface;
 
 class HeadlineNewsController extends Controller
 {
+    private HeadlineNewsServiceInterface $headlineNewsService;
+
+    public function __construct(
+        HeadlineNewsServiceInterface $headlineNewsService
+    ) {
+        $this->headlineNewsService = $headlineNewsService;
+    }
+
     /**
      * NEWSAPIからヘッドラインニュースデータを取得
      * serviceクラスで作成したGuzzleを利用したメソッドを指定
      *
-     * @param \App\Services\HeadlineNewsService $head_news_service
-     * @return array
+     * @return Illuminate\View\View
      */
-    public function defaultIndex(HeadlineNewsService $head_news_service)
+    public function defaultIndex()
     {
-        $news = $head_news_service->defaultIndex();
+        $news = $this->headlineNewsService->defaultIndex();
 
-        return view('articles.news_index', ['news' => $news]);
+        return view('articles.news_index', compact('news'));
     }
 
     /**
@@ -27,12 +34,11 @@ class HeadlineNewsController extends Controller
      * serviceクラスで作成したGuzzleを利用したメソッドを指定
      *
      * @param \App\Http\Requests\Api\HeadlineCustomRequest $request
-     * @param \App\Services\HeadlineNewsService $head_news_service
-     * @return array
+     * @return Illuminate\View\View
      */
-    public function customIndex(HeadlineCustomRequest $request, HeadlineNewsService $head_news_service)
+    public function customIndex(HeadlineCustomRequest $request)
     {
-        $news = $head_news_service->customIndex($request);
+        $news = $this->headlineNewsService->customIndex($request);
 
         return view('articles.news_index', compact('news'));
     }

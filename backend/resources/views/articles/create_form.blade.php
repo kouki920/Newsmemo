@@ -9,8 +9,6 @@
 <div class="form-group card-footer">
     <input type="hidden" name="news" value="{{$news}}">
     <input type="hidden" name="url" value="{{$url}}">
-    <a class="font-sm article-create-news-link-text" href="{{$url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$news}}</a>
+    <a class="font-sm article-create-body__news-link" href="{{$url}}" target=”_blank” rel="noopener noreferrer">関連記事:{{$news}}</a>
 </div>
-<div class="article-create-button-body">
-    <button type="submit" class="btn article-create-button font-sm">投稿する</button>
-</div>
+<button type="submit" class="btn article-create-body__create-button font-sm">投稿する</button>

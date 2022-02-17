@@ -34,6 +34,13 @@ class ArticleControllerTest extends TestCase
      */
     public function testAuthIndex()
     {
+        if (!extension_loaded('mysqli')) {
+            $this->markTestSkipped(
+                'ドライバの理由上、実行できないテスト'
+            );
+        }
+
+        $this->withoutExceptionHandling();
         // 定義したファクトリーを利用してを作成
         $user = factory(User::class)->create();
 
@@ -44,10 +51,10 @@ class ArticleControllerTest extends TestCase
         $response->assertStatus(200)
             ->assertViewIs('articles.index')
             ->assertSee($user->name)
-            ->assertSee('ニュース')
+            ->assertSee('NEWS')
             ->assertSee('COVID-19')
-            ->assertSee('投稿')
-            ->assertSee('マイページ');
+            ->assertSee('POST')
+            ->assertSee('PROFILE');
     }
 
 
@@ -162,8 +169,6 @@ class ArticleControllerTest extends TestCase
         $article = factory(Article::class)->create();
         $news_link = factory(NewsLink::class)->create([
             'article_id' => $article->id,
-            'news' => 'Google ニュース',
-            'url' => 'https://news.google.com',
         ]);
 
         $user = $article->user;

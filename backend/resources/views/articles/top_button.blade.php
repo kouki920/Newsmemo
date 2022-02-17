@@ -1,1 +1,1 @@
-<a href="#" id="page-top">TOP</a>
+<a href="#" class="page-top">TOP</a>

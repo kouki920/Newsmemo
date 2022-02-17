@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Http\Requests\Contact\ConfirmRequest;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Contact\SendRequest;
+use App\Services\Contact\ContactServiceInterface;
+use Illuminate\Http\RedirectResponse;
 
 class ContactController extends Controller
 {
+    private ContactServiceInterface $contactService;
+
+    public function __construct(
+        ContactServiceInterface $contactService
+    ) {
+        $this->contactService = $contactService;
+    }
+
     /**
      * お問い合わせフォームを表示
      *
@@ -34,35 +43,34 @@ class ContactController extends Controller
 
     /**
      * お問い合わせ内容を送信
-     * 入力内容の修正時は値を保持したまま戻る
+     * 入力内容の修正時は値を保持したまま戻る(name="contact"のvalue値は必要ないのでexceptで除外する)
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Http\Requests\Contact\SendRequest $request
      * @param  \App\Models\Contact  $contact
      * @return Illuminate\Http\RedirectResponse
      */
-    public function send(Request $request, Contact $contact)
+    public function send(SendRequest $request, Contact $contact): RedirectResponse
     {
-        $action = $request->get('action', 'back');
-        $input = $request->except('action');
-        $user_id = $request->id;
+        // 確認画面でクリックしたボタン(name="contact")のvalue値を判断する
+        $contactValue = $request->input('contact', 'back');
+        $contactRecord = $request->validated();
 
-        if ($action === 'submit') {
-            $contact->user_id = $user_id;
-            $contact->fill($input)->save();
+        if ($contactValue === 'submit') {
 
-            return redirect()->route('contacts.complete', ['id' => $user_id]);
+            $this->contactService->send($contact, $contactRecord);
+
+            return redirect()->route('contacts.complete', ['id' => $request->user()->id]);
         } else {
-            return redirect()->route('contacts.form', ['id' => $user_id])->withInput($input);
+            return redirect()->route('contacts.form', ['id' => $request->user()->id])->withInput($request->except('contact'));
         }
     }
 
     /**
      * 送信完了画面を表示
      *
-     * @param \Illuminate\Http\Request $request
      * @return Illuminate\View\View
      */
-    public function complete(Request $request)
+    public function complete()
     {
         return view('contacts.complete');
     }

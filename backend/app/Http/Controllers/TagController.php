@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Tag;
+use App\Services\Tag\TagServiceInterface;
 
 class TagController extends Controller
 {
+    private TagServiceInterface $tagService;
+
+    public function __construct(
+        TagServiceInterface $tagService
+    ) {
+        $this->tagService = $tagService;
+    }
+
     /**
      * タグに属する投稿の表示
      *
@@ -16,9 +24,11 @@ class TagController extends Controller
      */
     public function show(Tag $tag, string $name)
     {
-        $tag = $tag->getTagData($name);
+        // タグデータを取得
+        $tag = $this->tagService->getTagData($tag, $name);
 
-        $articles = $tag->getTagArticle();
+        // タグに属する投稿データを取得
+        $articles = $this->tagService->getTagArticle($tag);
 
         return view('tags.show', compact('tag', 'articles'));
     }

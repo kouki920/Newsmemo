@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand navbar-dark ">
 
-    <a class="navbar-brand font-md" href="{{route('news.default_index')}}"><i class="far fa-sticky-note mr-1"></i>Newsmemo</a>
+    <a class="navbar-brand font-md" href="{{route('news.default_index')}}">
+        <i class="fas fa-search fa-fw"></i>Newsmemo
+    </a>
 
     <ul class="navbar-nav ml-auto">
 
@@ -51,11 +53,9 @@
         <form id="logout-button" method="POST" action="{{route('logout')}}">
             @csrf
         </form>
-        <form id="setting-button" method="POST" action="{{route('settings.index',['name' => Auth::user()->name])}}">
-            @csrf
+        <form id="setting-button" action="{{route('settings.index',['name' => Auth::user()->name])}}">
         </form>
-        <form id="collection-button" method="POST" action="{{route('collections.index',['id' => Auth::id()])}}">
-            @csrf
+        <form id="collection-button" action="{{route('collections.index',['id' => Auth::id()])}}">
         </form>
         <!-- Dropdown -->
         @endauth

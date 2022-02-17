@@ -24,7 +24,7 @@
 <div class="container">
     <div class="card password-reset-email-body">
         <div class="card-body">
-            <h2 class="card-title password-reset-email-title font-md">-パスワード再設定-</h2>
+            <h2 class="card-title password-reset-email-body__title font-md">-パスワード再設定-</h2>
 
             @include('error_list')
 
@@ -38,12 +38,12 @@
                 <form method="POST" action="{{ route('password.email') }}">
                     @csrf
 
-                    <label for="email" class="font-sm password-reset-email-text">-メールアドレス-</label>
-                    <div class="md-form font-sm password-reset-email-form">
+                    <label for="email" class="font-sm password-reset-email-body__text">-メールアドレス-</label>
+                    <div class="md-form font-sm password-reset-email-body__form">
                         <input class="form-control" type="text" id="email" name="email" required>
                     </div>
 
-                    <button class="btn btn-block password-reset-email-button font-sm" type="submit">メール送信</button>
+                    <button class="btn password-reset-email-body__submit-button font-sm" type="submit">メール送信</button>
                 </form>
             </div>
         </div>

@@ -27,9 +27,13 @@ class ArticleStoreRequestTest extends TestCase
 
         $dataList = array_combine($keys, $values);
 
-        $rules = (new StoreRequest())->rules();
+        $request = new StoreRequest();
 
-        $result = Validator::make($dataList, $rules)->passes();
+        $rules = $request->rules();
+
+        $validator = Validator::make($dataList, $rules);
+
+        $result = $validator->passes();
 
         $this->assertEquals($expect, $result);
     }
@@ -38,53 +42,53 @@ class ArticleStoreRequestTest extends TestCase
     {
         return [
             'OK' => [
-                ['body', 'tags', 'news', 'url'],
-                ['test', '"tags"', 'news_title', 'http://www.example.com'],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', 'test', '"tags"', 'news_title', 'http://www.example.com'],
                 true
             ],
             '本文[必須エラーテスト]' => [
-                ['body', 'tags', 'news', 'url'],
-                [null, '"tags"', 'news_title', 'http://www.example.com'],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', null, '"tags"', 'news_title', 'http://www.example.com'],
                 false
             ],
             '本文[最大文字数エラーテスト]' => [
-                ['body', 'tags', 'news', 'url'],
-                [str_repeat('a', 256), '"tags"', 'news_title', 'http://www.example.com'],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', str_repeat('a', 256), '"tags"', 'news_title', 'http://www.example.com'],
                 false
             ],
             'タグ[null許容テスト]' => [
-                ['body', 'tags', 'news', 'url'],
-                ['test', null, 'news_title', 'http://www.example.com'],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', 'test', null, 'news_title', 'http://www.example.com'],
                 true
             ],
             'タグ[json形式エラーテスト]' => [
-                ['body', 'tags', 'news', 'url'],
-                ['test', 'tags', 'news_title', 'http://www.example.com'],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', 'test', 'tags', 'news_title', 'http://www.example.com'],
                 false
             ],
             'ニュースタイトル[必須エラーテスト]' => [
-                ['body', 'tags', 'news', 'url'],
-                ['test', '"tags"', null, 'http://www.example.com'],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', 'test', '"tags"', null, 'http://www.example.com'],
                 false
             ],
             'ニュースタイトル[文字列エラーテスト]' => [
-                ['body', 'tags', 'news', 'url'],
-                ['test', '"tags"', 1, 'http://www.example.com'],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', 'test', '"tags"', 1, 'http://www.example.com'],
                 false
             ],
             'ニュースタイトル[最大文字数エラーテスト]' => [
-                ['body', 'tags', 'news', 'url'],
-                ['test', '"tags"', str_repeat('a', 256), 'http://www.example.com'],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', 'test', '"tags"', str_repeat('a', 256), 'http://www.example.com'],
                 false
             ],
             'ニュースurl[必須エラーテスト]' => [
-                ['body', 'tags', 'news', 'url'],
-                ['test', '"tags"', 'news_title', null],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', 'test', '"tags"', 'news_title', null],
                 false
             ],
             'ニュースurl[最大文字数エラーテスト]' => [
-                ['body', 'tags', 'news', 'url'],
-                ['test', '"tags"', 'news_title', str_repeat('a', 256)],
+                ['user_id', 'body', 'tags', 'news', 'url'],
+                ['1', 'test', '"tags"', 'news_title', str_repeat('a', 256)],
                 false
             ]
         ];

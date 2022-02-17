@@ -6,13 +6,22 @@ use App\Models\Article;
 use App\Models\Collection;
 use App\Http\Requests\Collection\StoreRequest;
 use App\Http\Requests\Collection\UpdateRequest;
-use Illuminate\Support\Facades\Auth;
+use App\Services\Collection\CollectionServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class CollectionController extends Controller
 {
+    private CollectionServiceInterface $collectionService;
+
+    public function __construct(
+        CollectionServiceInterface $collectionService
+    ) {
+        $this->collectionService = $collectionService;
+    }
+
     /**
-     * ログインユーザーが保持するコレクション名を一覧で取得
+     * ログインユーザーが保持するコレクションデータを一覧で取得
      *
      * @param \App\Models\Collection $collection
      * @param int $id
@@ -20,43 +29,48 @@ class CollectionController extends Controller
      */
     public function index(Collection $collection, $id)
     {
-        $collections = $collection->getCollectionIndex(Auth::id());
+        $collections = $this->collectionService->getCollectionIndex($collection, $id);
 
         return view('collections.index', compact('collections'));
     }
 
 
     /**
-     * 新規コレクションや既存コレクションにメモを保存
-     * vue.jsを利用して非同期処理を実行する
+     * 新規コレクションや既存コレクションに投稿を保存
+     * vue.jsを利用して非同期処理で保存を実行する
+     * collectionRegister()でコレクションを保存
      *
      * @param  \App\Http\Requests\Collection\StoreRequest  $request
      * @param  \App\Models\Article  $article
      * @return void
      */
-    public function store(StoreRequest $request, Article $article)
+    public function store(StoreRequest $request, Article $article): void
     {
-        $request->collections->each(function ($collectionName) use ($article) {
-            $collection = Collection::firstOrCreate(['name' => $collectionName, 'user_id' => Auth::id()]);
-            $article->collections()->syncWithoutDetaching($collection);
-        });
+        $collections = $request->collections;
+
+        $this->collectionService->registerCollection($article, $collections);
     }
 
 
     /**
-     * コレクション名を選択することでそのコレクションに属するメモを一覧で取得
+     * コレクション名を選択することでそのコレクションに属する投稿を一覧で取得
+     * $collection->articlesの戻り値がコレクションオブジェクト(Illuminate\...\Collection)なので
+     * foreach処理できるようcompact('collections')で値を渡す
      *
-     * @param  int  $id
+     * @param \App\Models\Collection $collection
      * @param string $name
+     * @param  int  $id
      * @return Illuminate\View\View
      */
     public function show(Collection $collection, string $name, $id)
     {
-        $collection = $collection->getCollectionShow($name, $id);
+        // リクエストフォームで送られてきた$nameと$idに一致するcollectionデータを取得
+        $collections = $this->collectionService->getCollectionData($collection, $name, $id);
 
-        $articles = $collection->getCollectionArticleData();
+        // $nameと$idに一致するコレクションデータに属するarticlesデータを取得
+        $articles = $this->collectionService->getCollectionArticleData($collections);
 
-        return view('collections.show', compact('collection', 'articles'));
+        return view('collections.show', compact('collections', 'articles'));
     }
 
 
@@ -64,16 +78,17 @@ class CollectionController extends Controller
      * コレクション名を更新
      *
      * @param  \App\Http\Requests\Collection\UpdateRequest  $request
+     * @param \App\Models\Collection $collection
      * @param  int  $id
-     * @return Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, Collection $collection, $id)
+    public function update(UpdateRequest $request, Collection $collection, $id): RedirectResponse
     {
-        $collection->fill($request->validated())->save();
+        $collectionRecord = $request->validated();
 
-        $collections = $collection->getCollectionIndex(Auth::id());
+        $this->collectionService->update($collection, $collectionRecord);
 
-        return view('collections.index', compact('collections'));
+        return redirect()->route('collections.index', compact('id'))->with('msg_success', __('app.collection_update'));
     }
 
     /**
@@ -81,31 +96,28 @@ class CollectionController extends Controller
      *
      * @param  \App\Models\Collection  $collection
      * @param  int  $id
-     * @return Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Collection $collection, $id)
+    public function destroy(Collection $collection, $id): RedirectResponse
     {
-        $collection->delete();
+        $this->collectionService->destroy($collection);
 
-        $collections = $collection->getCollectionIndex(Auth::id());
-        return view('collections.index', compact('collections'));
+        return redirect()->route('collections.index', compact('id'))->with('msg_success', __('app.collection_delete'));
     }
 
     /**
-     * コレクションに登録されたメモをコレクション内から削除する
-     * メモ自体はテーブルから削除されない
+     * コレクションに登録された投稿をコレクション内から削除する
+     * 投稿自体はarticlesテーブルから削除されない
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param Collection $collection
-     * @param Article $article
-     * @return Illuminate\View\View
+     * @param \App\Models\Collection $collection
+     * @param \App\Models\Article $article
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function articleCollectionDestroy(Request $request, Collection $collection, Article $article)
+    public function destroyArticleInCollection(Collection $collection, Article $article, $id): RedirectResponse
     {
-        $article->collections()->detach(['article_id' => $article->id, 'collection_id' => $collection->id]);
+        $this->collectionService->destroyArticleInCollection($collection, $article);
 
-        $collections = $collection->getCollectionIndex(Auth::id())->load('articles');
-
-        return view('collections.index', compact('collections'));
+        return redirect()->route('collections.index', compact('id'))->with('msg_success', __('app.collection_article'));
     }
 }

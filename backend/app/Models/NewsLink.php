@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class NewsLink extends Model
 {
@@ -18,17 +19,20 @@ class NewsLink extends Model
     }
 
     /**
-     * よく読まれているニュースを取得する
+     * よく読まれているニュースを取得(過去30日間)
      *
-     * @param $query
      * @return array
      */
     public function getNewsRanking()
     {
-        return $this->select('url', 'news', DB::raw('count(*) as total'))
+        // Carbonを利用し対象データの範囲を本日から30日間とする
+        $rankingPeriod = Carbon::today()->subDay(30);
+
+        return $this->select('url', 'news', DB::raw('count(news) as total'))
             ->groupBy('url', 'news')
             ->having('total', '>', 1)
             ->latest('total')
-            ->limit(3)->get();
+            ->whereDate('created_at', '>=', $rankingPeriod)
+            ->take(3)->get();
     }
 }

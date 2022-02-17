@@ -4,9 +4,16 @@ Stylesheet: ベーススタイル
 
 ******************************************************************/
 
+/****** 変数 ******/
+$update-button-color: #6E85B2;
+$cancel-button-color: #C8C6C6;
+$delete-button-color: #c71111;
+$font-family: 'Noto Sans JP', sans-serif;
+
+
 /****** ページ共通 ******/
 body{
-	background-color: #AAAAAA;
+	background-color: #fdffff;
 }
 
 img {
@@ -19,21 +26,25 @@ img {
   font-size: 12px;
 	letter-spacing: 1px;
 	line-height: 16px;
+	font-family: $font-family;
 }
 .font-md {
   font-size: 14px;
 	letter-spacing: 1px;
 	line-height: 20px;
+	font-family: $font-family;
 }
 .font-lr {
   font-size: 16px;
 	letter-spacing: 1px;
 	line-height: 22px;
+	font-family: $font-family;
 }
 .font-lg {
   font-size: 18px;
 	letter-spacing: 1px;
 	line-height: 28px;
+	font-family: $font-family;
 }
 
 
@@ -53,50 +64,82 @@ img {
 		background-color: #D8D3CD;
     color: #5d627b;
     border-top: solid 5px #616daa;
+		border-bottom: solid 1px #000;
+		border-right: solid 1px #000;
 		margin: 0px;
 
-	.news-tabs-text{
+	&__text{
 			font-size: 9px;
 			line-height: 13px;
 			color: #000000;
+			}
 
-		.news-tabs-icon{
-					font-size: 15px;
-					letter-spacing: 1px;
-					margin: 2px auto;
-					}
+	&__icon{
+				font-size: 15px;
+				letter-spacing: 1px;
+				margin: 2px auto;
 			}
 }
 
+
 /****** ログイン画面 ******/
+.logo-body{
+	display: flex;
+	justify-content: center;
+	background-color: #99C2EC;
+	margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
+
+	&__img{
+		width: 70%;
+		height: 70%;
+		margin: 30px auto;
+	}
+}
+
+.login-header-body{
+	text-align: center;
+	height: 54px;
+	background-color: #1B6DC1;
+	margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
+
+	&__title{
+		color: #000;
+		font-weight: 900;
+		padding-top: 11px;
+	}
+}
+
 .login-body{
 	text-align: center;
-	margin: 10px auto;
+	margin: 0px auto;
 	padding: 10px 20px;
 	box-shadow: none;
 	border: none;
-	background-color: #F9F9F9;
+	background-color: #fdffff;
 	max-width: 300px;
 
-		.login-item{
+		&__item{
 			margin: 10px 0px 0px;
 		}
 
-		.login-form{
+		&__form{
 			margin: 0px;
+		}
 
-			.login-form-content{
+		&__form-content{
 				width: 250px;
 				margin: 10px 0px;
 				padding: 5px 2px;
-			}
 		}
 
-		.login-password-forget{
+		.password-setting-link{
 			margin: 10px auto;
 
-			.login-password-forget-text{
+			&__text{
 				text-decoration: none;
+				color: #000;
 			}
 		}
 
@@ -108,12 +151,12 @@ img {
 			color: #fff;
 			font-weight: bold;
 			margin: 10px auto;
-			padding: 8px;
+			padding: 5px;
 			border-radius: 5px;
 			border: 1px solid #000;
 			width: 150px;
 
-			.login-button-text{
+			&__text{
 				text-decoration: none;
 				color: #fff;
 				font-weight: bold;
@@ -123,14 +166,14 @@ img {
 
 		.user-register-button{
 			margin: 10px auto;
-			padding: 5px 5px;
+			padding: 5px;
 			border-radius: 5px;
 			border: 1px solid #000;
 			box-shadow: none;
 			background-color: #F48B29;
 			width: 150px;
 
-			.user-register-button-text{
+			&__text{
 				color: #fff;
 				font-weight: bold;
 				text-decoration: none;
@@ -139,94 +182,211 @@ img {
 		}
 }
 
+.subtitle-body{
+	display: flex;
+	justify-content: center;
+	background-color: #1B6DC1;
+	margin-top: 10px;
+	margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
+
+	&__img{
+		justify-content: center;
+		margin: 2px 0px;
+		width: 200px;
+		height: 50px;
+	}
+}
+
+.app-guide-body{
+	display: flex;
+	justify-content: center;
+	background-color: #1B6DC1;
+	margin-top: 10px;
+	margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
+
+	&__title{
+		color: #000;
+		font-weight: 900;
+		padding-top: 11px;
+	}
+}
+
+.app-introduction-body{
+	text-align: center;
+	margin: 30px auto;
+
+	&__text{
+		color: #000;
+
+		&--mute{
+			margin-top: 30px;
+			color: #9f9c9c;
+		}
+	}
+}
+
+.app-image-body{
+	text-align: center;
+	margin-top: 40px;
+	position: relative;
+
+	&__text{
+		margin-top: 40px;
+		color: #000;
+
+		&--mute{
+			margin-top: 40px;
+			color: #9f9c9c;
+		}
+	}
+}
+
+.app-function-body{
+	margin: 0px auto;
+
+	// &__box{
+	// 	margin: 0px auto;
+
+	// 	&--two{
+	// 		margin-top: 0px;
+	// 	}
+	// }
+	&__content{
+		margin: 100px auto 0px;
+		width: 330px;
+		height: 260px;
+	}
+	&__title{
+		display: flex;
+		justify-content: center;
+	}
+	&__image{
+		width: 330px;
+		height: 260px;
+	}
+	&__text{
+		display: flex;
+		justify-content: center;
+		color: #808080;
+		margin-top: 10px;
+	}
+}
+
+.app-footer-body{
+	display: flex;
+	justify-content: center;
+	margin-top: 100px;
+	margin-right: calc(50% - 50vw);
+	margin-left: calc(50% - 50vw);
+	background-color: #7e7d7db9;
+
+	&__text{
+		padding: 10px 5px;
+		color: #fff;
+	}
+}
+
+
 /****** ユーザー登録画面 ******/
-.register-form-body{
+.register-body{
 	margin: 10px auto;
 	text-align: center;
 	box-shadow: none;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
-	.register-form-title{
+	&__title{
 		margin: 10px auto;
 	}
 
-	.register-name-body{
+
+	&__name{
 		margin-top: 10px;
-
-		.register-name-text{
-			margin: 10px auto 0px;
-		}
-		.register-name-form{
-			margin: 0px auto;
-			max-width: 250px;
-			}
 	}
 
-
-		.register-email-body{
-			margin-top: 10px;
-
-			.register-email-text{
-				margin: 10px auto 0px;
-			}
-		.register-email-form{
-			margin: 5px auto;
-			max-width: 250px;
-		}
-		}
-
-		.register-password-body{
-			margin-top: 10px;
-
-			.register-password-text{
-				margin: 10px auto 0px;
-			}
-			.register-password-form{
-				margin: 5px auto;
-				max-width: 250px;
-			}
-		}
-
-		.register-password-confirmation-body{
-			margin-top: 10px;
-
-			.register-password-confirmation-text{
-				margin: 10px auto 0px;
-			}
-			.register-password-confirmation-form{
-				margin: 5px auto;
-				max-width: 250px;
-			}
-	}
-
-	.user-register-button-body{
+	&__name-text{
 		margin: 10px auto 0px;
-
-		.user-register-button{
-			background-color: #6E85B2;
-			border: 1px solid #000;
-			color: #fff;
-			box-shadow: none;
-			width: 160px;
-		}
 	}
 
-	.register-login-button-body{
-		margin: 10px auto 0px;
+	&__name-form{
+		margin: 0px auto;
+		max-width: 250px;
+	}
 
-		.register-login-link-button{
-			background-color: #679B9B;
-			border: 1px solid #000;
-			color: #fff;
-			box-shadow: none;
-			width: 160px;
-		}
+
+	&__email{
+		margin-top: 10px;
+	}
+
+	&__email-text{
+		margin: 10px auto 0px;
+	}
+
+	&__email-form{
+		margin: 5px auto;
+		max-width: 250px;
+	}
+
+
+	&__password{
+		margin-top: 10px;
+	}
+
+	&__password-text{
+		margin: 10px auto 0px;
+	}
+
+	&__password-form{
+		margin: 5px auto;
+		max-width: 250px;
+	}
+
+	&__password-confirmation{
+		margin-top: 10px;
+	}
+
+	&__password-confirmation-text{
+		margin: 10px auto 0px;
+	}
+
+	&__password-confirmation-form{
+		margin: 5px auto;
+		max-width: 250px;
+	}
+
+
+	&__user-register-button{
+		margin: 10px auto 0px;
+	}
+
+	&__user-register-button-body{
+		background-color:
+		$update-button-color;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		width: 160px;
+	}
+
+
+	&__login-button{
+		margin: 10px auto 0px;
+	}
+
+	&__login-button-body{
+		background-color: #679B9B;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		width: 160px;
 	}
 }
 
 
 /***トップへ戻るボタン***/
-#page-top {
+.page-top {
   position: fixed;
   right: 5px;
   bottom: 20px;
@@ -236,11 +396,11 @@ img {
   transform: rotate(90deg);
   font-size: 90%;
   line-height: 1.5rem;
-  color: #fff;
+  color: #000;
   padding: 0 0 0 35px;
   border-top: solid 1px;
-}
-#page-top::before {
+
+&::before {
   content: "";
   display: block;
   position: absolute;
@@ -250,17 +410,21 @@ img {
   border-top: solid 1px;
   transform: rotate(35deg);
   transform-origin: left top;
+	}
 }
 
 
 /****** マイページ ******/
+
 /*** タブ ***/
 .user-tabs{
 	background-color: #394867;
+	border-top: solid 1px #707070;
+	border-right: solid 1px #707070;
 	color: #5d627b;
 	box-shadow: none;
 
-	.user-tabs-text{
+	&__text{
 		color: #F1F6F9;
 		}
 }
@@ -270,42 +434,51 @@ img {
 	background-color: #fdffff;
 	box-shadow: none;
 
-	.profile-function-button{
+	.profile-function-body{
 		display: flex;
 		align-items: center;
 
-		.profile-user-icon{
-			margin-right: 20px;
+		&__user-icon{
+			margin-right: 10px;
 		}
 
-		.tag-button{
+		&__tag-button{
 			padding: 5px;
 			box-shadow: none;
+			background-color: #BBBFCA;
+			border: 1px solid #000;
 		}
 
-		.category-text{
+		&__tag-dropdown-menu{
+			padding: 0;
+		}
+
+		&__tag-list{
 			text-align: center;
 			padding: 5px 0px;
 		}
 
-		.edit-button{
+		&__edit-button{
 			padding: 5px;
 			box-shadow: none;
+			color: #F1F6F9;
+			background-color: #00587A;
+			border: 1px solid #000;
 		}
 	}
 
-	.profile-content{
+	.profile-content-body{
 		padding: 0px;
 
-		.profile-name{
+		&__name{
 			margin: 2px;
 		}
 
-		.profile-introduction{
+		&__introduction{
 			margin: 8px 2px;
 		}
 
-		.profile-follow-follower-count{
+		.profile-follow-function-body{
 			margin: 2px 2px 2px 0px;
 		}
 	}
@@ -317,18 +490,23 @@ img {
 	padding: 5px 10px;
 	text-align: center;
 	box-shadow: none;
+	background-color: #e8e8e8;
 	max-width: 300px;
 
-	.user-profile-update-button{
-		background-color: #6E85B2;
+	&__caution-text{
+		color: $delete-button-color;
+	}
+
+	&__update-button{
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		box-shadow: none;
 		margin: 2px;
 	}
 
-	.user-profile-cancel-button{
-		background-color: #C8C6C6;
+	&__cancel-button{
+		background-color: $cancel-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		box-shadow: none;
@@ -336,38 +514,82 @@ img {
 	}
 }
 
-/*** 最近使用したタグ機能 ***/
-.recent-tags-btn{
-	background-color: #BBBFCA;
-	border: 1px solid #000;
+.user-image-edit-body{
+	margin: 10px auto;
+	padding: 5px 10px;
+	text-align: center;
+	box-shadow: none;
+	background-color: #e8e8e8;
+	max-width: 300px;
+
+	&__update-button{
+		background-color: $update-button-color;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		margin: 2px;
 	}
 
-.category-dropdown-menu{
-	padding: 0;
+	&__cancel-button{
+		background-color: $cancel-button-color;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		margin: 2px;
+	}
 }
 
-/*** 編集ボタン ***/
-.edit-button{
-	color: #F1F6F9;
-	background-color: #00587A;
-	border: 1px solid #000;
-}
 
 /*** ユーザーデータ ***/
 .user-data-body{
 	margin: 10px auto;
 
-	.user-data-header{
+	&__title{
+		padding: 5px;
+		text-align: center;
+		background-color: #6D8299;
+		color: #fff;
+	}
+	&__table{
+		margin-bottom: 0px;
+	}
+	&__header{
 		background-color: #D8D3CD;
 		text-align: center;
 	}
 
-	.user-data-contents{
-		background-color: #F1F6F9;
+	&__contents{
+		background-color: #e8e8e8;
 		text-align: center;
 	}
-}
 
+
+		&__articles-ranking-title{
+			text-align: center;
+			margin-top: 20px;
+			padding: 5px;
+			background-color: #6D8299;
+			color: #fff;
+		}
+		&__articles-ranking-content{
+			text-align: center;
+			background-color: #e8e8e8;
+			padding: 12px 5px 0px;
+		}
+
+		&__news-ranking-title{
+			text-align: center;
+			margin-top: 20px;
+			padding: 5px;
+			background-color: #6D8299;
+			color: #fff;
+		}
+		&__news-ranking-content{
+			text-align: center;
+			background-color: #e8e8e8;
+			padding: 12px 5px 0px;
+		}
+}
 
 /*** フォロー・フォロワー画面 ***/
 .follow-tab-link{
@@ -399,103 +621,99 @@ img {
 	margin: 10px auto;
 	box-shadow: none;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
-	.follow-follower-content{
+	&__content{
 		padding: 0px 10px;
 		display: flex;
 		align-items: center;
-
-		.follow-follower-user-icon{
+	}
+		&__user-icon{
 			padding: 0;
 			width: 55px;
 			height: 55px;
 		}
 
-		.follow-follower-user-name{
+		&__user-name{
 			padding: 0;
 		}
 
-		.follow-follower-button{
+		&__button{
 			padding: 0;
 			margin-left: auto;
 		}
-	}
-}
-
-
-/****** 非公開メモ機能 ******/
-.add-memo-textarea {
-  resize:none;
 }
 
 
 /****** ニュースレイアウト ******/
 .news-body{
-	background-color: #fdffff;
+	background-color: #e8e8e8;
 	border-radius: 10px;
 	border: 1px solid #000;
-	margin: 15px 15px;
+	margin: 15px 20px;
 
-	.news-content{
+	&__content{
 		display: flex;
 		margin: 10px 10px;
-
-		.news-title{
-			width: 70%;
-			margin-right: 12%;
-
-		}
-
-		.news-url{
-			text-decoration: none;
-			color: #000000;
-			}
-
-			.news-thumbnail{
-				width: 30%;
-				width: 110px;
-				height: 110px;
-				object-fit: cover;
-				border: none;
-				padding: 0px;
-			}
+	}
+	&__title{
+		width: 70%;
+		margin-right: 12%;
 	}
 
-	.news-button{
+	&__url{
+		text-decoration: none;
+		color: #000000;
+	}
+
+	&__thumbnail{
+		width: 30%;
+		width: 110px;
+		height: 110px;
+		object-fit: cover;
+		border: none;
+		border-radius: 5px;
+		padding: 0px;
+	}
+
+	&__button{
 		display: flex;
 		margin:  0px 0px 5px 8px;
 		padding: 0;
-
-		.news-memo-button{
-			margin-right: 5px;
-
-			.news-memo-button-layout{
-				background-color: #4e78a1;
-				color: #fff;
-				border-radius: 5px;
-			}
-		}
-
-		.news-quick-memo-button-layout{
-			background-color: #4e78a1;
-			color: #fff;
-			border-radius: 5px;
-		}
 	}
-}
+	&__memo-button{
+		margin-right: 5px;
+	}
+	&__memo-button-text{
+		background-color: #4e78a1;
+		color: #fff;
+		border-radius: 5px;
+	}
+
+	&__quick-memo-button-text{
+		background-color: #4e78a1;
+		color: #fff;
+		border-radius: 5px;
+	}
+	}
+
 
 /****** headlineニュース一覧 ******/
 .headline-news-index-select-menu{
-	.headline-news-side-menu-body{
-		display: none;
-	}
+	position: sticky;
+	top: 110px;
+	z-index: 1;
+
+.headline-news-side-menu-body{
+	display: none;
+}
 }
 
 
 /****** covid-19ニュース一覧 ******/
 .covid-news-index-select-menu{
 	position: sticky;
-	top: 108px;
+	top: 110px;
 	z-index: 1;
 
 	.covid-news-side-menu-body{
@@ -503,20 +721,21 @@ img {
 	}
 }
 
+
 /****** セレクトボックス ******/
 .select-box-body{
 	display: flex;
 	justify-content: center;
-	background-color: #AAAAAA;
+	background-color: #fdffff;
 
 	.select-box {
 		margin: 10px 10px;
 		}
 
-	.news-update-button{
+	.news-update-button-body{
 		margin: 10px 10px;
 
-		.news-update-button-body{
+		&__update-button{
 			color: #fff;
 			background-color: #548CA8;
 			border-radius: 5px;
@@ -527,14 +746,14 @@ img {
 
 
 /****** 投稿一覧画面 ******/
-.articles-index{
+.articles-index-body{
 	margin: 20px 20px;
 	display: flex;
 
-	.side-menu{
+	&__side-menu{
 		display: none;
 	}
-	.articles-index-body{
+	&__content{
 		margin: 5px 0px;
 	}
 }
@@ -543,234 +762,260 @@ img {
 /****** 投稿レイアウト ******/
 .article-body{
   margin: 10px auto;
-	background-color: #fdffff;
+	background-color: #e8e8e8;
 
-	.article-content{
+	&__content{
 		display: flex;
-
+	}
 		/*** 投稿 アイコン・name ***/
-		.article-icon-name{
-			display: flex;
-			justify-content: start;
-			align-items: center;
+	&__icon-name{
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	&__icon{
+		margin-right: 7px;
+		padding: 0px;
+		width: 40px;
+		height: 40px;
+		color: #000;
+	}
 
-			.article-icon{
-				margin-right: 7px;
-				padding: 0px;
-				width: 40px;
-				height: 40px;
-				color: #000;
-			}
+	&__name{
+		padding: 0px;
+		color: #000;
+	}
 
-			.article-name{
-				padding: 0px;
-				color: #000;
-			}
-		}
+	/*** 編集・削除ドロップダウンボタン ***/
+	&__dropdown-button{
+		margin-left: auto;
 
-		/*** 編集・削除ドロップダウンボタン ***/
-		.article-edit-button{
-			margin-left: auto;
+			.dropdown-menu{
+				width: 100px;
+				border: 1px solid #000;
 
-				.dropdown-menu{
-					width: 100px;
-					border: 1px solid #000;
-
-					.edit-text{
-						padding: 0;
-						text-align: center;
-					}
-					.delete-text{
-						padding: 0;
-						text-align: center;
-						color: #c71111;
-					}
+				.edit-button{
+					padding: 0;
+					text-align: center;
 				}
+				.delete-button{
+					padding: 0;
+					text-align: center;
+					color: $delete-button-color;
+				}
+			}
 		}
 
-		.article-delete-text{
+/*** 削除モーダルウィンドウ ***/
+		&__modal-delete-text{
 			text-align: center;
 		}
 
-		.article-cancel-button{
-			box-shadow: none;
-			background-color: #C8C6C6;
-			border: 1px solid #000;
-			color: #fff;
-		}
-		.article-delete-button{
-			box-shadow: none;
-			background-color: #c71111;
-			border: 1px solid #000;
-			color: #fff;
-		}
-	}
+		&__modal-button{
+			display: flex;
+			justify-content: space-between;
 
-	.hashtag-body{
-		padding: 0px;
-		margin: 8px 0px 8px 16px;
-
-		.hashtag-text{
-			padding: 2px;
+			&--cancel{
+				box-shadow: none;
+				background-color: $cancel-button-color;
+				border: 1px solid #000;
+				color: #fff;
+			}
+			&--delete{
+				box-shadow: none;
+				background-color: $delete-button-color;
+				border: 1px solid #000;
+				color: #fff;
+			}
 		}
-	}
 
-	.article-body-content{
-		margin: 0px;
+/*** 投稿本文 ***/
+	&__content{
+		margin: 10px 0;
 		padding: 0px 16px;
 	}
+	&__content-text{
+		color: #000;
+		text-decoration: none;
+	}
 
-	.article-news-link{
+/*** ハッシュタグ ***/
+	&__hashtag{
+		padding: 0px;
 		margin: 5px 16px;
+	}
+		&__hashtag-text{
+			padding: 2px;
+			margin-right: 3px;
+			color: #3f5752;
+			border-bottom: solid 1px #3f5752;
+		}
 
-		.article-news-link-text{
+/*** ニュースリンク先 ***/
+	&__news-link{
+		margin: 5px 16px;
+	}
+		&__news-link-text{
 			text-decoration: none;
 			color: #5c3918;
 		}
-	}
 
-	.article-time{
+/*** 日付 ***/
+	&__date{
 		padding: 2px 16px;
 	}
 
-	.twitter-icon{
+	&__twitter-link{
 		margin: 7px 0px 0px 7px;
 	}
 
-	.article-async-button{
+	/*** コレクションボタン 非同期 ***/
+	&__async-button{
 		display: flex;
 		margin: 0px;
 		padding: 1px 12px 1px;
+	}
 
-		.collection-async-button{
+		&__collection-button{
 			display: flex;
 			margin: 0px;
+		}
+		&__collection-add-button{
+			margin: 4px 0px 0px 18px;
+			padding: 0px;
+		}
+		&__collection-add-icon{
+			color: #81c237;
+		}
 
-			.collection-add-button{
-				margin: 4px 0px 0px 18px;
-				padding: 0px;
+		&__collection-delete-button{
+			margin-left: 15px;
+			padding: 4px 0px 0px;
+		}
+		&__collection-delete-icon{
+			color: $delete-button-color;
+		}
 
-				.collection-add-button-icon{
-					color: #81c237;
-				}
-			}
-
-			.collection-delete-button{
-				margin-left: 15px;
-				padding: 4px 0px 0px;
-
-				.collection-delete-button-icon{
-					color: #c71111;
-				}
-			}
-	}
-
-	.collection-article-delete-text{
+/*** コレクション削除モーダル ***/
+	&__collection-delete-text{
 		text-align: center;
 	}
-	.collection-article-cancel-button{
+	&__collection-modal-cancel-button{
 		box-shadow: none;
-		background-color: #C8C6C6;
+		background-color: $cancel-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
-	.collection-article-delete-button{
+	&__collection-modal-delete-button{
 		box-shadow: none;
-		background-color: #c71111;
+		background-color: $delete-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
-	}
 }
 
-/*** 投稿更新画面 ***/
-.article-update-news-link-text{
-	color: #5c3918;
+
+/****** 投稿更新画面 ******/
+.article-edit-body{
+  margin: 10px auto;
+	background-color: #e8e8e8;
+	max-width: 300px;
+
+	&__content{
+		margin: 10px;
+	}
+	&__news-link{
+		color: #5c3918;
+	}
+	&__update-button{
+		display: flex;
+		background-color: $update-button-color;
+		border: 1px solid #000;
+		color: #fff;
+		box-shadow: none;
+		margin: 0 auto;
+		}
 }
 
-.article-update-button{
-	display: flex;
-	background-color: #6E85B2;
-	border: 1px solid #000;
-	color: #fff;
-	box-shadow: none;
-	margin: 0 auto;
-	}
-
-	/*** 投稿フォーム ***/
+/****** 投稿フォーム ******/
 	.article-create-body{
 		margin: 10px auto;
 		max-width: 300px;
 
-		.article-create-body-content{
+		&__content{
 			padding: 0px 10px 15px;
 			align-items: center;
+			background-color: #e8e8e8;
+		}
+		&__news-link{
+			color: #5c3918;
+		}
 
-			.article-create-news-link-text{
-				color: #5c3918;
-			}
-
-			.article-create-button-body{
-				text-align: center;
-
-				.article-create-button{
-					color: #fff;
-					background-color: #548CA8;
-					border: 1px solid #000;
-					box-shadow: none;
-					width: 150px;
-				}
-			}
-
+		&__create-button{
+			display: flex;
+			color: #fff;
+			background-color: $update-button-color;
+			border: 1px solid #000;
+			box-shadow: none;
+			margin: 0 auto;
 		}
 	}
 
 
 /****** 非公開メモ機能 ******/
-	.memo-body{
+.memo-body{
 		margin: 5px 16px;
 
-		.memo-form{
-				margin: 10px 0;
-
-				.memo-button{
-					margin: 10px auto;
-					background-color: rgb(73, 63, 63);
-					box-shadow: none;
-					color: #fff;
-					width: 100px;
-				}
-		}
-
-		.memo-edit-form{
+/*** メモ追加フォーム ***/
+		&__create-form{
 			margin: 10px 0;
-
-			.update-button{
-				background-color: #6E85B2;
-				border: 1px solid #000;
-				color: #fff;
-				box-shadow: none;
-				margin: 10px auto;
-			}
-
-			.cancel-button{
-				box-shadow: none;
-				background-color: #C8C6C6;
-				border: 1px solid #000;
-				color: #fff;
-				margin: 10px auto;
-			}
+		}
+		&__textarea{
+			resize:none;
+		}
+		&__memo-button-wrap{
+			text-align: center;
+		}
+		&__memo-button{
+			margin: 10px auto 0px;
+			background-color:$update-button-color;
+			box-shadow: none;
+			color: #fff;
+			width: 100px;
 		}
 
-		.memo-content{
-			padding: 0px;
+/*** メモ編集フォーム ***/
+		&__edit-form{
+			margin: 10px 0;
+		}
+		&__update-button{
+			background-color: $update-button-color;
+			border: 1px solid #000;
+			color: #fff;
+			box-shadow: none;
+			margin: 10px auto;
+		}
+		&__cancel-button{
+			box-shadow: none;
+			background-color: $cancel-button-color;
+			border: 1px solid #000;
+			color: #fff;
+			margin: 10px auto;
+		}
 
-			.memo-content-text{
+
+		&__content{
+			display: flex;
+			justify-content: space-between;
+			padding: 0px;
+			margin: 5px 0px 5px;
+		}
+		&__content-text{
 				display: flex;
 				align-items: center;
 				margin: 0 10px;
 			}
-			.memo-edit-button-body{
+			&__button-list{
 
 				.dropdown-menu{
 					border: 1px solid #000;
@@ -785,32 +1030,50 @@ img {
 					padding: 0;
 					text-align: center;
 					background-color: #fff;
-					color: #c71111;
+					color: $delete-button-color;
 				}
 			}
-		}
 		}
 }
 
 
 /****** コレクション機能 ******/
+.collection-body-title{
+	margin: 10px auto;
+	text-align: center;
+}
 .collection-body{
-margin: 15px auto;
+margin: 10px auto;
 display: block;
 box-shadow: none;
 max-width: 300px;
 
-	.collection-content{
+	&__content{
 		display: flex;
 		align-items: center;
+		background-color: #EAEAEA;
 		padding: 5px;
-
-		.collection-title{
+	}
+	&__name{
 			margin-top: 8px;
 			margin-left: 6px;
-			text-decoration: none;
+			text-decoration: none!important;
 			color: #000;
+
+			&:hover{
+				// text-decoration: none機能せず
+				color: #000;;
+			}
 		}
+
+/*** 編集・削除ドロップダウンボタン ***/
+	&__edit-button{
+		margin-left: auto;
+	}
+	&__edit-button-icon{
+		margin: 5px;
+		padding: 5px;
+		color: #000;
 	}
 	.dropdown-menu{
 		border: 1px solid #000;
@@ -821,125 +1084,156 @@ max-width: 300px;
 		}
 
 		.delete-text{
-			color: #c71111;
+			color: $delete-button-color;
 			text-align: center;
 			padding: 0;
 		}
 	}
 
-	.collection-update-body{
-		margin: 10px auto;
-
-		.collection-update-content{
-			text-align: center;
-
-			.collection-update-text{
-				margin: 5px auto;
-			}
-
-			.collection-update-btn-body{
-				margin-bottom: 0px;
-
-				.collection-update-btn-content{
-					justify-content: space-between;
-
-					.collection-cancel-button{
-						box-shadow: none;
-						background-color: #C8C6C6;
-						border: 1px solid #000;
-						color: #fff;
-					}
-					.collection-update-button{
-						box-shadow: none;
-						background-color: #6E85B2;
-						border: 1px solid #000;
-						color: #fff;
-					}
-				}
-			}
-			}
+/*** 更新モーダルウィンドウ ***/
+	&__update-modal{
+		margin: 0px auto;
 	}
-
-
-	.collection-cancel-btn{
+	&__update-modal-content{
+		text-align: center;
+	}
+	&__update-modal-text{
+		margin: 5px auto;
+	}
+	&__update-modal-button-list{
+		margin-bottom: 0px;
+	}
+	&__update-modal-button-content{
+		justify-content: space-between;
+	}
+	&__cancel-button{
 		box-shadow: none;
-		background-color: #C8C6C6;
+		background-color: $cancel-button-color;
+		border: 1px solid #000;
+		color: #fff;
+	}
+	&__update-button{
+		box-shadow: none;
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
 
-	.collection-delete-btn{
+/*** 削除モーダルウィンドウ ***/
+	&__delete-modal{
+		margin: 0 auto;
+	}
+	&__delete-modal-text{
+		text-align: center;
+	}
+	&__delete-modal-button-content{
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__cancel-button{
 		box-shadow: none;
-		background-color: #c71111;
+		background-color: $cancel-button-color;
+		border: 1px solid #000;
+		color: #fff;
+	}
+
+	&__delete-button{
+		box-shadow: none;
+		background-color: $delete-button-color;
 		border: 1px solid #000;
 		color: #fff;
 	}
 }
 
-	.collection-article-cancel-btn{
-		box-shadow: none;
-		background-color: #C8C6C6;
-		color: #fff;
-	}
 
-	.collection-article-delete-btn{
-		box-shadow: none;
-		background-color: #c71111;
-		color: #fff;
-	}
-
+/****** コレクション件数表示 ******/
 	.collection-name-body{
 		box-shadow: none;
-		align-items: center;
 		background-color: #548CA8;
 
-		.collection-name-content{
+		&__content{
 			display: flex;
+			justify-content: center;
 			padding: 10px;
-
-			.collection-name{
-				margin: 0;
-				color: #fff;
-			}
-
-			.collection-name-count{
-				color: #fff;
-			}
 		}
-	}
+		&__content-name{
+			margin: 0;
+			color: #fff;
+		}
+		&__content-count{
+			margin: 0;
+			color: #fff;
+		}
+}
 
 
 /****** 設定画面 ******/
-.setting-index-body{
+.setting-body{
 	margin: 10px auto 0px;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
-	.setting-title{
+	&__title{
 		background-color: #87A8A4;
 	}
 
-	.setting-list-link{
+	&__link{
 		padding: 10px;
+		background-color: #e8e8e8;
+	}
+
+	&__modal-button{
+		display: flex;
+		justify-content: space-between;
+
+		&--cancel{
+			background-color: $cancel-button-color;
+			box-shadow: none;
+		}
+		&--resign{
+			background-color: $delete-button-color;
+			box-shadow: none;
+		}
 	}
 }
 
+/****** 利用規約画面 ******/
+.agreement-body{
+	margin: 10px auto;
+
+	&__title{
+		text-align: center;
+	}
+
+	&__text{
+		margin: 10px auto;
+		list-style-type: none;
+	}
+
+	&__footer{
+		text-align: center;
+	}
+}
 
 /****** パスワード変更画面 ******/
 .password-reset-body{
 	margin: 10px auto;
-	text-align: center;
-	max-width: 300px;
+	background-color: #e8e8e8;
 
-	.password-edit-form{
-		max-width: 300px;
+	&__content{
 		margin: 0 auto;
 	}
-
-	.password-edit-button{
-		background-color: #6E85B2;
+	&__from{
+		max-width: 300px;
+  }
+	&__edit-button{
+		background-color: $update-button-color;
+		margin-bottom: 0;
+		padding: 2px 10px;
 		border: 1px solid #000;
 		color: #fff;
-		margin: 0 auto;
+		box-shadow: none;
 	}
 }
 
@@ -950,21 +1244,21 @@ max-width: 300px;
 	box-shadow: none;
 	max-width: 300px;
 
-	.password-reset-email-title{
+	&__title{
 		text-align: center;
 	}
 
-	.password-reset-email-text{
+	&__text{
 		margin: 10px auto;
 	}
 
-	.password-reset-email-form{
+	&__form{
 		margin: 0 auto;
 		max-width: 300px;
 	}
 
-	.password-reset-email-button{
-		background-color: #6E85B2;
+	&__submit-button{
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		margin: 0 auto;
@@ -974,27 +1268,27 @@ max-width: 300px;
 }
 
 /****** 新しいパスワード設定画面 ******/
-.password-new-setting-body{
+.password-reset-body{
 	margin: 10px auto;
 	text-align: center;
 	box-shadow: none;
 	max-width: 300px;
 
-	.password-new-setting-title{
+	&__title{
 		text-align: center;
 	}
 
-	.password-new-setting-text{
+	&__text{
 		text-align: center;
 	}
 
-	.password-new-setting-from{
+	&__from{
 		margin: 0 auto;
 		max-width: 300px;
 	}
 
-	.password-new-setting-button{
-		background-color: #6E85B2;
+	&__submit-button{
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		margin: 0 auto;
@@ -1009,29 +1303,30 @@ max-width: 300px;
 	margin: 10px auto;
 	box-shadow: none;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
-	.contact-form-title{
+	&__title{
 		margin: 10px auto 20px;
 	}
 
-	.contact-radio-button{
+	&__radio-button{
 		margin: 10px auto;
 	}
 
-	.contact-select-bar{
+	&__select-bar{
 		margin: 10px auto;
 	}
 
-	.contact-email-form{
+	&__email-form{
 		margin: 20px auto;
 	}
 
-	.contact-content-form{
+	&__content-form{
 		margin: 20px auto;
 	}
 
-	.contact-form-button{
-		background-color: #6E85B2;
+	&__form-button{
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		box-shadow: none;
 		color: #fff;
@@ -1045,49 +1340,48 @@ max-width: 300px;
 	margin: 10px auto;
 	box-shadow: none;
 	max-width: 300px;
+	background-color: #e8e8e8;
 
-	.confirm-body-content{
+	&__content{
 		text-align: center;
-
-		.confirm-title{
+	}
+		&__content-title{
 			margin: 10px auto;
 			text-align: center;
 		}
 
-		.confirm-content-list{
+		&__content-list{
 			margin: 10px auto;
-
-			.confirm-content-item{
-				margin: 20px auto;
-
-				.confirm-content-required{
-					background-color: #DF2E2E;
-					color: #fff;
-					padding: 1px 2px;
-					margin-left: 5px;
-					border-radius: 3px;
-				}
-			}
+		}
+		&__content-item{
+			margin: 20px auto;
+		}
+		&__content-text{
+			background-color: #DF2E2E;
+			color: #fff;
+			padding: 1px 2px;
+			margin-left: 5px;
+			border-radius: 3px;
 		}
 
-		.confirm-button{
+
+
+		&__button-list{
 			margin: 0 auto;
-
-			.confirm-cancel-button{
-				box-shadow: none;
-				background-color: #C8C6C6;
-				border: 1px solid #000;
-				color: #fff;
-			}
-
-			.confirm-submit-button{
-				box-shadow: none;
-				background-color: #6E85B2;
-				border: 1px solid #000;
-				color: #fff;
-			}
 		}
-	}
+			&__cancel-button{
+				box-shadow: none;
+				background-color: $cancel-button-color;
+				border: 1px solid #000;
+				color: #fff;
+			}
+
+			&__submit-button{
+				box-shadow: none;
+				background-color: $update-button-color;
+				border: 1px solid #000;
+				color: #fff;
+			}
 }
 
 
@@ -1097,15 +1391,16 @@ max-width: 300px;
 	text-align: center;
 	box-shadow:none;
 	border: none;
+	background-color: #e8e8e8;
 	max-width: 300px;
 
-	.complete-body-header{
+	&__header{
 		background-color: #87A8A4;
 	}
 
-	.complete-button{
+	&__complete-button{
 		box-shadow: none;
-		background-color: #6E85B2;
+		background-color: $update-button-color;
 		border: 1px solid #000;
 		color: #fff;
 		margin: 20px auto 0px;
@@ -1117,39 +1412,42 @@ max-width: 300px;
 .pagination-body{
 	margin: 0 auto;
 
-	.pagination-body-content{
+	&__content{
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
-		.pagination-previous-button{
-			padding: 5px;
-		}
-
-		.pagination-link-button{
-			padding: 5px;
-
-			.pagination-link-button-content{
-				background-color: #548CA8;
-				box-shadow: none;
-			}
-		}
-
-		.pagination-next-button{
-			padding: 5px;
-		}
 	}
+	&__previous-button{
+		margin: 5px;
+	}
+
+	&__link-button{
+		margin: 5px;
+	}
+	&__link-button-content{
+		padding: 5px;
+		box-shadow: none;
+	}
+	&__next-button{
+		margin: 5px;
+	}
+
 }
 
 
-/****** フッター ******/
-.footer-body{
-	margin-top: 10px;
+/****** エラーページ ******/
+.error-page-body{
+	margin: 10px;
+	text-align: center;
 
-	.footer-body-text{
-		padding: 10px 5px;
-		text-align: center;
+	&__header{
+		background-color: #00587A;
 		color: #fff;
-		background-color: #7e7d7db9;
+	}
+	&__button{
+		box-shadow: none;
+		background-color: $update-button-color;
+		border: 2px solid #000;
+		color: #fff;
 	}
 }

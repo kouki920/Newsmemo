@@ -3,21 +3,28 @@
 namespace App\Http\Controllers\NEWSAPI;
 
 use App\Http\Requests\Api\CovidCustomRequest;
+use App\Services\API\CovidNewsServiceInterface;
 use App\Http\Controllers\Controller;
-use App\Services\CovidNewsService;
 
 class CovidNewsController extends Controller
 {
+    private CovidNewsServiceInterface $covidNewsService;
+
+    public function __construct(
+        CovidNewsServiceInterface $covidNewsService
+    ) {
+        $this->covidNewsService = $covidNewsService;
+    }
+
     /**
      * NEWSAPIからCOVID関連のニュースデータを取得
      * serviceクラスで作成したGuzzleを利用したメソッドを指定
      *
-     * @param \App\Services\CovidNewsService $covid_news_service
-     * @return array
+     * @return Illuminate\View\View
      */
-    public function defaultIndex(CovidNewsService $covid_news_service)
+    public function defaultIndex()
     {
-        $news = $covid_news_service->defaultIndex();
+        $news = $this->covidNewsService->defaultIndex();
 
         return view('articles.covid_index', compact('news'));
     }
@@ -27,12 +34,11 @@ class CovidNewsController extends Controller
      * serviceクラスで作成したGuzzleを利用したメソッドを指定
      *
      * @param \App\Http\Requests\Api\CovidCustomRequest
-     * @param \App\Services\CovidNewsService $covid_news_service
-     * @return array
+     * @return Illuminate\View\View
      */
-    public function customIndex(CovidCustomRequest $request, CovidNewsService $covid_news_service)
+    public function customIndex(CovidCustomRequest $request)
     {
-        $news = $covid_news_service->customIndex($request);
+        $news = $this->covidNewsService->customIndex($request);
 
         return view('articles.covid_index', compact('news'));
     }

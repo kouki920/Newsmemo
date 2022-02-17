@@ -1,5 +1,6 @@
 $side-menu-padding: 10px 40px;
 $side-menu-border-radius: 5px;
+$update-button-color: #6E85B2;
 
 /****** フォントサイズ ******/
 .font-sm {
@@ -25,64 +26,73 @@ $side-menu-border-radius: 5px;
 
 
 /****** 投稿一覧画面 ******/
-.articles-index{
+.articles-index-body{
 	margin: 20px auto;
 
 /*** ランキング ***/
-	.side-menu{
+	&__side-menu{
     display: block;
+    z-index: 1;
+    margin-right: 200px;
 
     .articles-ranking-body{
-      margin: 10px 10px 20px 0px;
-      position: sticky;
+      margin: 10px;
+      position: fixed;
       top: 210px;
+      width: 350px;
 
-      .articles-ranking-title{
+      &__title{
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
         background-color: #394867;
         color: #fff;
       }
-      .articles-ranking-content{
+      &__content{
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
+        height: 90px;
+        background-color: #e8e8e8;
       }
     }
     .news-ranking-body{
-      margin: 10px 10px 50px 0px;
-      position: sticky;
-      top: 680px;
+      margin: 10px;
+      position: fixed;
+      top: 600px;
+      width: 350px;
 
-      .news-ranking-title{
+      &__title{
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
         background-color: #394867;
         color: #fff;
       }
-      .news-ranking-content{
+      &__content{
         text-align: center;
         padding: $side-menu-padding;
         border-radius: $side-menu-border-radius;
+        height: 90px;
+        background-color: #e8e8e8;
       }
     }
 
   /*** 検索フォーム ***/
-  .search-form{
-    margin: 5px 0px 30px 20px;
+  .search-form-body{
+    margin: 5px 0px 30px 30px;
     position: sticky;
     top: 140px;
 
-    .search-content{
+    &__content{
       width: 140px;
       border: 1px solid #626264;
     }
-    .search-button{
-      margin-left: 5px;
+    &__button{
+      margin: 10px 0;
       color: #fff;
-      background-color: #394867;
+      background-color: #89B5AF;
+      border: solid 1px #000;
       box-shadow: none;
     }
   }
@@ -98,7 +108,7 @@ $side-menu-border-radius: 5px;
   .covid-news-index-select-menu{
     margin: 10px 150px 0px 0px;
 
-    .covid-news-tabs-body{
+    .select-box-body{
       display: none;
     }
 
@@ -124,79 +134,59 @@ $side-menu-border-radius: 5px;
           overflow: auto;
 
           .covid-news-language-item{
-            display: block;
             position: relative;
-            margin: 10px 50px 10px 0;
-            color: #000;
-            display: block;
-            position: relative;
-            background: rgba(70, 70, 70, 0.575);
+            text-align: center;
+            margin: 8px 50px 8px 0;
+            background-color: #AFB9C8;
             border-radius: 20px;
-            width: auto;
-            height: auto;
-            padding: 2px 0px 1px 5px;
+            width: 170px;
+            height: 40px;
+
+            &__radio{
+              position: absolute;
+              visibility: hidden;
+
+              &:checked ~ label{
+                color: #ffe819;
+                font-weight: 900;
+              }
+              &:checked ~ .radio-button-checked{
+                border: 3px solid #ffe819;
+              }
+            }
+            &__label{
+              color: #000;
+              z-index: 9;
+              cursor: pointer;
+              -webkit-transition: all 0.25s linear;
+            }
+            &__text{
+              margin-top: 10px;
+            }
+            &__check{
+              display: block;
+              margin-left: 5px;
+              margin-right: 5px;
+              position: absolute;
+              border: 1px solid #000;
+              border-radius: 100%;
+              height: 20px;
+              width: 20px;
+              top: 10px;
+              z-index: 5;
+              transition: border .25s linear;
+              -webkit-transition: border .25s linear;
+            }
           }
+        }
+        .news-update-button{
+          background-color: $update-button-color;
+          border-radius: 5px;
+          color: #fff;
+          padding: 5px 10px;
         }
       }
     }
-    }
-
-    .covid-news-language-item input[type=radio]{//残す
-      position: absolute;
-      visibility: hidden;
-    }
-
-    .covid-news-language-item label{
-      display: block;
-      position: relative;
-      padding: 10px 25px 10px 25px;
-      z-index: 9;
-      cursor: pointer;
-      -webkit-transition: all 0.25s linear;
-    }
-
-    .covid-news-language-item:hover label{
-      color: #fff;
-    }
-
-    .covid-news-language-item .check{
-      display: block;
-      position: absolute;
-      border: 1px solid #000;
-      border-radius: 100%;
-      height: 20px;
-      width: 20px;
-      top: 11px;
-      z-index: 5;
-      transition: border .25s linear;
-      -webkit-transition: border .25s linear;
-    }
-
-    .covid-news-language-item:hover .check {
-      border: 3px solid #fff;
-    }
-
-    .covid-news-language-item .check::before {
-      display: block;
-      position: absolute;
-      content: '';
-      border-radius: 100%;
-      height: 12px;
-      width: 12px;
-      transition: background 0.25s linear;
-      -webkit-transition: background 0.25s linear;
-    }
-
-    input[type=radio]:checked ~ .check {
-      border: 4px solid #fff;
-    }
-
-    input[type=radio]:checked ~ .check::before{
-      background: rgb(65, 211, 255);
-    }
-
-    input[type=radio]:checked ~ label{
-      color: #fff;
     }
 }
 
@@ -205,24 +195,25 @@ $side-menu-border-radius: 5px;
 
 .headline-news-index{
 	display: flex;
-  margin: 20px 20px;
+  margin: 20px;
 
   .headline-news-index-select-menu{
     margin: 10px 150px 0px 0px;
 
-    .headline-news-tabs-body{
+    .select-box-body{
       display: none;
     }
 
     .headline-news-side-menu-body{
       display: block;
+      margin-top: 5px;
       position: sticky;
-      top: 150px;
+      top: 145px;
 
       .headline-news-country-menu{
         display: block ;
         margin: 0px 10px 5px 10px;
-        border-top: 2px solid #fff;
+        border-top: 2px solid #fdffff;
 
         .headline-news-side-menu-title{
           margin: 5px 0 5px 5px;
@@ -235,17 +226,49 @@ $side-menu-border-radius: 5px;
           overflow: auto;
 
           .headline-news-country-item{
-            display: block;
             position: relative;
+            text-align: center;
             margin: 8px 50px 8px 0;
-            color: #000;
-            display: block;
-            position: relative;
-            background: rgba(70, 70, 70, 0.575);
+            background-color: #AFB9C8;
             border-radius: 20px;
-            width: auto;
-            height: auto;
-            padding: 1px 0px 1px 5px;
+            width: 170px;
+            height: 40px;
+
+            &__radio{
+              position: absolute;
+              visibility: hidden;
+
+              &:checked ~ label{
+                color: #ffe819;
+                font-weight: 900;
+              }
+              &:checked ~ .radio-button-checked{
+                border: 3px solid #ffe819;
+              }
+            }
+            &__label{
+              color: #000;
+              z-index: 9;
+              cursor: pointer;
+              -webkit-transition: all 0.25s linear;
+            }
+            &__text{
+              margin-top: 10px;
+            }
+            &__check{
+              display: block;
+              margin-left: 5px;
+              margin-right: 5px;
+              position: absolute;
+              border: 1px solid #000;
+              border-radius: 100%;
+              height: 20px;
+              width: 20px;
+              top: 10px;
+              z-index: 5;
+              transition: border .25s linear;
+              -webkit-transition: border .25s linear;
+            }
           }
         }
       }
@@ -253,158 +276,126 @@ $side-menu-border-radius: 5px;
       .headline-news-category-menu{
         display: block ;
         margin: 0px 10px 5px 10px;
-        border-bottom: 1px solid #fff;
+        border-bottom: 1px solid #fdffff;
 
         .headline-news-side-menu-title{
           margin: 5px 0 5px 5px;
         }
 
         .headline-news-category-list{
+          align-items: center;
           list-style: none;
           margin: 0;
           padding: 0;
           overflow: auto;
 
           .headline-news-category-item{
-            display: block;
             position: relative;
+            text-align: center;
             margin: 8px 50px 8px 0;
-            color: #000;
-            display: block;
-            position: relative;
-            background: rgba(70, 70, 70, 0.575);
+            background-color: #AFB9C8;
             border-radius: 20px;
-            width: auto;
-            height: auto;
-            padding: 1px 0px 1px 5px;
+            width: 170px;
+            height: 40px;
+
+            &__radio{
+              position: absolute;
+              visibility: hidden;
+
+              &:checked ~ label{
+                color: #ffe819;
+                font-weight: 900;
+              }
+              &:checked ~ .radio-button-checked{
+                border: 3px solid #ffe819;
+              }
+            }
+            &__label{
+              color: #000;
+              z-index: 9;
+              cursor: pointer;
+              -webkit-transition: all 0.25s linear;
+            }
+            &__text{
+              margin-top: 10px;
+            }
+            &__check{
+              display: block;
+              margin-left: 5px;
+              margin-right: 5px;
+              position: absolute;
+              border: 1px solid #000;
+              border-radius: 100%;
+              height: 20px;
+              width: 20px;
+              top: 10px;
+              z-index: 5;
+              transition: border .25s linear;
+              -webkit-transition: border .25s linear;
+            }
           }
+        }
+        .news-update-button{
+          background-color: $update-button-color;
+          border-radius: 5px;
+          color: #fff;
+          padding: 5px 10px;
         }
       }
     }
     }
-
-    .headline-news-country-item input[type=radio]{
-      position: absolute;
-      visibility: hidden;
-    }
-
-    .headline-news-country-item label{
-      display: block;
-      position: relative;
-      padding: 10px 25px 10px 25px;
-      z-index: 9;
-      cursor: pointer;
-      -webkit-transition: all 0.25s linear;
-    }
-
-    .headline-news-country-item:hover label{
-      color: #fff;
-    }
-
-    .headline-news-country-item .check{
-      display: block;
-      position: absolute;
-      border: 1px solid #000;
-      border-radius: 100%;
-      height: 20px;
-      width: 20px;
-      top: 9px;
-      z-index: 5;
-      transition: border .25s linear;
-      -webkit-transition: border .25s linear;
-    }
-
-    .headline-news-country-item:hover .check {
-      border: 3px solid #fff;
-    }
-
-    .headline-news-country-item .check::before {
-      display: block;
-      position: absolute;
-      content: '';
-      border-radius: 100%;
-      height: 12px;
-      width: 12px;
-      transition: background 0.25s linear;
-      -webkit-transition: background 0.25s linear;
-    }
-
-    input[type=radio]:checked ~ .check {
-      border: 4px solid #fff;
-    }
-
-    input[type=radio]:checked ~ .check::before{
-      background: rgb(65, 211, 255);
-    }
-
-    input[type=radio]:checked ~ label{
-      color: #fff;
-    }
-
-
-    .headline-news-category-item input[type=radio]{
-      position: absolute;
-      visibility: hidden;
-    }
-
-    .headline-news-category-item label{
-      display: block;
-      position: relative;
-      padding: 10px 25px 10px 25px;
-      z-index: 9;
-      cursor: pointer;
-      -webkit-transition: all 0.25s linear;
-    }
-
-    .headline-news-category-item:hover label{
-      color: #fff;
-    }
-
-    .headline-news-category-item .check{
-      display: block;
-      position: absolute;
-      border: 1px solid #000;
-      border-radius: 100%;
-      height: 20px;
-      width: 20px;
-      top: 9px;
-      z-index: 5;
-      transition: border .25s linear;
-      -webkit-transition: border .25s linear;
-    }
-
-    .headline-news-category-item:hover .check {
-      border: 3px solid #fff;
-    }
-
-    .headline-news-category-item .check::before {
-      display: block;
-      position: absolute;
-      content: '';
-      border-radius: 100%;
-      height: 12px;
-      width: 12px;
-      transition: background 0.25s linear;
-      -webkit-transition: background 0.25s linear;
-    }
-
-    input[type=radio]:checked ~ .check {
-      border: 4px solid #fff;
-    }
-
-    input[type=radio]:checked ~ .check::before{
-      background: rgb(65, 211, 255);
-    }
-
-    input[type=radio]:checked ~ label{
-      color: #fff;
-    }
 }
 
+/****** マイページ ******/
+/*** ユーザーデータ ***/
+.user-data-body{
+
+  &__articles-ranking-title{
+    display: none;
+  }
+  &__articles-ranking-content{
+    display: none;
+  }
+
+  &__news-ranking-title{
+    display: none;
+  }
+  &__news-ranking-content{
+    display: none;
+  }
+}
 
 /****** ログイン画面 ******/
+.logo-body{
+	&__img{
+		width: 40%;
+		height: 40%;
+	}
+}
+
 .login-body{
 	max-width: 900px;
+}
+
+.app-function-body{
+  display: flex;
+
+  &__box{
+		width: 50%;
+
+		&--two{
+			width: 50%;
+		}
+	}
+
+	&__content{
+		width: 340px;
+		height: 250px;
+	}
+	&__image{
+		width: 340px;
+		height: 250px;
+	}
 }
 
 /****** パスワード変更画面 ******/
@@ -418,7 +409,7 @@ $side-menu-border-radius: 5px;
 }
 
 /****** 設定画面 ******/
-.setting-index-body{
+.setting-body{
 	max-width: 900px;
 }
 
@@ -442,51 +433,57 @@ $side-menu-border-radius: 5px;
 	max-width: 900px;
 }
 
+/****** ユーザーアイコン編集画面 ******/
+.user-image-edit-body{
+	max-width: 900px;
+}
+
 /****** プロフィール更新画面 ******/
 .user-profile-edit-body{
 	max-width: 900px;
 }
 
-/*** 投稿フォーム ***/
+/***** 投稿フォーム ******/
 .article-create-body{
 	max-width: 900px;
 }
 
-/****** ユーザー登録画面 ******/
-.register-form-body{
-	max-width: 900px;
-
-  .register-name-body{
-    .register-name-form{
-      max-width: 500px;
-      }
-    }
-
-    .register-email-body{
-      .register-email-form{
-        max-width: 500px;
-        }
-      }
-
-      .register-password-body{
-        .register-password-form{
-          max-width: 500px;
-          }
-        }
-
-        .register-password-confirmation-body{
-          .register-password-confirmation-form{
-            max-width: 500px;
-            }
-          }
+/****** 投稿更新画面 ******/
+.article-edit-body{
+  max-width: 900px;
 }
 
-/*** パスワードリセットメール画面 ***/
+/****** ユーザー登録画面 ******/
+.register-body{
+	max-width: 900px;
+
+    &__name-form{
+      max-width: 400px;
+    }
+
+    &__email-form{
+      max-width: 400px;
+    }
+
+    &__password-form{
+      max-width: 400px;
+    }
+
+    &__password-confirmation-form{
+      max-width: 400px;
+    }
+}
+
+/****** パスワードリセットメール画面 ******/
 .password-reset-email-body{
 	max-width: 900px;
 }
 
-/*** 新しいパスワード設定画面 ***/
-.password-new-setting-body{
+/****** 新しいパスワード設定画面 ******/
+.password-reset-body{
 	max-width: 900px;
+
+  &__from{
+    max-width: 400px;
+  }
 }

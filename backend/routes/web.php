@@ -11,10 +11,6 @@
 |
 */
 
-use App\Http\Controllers\MemoController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\UserController;
-
 Auth::routes();
 
 # ゲストユーザーログイン
@@ -66,31 +62,31 @@ Route::prefix('users')->name('users.')->group(function () {
 
 # メモ追加機能
 Route::prefix('memos')->name('memos.')->middleware('auth')->group(function () {
-    Route::post('/{article}store', 'MemoController@store')->name('store');
-    Route::get('/{memo}/edit', 'MemoController@edit')->name('edit');
-    Route::post('/{memo}/update', 'MemoController@update')->name('update');
+    Route::post('/{article}/store', 'MemoController@store')->name('store');
+    Route::get('/{memo}/edit/{article}', 'MemoController@edit')->name('edit');
+    Route::patch('/{memo}/update/{article}', 'MemoController@update')->name('update');
     Route::delete('/{memo}/destroy', 'MemoController@destroy')->name('destroy');
 });
 
 # コレクション機能
 Route::prefix('collections')->name('collections.')->middleware('auth')->group(function () {
-    Route::post('/index/user/{id}', 'CollectionController@index')->name('index');
+    Route::get('/index/{id}', 'CollectionController@index')->name('index');
     Route::post('/store/{article}', 'CollectionController@store')->name('store');
     Route::get('/{collection}/edit', 'CollectionController@edit')->name('edit');
-    Route::patch('/{collection}/update/user/{id}', 'CollectionController@update')->name('update');
-    Route::delete('/{collection}/destroy/user/{id}', 'CollectionController@destroy')->name('destroy');
-    Route::delete('/{collection}/{article}/destroy', 'CollectionController@articleCollectionDestroy')->name('article_collection_destroy');
-    Route::get('/{name}/user/{id}', 'CollectionController@show')->name('show');
+    Route::patch('/{collection}/update/{id}', 'CollectionController@update')->name('update');
+    Route::delete('/{collection}/destroy/{id}', 'CollectionController@destroy')->name('destroy');
+    Route::delete('/{collection}/{article}/destroy/{id}', 'CollectionController@destroyArticleInCollection')->name('article_collection_destroy');
+    Route::get('/{name}/{id}', 'CollectionController@show')->name('show');
 });
 
 # 設定
 Route::prefix('settings')->name('settings.')->middleware('auth')->group(function () {
-    Route::post('/index', 'SettingController@index')->name('index');
+    Route::get('/index', 'SettingController@index')->name('index');
     Route::get('/agreement', 'SettingController@agreement')->name('agreement');
 });
 
 # NEWS API関連機能
-Route::prefix('news')->name('news.')->middleware('auth')->group(function () {
+Route::prefix('news')->name('news.')->middleware('auth', 'throttle:20,1')->group(function () {
     Route::get('/headline/default', 'NEWSAPI\HeadlineNewsController@defaultIndex')->name('default_index');
     Route::post('/headline/custom', 'NEWSAPI\HeadlineNewsController@customIndex')->name('custom_index');
     Route::get('/covid/default', 'NEWSAPI\CovidNewsController@defaultIndex')->name('covid_default_index');

@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Arr;
 
 class Article extends Model
 {
@@ -56,6 +55,8 @@ class Article extends Model
     /**
      * ユーザーがいいね済みかどうかを判定
      * where()で記事をいいねしたユーザーの中に、引数として渡された$userがいるかどうかを判定
+     * trueの場合、Articleモデルからlikesテーブル経由で紐付くユーザーモデルをwhere()で絞ってコレクションの要素数を数値で返す
+     * (bool)で論理値に変換する、1以上の数値を論理値へ型キャストしてtrueにする、0の場合論理値がfalseになる
      *
      * @param \App\Models\User $user
      * @return bool
@@ -66,7 +67,8 @@ class Article extends Model
     }
 
     /**
-     *  現在のいいね数を算出するアクセサ($article->count_likesで呼び出せるようにする)
+     * 現在のいいね数を算出するアクセサ
+     * $article->count_likesで呼び出せるようにする
      *
      * @return int
      */
@@ -76,69 +78,23 @@ class Article extends Model
     }
 
     /**
-     * 一覧表示するためにarticlesテーブルからデータを取得する
-     */
-    public function getArticleIndex($request)
-    {
-        return $this->with(['user', 'likes', 'tags', 'newsLink'])
-            ->latest()
-            ->search($request->input('search'))
-            ->paginate(10);
-    }
-
-    /**
-     * 検索ワードを含むarticleデータだけに限定する
+     * キーワード検索(クエリスコープ)
      * リレーション先のテーブル(news_linksのnewsカラム)を含めた検索
      *
-     * @param $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSearch($query, $request)
+    public function scopeSearch(Builder $query, $params)
     {
-        if (null !== $request) {
-            return Article::with(['user', 'likes', 'tags', 'newsLink'])
-                ->whereIn('articles.id', function ($query) use ($request) {
-                    $query->from('news_links')->select('news_links.article_id')
-                        ->where('news', 'like', '%' . $request . '%')
-                        ->orWhere('body', 'like', '%' . $request . '%');
-                });
+        if (!empty($params)) {
+            $query->whereIn('articles.id', function ($query) use ($params) {
+                $query->from('news_links')->select('news_links.article_id')
+                    ->where('news', 'like', '%' . $params . '%')
+                    ->orWhere('body', 'like', '%' . $params . '%');
+            });
         }
-    }
-
-    /**
-     * 後で読むボタンを押された数が多い順にメモデータを取得する
-     *
-     * @param $query
-     * @return array
-     */
-    public function getArticleRanking()
-    {
-        return $this->withCount('likes')
-            ->latest('likes_count')
-            ->limit(3)->get();
-    }
-
-    /**
-     * 各メモデータにあるタグ情報を使いユーザが最近使用したタグを表示させる
-     * メモに紐づくタグデータをtags-tableから最新順で5件分のみ取得
-     *
-     * @param $query
-     * @return array
-     */
-    public function getTotalCategory($id)
-    {
-        $articles = Article::with('tags')
-            ->where('user_id', $id)
-            ->latest()->take(5)->get();
-
-        $tag_name = [];
-        foreach ($articles as $value) {
-            foreach ($value->tags as $values) {
-                $tag_name[] = $values->name;
-            }
-        }
-        return $tag_name;
+        return $query;
     }
 
     /**
@@ -149,13 +105,5 @@ class Article extends Model
     public function getCreatedDateAttribute(): string
     {
         return $this->created_at->format('Y-m-d');
-    }
-
-    /**
-     * articleデータに付属する非公開メモを取得する
-     */
-    public function getArticleMemo()
-    {
-        return $this->memos->where('article_id', $this->id)->sortBy('created_at');
     }
 }

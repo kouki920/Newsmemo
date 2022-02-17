@@ -14,7 +14,7 @@
 
             @include('error_list')
             @if (Auth::id() == config('user.guest_user_id'))
-            <p class="text-danger font-sm">
+            <p class="user-profile-edit-body__caution-text font-sm">
                 <b>※ゲストユーザーは、以下を編集できません。</b><br>
                 ・ユーザー名<br>
                 ・メールアドレス<br>
@@ -50,10 +50,10 @@
                         <textarea name="introduction" class="form-control font-sm" id="introduction" cols="3" rows="3">{{$user->introduction ?? old('introduction')}}</textarea>
                     </div>
                     <div class='btn-toolbar float-right' role="toolbar">
-                        <button class="btn user-profile-update-button font-sm" type="submit">更新</button>
+                        <button class="btn user-profile-edit-body__update-button font-sm" type="submit">更新</button>
                     </div>
                 </form>
-                <a href="{{route('users.show',['name' => $user->name])}}"><button class="btn float-left user-profile-cancel-button font-sm" type="submit">キャンセル</button></a>
+                <a href="{{route('users.show',['name' => $user->name])}}"><button class="btn float-left user-profile-edit-body__cancel-button font-sm" type="submit">キャンセル</button></a>
             </div>
         </div>
     </div>

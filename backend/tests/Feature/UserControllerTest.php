@@ -3,6 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Models\Article;
+use App\Models\NewsLink;
+use App\Models\Tag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -28,7 +31,7 @@ class UserControllerTest extends TestCase
             ->assertSee('編集')
             ->assertSee('投稿')
             ->assertSee('ブックマーク')
-            ->assertSee('ユーザ情報');
+            ->assertSee('その他');
     }
 
     /**
