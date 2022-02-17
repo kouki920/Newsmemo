@@ -5,7 +5,6 @@ namespace App\Repositories\Collection;
 use App\Models\Collection;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
 
 class CollectionRepository implements CollectionRepositoryInterface
 {
