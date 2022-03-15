@@ -28,7 +28,7 @@ class CovidNewsService implements CovidNewsServiceInterface
             $articles = json_decode($results, true);
 
             $news = [];
-            $count = 25;
+            $count = 17;
 
             for ($id = 0; $id < $count; $id++) {
                 array_push($news, [
