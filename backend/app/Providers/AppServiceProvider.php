@@ -37,6 +37,7 @@ use App\Services\API\HeadlineNewsServiceInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -96,5 +97,8 @@ class AppServiceProvider extends ServiceProvider
                 ]
             );
         });
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        };
     }
 }
