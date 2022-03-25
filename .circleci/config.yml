@@ -42,13 +42,13 @@ jobs:
 
     environment:
       AWS_DEFAULT_REGION: ap-northeast-1
-
     steps:
       - checkout
       - run: sudo composer self-update --1
       - restore_cache:
           key: composer-no-dev-v1-{{ checksum "backend/composer.lock" }}
       - run:
+          working_directory: backend
           command: composer install -n --no-dev --prefer-dist
       - save_cache:
           key: composer-no-dev-v1-{{ checksum "backend/composer.lock" }}
@@ -57,6 +57,7 @@ jobs:
       - restore_cache:
           key: npm-v1-{{ checksum "backend/package-lock.json" }}
       - run:
+          working_directory: backend
           name: npm ci
           command: |
             if [ ! -d node_modules ]; then
@@ -68,13 +69,16 @@ jobs:
             - backend/node_modules
       - run: npm run prod
       - run:
+          working_directory: backend
           name: archive artifacts
           command: zip -ryq backend.zip .
       - aws-cli/install
       - run:
+          working_directory: backend
           name: upload artifacts to s3
           command: aws s3 cp backend.zip s3://${AWS_S3_BUCKET_NAME}
       - run:
+          working_directory: backend
           name: deploy to prod
           command: |
             aws deploy create-deployment \
@@ -84,3 +88,16 @@ jobs:
 
 orbs:
   aws-cli: circleci/aws-cli@1.0.0
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main
