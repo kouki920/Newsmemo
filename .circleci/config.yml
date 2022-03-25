@@ -67,7 +67,9 @@ jobs:
           key: npm-v1-{{ checksum "backend/package-lock.json" }}
           paths:
             - backend/node_modules
-      - run: npm run prod
+      - run:
+          working_directory: backend
+          command: npm run prod
       - run:
           working_directory: backend
           name: archive artifacts
