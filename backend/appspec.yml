@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/newsmemoapp/Newsmemo/backend
+
+permissions:
+  - object: /home/newsmemoapp/Newsmemo/backend
+    owner: newsmemoapp
+    group: newsmemoapp
+
+hooks:
+  AfterInstall:
+    - location: ./scripts/after_install.sh
+      timeout: 120
+      runas: newsmemoapp
