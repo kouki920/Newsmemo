@@ -2,6 +2,6 @@
 
 set -eux
 
-cd ~/backend
+cd ~/Newsmemo/backend
 php artisan migrate --force
 php artisan config:cache
