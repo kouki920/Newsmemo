@@ -5,7 +5,7 @@
                 @if(!isset($user->image))
                 <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="55" height="55" alt="Noicon">
                 @else
-                <img class="profile-icon image-upload rounded-circle img-responsive" src="/storage/{{$user->image}}" alt="ユーザーアイコン">
+                <img class="profile-icon image-upload rounded-circle img-responsive" src="{{$user->image}}" alt="ユーザーアイコン">
                 @endif
             </a>
         </div>

@@ -12,6 +12,7 @@ use App\Services\Article\ArticleServiceInterface;
 use App\Services\NewsLink\NewsLinkService;
 use App\Services\NewsLink\NewsLinkServiceInterface;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -134,8 +135,9 @@ class UserController extends Controller
         $image = $request->getImage($request);
 
         if ($image->isValid()) {
-            $filePath = $image->store('public');
-            $user->image = str_replace('public/', '', $filePath);
+            $path = Storage::disk('s3')->putFile('/profile', $image, 'public');
+            $user->image = Storage::disk('s3')->url($path);
+
             $user->save();
         }
 
