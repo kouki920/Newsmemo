@@ -36,7 +36,7 @@ jobs:
           name: php test
           command: vendor/bin/phpunit
 
-  deploy:  # deployジョブ
+  deploy:
     docker:
       - image: circleci/php:7.4-node-browsers
 
