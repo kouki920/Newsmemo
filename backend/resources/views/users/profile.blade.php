@@ -7,21 +7,21 @@
                     @if(!isset($user->image))
                     <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="50" height="50" alt="Noicon">
                     @else
-                    <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="50" height="50" alt="ユーザーアイコン">
+                    <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="{{$user->image}}" width="50" height="50" alt="ユーザーアイコン">
                     @endif
                     @elseif(Auth::id() == $user->id)
                     <a href="{{ route('users.image_edit', ['name' => $user->name]) }}" class="text-dark">
                         @if(!isset($user->image))
                         <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="50" height="50" alt="Noicon">
                         @else
-                        <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" width="50" height="50" alt="ユーザーアイコン">
+                        <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="{{$user->image}}" width="50" height="50" alt="ユーザーアイコン">
                         @endif
                     </a>
                     @elseif(Auth::id() !== $user->id)
                     @if(!isset($user->image))
                     <img src="{{asset('/assets/images/noicon.jpeg')}}" class="profile-icon image-upload rounded-circle img-responsive mr-1" width="50" height="50" alt="Noicon">
                     @else
-                    <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="/storage/{{$user->image}}" alt="ユーザーアイコン">
+                    <img class="profile-icon image-upload rounded-circle img-responsive mr-1" src="{{$user->image}}" alt="ユーザーアイコン">
                     @endif
                     @endif
                 </div>

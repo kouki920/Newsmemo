@@ -5,7 +5,7 @@
                 @if(empty($article->user->image))
                 <i class="fas fa-user-circle fa-3x article-icon"></i>
                 @else
-                <img class="article-icon image-upload rounded-circle img-responsive" src="/storage/{{$article->user->image}}" alt="ユーザーアイコン">
+                <img class="article-icon image-upload rounded-circle img-responsive" src="{{$article->user->image}}" alt="ユーザーアイコン">
                 @endif
             </a>
             <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="article-body__name font-md">
