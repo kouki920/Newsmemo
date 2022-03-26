@@ -28,7 +28,7 @@
                 @if(empty(Auth::user()->image))
                 <i class="fas fa-user-circle"></i>
                 @else
-                <img src="/storage/{{Auth::user()->image}}" class="user-mini-icon rounded-circle" width="30" height="30">
+                <img src="{{Auth::user()->image}}" class="user-mini-icon rounded-circle" width="30" height="30">
                 @endif
             </a>
             <div class=" dropdown-menu dropdown-menu-right dropdown-primary font-sm" aria-labelledby="navbarDropdownMenuLink">
