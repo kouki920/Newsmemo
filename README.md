@@ -56,7 +56,7 @@
 ## 使用技術
 ### フロントエンド
 * Vue.js2.6.12
-* HTML / SCC / Sass / MDBootstrap
+* HTML5 / CSS3 / Sass / MDBootstrap
 
 ### バックエンド
 * PHP7.4.14
